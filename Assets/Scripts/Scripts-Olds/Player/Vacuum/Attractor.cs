@@ -10,8 +10,8 @@ public class Attractor : IVacuumAction {
     private float _atractForce;
     private float _shootSpeed;
     private Transform _vacuumHoleTransform;
-    private PKFxFX _aspireParticle;
-    private PKFxFX _blowParticle;
+    private IHandEffect _aspireParticle;
+    private IHandEffect _blowParticle;
     private int divider = 1;
 
     private bool _isStuck;
@@ -19,7 +19,7 @@ public class Attractor : IVacuumAction {
     private PathCalculate _pc;
     private ArmRotator _arm;
 
-    public Attractor(float atractForce, float shootSpeed, Transform vacuumHole, PKFxFX aspireParticle, PKFxFX blowParticle, PathCalculate pc, List<VacuumInteractive> objectsToInteract, ArmRotator arm)
+    public Attractor(float atractForce, float shootSpeed, Transform vacuumHole, IHandEffect aspireParticle, IHandEffect blowParticle, PathCalculate pc, List<VacuumInteractive> objectsToInteract, ArmRotator arm)
     {
         _atractForce = atractForce;
         _shootSpeed = shootSpeed;

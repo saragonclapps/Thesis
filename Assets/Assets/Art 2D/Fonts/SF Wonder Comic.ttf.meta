@@ -1,8 +1,9 @@
 fileFormatVersion: 2
-guid: 862cccc835aacbc4eaa5530576ae67a4
+guid: c162d72b3a719ee4dbb91e2cde194fae
 timeCreated: 1511414094
 licenseType: Free
 TrueTypeFontImporter:
+  externalObjects: {}
   serializedVersion: 4
   fontSize: 16
   forceTextureCase: -2
@@ -12,10 +13,18 @@ TrueTypeFontImporter:
   fontName: SF Wonder Comic
   fontNames:
   - SF Wonder Comic
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3e418dc26e2c7d943b1d1475a0c19462, type: 3}
+  - {fileID: 12800000, guid: bc1ffd0612689d64fa4b32ba62c53679, type: 3}
+  - {fileID: 12800000, guid: ed06f15715ff101479b4a833ca245940, type: 3}
+  - {fileID: 12800000, guid: 92aad9882db9e1646ba887bb623238e2, type: 3}
+  - {fileID: 12800000, guid: 862cccc835aacbc4eaa5530576ae67a4, type: 3}
+  - {fileID: 12800000, guid: 73b1514d0d537e541a295595af877727, type: 3}
+  - {fileID: 12800000, guid: bb1151df65f964346b40e5783b0d1282, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

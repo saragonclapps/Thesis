@@ -22,8 +22,13 @@ public class VacuumController : MonoBehaviour {
     public float atractForce;
     public float shootSpeed;
     public Transform vacuumHoleTransform;
-    public PKFxFX aspireParticle;
-    public PKFxFX blowParticle;
+
+    //Visual Effect
+    public ParticleSystem aspireParticle;
+    public ParticleSystem blowParticle;
+
+    IHandEffect aspireVFX;
+    IHandEffect blowVFX;
 
     private bool _isStuck;
 
@@ -59,7 +64,12 @@ public class VacuumController : MonoBehaviour {
         _pc = GetComponent<PathCalculate>();
         playerController = GetComponentInParent<PlayerController>();
         _bulletShoot = new BulletShoot(_arm, _pc, vacuumHoleTransform, this);
-        _attractor = new Attractor(atractForce, shootSpeed, vacuumHoleTransform, aspireParticle, blowParticle, _pc, objectsToInteract, _arm);
+
+        //Hand VFX Initializing
+        aspireVFX = new VacuumVFX(aspireParticle);
+        blowVFX = new VacuumVFX(blowParticle);
+
+        _attractor = new Attractor(atractForce, shootSpeed, vacuumHoleTransform, aspireVFX, blowVFX, _pc, objectsToInteract, _arm);
         AttractorEnter();
     }
 	
