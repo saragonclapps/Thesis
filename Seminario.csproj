@@ -223,6 +223,24 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>F:/Archivos de Programa/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="ProBuilderCore-Unity5">
+      <HintPath>Assets/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
+    </Reference>
+    <Reference Include="ProBuilderMeshOps-Unity5">
+      <HintPath>Assets/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
+    </Reference>
+    <Reference Include="KdTreeLib">
+      <HintPath>Assets/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="pb_Stl">
+      <HintPath>Assets/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
+    </Reference>
+    <Reference Include="Poly2Tri">
+      <HintPath>Assets/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>Assets/Scripts/Imports/LitJson/LitJson.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
     </Reference>
@@ -234,24 +252,6 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="LitJson">
-      <HintPath>Assets/Scripts/Imports/LitJson/LitJson.dll</HintPath>
-    </Reference>
-    <Reference Include="ProBuilderCore-Unity5">
-      <HintPath>Assets/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
-    </Reference>
-    <Reference Include="pb_Stl">
-      <HintPath>Assets/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
-    </Reference>
-    <Reference Include="Poly2Tri">
-      <HintPath>Assets/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
-    </Reference>
-    <Reference Include="ProBuilderMeshOps-Unity5">
-      <HintPath>Assets/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
-    </Reference>
-    <Reference Include="KdTreeLib">
-      <HintPath>Assets/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +306,16 @@
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Procedural Mesh\ExtrudeRandomEdges.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Runtime Editing\RuntimeEdit.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Vertex Colors\HighlightNearestFace.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\Inputs.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\PlayerController2.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\AimState.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\FallState.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\IdleState.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\JumpState.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\MoveState.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\IHandEffect.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\Particles\VacuumParticleFX.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\VacuumVFX.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\BulletBox.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\DardoAbsorver.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\FencePuzzleAbsorver.cs" />
@@ -401,8 +411,6 @@
     <Compile Include="Assets\Scripts\Scripts-Olds\PuzzleScripts\KeyHole.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\PuzzleScripts\PointLaser.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\PuzzleScripts\SwitchFenceLaser.cs" />
-    <Compile Include="Assets\Scripts\Scripts-Olds\VisualEffects\IHandEffect.cs" />
-    <Compile Include="Assets\Scripts\Scripts-Olds\VisualEffects\VacuumVFX.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Weight\AnimationPause.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Weight\ObjectToWeight.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Weight\Weight.cs" />

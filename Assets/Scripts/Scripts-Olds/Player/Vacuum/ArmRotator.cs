@@ -48,7 +48,7 @@ public class ArmRotator : MonoBehaviour {
             {
                 _currentY += GameInput.instance.cameraAngle;
                 _currentY = Mathf.Clamp(_currentY, MIN_Y_ANGLE, MAX_Y_ANGLE);
-                var targetRotation = Quaternion.Euler(0f, 0f, _currentY);
+                var targetRotation = Quaternion.Euler(_currentY, 0f, 0f);
                 //transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, changeAngleSpeed);
                 transform.localRotation = targetRotation;
             }

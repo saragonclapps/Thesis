@@ -118,7 +118,7 @@ public class Attractor : IVacuumAction {
         _blowParticle.StopEffect();
         _blowParticle.TerminateEffect();
         _arm.activateIK = false;
-        _pc.DeactivatePath();
+        //_pc.DeactivatePath();
         _isStuck = false;
         foreach (var obj in _objectsToInteract)
         {

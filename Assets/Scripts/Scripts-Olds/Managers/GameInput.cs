@@ -145,12 +145,12 @@ public class GameInput : MonoBehaviour
                 crouchButton = Input.GetKey(KeyCode.LeftControl);
             //centrateCamera = Input.GetKeyDown(KeyCode.Mouse2);
             //skillButton = Input.GetKeyDown(KeyCode.E);
-            if (_featuresDic[Features.JUMP])
-            {
+            //if (_featuresDic[Features.JUMP])
+            //{
                 initialJumpButton = Input.GetKeyDown(KeyCode.Space);
                 jumpButton = Input.GetKey(KeyCode.Space);
 
-            }
+            //}
             absorbButton = Input.GetKey(KeyCode.Mouse1);
             blowUpButton = Input.GetKey(KeyCode.Mouse0);
             cameraRotation = Input.GetAxis("Mouse X");

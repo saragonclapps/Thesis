@@ -89,7 +89,7 @@ public class CameraController : MonoBehaviour {
         //VFX (runtime change values of posproccesing)
         _postProcessing = GetComponent<PostProcessingBehaviour>().profile;
         //UpdateFocusDistance();
-        UpdateDiaphragm(_apertureNormal);
+        //UpdateDiaphragm(_apertureNormal);
     }
 
     #region VFX events
@@ -184,14 +184,14 @@ public class CameraController : MonoBehaviour {
     {
         _currentX = lookAt.eulerAngles.y;
         unadjustedDistance = 3.5f;
-        UpdateDiaphragm(_apertureNormal);
+        //UpdateDiaphragm(_apertureNormal);
     }
 
     public void ZoomEnter()
     {
         unadjustedDistance = 0.5f;
         isInTransition = true;
-        UpdateDiaphragm(_apertureZoom);
+        //UpdateDiaphragm(_apertureZoom);
     }
 
     public void ZoomUpdate()

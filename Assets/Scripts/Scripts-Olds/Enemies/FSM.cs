@@ -7,10 +7,14 @@ public class FSM<InputT>{
     private IState<InputT> currentState;
     public IState<InputT> Current { get { return currentState; } }
 
-	public FSM(IState<InputT> initialState)
+    private IState<InputT> lastState;
+    public IState<InputT> Last { get { return lastState; } }
+
+    public FSM(IState<InputT> initialState)
     {
         initialState.Enter();
         currentState = initialState;
+        lastState = currentState;
     }
 
     public void Execute()
@@ -20,10 +24,12 @@ public class FSM<InputT>{
 
     public void ProcessInput(InputT input)
     {
+        Debug.Log(input);
         var currentStateTransitions = currentState.Transitions;
         if (currentStateTransitions.ContainsKey(input))
         {
             currentState.Exit();
+            lastState = currentState;
             currentState = currentStateTransitions[input];
             currentState.Enter();
         }
