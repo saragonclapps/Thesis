@@ -66,7 +66,7 @@ namespace Player
         {
             //isJumpingForward = _jump.forwardJump;
             land = false;
-            _aES.landEnd = false;
+            //_aES.landEnd = false;
             landCount = 0;
             ypos = transform.position.y;
             _isJumpingForward = _pC2.jumpForward;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +19,6 @@ namespace Player
         Vector3 _newDirection;
         Vector3 _desiredForward;
         bool _turn;
-
 
         float _angleTurnTolerance;
 
@@ -48,7 +48,7 @@ namespace Player
         #endregion
 
         public MoveState(CameraController cam, Transform t, float angleTurnTolerance, float idleTurnSpeed, float runingTurnSpeed,float speed, PlayerController2 pC,
-                        AnimatorEventsBehaviour aEB, Animator anim)
+                        AnimatorEventsBehaviour aEB, Animator anim )
         {
             _cam = cam;
             transform = t;
@@ -82,7 +82,7 @@ namespace Player
         {
             if (_turn)
             {
-                _cam.positionSmoothness = 0.1f;
+                //_cam.positionSmoothness = 0.1f;
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_newDirection), _idleTurnSpeed);
                 var angle = Vector3.Angle(transform.forward, _newDirection);
                 if (Mathf.Abs(angle) < 5)
@@ -93,7 +93,7 @@ namespace Player
             }
             else
             {
-                _cam.positionSmoothness = 0.5f;
+                //_cam.positionSmoothness = 0.5f;
                 GetCorrectedForward();
                 //Rotate to the new forward
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_newDirection), _runingTurnSpeed);
@@ -115,6 +115,7 @@ namespace Player
                         //SetColliderDimensions(ColliderSettings.NORMAL);
                         //_pc.collisionDistance = 0.7f;
                     }
+
                     transform.position += transform.forward * Time.deltaTime * _movementSpeed;
                 }
                 //_pc.anim.SetBool("isAbsorbing", _lHIK.ikActive);
@@ -129,7 +130,7 @@ namespace Player
             _anim.SetFloat("speed", 0);
             _anim.SetBool("isAbsorbing", false);
             _anim.SetBool("sprint", false);
-            _cam.positionSmoothness = 0.1f;
+            //_cam.positionSmoothness = 0.1f;
             //_pC.isMoving = false;
         }
 
@@ -157,6 +158,7 @@ namespace Player
             get { return _transitions; }
             set { _transitions = value; }
         }
+        
     }
 
 }

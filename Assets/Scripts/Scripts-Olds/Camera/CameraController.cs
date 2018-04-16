@@ -25,10 +25,10 @@ public class CameraController : MonoBehaviour {
     //Smooth camera movement Positions
     private Vector3 _currentPosition;
     private Vector3 _targetPosition;
-    [Range(0.1f, 0.9f)]
+    /*[Range(0.1f, 1f)]
     public float positionSmoothness;
-    [Range(0.1f,0.9f)]
-    public float rotationSmoothness = 0.3f;
+    [Range(0.1f,1f)]
+    public float rotationSmoothness = 0.3f;*/
     [Range(0.5f, 5f)]
     public float speed = 1.8f;
     //Collision Manager
@@ -202,7 +202,8 @@ public class CameraController : MonoBehaviour {
         {
             _currentPosition += (zoomTransform.position - _currentPosition) / 2;
             transform.position = _currentPosition;
-            transform.rotation = Quaternion.Slerp(transform.rotation, zoomTransform.rotation, rotationSmoothness / 2);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, zoomTransform.rotation, rotationSmoothness / 2);
+            transform.rotation = zoomTransform.rotation;
             if (Vector3.Distance(transform.position, _targetPosition) < 0.01f) isInTransition = false;
         }
         else
@@ -221,10 +222,10 @@ public class CameraController : MonoBehaviour {
         _currentY += _I.cameraAngle * speed;
         _currentY = Mathf.Clamp(_currentY, MIN_Y_ANGLE, MAX_Y_ANGLE);
 
-        if(oldX != _currentX || oldY != _currentY)
+        /*if(oldX != _currentX || oldY != _currentY)
         {
             positionSmoothness = 0.5f;
-        }
+        }*/
 
         var rawDir = new Vector3(0, 0, -unadjustedDistance);
         Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0);
@@ -254,7 +255,8 @@ public class CameraController : MonoBehaviour {
         //_currentPosition = _currentPosition + (_targetPosition - _currentPosition) / positionSmoothness;
         //transform.position = _currentPosition;
         //transform.position = Vector3.Lerp(_currentPosition, _targetPosition, Time.deltaTime);
-        transform.position = Vector3.Lerp(transform.position, _targetPosition, positionSmoothness);
+        //transform.position = Vector3.Lerp(transform.position, _targetPosition, positionSmoothness);
+        transform.position = _targetPosition;
         //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookAt.position - transform.position), rotationSmoothness);
         transform.rotation = Quaternion.LookRotation(lookAt.position - transform.position);
     }

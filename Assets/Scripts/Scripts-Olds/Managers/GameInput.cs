@@ -184,12 +184,12 @@ public class GameInput : MonoBehaviour
         if (joystick)
         {
             CameraController.instance.speed = 4;
-            CameraController.instance.rotationSmoothness = 0.9f;
+            //CameraController.instance.rotationSmoothness = 0.9f;
         }
         else
         {
             CameraController.instance.speed = 1.8f;
-            CameraController.instance.rotationSmoothness = 0.5f;
+            //CameraController.instance.rotationSmoothness = 0.5f;
         }
     }
 

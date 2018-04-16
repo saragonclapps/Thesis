@@ -79,7 +79,7 @@ public class CharacterMove : MonoBehaviour {
     {
         if (_turn)
         {
-            cam.GetComponent<CameraController>().positionSmoothness = 0.1f;
+            //cam.GetComponent<CameraController>().positionSmoothness = 0.1f;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_newDirection), idleTurnSpeed);
             var angle = Vector3.Angle(transform.forward, _newDirection);
             if (Math.Abs(angle) < 5)
@@ -90,7 +90,7 @@ public class CharacterMove : MonoBehaviour {
         }
         else
         {
-            cam.GetComponent<CameraController>().positionSmoothness = 0.5f;
+            //cam.GetComponent<CameraController>().positionSmoothness = 0.5f;
             GetCorrectedForward();
             //Rotate to the new forward
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_newDirection), runingTurnSpeed);
@@ -132,7 +132,7 @@ public class CharacterMove : MonoBehaviour {
         _pc.anim.SetBool("isAbsorbing", false);
         _pc.anim.SetBool("sprint", false);
         SetColliderDimensions(ColliderSettings.NORMAL);
-        cam.GetComponent<CameraController>().positionSmoothness = 0.1f;
+        //cam.GetComponent<CameraController>().positionSmoothness = 0.1f;
         //_pc.collisionDistance = 0.7f;
     }
 

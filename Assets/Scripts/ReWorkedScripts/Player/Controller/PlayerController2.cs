@@ -34,6 +34,10 @@ namespace Player
         public float collisionDistance;
         public LayerMask lm;
 
+        [Header("Fall Parameters")]
+        public float fallDistance;
+        public LayerMask fallLayer;
+
         IdleState idleState;
         MoveState moveState;
         AimState aimState;
@@ -154,7 +158,7 @@ namespace Player
             //Triple check for fall state
             if (_rB.velocity.y < -0.2f && !_lC.land) fallCount++;
             else fallCount = 0;
-            if (fallCount >= 2)
+            if (CheckFall())
             {
                 Debug.Log("Proces Fall");
                 _fsm.ProcessInput(Inputs.Fall);
@@ -174,12 +178,32 @@ namespace Player
         public bool CheckForwardCollision(Vector3 moveDirection, bool forward)
         {
             Debug.DrawLine(transform.position, transform.position + transform.forward);
-            return (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.forward, collisionDistance, lm) ||
+            RaycastHit ray;
+            bool didcollide = false;
+            for (int i = 0; i < 3; i++)
+            {
+                var hit = Physics.Raycast(transform.position + new Vector3(0, i * 0.6f, 0), moveDirection, out ray, collisionDistance, lm);
+                if (hit)
+                {
+                    var value = Vector3.Cross(transform.forward, ray.normal);
+                    var valueWithoutY = new Vector3(value.x, 0f, value.z);
+                    didcollide = didcollide || Vector3.SqrMagnitude(valueWithoutY) <= 0.01;
+                }
+            }
+
+
+            return didcollide;
+            /*return (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.forward, collisionDistance, lm) ||
                    Physics.Raycast(transform.position + new Vector3(0, 0.3f, 0), transform.forward, collisionDistance, lm) ||//Edit
                    Physics.Raycast(transform.position + new Vector3(0, 1.5f, 0), transform.forward, collisionDistance, lm)) && forward ||
                    Physics.Raycast(transform.position + new Vector3(0, 1, 0), moveDirection, collisionDistance, lm) ||
                    Physics.Raycast(transform.position + new Vector3(0, 0.3f, 0), moveDirection, collisionDistance, lm) ||
-                   Physics.Raycast(transform.position + new Vector3(0, 1.5f, 0), moveDirection, collisionDistance, lm);
+                   Physics.Raycast(transform.position + new Vector3(0, 1.5f, 0), moveDirection, collisionDistance, lm);*/
+        }
+
+        public bool CheckFall()
+        {
+            return fallCount >= 2 && !Physics.Raycast(transform.position, -transform.up, fallDistance, fallLayer);
         }
     }
 

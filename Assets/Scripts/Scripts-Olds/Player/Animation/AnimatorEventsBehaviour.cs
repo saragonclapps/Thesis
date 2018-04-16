@@ -41,5 +41,9 @@ public class AnimatorEventsBehaviour : MonoBehaviour {
         _anim.SetBool("toLand", false);
     }
 
+    public void LandStart()
+    {
+        landEnd = false;
+    }
 
 }
