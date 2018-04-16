@@ -40,7 +40,7 @@ namespace Player
 
         IdleState idleState;
         MoveState moveState;
-        AimState aimState;
+        //AimState aimState;
         JumpState jumpState;
         FallState fallState;
 
@@ -53,6 +53,7 @@ namespace Player
         AnimatorEventsBehaviour _aEB;
         ArmRotator _aR;
         Rigidbody _rB;
+        LeftHandIKControl _lHIK;
 
         //Land sensors
         LandChecker _lC;
@@ -70,29 +71,30 @@ namespace Player
             _aEB = GetComponentInChildren<AnimatorEventsBehaviour>();
             _aR = GetComponentInChildren<ArmRotator>();
             _rB = GetComponent<Rigidbody>();
+            _lHIK = GetComponentInChildren<LeftHandIKControl>();
 
             #region FSM
             idleState = new IdleState(this, _anim, cam.transform, transform);
-            moveState = new MoveState(_camController, transform, angleTurnTolerance, idleTurnTolerance, runningTurnSpeed, speed, this, _aEB, _anim);
-            aimState = new AimState(this, _aR, transform, cam, _anim);
+            moveState = new MoveState(_camController, transform, angleTurnTolerance, idleTurnTolerance, runningTurnSpeed, speed, this, _aEB, _anim, _lHIK);
+            //aimState = new AimState(this, _aR, transform, cam, _anim);
             jumpState = new JumpState(_rB, cam, this, _lC, _aEB, transform, _anim, jumpForce, jumpSpeed);
             fallState = new FallState(_rB, this, cam, _lC, _aEB, transform, _anim, jumpSpeed);
 
             //Fsm Transitions
             var idleTransitions = new Dictionary<Inputs, IState<Inputs>>();
             idleTransitions.Add(Inputs.Move, moveState);
-            idleTransitions.Add(Inputs.Aiming, aimState);
+            //idleTransitions.Add(Inputs.Aiming, aimState);
             idleTransitions.Add(Inputs.Fall, fallState);
             idleTransitions.Add(Inputs.Jump, jumpState);
 
             var moveTransitions = new Dictionary<Inputs, IState<Inputs>>();
             moveTransitions.Add(Inputs.Idle, idleState);
-            moveTransitions.Add(Inputs.Aiming, aimState);
+            //moveTransitions.Add(Inputs.Aiming, aimState);
             moveTransitions.Add(Inputs.Jump, jumpState);
             moveTransitions.Add(Inputs.Fall, fallState);
 
-            var aimingTransitions = new Dictionary<Inputs, IState<Inputs>>();
-            aimingTransitions.Add(Inputs.NotAiming, idleState);
+            /*var aimingTransitions = new Dictionary<Inputs, IState<Inputs>>();
+            aimingTransitions.Add(Inputs.NotAiming, idleState);*/
 
             var jumpTransitions = new Dictionary<Inputs, IState<Inputs>>();
             jumpTransitions.Add(Inputs.Land, idleState);
@@ -103,7 +105,7 @@ namespace Player
 
             idleState.Transitions = idleTransitions;
             moveState.Transitions = moveTransitions;
-            aimState.Transitions = aimingTransitions;
+            //aimState.Transitions = aimingTransitions;
             jumpState.Transitions = jumpTransitions;
             fallState.Transitions = fallTransitions;
 
@@ -126,7 +128,7 @@ namespace Player
 
         void CheckInputs()
         {
-            if (GameInput.instance.aimButton)
+            /*if (GameInput.instance.aimButton)
             {
                 if (aimState.isAiming)
                 {
@@ -138,7 +140,7 @@ namespace Player
                     _fsm.ProcessInput(Inputs.Aiming);
                     //isAiming = true; //TODO: Ponerlo en el enter de aiming
                 }
-            }
+            }*/
             if (CheckMove())
             {
                 _fsm.ProcessInput(Inputs.Move);

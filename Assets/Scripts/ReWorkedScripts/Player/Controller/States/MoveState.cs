@@ -41,6 +41,7 @@ namespace Player
         PlayerController2 _pC;
         AnimatorEventsBehaviour _aEB;
         Animator _anim;
+        LeftHandIKControl _lHIK;
 
         //private LeftHandIKControl _lHIK;
 
@@ -48,7 +49,7 @@ namespace Player
         #endregion
 
         public MoveState(CameraController cam, Transform t, float angleTurnTolerance, float idleTurnSpeed, float runingTurnSpeed,float speed, PlayerController2 pC,
-                        AnimatorEventsBehaviour aEB, Animator anim )
+                        AnimatorEventsBehaviour aEB, Animator anim, LeftHandIKControl lHIK)
         {
             _cam = cam;
             transform = t;
@@ -59,6 +60,7 @@ namespace Player
             _pC = pC;
             _aEB = aEB;
             _anim = anim;
+            _lHIK = lHIK;
 
             _oldDirection.x = transform.forward.x;
             _oldDirection.z = transform.forward.z;
@@ -118,7 +120,7 @@ namespace Player
 
                     transform.position += transform.forward * Time.deltaTime * _movementSpeed;
                 }
-                //_pc.anim.SetBool("isAbsorbing", _lHIK.ikActive);
+                _anim.SetBool("isAbsorbing", _lHIK.ikActive);
             }
         }
 
