@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBox : VacuumInteractive {
+public class BulletBox : IVacuumObjects {
 
     public float _timmer;
     float _tick;

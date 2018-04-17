@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LargeSizeObject : VacuumInteractive
+public class LargeSizeObject : IVacuumObjects
 {
     private Rigidbody _rb;
     public float movement;

@@ -30,7 +30,7 @@ namespace Player
         LandChecker _lc;
         CameraFMS _cam;
         AnimatorEventsBehaviour _aES;
-        Animator _anim;
+        Animator[] _anim;
         PlayerController2 _pC2;
         Transform transform;
 
@@ -43,7 +43,7 @@ namespace Player
         bool _isJumpingForward;
         float _jumpSpeed;
 
-        public FallState(Rigidbody rb, PlayerController2 pC2, CameraFMS cam, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpSpeed)
+        public FallState(Rigidbody rb, PlayerController2 pC2, CameraFMS cam, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator[] anim, float jumpSpeed)
         {
             _cam = cam;
             _rb = rb;
@@ -90,7 +90,6 @@ namespace Player
             {
                 _pC2.land = true;
                 landCount = 0;
-                Debug.Log("aterrizo por contador");
             }
             else
             {
@@ -112,12 +111,21 @@ namespace Player
                 }
 
             }
-            _anim.SetFloat("velocityY", _rb.velocity.y);
+            for (int i = 0; i < _anim.Length; i++)
+            {
+                _anim[i].SetFloat("velocityY", _rb.velocity.y);
+
+            }
         }
 
         public void Exit()
         {
-           
+            for (int i = 0; i < _anim.Length; i++)
+            {
+                _anim[i].SetBool("toLand", true);
+                _anim[i].SetFloat("velocityY", 0);
+
+            }
         }
 
         Vector3 GetCorrectedForward()

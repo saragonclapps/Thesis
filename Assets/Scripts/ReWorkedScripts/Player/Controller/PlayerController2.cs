@@ -44,7 +44,7 @@ namespace Player
         JumpState jumpState;
         FallState fallState;
 
-        Animator _anim;
+        Animator[] _anim;
 
         [Header("Camera Reference")]
         public CameraFMS cam;
@@ -65,7 +65,7 @@ namespace Player
 
         void Awake()
         {
-            _anim = GetComponentInChildren<Animator>();
+            _anim = GetComponentsInChildren<Animator>();
             _lC = GetComponentInChildren<LandChecker>();
             _camController = cam.GetComponent<CameraController>();
             _aEB = GetComponentInChildren<AnimatorEventsBehaviour>();
@@ -153,8 +153,8 @@ namespace Player
             {
                 _fsm.ProcessInput(Inputs.Land);
                 land = false;
-                _anim.SetBool("toLand", true);
-                _anim.SetFloat("velocityY", 0);
+                //_anim.SetBool("toLand", true);
+                //_anim.SetFloat("velocityY", 0);
             }
 
             //Triple check for fall state

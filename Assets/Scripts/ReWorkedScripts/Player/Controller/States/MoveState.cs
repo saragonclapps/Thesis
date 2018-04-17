@@ -40,7 +40,7 @@ namespace Player
         //Player Controller
         PlayerController2 _pC;
         AnimatorEventsBehaviour _aEB;
-        Animator _anim;
+        Animator[] _anim;
         LeftHandIKControl _lHIK;
 
         //private LeftHandIKControl _lHIK;
@@ -49,7 +49,7 @@ namespace Player
         #endregion
 
         public MoveState(CameraController cam, Transform t, float angleTurnTolerance, float idleTurnSpeed, float runingTurnSpeed,float speed, PlayerController2 pC,
-                        AnimatorEventsBehaviour aEB, Animator anim, LeftHandIKControl lHIK)
+                        AnimatorEventsBehaviour aEB, Animator[] anim, LeftHandIKControl lHIK)
         {
             _cam = cam;
             transform = t;
@@ -77,7 +77,10 @@ namespace Player
                 _turn = Mathf.Abs(angle) > _angleTurnTolerance;
             }
             //Set Animator Transition
-            _anim.SetFloat("speed", 1);
+            for (int i = 0; i < _anim.Length; i++)
+            {
+                _anim[i].SetFloat("speed", 1);
+            }
         }
 
         public void Execute()
@@ -105,14 +108,20 @@ namespace Player
                 {
                     if (GameInput.instance.sprintButton)
                     {
-                        _anim.SetBool("sprint", true);
+                        for (int i = 0; i < _anim.Length; i++)
+                        {
+                            _anim[i].SetBool("sprint", true);
+                        }
                         _movementSpeed = 1.2f * _speed;
                         //SetColliderDimensions(ColliderSettings.SPRINT);
                         //_pc.collisionDistance = 1;
                     }
                     else
                     {
-                        _anim.SetBool("sprint", false);
+                        for (int i = 0; i < _anim.Length; i++)
+                        {
+                            _anim[i].SetBool("sprint", false);
+                        }
                         _movementSpeed = _speed / 1.2f;
                         //SetColliderDimensions(ColliderSettings.NORMAL);
                         //_pc.collisionDistance = 0.7f;
@@ -120,7 +129,10 @@ namespace Player
 
                     transform.position += transform.forward * Time.deltaTime * _movementSpeed;
                 }
-                _anim.SetBool("isAbsorbing", _lHIK.ikActive);
+                for (int i = 0; i < _anim.Length; i++)
+                {
+                    _anim[i].SetBool("isAbsorbing", _lHIK.ikActive);
+                }
             }
         }
 
@@ -129,9 +141,12 @@ namespace Player
             _oldDirection.x = transform.forward.x;
             _oldDirection.z = transform.forward.z;
             _oldDirection = _oldDirection.normalized;
-            _anim.SetFloat("speed", 0);
-            _anim.SetBool("isAbsorbing", false);
-            _anim.SetBool("sprint", false);
+            for (int i = 0; i < _anim.Length; i++)
+            {
+                _anim[i].SetFloat("speed", 0);
+                _anim[i].SetBool("isAbsorbing", false);
+                _anim[i].SetBool("sprint", false);
+            }
             //_cam.positionSmoothness = 0.1f;
             //_pC.isMoving = false;
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class VacuumInteractive: MonoBehaviour {
+public abstract class IVacuumObjects: MonoBehaviour {
 
     public bool isAbsorved;
     public bool isAbsorvable;

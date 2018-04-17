@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stump : VacuumInteractive {
+public class Stump : IVacuumObjects {
 
     private Vector3 _maxMove = new Vector3(8.4f, 7.5f, -1.5f);
     private Vector3 _minMove = new Vector3(0.4f, 0.0f, -1.5f);

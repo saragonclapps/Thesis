@@ -65,7 +65,7 @@ public class HUDManager : MonoBehaviour{
         _materialIcon = m2[0];
 
         //Add only the materials on scene without repeat.(Vacuum objects)
-        _vacuumMaterials = FindObjectsOfType<VacuumInteractive>()
+        _vacuumMaterials = FindObjectsOfType<IVacuumObjects>()
                                         .Where(x => x.GetComponent<Renderer>())
                                         .Select(x => x.GetComponent<Renderer>().material)
                                         .Where(x => x.shader.name == "Created/Vacuum object")

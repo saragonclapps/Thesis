@@ -1,0 +1,354 @@
+fileFormatVersion: 2
+guid: 0300b859ab9c3884c9b75a982db5d956
+timeCreated: 1523982419
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Box003
+    100002: Cap
+    100004: Cylinder001
+    100006: Elevator
+    100008: ElevatorEnd
+    100010: ElevatorFloor007
+    100012: ElevatorGlass000
+    100014: ElevatorStart
+    100016: ElevetorGlass007
+    100018: Floor001
+    100020: Floor002
+    100022: Floor003
+    100024: Floor006
+    100026: Floor2x1001
+    100028: Floor2x2001
+    100030: Floor2x2002
+    100032: Floor2x2003
+    100034: Floor2x2004
+    100036: Floor2x2005
+    100038: Floor2x2006
+    100040: Floor8x2to1001
+    100042: FloorCorner001
+    100044: Joint
+    100046: Joint002
+    100048: Joint003
+    100050: Joint004
+    100052: Joint005
+    100054: Lamp
+    100056: LaserDoor001
+    100058: LaserPoint001
+    100060: //RootNode
+    100062: Object001
+    100064: Platform001
+    100066: Platform002
+    100068: Rail001
+    100070: Stairs001
+    100072: SwitchFan
+    100074: SwitchFanStand
+    100076: Tube
+    100078: Valve
+    100080: Wall001
+    100082: Wall002
+    100084: Wall003
+    100086: Wall004
+    100088: Wall005
+    100090: Wall006
+    100092: Wall02 001
+    100094: Wall02 002
+    100096: Wall02 003
+    100098: Wall02 004
+    100100: Wall02 005
+    100102: Wall02 006
+    100104: WallCorner001
+    100106: WindSwitch
+    400000: Box003
+    400002: Cap
+    400004: Cylinder001
+    400006: Elevator
+    400008: ElevatorEnd
+    400010: ElevatorFloor007
+    400012: ElevatorGlass000
+    400014: ElevatorStart
+    400016: ElevetorGlass007
+    400018: Floor001
+    400020: Floor002
+    400022: Floor003
+    400024: Floor006
+    400026: Floor2x1001
+    400028: Floor2x2001
+    400030: Floor2x2002
+    400032: Floor2x2003
+    400034: Floor2x2004
+    400036: Floor2x2005
+    400038: Floor2x2006
+    400040: Floor8x2to1001
+    400042: FloorCorner001
+    400044: Joint
+    400046: Joint002
+    400048: Joint003
+    400050: Joint004
+    400052: Joint005
+    400054: Lamp
+    400056: LaserDoor001
+    400058: LaserPoint001
+    400060: //RootNode
+    400062: Object001
+    400064: Platform001
+    400066: Platform002
+    400068: Rail001
+    400070: Stairs001
+    400072: SwitchFan
+    400074: SwitchFanStand
+    400076: Tube
+    400078: Valve
+    400080: Wall001
+    400082: Wall002
+    400084: Wall003
+    400086: Wall004
+    400088: Wall005
+    400090: Wall006
+    400092: Wall02 001
+    400094: Wall02 002
+    400096: Wall02 003
+    400098: Wall02 004
+    400100: Wall02 005
+    400102: Wall02 006
+    400104: WallCorner001
+    400106: WindSwitch
+    2100000: 01 - Default
+    2100002: 02 - Default
+    2300000: Box003
+    2300002: Cap
+    2300004: Cylinder001
+    2300006: ElevatorEnd
+    2300008: ElevatorFloor007
+    2300010: ElevatorGlass000
+    2300012: ElevatorStart
+    2300014: ElevetorGlass007
+    2300016: Floor001
+    2300018: Floor002
+    2300020: Floor003
+    2300022: Floor006
+    2300024: Floor2x1001
+    2300026: Floor2x2001
+    2300028: Floor2x2002
+    2300030: Floor2x2003
+    2300032: Floor2x2004
+    2300034: Floor2x2005
+    2300036: Floor2x2006
+    2300038: Floor8x2to1001
+    2300040: FloorCorner001
+    2300042: Joint
+    2300044: Joint002
+    2300046: Joint003
+    2300048: Joint004
+    2300050: Joint005
+    2300052: Lamp
+    2300054: LaserDoor001
+    2300056: LaserPoint001
+    2300058: Object001
+    2300060: Platform001
+    2300062: Platform002
+    2300064: Rail001
+    2300066: Stairs001
+    2300068: SwitchFan
+    2300070: SwitchFanStand
+    2300072: Tube
+    2300074: Valve
+    2300076: Wall001
+    2300078: Wall002
+    2300080: Wall003
+    2300082: Wall004
+    2300084: Wall005
+    2300086: Wall006
+    2300088: Wall02 001
+    2300090: Wall02 002
+    2300092: Wall02 003
+    2300094: Wall02 004
+    2300096: Wall02 005
+    2300098: Wall02 006
+    2300100: WallCorner001
+    2300102: WindSwitch
+    3300000: Box003
+    3300002: Cap
+    3300004: Cylinder001
+    3300006: ElevatorEnd
+    3300008: ElevatorFloor007
+    3300010: ElevatorGlass000
+    3300012: ElevatorStart
+    3300014: ElevetorGlass007
+    3300016: Floor001
+    3300018: Floor002
+    3300020: Floor003
+    3300022: Floor006
+    3300024: Floor2x1001
+    3300026: Floor2x2001
+    3300028: Floor2x2002
+    3300030: Floor2x2003
+    3300032: Floor2x2004
+    3300034: Floor2x2005
+    3300036: Floor2x2006
+    3300038: Floor8x2to1001
+    3300040: FloorCorner001
+    3300042: Joint
+    3300044: Joint002
+    3300046: Joint003
+    3300048: Joint004
+    3300050: Joint005
+    3300052: Lamp
+    3300054: LaserDoor001
+    3300056: LaserPoint001
+    3300058: Object001
+    3300060: Platform001
+    3300062: Platform002
+    3300064: Rail001
+    3300066: Stairs001
+    3300068: SwitchFan
+    3300070: SwitchFanStand
+    3300072: Tube
+    3300074: Valve
+    3300076: Wall001
+    3300078: Wall002
+    3300080: Wall003
+    3300082: Wall004
+    3300084: Wall005
+    3300086: Wall006
+    3300088: Wall02 001
+    3300090: Wall02 002
+    3300092: Wall02 003
+    3300094: Wall02 004
+    3300096: Wall02 005
+    3300098: Wall02 006
+    3300100: WallCorner001
+    3300102: WindSwitch
+    4300000: Wall001
+    4300002: Wall002
+    4300004: Tube
+    4300006: Valve
+    4300008: Wall003
+    4300010: Lamp
+    4300012: Wall02 001
+    4300014: Wall02 002
+    4300016: Wall02 003
+    4300018: Wall02 004
+    4300020: Wall004
+    4300022: Joint
+    4300024: Joint002
+    4300026: Object001
+    4300028: Joint003
+    4300030: Joint004
+    4300032: Joint005
+    4300034: WallCorner001
+    4300036: Wall02 005
+    4300038: Wall005
+    4300040: Wall02 006
+    4300042: Cap
+    4300044: Floor001
+    4300046: Wall006
+    4300048: LaserDoor001
+    4300050: LaserPoint001
+    4300052: Cylinder001
+    4300054: Box003
+    4300056: Floor002
+    4300058: Floor003
+    4300060: Rail001
+    4300062: Stairs001
+    4300064: FloorCorner001
+    4300066: Floor006
+    4300068: Floor2x2001
+    4300070: Floor2x2002
+    4300072: Floor2x2003
+    4300074: Floor2x1001
+    4300076: Floor2x2004
+    4300078: Floor2x2005
+    4300080: Floor2x2006
+    4300082: Floor8x2to1001
+    4300084: ElevatorEnd
+    4300086: ElevatorStart
+    4300088: ElevatorFloor007
+    4300090: ElevatorGlass000
+    4300092: ElevetorGlass007
+    4300094: Platform001
+    4300096: Platform002
+    4300098: SwitchFan
+    4300100: SwitchFanStand
+    4300102: WindSwitch
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

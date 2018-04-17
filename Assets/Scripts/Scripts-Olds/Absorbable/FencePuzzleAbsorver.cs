@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FencePuzzleAbsorver : VacuumInteractive
+public class FencePuzzleAbsorver : IVacuumObjects
 
 {
     public override void BlowUp(Transform origin, float atractForce, Vector3 direction)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Material))]
-public class MediumSizeObject : VacuumInteractive {
+public class MediumSizeObject : IVacuumObjects {
 
     public bool wasShooted;
     public Material material;//Edit for shoot vfx.

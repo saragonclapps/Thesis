@@ -9,11 +9,11 @@ namespace Player
         public Dictionary<Inputs, IState<Inputs>> _transitions;
 
         PlayerController2 _pC;
-        Animator _anim;
+        Animator[] _anim;
         Transform _mainCamera;
         Transform transform;
 
-        public IdleState(PlayerController2 pC, Animator anim, Transform mainCamera, Transform t)
+        public IdleState(PlayerController2 pC, Animator[] anim, Transform mainCamera, Transform t)
         {
             _pC = pC;
             _anim = anim;
@@ -23,8 +23,11 @@ namespace Player
 
         public void Enter()
         {
-            _anim.SetBool("toJump", false);
-            _anim.SetBool("stealth", false);
+            for (int i = 0; i < _anim.Length; i++)
+            {
+                _anim[i].SetBool("toJump", false);
+                _anim[i].SetBool("stealth", false);
+            }
         }
 
         public void Execute()

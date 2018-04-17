@@ -34,9 +34,9 @@ namespace Player
         //private CharacterMove _cm;
 
         Transform transform;
-        Animator _anim;
+        Animator[] _anim;
 
-        public JumpState(Rigidbody rb, CameraFMS cam, PlayerController2 pC2, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpForce, float jumpSpeed)
+        public JumpState(Rigidbody rb, CameraFMS cam, PlayerController2 pC2, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator[] anim, float jumpForce, float jumpSpeed)
         {
             _rb = rb;
             _cam = cam;
@@ -67,7 +67,11 @@ namespace Player
             forwardJump = _pC2.Fsm.Last == typeof(MoveState);
             _pC2.jumpForward = forwardJump;
             //Set Animator Parameter
-            _anim.SetBool("toJump", true);
+            for (int i = 0; i < _anim.Length; i++)
+            {
+                _anim[i].SetBool("toJump", true);
+
+            }
 
             _aES.landEnd = false;
         }
@@ -101,7 +105,10 @@ namespace Player
 
         public void Exit()
         {
-            _anim.SetBool("toJump", false);
+            for (int i = 0; i < _anim.Length; i++)
+            {
+                _anim[i].SetBool("toJump", false);
+            }
         }
 
         Vector3 GetCorrectedForward()

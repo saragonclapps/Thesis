@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DardoAbsorver : VacuumInteractive
+public class DardoAbsorver : IVacuumObjects
 {
     [SerializeField]
     Material mat;

@@ -402,6 +402,12 @@
     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_MissingScriptEditor.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_Preferences.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_ScenePostProcessor.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\About\Editor\pg_AboutWindow.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Editor\pg_Editor.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Editor\pg_GridRenderer.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Editor\pg_ParameterWindow.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Editor\pg_Preferences.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Editor\pg_ToggleContent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Download\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
@@ -467,6 +473,9 @@
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_VertexPicker.shader" />
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_VertexShader.shader" />
     <None Include="Assets\ProCore\ProBuilder\readme.txt" />
+    <None Include="Assets\ProCore\ProGrids\About\changelog.txt" />
+    <None Include="Assets\ProCore\ProGrids\About\pc_AboutEntry_ProGrids.txt" />
+    <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />
     <None Include="Assets\Shaders\Poss Process\DeathTransition.shader" />
     <None Include="Assets\Shaders\Poss Process\Vignette.shader" />
     <None Include="Assets\Shaders\Surface\CustomLightingCustomRim.shader" />
