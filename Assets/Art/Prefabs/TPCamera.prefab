@@ -115,12 +115,10 @@ MonoBehaviour:
   player: {fileID: 0}
   lookAt: {fileID: 0}
   zoomTransform: {fileID: 0}
-  positionSmoothness: 0.9
-  rotationSmoothness: 0.5
   speed: 1.8
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967039
   unadjustedDistance: 3
 --- !u!114 &114977988260733986
 MonoBehaviour:
