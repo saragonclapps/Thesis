@@ -113,6 +113,7 @@ namespace Player
                             _anim[i].SetBool("sprint", true);
                         }
                         _movementSpeed = 1.2f * _speed;
+                        _pC.fallDistance = 0.7f;
                         //SetColliderDimensions(ColliderSettings.SPRINT);
                         //_pc.collisionDistance = 1;
                     }
@@ -123,6 +124,7 @@ namespace Player
                             _anim[i].SetBool("sprint", false);
                         }
                         _movementSpeed = _speed / 1.2f;
+                        _pC.fallDistance = 0.5f;
                         //SetColliderDimensions(ColliderSettings.NORMAL);
                         //_pc.collisionDistance = 0.7f;
                     }

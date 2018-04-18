@@ -5,7 +5,6 @@ using UnityEngine;
 public class VacuumSwitch : MonoBehaviour, IVacuumObject
 {
     bool isActive;
-    Material mat;
 
     #region VacuumObject Implementation
     bool _isAbsorved;
@@ -43,12 +42,14 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
                 {
                     callbacks();
                     isActive = false;
+                    UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
                 }
             }
 
-            mat.color = new Color(currentAmountOfAir / maxAmountOfAir, 0, 0);
+            increaseCallbacks();
         }
     }
+
     public void SuckIn(Transform origin, float atractForce)
     {
         if (isActive)
@@ -56,7 +57,7 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
             if(currentAmountOfAir > 0)
                 currentAmountOfAir -= 1;
 
-            mat.color = new Color(currentAmountOfAir / maxAmountOfAir, 0, 0);
+            decreaseCallbacks();
         }
     }
 
@@ -70,8 +71,13 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
 
     #region Delegate Implementation
     public delegate void OnSwitch();
+    public delegate void OnSwitchIncrease();
+    public delegate void OnSwitchDecrease();
 
     OnSwitch callbacks;
+    OnSwitchIncrease increaseCallbacks;
+    OnSwitchDecrease decreaseCallbacks;
+
 
     public void AddOnSwitchEvent(OnSwitch callback)
     {
@@ -82,6 +88,28 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
     {
         callbacks -= callback;
     }
+
+    public void AddOnSwitchIncreaseEvent(OnSwitchIncrease callback)
+    {
+        increaseCallbacks += callback;
+    }
+
+    public void RemoveOnSwitchIncreaseEvent(OnSwitchIncrease callback)
+    {
+        increaseCallbacks -= callback;
+    }
+
+    public void AddOnSwitchDecreaseEvent(OnSwitchDecrease callback)
+    {
+        decreaseCallbacks += callback;
+    }
+
+    public void RemoveOnSwitchDecreaseEvent(OnSwitchDecrease callback)
+    {
+        decreaseCallbacks -= callback;
+    }
+
+
     #endregion
 
     #region VacuumSwitch Implementation
@@ -92,13 +120,21 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        mat = GetComponent<Renderer>().material;
         currentAmountOfAir = 0;
         isActive = true;
         _isAbsorvable = false;
-        mat.color = new Color(0, 0, 0, 0);
+        UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
     }
 
+    void Execute()
+    {
+        if(decreaseCallbacks != null)
+        {
+            decreaseCallbacks();
+        }
+        if(currentAmountOfAir > 0)
+            currentAmountOfAir -= Time.deltaTime;
+    }
 
     #endregion
 

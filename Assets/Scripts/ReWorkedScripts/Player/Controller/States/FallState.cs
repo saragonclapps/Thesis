@@ -102,13 +102,13 @@ namespace Player
                     transform.position += transform.forward * _jumpSpeed * Time.deltaTime;
                 }
 
-                if (Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f)
+                /*if (Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f)
                 {
-                    var newDirection = GetCorrectedForward();
+                }*/
+                var newDirection = GetCorrectedForward();
 
-                    //AirMove
-                    transform.position += newDirection * Time.deltaTime * _jumpSpeed / 2;
-                }
+                //AirMove
+                transform.position += newDirection * Time.deltaTime * _jumpSpeed / 2;
 
             }
             for (int i = 0; i < _anim.Length; i++)
