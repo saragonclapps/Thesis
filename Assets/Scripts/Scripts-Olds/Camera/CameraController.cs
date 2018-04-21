@@ -25,10 +25,10 @@ public class CameraController : MonoBehaviour {
     //Smooth camera movement Positions
     private Vector3 _currentPosition;
     private Vector3 _targetPosition;
-    /*[Range(0.1f, 1f)]
+    [Range(0.1f, 1f)]
     public float positionSmoothness;
     [Range(0.1f,1f)]
-    public float rotationSmoothness = 0.3f;*/
+    public float rotationSmoothness = 0.3f;
     [Range(0.5f, 5f)]
     public float speed = 1.8f;
     //Collision Manager
@@ -255,8 +255,8 @@ public class CameraController : MonoBehaviour {
         //_currentPosition = _currentPosition + (_targetPosition - _currentPosition) / positionSmoothness;
         //transform.position = _currentPosition;
         //transform.position = Vector3.Lerp(_currentPosition, _targetPosition, Time.deltaTime);
-        //transform.position = Vector3.Lerp(transform.position, _targetPosition, positionSmoothness);
-        transform.position = _targetPosition;
+        transform.position = Vector3.Lerp(transform.position, _targetPosition, positionSmoothness);
+        //transform.position = _targetPosition;
         //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookAt.position - transform.position), rotationSmoothness);
         transform.rotation = Quaternion.LookRotation(lookAt.position - transform.position);
     }

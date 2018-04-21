@@ -7991,6 +7991,16 @@ Prefab:
       propertyPath: jumpSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 65083601640049816, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 136747571886484640, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
+        type: 2}
+      propertyPath: m_Radius
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca92b4861e97cf4429cb5d6ca0dd6451, type: 2}
   m_IsPrefabParent: 0
@@ -36099,6 +36109,16 @@ Prefab:
       propertyPath: zoomTransform
       value: 
       objectReference: {fileID: 212314079}
+    - target: {fileID: 114946778203396268, guid: 7b7f064c52880294b844b4d191494566,
+        type: 2}
+      propertyPath: positionSmoothness
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114946778203396268, guid: 7b7f064c52880294b844b4d191494566,
+        type: 2}
+      propertyPath: unadjustedDistance
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b7f064c52880294b844b4d191494566, type: 2}
   m_IsPrefabParent: 0

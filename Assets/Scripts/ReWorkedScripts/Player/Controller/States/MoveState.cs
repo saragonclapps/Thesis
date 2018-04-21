@@ -104,7 +104,7 @@ namespace Player
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_newDirection), _runingTurnSpeed);
 
                 //MoveForward
-                if (_aEB.landEnd && !_pC.CheckForwardCollision(_newDirection, true))
+                if (_aEB.landEnd /*&& !_pC.CheckForwardCollision(_newDirection, true)*/)
                 {
                     if (GameInput.instance.sprintButton)
                     {
