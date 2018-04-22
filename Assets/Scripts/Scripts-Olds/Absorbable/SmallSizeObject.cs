@@ -3,17 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmallSizeObject : IVacuumObjects {
+public class SmallSizeObject : MonoBehaviour, IVacuumObject
+{
+    bool _isAbsorved;
+    bool _isAbsorvable;
+    bool _isBeeingAbsorved;
+    Rigidbody _rb;
 
-    
-
-    void Awake () {
-        isAbsorvable = true;
-        isBeeingAbsorved = false;
-        rb = GetComponent<Rigidbody>();
+    public bool isAbsorved
+    {
+        get{ return _isAbsorved; }
+        set{ _isAbsorved = value; }
     }
 
-    public override void BlowUp(Transform origin, float atractForce, Vector3 direction)
+    public bool isAbsorvable { get { return _isAbsorvable; } }
+
+    public bool isBeeingAbsorved { get {return _isBeeingAbsorved; } set { _isBeeingAbsorved = value; } }
+
+    public Rigidbody rb { get { return _rb; }  set {_rb = value; }}
+
+    void Awake () {
+        _isAbsorvable = true;
+        _isBeeingAbsorved = false;
+        _rb = GetComponent<Rigidbody>();
+    }
+
+    public void BlowUp(Transform origin, float atractForce, Vector3 direction)
     {
         
             rb.isKinematic = false;
@@ -28,12 +43,12 @@ public class SmallSizeObject : IVacuumObjects {
         
     }
 
-    public override void ReachedVacuum()
+    public void ReachedVacuum()
     {
         EventManager.DispatchEvent(GameEvent.SMALLABSORVABLE_REACHED, this.gameObject, true);
     }
 
-    public override void SuckIn(Transform origin, float atractForce)
+    public void SuckIn(Transform origin, float atractForce)
     {
         var direction = origin.position - transform.position;
         var distance = direction.magnitude;
@@ -61,7 +76,7 @@ public class SmallSizeObject : IVacuumObjects {
 
     }
 
-    public override void Shoot(float shootForce, Vector3 direction){}
-    public override void ViewFX(bool active){}
-    public override void Exit(){}
+    public void Shoot(float shootForce, Vector3 direction){}
+    public void ViewFX(bool active){}
+    public void Exit(){}
 }
