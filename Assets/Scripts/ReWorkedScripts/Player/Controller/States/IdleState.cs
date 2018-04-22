@@ -30,6 +30,7 @@ namespace Player
 
         public void Execute()
         {
+            _anim.SetBool("toIdle", true);
             //_pC.isMoving = Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f;
             if (GameInput.instance.absorbButton || GameInput.instance.blowUpButton)
             {

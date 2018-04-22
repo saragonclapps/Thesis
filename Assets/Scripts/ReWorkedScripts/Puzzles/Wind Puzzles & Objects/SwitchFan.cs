@@ -57,4 +57,9 @@ public class SwitchFan : MonoBehaviour {
         _time = 1;
 	}
 
+    void OnDestroy()
+    {
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);    
+    }
+
 }

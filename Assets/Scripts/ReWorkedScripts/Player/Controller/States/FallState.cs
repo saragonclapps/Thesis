@@ -70,6 +70,7 @@ namespace Player
             landCount = 0;
             ypos = transform.position.y;
             _isJumpingForward = _pC2.jumpForward;
+            _aES.landEnd = false;
         }
 
         public void Execute()
@@ -118,6 +119,7 @@ namespace Player
         public void Exit()
         {
             _anim.SetFloat("velocityY", 0);
+            _anim.SetBool("toLand", true);
         }
 
         Vector3 GetCorrectedForward()

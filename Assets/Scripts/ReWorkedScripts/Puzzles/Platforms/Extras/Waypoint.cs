@@ -13,7 +13,8 @@ public class Waypoint : MonoBehaviour {
 
 	void Start ()
     {
-        next.last = this;
+        if(next != null)
+            next.last = this;
 	}
 
     private void OnDrawGizmos()

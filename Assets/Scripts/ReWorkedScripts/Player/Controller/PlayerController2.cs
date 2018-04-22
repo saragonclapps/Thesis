@@ -29,6 +29,7 @@ namespace Player
         [Header("Jump Parameters")]
         public float jumpForce;
         public float jumpSpeed;
+        public float jumpTolerance;
 
         [Header("Collision Parameters")]
         public float collisionDistance;
@@ -81,7 +82,7 @@ namespace Player
             //aimState = new AimState(this, _aR, transform, cam, _anim);
             jumpState = new JumpState(_rB, cam, this, _lC, _aEB, transform, _anim, jumpForce, jumpSpeed);
             fallState = new FallState(_rB, this, cam, _lC, _aEB, transform, _anim, jumpSpeed);
-            landState = new LandState(_anim, this);
+            landState = new LandState(_anim, this, _aEB);
 
             //Fsm Transitions
             var idleTransitions = new Dictionary<Inputs, IState<Inputs>>();
@@ -108,6 +109,7 @@ namespace Player
 
             var landTransitions = new Dictionary<Inputs, IState<Inputs>>();
             landTransitions.Add(Inputs.EndLand, idleState);
+            landTransitions.Add(Inputs.Jump, jumpState);
 
             idleState.Transitions = idleTransitions;
             moveState.Transitions = moveTransitions;
@@ -154,7 +156,7 @@ namespace Player
             }
             else _fsm.ProcessInput(Inputs.Idle);
 
-            if (GameInput.instance.initialJumpButton && !land && _aEB.landEnd) _fsm.ProcessInput(Inputs.Jump);
+            if (GameInput.instance.initialJumpButton && !land && CheckJump()) _fsm.ProcessInput(Inputs.Jump);
 
             if (land)
             {
@@ -172,7 +174,6 @@ namespace Player
             else fallCount = 0;
             if (CheckFall())
             {
-                Debug.Log("Proces Fall");
                 _fsm.ProcessInput(Inputs.Fall);
             }
 
@@ -216,6 +217,11 @@ namespace Player
         public bool CheckFall()
         {
             return fallCount >= 2 && !Physics.Raycast(transform.position, -transform.up, fallDistance, fallLayer);
+        }
+
+        bool CheckJump()
+        {
+            return !Physics.Raycast(transform.position + transform.up * 1.6f, transform.up, jumpTolerance);
         }
     }
 

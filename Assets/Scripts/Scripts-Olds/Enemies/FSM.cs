@@ -24,7 +24,6 @@ public class FSM<InputT>{
 
     public void ProcessInput(InputT input)
     {
-        Debug.Log(input);
         var currentStateTransitions = currentState.Transitions;
         if (currentStateTransitions.ContainsKey(input))
         {
