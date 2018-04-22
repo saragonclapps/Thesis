@@ -7,13 +7,17 @@ public class SwitchPlatform : MonoBehaviour {
 
     public VacuumSwitch vacuumSwitch;
 
-    Platform platform;
+    Platform[] platforms;
 	// Use this for initialization
 	void Start ()
     {
-        platform = GetComponent<Platform>();
+        platforms = GetComponents<Platform>();
         vacuumSwitch.AddOnSwitchEvent(SwitchOn);
-        platform.isActive = false;
+        for (int i = 0; i < platforms.Length; i++)
+        {
+
+            platforms[i].isActive = false;
+        }
 	}
 	
 	// Update is called once per frame
@@ -24,7 +28,11 @@ public class SwitchPlatform : MonoBehaviour {
 
     void SwitchOn()
     {
-        platform.isActive = true;   
+        for (int i = 0; i < platforms.Length; i++)
+        {
+
+            platforms[i].isActive = true;
+        }
     }
 
     void OnDestroy()

@@ -29,6 +29,7 @@ namespace Player
         [Header("Jump Parameters")]
         public float jumpForce;
         public float jumpSpeed;
+        public float jumpTolerance;
 
         [Header("Collision Parameters")]
         public float collisionDistance;
@@ -155,7 +156,7 @@ namespace Player
             }
             else _fsm.ProcessInput(Inputs.Idle);
 
-            if (GameInput.instance.initialJumpButton && !land) _fsm.ProcessInput(Inputs.Jump);
+            if (GameInput.instance.initialJumpButton && !land && CheckJump()) _fsm.ProcessInput(Inputs.Jump);
 
             if (land)
             {
@@ -216,6 +217,11 @@ namespace Player
         public bool CheckFall()
         {
             return fallCount >= 2 && !Physics.Raycast(transform.position, -transform.up, fallDistance, fallLayer);
+        }
+
+        bool CheckJump()
+        {
+            return !Physics.Raycast(transform.position + transform.up * 1.6f, transform.up, jumpTolerance);
         }
     }
 
