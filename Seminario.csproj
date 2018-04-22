@@ -325,6 +325,13 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\JumpState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\LandState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\MoveState.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\Extras\Platform.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\Extras\SwitchPlatform.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\Extras\Waypoint.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\FadeAwayPlatform.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\OscilatingMobilePlatform.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\Stump.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\WayPointPlatform.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\Elevator.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\LargeSizeObject.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\MediumSizeObject.cs" />
@@ -345,7 +352,6 @@
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\DardoAbsorver.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\FencePuzzleAbsorver.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\SmallSizeObject.cs" />
-    <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\Stump.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\VacuumInteractive.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Camera\CameraController.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Camera\CameraFMS.cs" />
@@ -370,7 +376,6 @@
     <Compile Include="Assets\Scripts\Scripts-Olds\Enemies\Escupitajo\States\IdleState.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Enemies\Escupitajo\States\PatrolState.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Enemies\Escupitajo\View.cs" />
-    <Compile Include="Assets\Scripts\Scripts-Olds\Enemies\Escupitajo\Waypoint.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Enemies\FSM.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Enemies\IState.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Enemies\Mist\MistController.cs" />
