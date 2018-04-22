@@ -40,8 +40,8 @@ public class Attractor : IVacuumAction {
 
         if (_isStuck)
         {
-            if(_objectsToInteract.Count > 0)
-                _pc.SimulatePath(_objectsToInteract[0].rb);
+            /*if(_objectsToInteract.Count > 0)
+                _pc.SimulatePath(_objectsToInteract[0].rb);*/
             _aspireParticle.StopEffect();
             _blowParticle.StopEffect();
             _isStuck = false;
@@ -51,7 +51,7 @@ public class Attractor : IVacuumAction {
                     _objectsToInteract[0].ViewFX(false);
                     _objectsToInteract[0].Shoot(_shootSpeed/divider, _vacuumHoleTransform.forward);
                 }
-                _pc.DeactivatePath();
+                //_pc.DeactivatePath();
                 _isStuck = false;
                 _arm.activateIK = true;
             }
@@ -66,7 +66,7 @@ public class Attractor : IVacuumAction {
             {
                 _aspireParticle.StopEffect();
                 _blowParticle.StopEffect();
-                _pc.DeactivatePath();
+                //_pc.DeactivatePath();
                 _isStuck = false;
                 foreach (var obj in _objectsToInteract)
                 {

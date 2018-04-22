@@ -15,6 +15,7 @@ namespace Player
         Jump,
         Land,
         Fall,
+        EndLand,
         NONE
     }
 }

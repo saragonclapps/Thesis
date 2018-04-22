@@ -38,13 +38,15 @@ namespace Player
         public float fallDistance;
         public LayerMask fallLayer;
 
+        //States
         IdleState idleState;
         MoveState moveState;
         //AimState aimState;
         JumpState jumpState;
         FallState fallState;
+        LandState landState;
 
-        Animator[] _anim;
+        Animator _anim;
 
         [Header("Camera Reference")]
         public CameraFMS cam;
@@ -65,7 +67,7 @@ namespace Player
 
         void Awake()
         {
-            _anim = GetComponentsInChildren<Animator>();
+            _anim = GetComponentInChildren<Animator>();
             _lC = GetComponentInChildren<LandChecker>();
             _camController = cam.GetComponent<CameraController>();
             _aEB = GetComponentInChildren<AnimatorEventsBehaviour>();
@@ -79,6 +81,7 @@ namespace Player
             //aimState = new AimState(this, _aR, transform, cam, _anim);
             jumpState = new JumpState(_rB, cam, this, _lC, _aEB, transform, _anim, jumpForce, jumpSpeed);
             fallState = new FallState(_rB, this, cam, _lC, _aEB, transform, _anim, jumpSpeed);
+            landState = new LandState(_anim, this);
 
             //Fsm Transitions
             var idleTransitions = new Dictionary<Inputs, IState<Inputs>>();
@@ -97,18 +100,22 @@ namespace Player
             aimingTransitions.Add(Inputs.NotAiming, idleState);*/
 
             var jumpTransitions = new Dictionary<Inputs, IState<Inputs>>();
-            jumpTransitions.Add(Inputs.Land, idleState);
+            jumpTransitions.Add(Inputs.Land, landState);
             jumpTransitions.Add(Inputs.Fall, fallState);
 
             var fallTransitions = new Dictionary<Inputs, IState<Inputs>>();
-            fallTransitions.Add(Inputs.Land, idleState);
+            fallTransitions.Add(Inputs.Land, landState);
+
+            var landTransitions = new Dictionary<Inputs, IState<Inputs>>();
+            landTransitions.Add(Inputs.EndLand, idleState);
 
             idleState.Transitions = idleTransitions;
             moveState.Transitions = moveTransitions;
-            //aimState.Transitions = aimingTransitions;
             jumpState.Transitions = jumpTransitions;
             fallState.Transitions = fallTransitions;
+            landState.Transitions = landTransitions;
 
+            //aimState.Transitions = aimingTransitions;
             _fsm = new FSM<Inputs>(idleState);
             #endregion
 
@@ -147,14 +154,17 @@ namespace Player
             }
             else _fsm.ProcessInput(Inputs.Idle);
 
-            if (GameInput.instance.initialJumpButton && !land) _fsm.ProcessInput(Inputs.Jump);
+            if (GameInput.instance.initialJumpButton && !land && _aEB.landEnd) _fsm.ProcessInput(Inputs.Jump);
 
             if (land)
             {
                 _fsm.ProcessInput(Inputs.Land);
                 land = false;
-                //_anim.SetBool("toLand", true);
-                //_anim.SetFloat("velocityY", 0);
+            }
+
+            if (_aEB.landEnd)
+            {
+                _fsm.ProcessInput(Inputs.EndLand);
             }
 
             //Triple check for fall state
@@ -168,7 +178,7 @@ namespace Player
 
         }
 
-        private bool CheckMove()
+        public bool CheckMove()
         {
             return Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f;
         }

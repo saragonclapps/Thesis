@@ -323,10 +323,13 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\FallState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\IdleState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\JumpState.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\LandState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\MoveState.cs" />
-    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Elevator.cs" />
-    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\SwitchFan.cs" />
-    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\VacuumSwitch.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\Elevator.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\LargeSizeObject.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\MediumSizeObject.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\SwitchFan.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\VacuumSwitch.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Vacuum\ArmRotator.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Vacuum\Attractor.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Vacuum\BulletShoot.cs" />
@@ -341,8 +344,6 @@
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\BulletBox.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\DardoAbsorver.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\FencePuzzleAbsorver.cs" />
-    <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\LargeSizeObject.cs" />
-    <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\MediumSizeObject.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\SmallSizeObject.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\Stump.cs" />
     <Compile Include="Assets\Scripts\Scripts-Olds\Absorbable\VacuumInteractive.cs" />
