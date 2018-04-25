@@ -102,9 +102,9 @@ public class GameInput : MonoBehaviour
 
     void Execute()
     {
-        CheckIfJoystickConnected();
+        //CheckIfJoystickConnected();
         //UpdateCameraValues();//Camera update (Change observer)
-        if (joystick)
+        /*if (joystick)
         {
             sprintButton = Input.GetButton("Sprint");
             if (_featuresDic[Features.STEALTH])
@@ -139,7 +139,7 @@ public class GameInput : MonoBehaviour
             chatButton = Input.GetButtonDown("Jump");
         }
         else
-        {
+        {*/
             sprintButton = Input.GetKey(KeyCode.LeftShift);
             if(_featuresDic[Features.STEALTH])
                 crouchButton = Input.GetKey(KeyCode.LeftControl);
@@ -173,7 +173,7 @@ public class GameInput : MonoBehaviour
             swapDown = Input.GetAxis("Mouse ScrollWheel") < 0;
 
             chatButton = Input.GetKeyDown(KeyCode.Space);
-        }
+        //}
 
 
 

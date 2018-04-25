@@ -47,7 +47,7 @@ namespace Player
         FallState fallState;
         LandState landState;
 
-        Animator _anim;
+        Animator[] _anim;
 
         [Header("Camera Reference")]
         public CameraFMS cam;
@@ -68,7 +68,7 @@ namespace Player
 
         void Awake()
         {
-            _anim = GetComponentInChildren<Animator>();
+            _anim = GetComponentsInChildren<Animator>();
             _lC = GetComponentInChildren<LandChecker>();
             _camController = cam.GetComponent<CameraController>();
             _aEB = GetComponentInChildren<AnimatorEventsBehaviour>();
@@ -221,6 +221,7 @@ namespace Player
 
         bool CheckJump()
         {
+            Debug.DrawLine(transform.position + transform.up * 1.6f, transform.position + transform.up * 1.6f + transform.up * jumpTolerance);
             return !Physics.Raycast(transform.position + transform.up * 1.6f, transform.up, jumpTolerance);
         }
     }
