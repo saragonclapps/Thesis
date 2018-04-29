@@ -47,7 +47,7 @@ namespace Player
         FallState fallState;
         LandState landState;
 
-        Animator[] _anim;
+        Animator _anim;
 
         [Header("Camera Reference")]
         public CameraFMS cam;
@@ -56,7 +56,7 @@ namespace Player
         AnimatorEventsBehaviour _aEB;
         ArmRotator _aR;
         Rigidbody _rB;
-        LeftHandIKControl _lHIK;
+        //LeftHandIKControl _lHIK;
 
         //Land sensors
         LandChecker _lC;
@@ -68,17 +68,17 @@ namespace Player
 
         void Awake()
         {
-            _anim = GetComponentsInChildren<Animator>();
+            _anim = GetComponentInChildren<Animator>();
             _lC = GetComponentInChildren<LandChecker>();
             _camController = cam.GetComponent<CameraController>();
             _aEB = GetComponentInChildren<AnimatorEventsBehaviour>();
             _aR = GetComponentInChildren<ArmRotator>();
             _rB = GetComponent<Rigidbody>();
-            _lHIK = GetComponentInChildren<LeftHandIKControl>();
+            //_lHIK = GetComponentInChildren<LeftHandIKControl>();
 
             #region FSM
             idleState = new IdleState(this, _anim, cam.transform, transform);
-            moveState = new MoveState(_camController, transform, angleTurnTolerance, idleTurnTolerance, runningTurnSpeed, speed, this, _aEB, _anim, _lHIK);
+            moveState = new MoveState(_camController, transform, angleTurnTolerance, idleTurnTolerance, runningTurnSpeed, speed, this, _aEB, _anim);
             //aimState = new AimState(this, _aR, transform, cam, _anim);
             jumpState = new JumpState(_rB, cam, this, _lC, _aEB, transform, _anim, jumpForce, jumpSpeed);
             fallState = new FallState(_rB, this, cam, _lC, _aEB, transform, _anim, jumpSpeed);

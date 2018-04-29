@@ -16,8 +16,8 @@ public class CameraController : MonoBehaviour {
     private Quaternion zoomAuxRot;
 
     //Constants
-    public const float MAX_Y_ANGLE = 50f;
-    public const float MIN_Y_ANGLE = -10f;
+    public  float MAX_Y_ANGLE = 50f;
+    public  float MIN_Y_ANGLE = -20f;
     //Camera target
     public Transform lookAt;
     public Transform zoomTransform;

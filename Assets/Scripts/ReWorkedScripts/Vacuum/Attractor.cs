@@ -12,14 +12,12 @@ public class Attractor : IVacuumAction {
     private Transform _vacuumHoleTransform;
     private IHandEffect _aspireParticle;
     private IHandEffect _blowParticle;
-    private int divider = 1;
 
     private bool _isStuck;
 
     private PathCalculate _pc;
-    private ArmRotator _arm;
 
-    public Attractor(float atractForce, float shootSpeed, Transform vacuumHole, IHandEffect aspireParticle, IHandEffect blowParticle, PathCalculate pc, List<IVacuumObject> objectsToInteract, ArmRotator arm)
+    public Attractor(float atractForce, float shootSpeed, Transform vacuumHole, IHandEffect aspireParticle, IHandEffect blowParticle, PathCalculate pc, List<IVacuumObject> objectsToInteract)
     {
         _atractForce = atractForce;
         _shootSpeed = shootSpeed;
@@ -28,7 +26,6 @@ public class Attractor : IVacuumAction {
         _blowParticle = blowParticle;
         _pc = pc;
         _objectsToInteract = objectsToInteract;
-        _arm = arm;
 
     }
 
@@ -49,18 +46,16 @@ public class Attractor : IVacuumAction {
             {
                 if (_objectsToInteract.Count > 0){
                     _objectsToInteract[0].ViewFX(false);
-                    _objectsToInteract[0].Shoot(_shootSpeed/divider, _vacuumHoleTransform.forward);
+                    _objectsToInteract[0].Shoot(_shootSpeed, _vacuumHoleTransform.forward);
                 }
                 //_pc.DeactivatePath();
                 _isStuck = false;
-                _arm.activateIK = true;
             }
             else if (GameInput.instance.absorbButton)
             {
                 Attract();
                 if(_objectsToInteract.Count > 0)
                     _objectsToInteract[0].ViewFX(true);
-                _arm.activateIK = true;
             }
             else
             {
@@ -72,7 +67,6 @@ public class Attractor : IVacuumAction {
                 {
                     obj.Exit();
                 }
-                _arm.activateIK = false;
             }
         }
         else
@@ -84,7 +78,6 @@ public class Attractor : IVacuumAction {
                 Reject();
                 if (!_blowParticle.IsPlaying())
                     _blowParticle.StartEffect();
-                _arm.activateIK = true;
             }
             else if (GameInput.instance.absorbButton)
             {
@@ -92,7 +85,6 @@ public class Attractor : IVacuumAction {
                 if (!_aspireParticle.IsPlaying() && !_isStuck)
                     _aspireParticle.StartEffect();
                 Attract();
-                _arm.activateIK = true;
             }
             else
             {
@@ -100,7 +92,6 @@ public class Attractor : IVacuumAction {
                 //aspireParticle.TerminateEffect();
                 _blowParticle.StopEffect();
                 //blowParticle.TerminateEffect();
-                _arm.activateIK = false;
                 foreach (var obj in _objectsToInteract)
                 {
                     obj.Exit();
@@ -117,7 +108,6 @@ public class Attractor : IVacuumAction {
         _aspireParticle.TerminateEffect();
         _blowParticle.StopEffect();
         _blowParticle.TerminateEffect();
-        _arm.activateIK = false;
         //_pc.DeactivatePath();
         _isStuck = false;
         foreach (var obj in _objectsToInteract)

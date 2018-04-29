@@ -18,7 +18,7 @@ public class UpdatesManager : MonoBehaviour {
         if (_instance == null) _instance = this;
         StartCoroutine(CoroutineUpdate());
         isActive = true;
-
+        Application.targetFrameRate = 60;
     }
 	
 	// Update is called once per frame

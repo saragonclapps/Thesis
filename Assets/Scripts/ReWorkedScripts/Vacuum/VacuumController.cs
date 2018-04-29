@@ -19,11 +19,13 @@ public class VacuumController : MonoBehaviour {
     //Atractor Variables
     public List<IVacuumObject> objectsToInteract;
 
+    [Header("Attractor Variables")]
     public float atractForce;
     public float shootSpeed;
     public Transform vacuumHoleTransform;
 
     //Visual Effect
+    [Header("VFX References")]
     public ParticleSystem aspireParticle;
     public ParticleSystem blowParticle;
 
@@ -70,9 +72,9 @@ public class VacuumController : MonoBehaviour {
         blowVFX = new VacuumVFX(blowParticle);
 
         objectsToInteract = new List<IVacuumObject>();
-
-        _attractor = new Attractor(atractForce, shootSpeed, vacuumHoleTransform, aspireVFX, blowVFX, _pc, objectsToInteract, _arm);
+        _attractor = new Attractor(atractForce, shootSpeed, vacuumHoleTransform, aspireVFX, blowVFX, _pc, objectsToInteract);
         AttractorEnter();
+
     }
 	
 	void Start () {
