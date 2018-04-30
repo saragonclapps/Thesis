@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+<<<<<<< HEAD
 namespace Skills
 {
     public class VacuumConeCollider : MonoBehaviour {
@@ -11,6 +12,26 @@ namespace Skills
 	    void Start () {
             vacuum = GetComponentInParent<SkillController>();
 	    }
+=======
+public class VacuumConeCollider : MonoBehaviour {
+
+    VacuumController vacuum;
+
+	// Use this for initialization
+	void Start () {
+        vacuum = GetComponentInParent<VacuumController>();
+	}
+
+    #region Trigger Methods
+    private void OnTriggerEnter(Collider c)
+    {
+        IVacuumObject obj;
+        obj = c.GetComponent<IVacuumObject>();
+        if (obj != null)
+            if (!vacuum.objectsToInteract.Contains(obj))
+                vacuum.objectsToInteract.Add(obj);
+    }
+>>>>>>> 80eeccb79c8d71fd3b7991e3425d94fc29d611bb
 
         #region Trigger Methods
         private void OnTriggerEnter(Collider c)
