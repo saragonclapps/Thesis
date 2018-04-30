@@ -5,6 +5,7 @@ using UnityEngine;
 public class VacuumConeCollider : MonoBehaviour {
 
     VacuumController vacuum;
+
 	// Use this for initialization
 	void Start () {
         vacuum = GetComponentInParent<VacuumController>();
