@@ -15,6 +15,9 @@ public class FadeAwayPlatform : Platform {
 
     [Header("Period")]
     public float period;
+    public float offset;
+
+    float _offsetTick;
     float _tick;
 
 	// Use this for initialization
@@ -23,6 +26,7 @@ public class FadeAwayPlatform : Platform {
         _renderer = GetComponent<Renderer>();
         _collider = GetComponent<BoxCollider>();
         _tick = 0;
+        _offsetTick = 0;
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
 	}
 	
@@ -31,19 +35,26 @@ public class FadeAwayPlatform : Platform {
     {
         if (isActive)
         {
-            _tick += Time.deltaTime;
-            if(_tick > period)
+            if(_offsetTick > offset)
             {
-                _tick = 0;
+                _tick += Time.deltaTime;
+                if(_tick > period)
+                {
+                    _tick = 0;
+                }
+
+                var value = curve.Evaluate(_tick / period);
+                var alpha = value < 0 ? 0 : value; 
+                var col = _renderer.material.color;
+                _renderer.material.color = new Color(col.r, col.g, col.b, alpha);
+
+
+                _collider.isTrigger = alpha == 0? true: false;
             }
-
-            var value = curve.Evaluate(_tick / period);
-            var alpha = value < 0 ? 0 : value; 
-            var col = _renderer.material.color;
-            _renderer.material.color = new Color(col.r, col.g, col.b, alpha);
-
-
-            _collider.isTrigger = alpha == 0? true: false;
+            else
+            {
+                _offsetTick += Time.deltaTime;
+            }
         }
         else
         {
@@ -54,6 +65,8 @@ public class FadeAwayPlatform : Platform {
                 var alpha = value < 0 ? 0 : value;
                 var col = _renderer.material.color;
                 _renderer.material.color = new Color(col.r, col.g, col.b, alpha);
+
+                _offsetTick = 0;
             }
         }
 

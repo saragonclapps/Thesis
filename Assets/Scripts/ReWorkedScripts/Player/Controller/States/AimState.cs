@@ -23,15 +23,15 @@ namespace Player
         public Transform cameraTarget;
 
         PlayerController2 _pC2;
-        ArmRotator _aR;
+        //ArmRotator _aR;
         Transform transform;
         CameraFMS _cam;
         Animator _anim;
 
-        public AimState(PlayerController2 pC2, ArmRotator aR, Transform t, CameraFMS cam, Animator anim)
+        public AimState(PlayerController2 pC2, /*ArmRotator aR,*/ Transform t, CameraFMS cam, Animator anim)
         {
             _pC2 = pC2;
-            _aR = aR;
+            //_aR = aR;
             transform = t;
             _cam = cam;
             isAiming = false;
@@ -41,7 +41,7 @@ namespace Player
         public void Enter()
         {
             isAiming = true;
-            _aR.aimToggle = true;
+            //_aR.aimToggle = true;
             _isEnterRotation = true;
             var camForwardWithoutY = new Vector3(transform.position.x - _cam.transform.position.x, 0, transform.position.z - _cam.transform.position.z);
             _cameraRotation = Quaternion.LookRotation((camForwardWithoutY).normalized);
@@ -92,7 +92,7 @@ namespace Player
         public void Exit()
         {
             isAiming = false;
-            _aR.aimToggle = true;
+            //_aR.aimToggle = true;
             _cam.aimToogle = true;
             _anim.SetTrigger("toIdle");
         }

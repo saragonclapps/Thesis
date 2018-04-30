@@ -54,7 +54,7 @@ namespace Player
 
         CameraController _camController;
         AnimatorEventsBehaviour _aEB;
-        ArmRotator _aR;
+        //ArmRotator _aR;
         Rigidbody _rB;
         //LeftHandIKControl _lHIK;
 
@@ -72,7 +72,7 @@ namespace Player
             _lC = GetComponentInChildren<LandChecker>();
             _camController = cam.GetComponent<CameraController>();
             _aEB = GetComponentInChildren<AnimatorEventsBehaviour>();
-            _aR = GetComponentInChildren<ArmRotator>();
+            //_aR = GetComponentInChildren<ArmRotator>();
             _rB = GetComponent<Rigidbody>();
             //_lHIK = GetComponentInChildren<LeftHandIKControl>();
 

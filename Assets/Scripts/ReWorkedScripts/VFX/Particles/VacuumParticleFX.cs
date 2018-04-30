@@ -7,11 +7,6 @@ public class VacuumParticleFX : MonoBehaviour {
     public ParticleSystem ps;
     public Transform target;
     public float t;
-
-	void Start ()
-    {
-		
-	}
 	
 	void Update ()
     {

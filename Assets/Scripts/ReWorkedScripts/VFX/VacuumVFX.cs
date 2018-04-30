@@ -7,9 +7,11 @@ public class VacuumVFX : IHandEffect {
     ParticleSystem particle;
     bool isPlaying;
 
+
     public VacuumVFX(ParticleSystem particle)
     {
         this.particle = particle;
+        
     }
 
     public bool IsPlaying()

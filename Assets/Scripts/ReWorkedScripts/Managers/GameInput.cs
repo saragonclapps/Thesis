@@ -91,11 +91,11 @@ public class GameInput : MonoBehaviour
 
     private void Start()
     {
-        _featuresDic = new Dictionary<Features, bool>();
+        /*_featuresDic = new Dictionary<Features, bool>();
 
         _featuresDic.Add(Features.JUMP, false);
         _featuresDic.Add(Features.SKILL_CHANGE, true);
-        _featuresDic.Add(Features.STEALTH, false);
+        _featuresDic.Add(Features.STEALTH, false);*/
 
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
     }
@@ -141,7 +141,7 @@ public class GameInput : MonoBehaviour
         else
         {*/
             sprintButton = Input.GetKey(KeyCode.LeftShift);
-            if(_featuresDic[Features.STEALTH])
+            //if(_featuresDic[Features.STEALTH])
                 crouchButton = Input.GetKey(KeyCode.LeftControl);
             //centrateCamera = Input.GetKeyDown(KeyCode.Mouse2);
             //skillButton = Input.GetKeyDown(KeyCode.E);
@@ -163,11 +163,11 @@ public class GameInput : MonoBehaviour
             horizontalMove = Input.GetAxis("Horizontal");
             verticalMove = Input.GetAxis("Vertical");
 
-            if (_featuresDic[Features.SKILL_CHANGE])
-            {
+            //if (_featuresDic[Features.SKILL_CHANGE])
+            //{
                 skillUp = Input.GetKeyDown(KeyCode.E);
                 skillDown = Input.GetKeyDown(KeyCode.Q);
-            }
+            //}
 
             swapUp = Input.GetAxis("Mouse ScrollWheel") > 0;
             swapDown = Input.GetAxis("Mouse ScrollWheel") < 0;
