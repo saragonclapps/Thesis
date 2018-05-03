@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Skills;
 
 namespace Player
 {
@@ -12,6 +13,8 @@ namespace Player
         Animator _anim;
         Transform _mainCamera;
         Transform transform;
+        CameraController _cam;
+        SkillController _skill;
 
         public IdleState(PlayerController2 pC, Animator anim, Transform mainCamera, Transform t)
         {
@@ -19,20 +22,21 @@ namespace Player
             _anim = anim;
             _mainCamera = mainCamera;
             transform = t;
+            _cam = _mainCamera.GetComponent<CameraController>();
+            _skill = _pC.GetComponentInChildren<SkillController>();
         }
 
         public void Enter()
         {
-                _anim.SetBool("toJump", false);
-                _anim.SetBool("stealth", false);
+            _anim.SetBool("toJump", false);
+            _cam.ChangeSmoothness(0.3f);
         }
 
         public void Execute()
         {
             _anim.SetBool("toIdle", true);
             
-            //_pC.isMoving = Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f;
-            if (GameInput.instance.absorbButton || GameInput.instance.blowUpButton)
+            if ((GameInput.instance.absorbButton && _skill.currentSkill == Skills.Skills.VACCUM )|| GameInput.instance.blowUpButton)
             {
                 var camYRotation = Quaternion.Euler(0, _mainCamera.eulerAngles.y, 0);
                 transform.rotation = camYRotation;
@@ -41,7 +45,7 @@ namespace Player
 
         public void Exit()
         {
-            //_pC.isMoving = true;
+
         }
 
         public Dictionary<Inputs, IState<Inputs>> Transitions

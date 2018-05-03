@@ -11,19 +11,22 @@ namespace Player
         Animator _anim;
         PlayerController2 _pC;
         AnimatorEventsBehaviour _aEB;
+        CameraController _cam;
 
-        public LandState(Animator anim, PlayerController2 pC, AnimatorEventsBehaviour aEB)
+        public LandState(Animator anim, PlayerController2 pC, AnimatorEventsBehaviour aEB, CameraController cam)
         {
             _anim = anim;
             _pC = pC;
             _aEB = aEB;
+            _cam = cam;
         }
 
         public void Enter()
         {
             
             _anim.SetBool("toLand", true);
-            
+            _cam.ChangeDistance(2f);
+
         }
 
         public void Execute()
@@ -41,6 +44,8 @@ namespace Player
             _anim.SetBool("toLand", false);
             
             _aEB.LandEnd();
+
+            _pC.isSkillLocked = false;
         }
 
         public Dictionary<Inputs, IState<Inputs>> Transitions

@@ -11,6 +11,7 @@ namespace Player
 
         #region Global Variables
         float _speed;
+        float cameraSmoothness;
         CameraController _cam;
         Transform transform;
 
@@ -41,11 +42,6 @@ namespace Player
         PlayerController2 _pC;
         AnimatorEventsBehaviour _aEB;
         Animator _anim;
-        //LeftHandIKControl _lHIK;
-
-        //private LeftHandIKControl _lHIK;
-
-        //private CapsuleCollider _cC;
         #endregion
 
         public MoveState(CameraController cam, Transform t, float angleTurnTolerance, float idleTurnSpeed, float runingTurnSpeed,float speed, PlayerController2 pC,
@@ -60,11 +56,12 @@ namespace Player
             _pC = pC;
             _aEB = aEB;
             _anim = anim;
-            //_lHIK = lHIK;
 
             _oldDirection.x = transform.forward.x;
             _oldDirection.z = transform.forward.z;
             _oldDirection = _oldDirection.normalized;
+
+            cameraSmoothness = 0.3f;
         }
 
         public void Enter()
@@ -86,7 +83,6 @@ namespace Player
         {
             if (_turn)
             {
-                //_cam.positionSmoothness = 0.1f;
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_newDirection), _idleTurnSpeed);
                 var angle = Vector3.Angle(transform.forward, _newDirection);
                 if (Mathf.Abs(angle) < 5)
@@ -97,13 +93,12 @@ namespace Player
             }
             else
             {
-                //_cam.positionSmoothness = 0.5f;
                 GetCorrectedForward();
                 //Rotate to the new forward
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_newDirection), _runingTurnSpeed);
 
                 //MoveForward
-                if (_aEB.landEnd /*&& !_pC.CheckForwardCollision(_newDirection, true)*/)
+                if (_aEB.landEnd)
                 {
                     if (GameInput.instance.sprintButton)
                     {
@@ -112,8 +107,9 @@ namespace Player
                         
                         _movementSpeed = 1.2f * _speed;
                         _pC.fallDistance = 0.7f;
-                        //SetColliderDimensions(ColliderSettings.SPRINT);
-                        //_pc.collisionDistance = 1;
+
+                        cameraSmoothness = 0.1f;
+                        _cam.ChangeSmoothness(cameraSmoothness);
                     }
                     else
                     {
@@ -122,8 +118,14 @@ namespace Player
                         
                         _movementSpeed = _speed / 1.2f;
                         _pC.fallDistance = 0.5f;
-                        //SetColliderDimensions(ColliderSettings.NORMAL);
-                        //_pc.collisionDistance = 0.7f;
+
+                        _cam.ChangeDistance(2f);
+
+                        if (cameraSmoothness < 0.3f)
+                        {
+                            cameraSmoothness += 0.1f * Time.deltaTime;
+                        }
+                        _cam.ChangeSmoothness(cameraSmoothness);
                     }
 
                     transform.position += transform.forward * Time.deltaTime * _movementSpeed;
@@ -143,9 +145,7 @@ namespace Player
 
             _anim.SetFloat("speed", 0);
             _anim.SetBool("sprint", false);
-            
-            //_cam.positionSmoothness = 0.1f;
-            //_pC.isMoving = false;
+           
         }
 
         /// <summary>

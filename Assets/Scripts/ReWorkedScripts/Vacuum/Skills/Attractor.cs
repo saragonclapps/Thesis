@@ -113,9 +113,9 @@ public class Attractor : ISkill {
     public void Exit()
     {
         _aspireParticle.StopEffect();
-        _aspireParticle.TerminateEffect();
+        //_aspireParticle.TerminateEffect();
         _blowParticle.StopEffect();
-        _blowParticle.TerminateEffect();
+        //_blowParticle.TerminateEffect();
         //_pc.DeactivatePath();
         _isStuck = false;
         foreach (var obj in _objectsToInteract)

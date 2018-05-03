@@ -42,7 +42,8 @@ public class CameraController : MonoBehaviour {
     private Vector3 _cameraDirection;
     private RaycastHit _hit;
     private float _distance;
-    public float unadjustedDistance = 4.5f;
+    [SerializeField]
+    float unadjustedDistance;
     const int wallLayer = 12;
 
     //Camera Movement Variables
@@ -269,5 +270,17 @@ public class CameraController : MonoBehaviour {
     public void FixedCamUpdate()
     {
 
+    }
+
+    public void ChangeDistance(float distance)
+    {
+        unadjustedDistance = distance;
+    }
+
+    public void ChangeSmoothness(float smooth)
+    {
+        smooth = Mathf.Clamp01(smooth);
+
+        positionSmoothness = smooth;
     }
 }

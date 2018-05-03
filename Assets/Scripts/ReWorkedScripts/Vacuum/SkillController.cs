@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Player;
 
 namespace Skills
 {
@@ -46,6 +47,7 @@ namespace Skills
         #endregion
 
         public Skills currentSkill;
+        PlayerController2 _pC;
 
         #region FireVariables
         IHandEffect fireVFX;
@@ -74,6 +76,7 @@ namespace Skills
             skillAction = new Skills();
 
             wind = GetComponentInChildren<WindZone>();
+            _pC = GetComponent<PlayerController2>();
 
             //Initializing List Dictionary
             _lists = new Dictionary<Skills, IEnumerable>();
@@ -90,7 +93,7 @@ namespace Skills
             flamableObjectsToInteract = new List<IFlamableObjects>();
 
             //Strategy Initializing
-            _attractor = new Attractor(atractForce, shootSpeed, vacuumHoleTransform, aspireVFX, blowVFX, /*_pc,*/ objectsToInteract, wind);
+            _attractor = new Attractor(atractForce, shootSpeed, vacuumHoleTransform, aspireVFX, blowVFX, objectsToInteract, wind);
             _flameThrower= new FlameThrower(fireVFX, flamableObjectsToInteract);
             _skills = new Dictionary<Skills, ISkill>();
             _skills.Add(Skills.VACCUM, _attractor);
@@ -124,7 +127,7 @@ namespace Skills
                 actualAction.Exit();
                 actualAction = _skills[skillAction];
                 actualAction.Enter();
-                //HUDManager.instance.SetSkillByType(hudSkill[skillAction]);
+
             }
             else if (GameInput.instance.skillDown)
             {
@@ -143,11 +146,14 @@ namespace Skills
                 actualAction.Exit();
                 actualAction = _skills[skillAction];
                 actualAction.Enter();
-                //HUDManager.instance.SetSkillByType(hudSkill[skillAction]);
+
             }
-            if (!(GameInput.instance.crouchButton || GameInput.instance.sprintButton))
+
+            
+
+            if (!(GameInput.instance.crouchButton || GameInput.instance.sprintButton) && !_pC.isSkillLocked)
             {
-                actualAction.Execute(/*_lists[skillAction]*/);
+                actualAction.Execute();
             }
             else
             {

@@ -96,25 +96,18 @@ namespace Player
             {
                 _pC2.land = _lc.land;
             }
-            if (!_pC2.CheckForwardCollision(GetCorrectedForward(), true))
+
+            if (_isJumpingForward)
             {
-                if (_isJumpingForward)
-                {
-                    transform.position += transform.forward * _jumpSpeed * Time.deltaTime;
-                }
-
-                /*if (Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f)
-                {
-                }*/
-                var newDirection = GetCorrectedForward();
-
-                //AirMove
-                transform.position += newDirection * Time.deltaTime * _jumpSpeed / 2;
-
+                transform.position += transform.forward * _jumpSpeed * Time.deltaTime;
             }
 
+            var newDirection = GetCorrectedForward();
+
+            //AirMove
+            transform.position += newDirection * Time.deltaTime * _jumpSpeed / 2;
+
             _anim.SetFloat("velocityY", _rb.velocity.y);
-            
 
         }
 

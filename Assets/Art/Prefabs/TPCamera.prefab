@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 124387802709890232}
   - component: {fileID: 81149907740884354}
   - component: {fileID: 114040957941414250}
-  - component: {fileID: 114946778203396268}
-  - component: {fileID: 114977988260733986}
+  - component: {fileID: 114218289872517274}
+  - component: {fileID: 114103448574373788}
   m_Layer: 0
   m_Name: TPCamera
   m_TagString: MainCamera
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 0}
---- !u!114 &114946778203396268
+--- !u!114 &114103448574373788
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -108,19 +108,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1731270734992774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ada86472db8ce94468acd3c71063d83b, type: 3}
+  m_Script: {fileID: 11500000, guid: 476f7b39d2bc4754f8cf10e2913cce3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isInTransition: 0
   player: {fileID: 0}
+  MAX_Y_ANGLE: 50
+  MIN_Y_ANGLE: -20
   lookAt: {fileID: 0}
   zoomTransform: {fileID: 0}
-  speed: 1.8
+  positionSmoothness: 0.3
+  rotationSmoothness: 0.3
+  speed: 1
   collisionLayer:
     serializedVersion: 2
     m_Bits: 4294967039
-  unadjustedDistance: 3
---- !u!114 &114977988260733986
+  unadjustedDistance: 2
+--- !u!114 &114218289872517274
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -128,7 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1731270734992774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c568cf9fd8d1740b7e2143c4e37ed5, type: 3}
+  m_Script: {fileID: 11500000, guid: fbe5a09b4645e504080af83ff716f0b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0

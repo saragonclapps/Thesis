@@ -28,7 +28,7 @@ namespace Player
         [HideInInspector]
         public bool forwardJump;
 
-        CameraFMS _cam;
+        CameraController _cam;
         PlayerController2 _pC2;
         AnimatorEventsBehaviour _aES;
         //private CharacterMove _cm;
@@ -36,7 +36,7 @@ namespace Player
         Transform transform;
         Animator _anim;
 
-        public JumpState(Rigidbody rb, CameraFMS cam, PlayerController2 pC2, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpForce, float jumpSpeed)
+        public JumpState(Rigidbody rb, CameraController cam, PlayerController2 pC2, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpForce, float jumpSpeed)
         {
             _rb = rb;
             _cam = cam;
@@ -71,28 +71,31 @@ namespace Player
             _anim.SetBool("toJump", true);
             
             _aES.landEnd = false;
+
+            _cam.ChangeDistance(3f);
+            _cam.ChangeSmoothness(0.1f);
+            _pC2.isSkillLocked = true;
         }
 
         public void Execute()
         {
             if (_rb.velocity.y <= 0) _pC2.land = _lc.land;
 
-            if (!_pC2.CheckForwardCollision(GetCorrectedForward(), true))
+
+            if (forwardJump)
             {
-                if (forwardJump)
-                {
-                    transform.position += transform.forward * _jumpSpeed * Time.deltaTime;
-                }
-
-                if (Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f)
-                {
-                    var newDirection = GetCorrectedForward();
-
-                    //AirMove
-                    transform.position += newDirection * Time.deltaTime * _jumpSpeed / 2;
-                }
-
+                transform.position += transform.forward * _jumpSpeed * Time.deltaTime;
             }
+
+            if (Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f)
+            {
+                var newDirection = GetCorrectedForward();
+
+                //AirMove
+                transform.position += newDirection * Time.deltaTime * _jumpSpeed / 2;
+            }
+
+            
             if (!GameInput.instance.jumpButton)
             {
                 //Speed up fall
