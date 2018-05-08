@@ -7,8 +7,8 @@ namespace Skills
     public class FlameThrower : ISkill
     {
 
-        private IHandEffect _flameVFX;
-        private List<IFlamableObjects> _flamableObjectsToInteract;
+        IHandEffect _flameVFX;
+        List<IFlamableObjects> _flamableObjectsToInteract;
 
         public FlameThrower(IHandEffect flameVFX, List<IFlamableObjects> flamableObjectsToInteract)
         {

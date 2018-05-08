@@ -54,7 +54,7 @@ namespace Skills
 
         private void OnTriggerStay(Collider c)
         {
-            var obj = GetComponent<IVacuumObject>();
+            var obj = c.GetComponent<IVacuumObject>();
             if (obj != null)
                 if (!vacuum.objectsToInteract.Contains(obj) && (GameInput.instance.absorbButton || GameInput.instance.blowUpButton))
                     vacuum.objectsToInteract.Add(obj);
@@ -62,7 +62,7 @@ namespace Skills
             IFlamableObjects flameObj;
             flameObj = c.GetComponent<IFlamableObjects>();
             if (flameObj != null)
-                if (!vacuum.flamableObjectsToInteract.Contains(flameObj) && (GameInput.instance.absorbButton || GameInput.instance.blowUpButton))
+                if (!vacuum.flamableObjectsToInteract.Contains(flameObj) && (GameInput.instance.blowUpButton))
                     vacuum.flamableObjectsToInteract.Add(flameObj);
         }
         #endregion

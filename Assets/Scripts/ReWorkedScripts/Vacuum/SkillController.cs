@@ -18,6 +18,8 @@ namespace Skills
         // BulletShoot _bulletShoot;
         Attractor _attractor;
         FlameThrower _flameThrower;
+        WaterLauncher _waterLauncher;
+        Electricity _electricity;
         #endregion
 
         #region Atractor Variables
@@ -38,34 +40,41 @@ namespace Skills
 
         #endregion
 
-        #region  Visual Effect
-        [Header("VFX References")]
-        public ParticleSystem aspireParticle;
-        public ParticleSystem blowParticle;
-        public ParticleSystem fireParticle;
-
-        #endregion
-
-        public Skills currentSkill;
-        PlayerController2 _pC;
-
         #region FireVariables
         IHandEffect fireVFX;
-        public List<IFlamableObjects> flamableObjectsToInteract;  
+        public List<IFlamableObjects> flamableObjectsToInteract;
         #endregion
 
         #region IceVariables
+        IHandEffect iceVFX;
+        public List<IFrozenObject> frozenObjectsToInteract;
         #endregion
 
         #region WaterVariables
+        IHandEffect waterVFX;
+        public List<IWaterObject> wetObjectsToInteract;
         #endregion
 
         #region ElectricityVariables
+        IHandEffect electricityVFX;
+        public List<IElectricObject> electricObjectsToInteract;
         #endregion
 
         #region HudVariables
         //Dictionary<Skills, typeSkill> hudSkill;
         #endregion
+
+        #region  Visual Effect
+        [Header("VFX References")]
+        public ParticleSystem aspireParticle;
+        public ParticleSystem blowParticle;
+        public ParticleSystem fireParticle;
+        public ParticleSystem waterParticle;
+        public GameObject electricityPrefab;
+        #endregion
+
+        public Skills currentSkill;
+        PlayerController2 _pC;
 
         void Awake()
         {
@@ -82,23 +91,33 @@ namespace Skills
             _lists = new Dictionary<Skills, IEnumerable>();
             _lists.Add(Skills.VACCUM, objectsToInteract);
             _lists.Add(Skills.FIRE, flamableObjectsToInteract);
+            _lists.Add(Skills.WATER, wetObjectsToInteract);
+
+            //Lists Initializing
+            objectsToInteract = new List<IVacuumObject>();
+            flamableObjectsToInteract = new List<IFlamableObjects>();
+            wetObjectsToInteract = new List<IWaterObject>();
+            electricObjectsToInteract = new List<IElectricObject>();
 
             //Hand VFX Initializing
             aspireVFX = new VacuumVFX(aspireParticle);
             blowVFX = new VacuumVFX(blowParticle);
             fireVFX = new VacuumVFX(fireParticle);
-
-            //Lists Initializing
-            objectsToInteract = new List<IVacuumObject>();
-            flamableObjectsToInteract = new List<IFlamableObjects>();
+            waterVFX = new VacuumVFX(waterParticle);
+            electricityVFX = new ElectricityVFX(electricityPrefab, electricObjectsToInteract, vacuumHoleTransform);
 
             //Strategy Initializing
             _attractor = new Attractor(atractForce, shootSpeed, vacuumHoleTransform, aspireVFX, blowVFX, objectsToInteract, wind);
             _flameThrower= new FlameThrower(fireVFX, flamableObjectsToInteract);
+            _waterLauncher = new WaterLauncher(waterVFX, wetObjectsToInteract);
+            _electricity = new Electricity(electricityVFX, electricObjectsToInteract);
+
+
             _skills = new Dictionary<Skills, ISkill>();
             _skills.Add(Skills.VACCUM, _attractor);
             _skills.Add(Skills.FIRE, _flameThrower);
-
+            _skills.Add(Skills.WATER, _waterLauncher);
+            _skills.Add(Skills.ELECTRICITY, _electricity);
 
             actualAction = _skills[skillAction];
             actualAction.Enter();
@@ -123,10 +142,7 @@ namespace Skills
                 }
                 else skillAction = Skills.VACCUM;
 
-                currentSkill = skillAction;
-                actualAction.Exit();
-                actualAction = _skills[skillAction];
-                actualAction.Enter();
+                SkillSet();
 
             }
             else if (GameInput.instance.skillDown)
@@ -142,10 +158,8 @@ namespace Skills
                     skillAction--;
                     RecuCheckAmount(skillAction, false);
                 }
-                currentSkill = skillAction;
-                actualAction.Exit();
-                actualAction = _skills[skillAction];
-                actualAction.Enter();
+
+                SkillSet();
 
             }
 
@@ -159,6 +173,14 @@ namespace Skills
             {
                 actualAction.Exit();
             }
+        }
+
+        private void SkillSet()
+        {
+            currentSkill = skillAction;
+            actualAction.Exit();
+            actualAction = _skills[skillAction];
+            actualAction.Enter();
         }
 
         void RecuCheckAmount(Skills skill, bool sign)
@@ -185,6 +207,11 @@ namespace Skills
             }
         }
 
+        public void NoMoreSkillAmount()
+        {
+            skillAction = Skills.VACCUM;
+            SkillSet();
+        }
     }
 
     public enum Skills

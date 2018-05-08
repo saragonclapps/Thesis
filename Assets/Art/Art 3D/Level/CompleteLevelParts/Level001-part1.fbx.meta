@@ -1,0 +1,1938 @@
+fileFormatVersion: 2
+guid: 38677f4d2f977634fb22bee2b89b7865
+timeCreated: 1525665680
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: BigJoint002
+    100002: BigJoint003
+    100004: BigJoint004
+    100006: BigJoint005
+    100008: Box001
+    100010: Box002
+    100012: Cap
+    100014: Ceiling001
+    100016: Ceiling002
+    100018: Ceiling002 1
+    100020: Ceiling003
+    100022: Ceiling004
+    100024: Ceiling005
+    100026: Ceiling006
+    100028: Ceiling007
+    100030: Ceiling008
+    100032: Ceiling009
+    100034: Ceiling010
+    100036: Ceiling011
+    100038: Ceiling013
+    100040: Ceiling014
+    100042: Ceiling015
+    100044: Ceiling016
+    100046: Ceiling017
+    100048: Ceiling018
+    100050: Ceiling019
+    100052: Ceiling020
+    100054: Ceiling021
+    100056: Ceiling022
+    100058: Ceiling023
+    100060: Ceiling024
+    100062: CoolerFan001
+    100064: CoolerFan002
+    100066: CPU
+    100068: CPUCap
+    100070: CPUPower
+    100072: Cube
+    100074: Cube__10_
+    100076: Cube__11_
+    100078: Cube__12_
+    100080: Cube__13_
+    100082: Cube__14_
+    100084: Cube__15_
+    100086: Cube__16_
+    100088: Cube__17_
+    100090: Cube__18_
+    100092: Cube__19_
+    100094: Cube__1_
+    100096: Cube__20_
+    100098: Cube__21_
+    100100: Cube__22_
+    100102: Cube__23_
+    100104: Cube__24_
+    100106: Cube__25_
+    100108: Cube__2_
+    100110: Cube__3_
+    100112: Cube__4_
+    100114: Cube__5_
+    100116: Cube__6_
+    100118: Cube__7_
+    100120: Cube__8_
+    100122: Cube__9_
+    100124: Cylinder002
+    100126: Cylinder003
+    100128: DriveLector
+    100130: Elevator
+    100132: ElevatorEnd
+    100134: ElevatorEnd001
+    100136: ElevatorFloor001
+    100138: ElevatorFloor002
+    100140: ElevatorFloor003
+    100142: ElevatorFloor004
+    100144: ElevatorGlass000
+    100146: ElevatorGlass001
+    100148: ElevatorPanel
+    100150: ElevatorPanel001
+    100152: ElevatorStart
+    100154: ElevatorStart001
+    100156: ElevetorGlass001
+    100158: ElevetorGlass002
+    100160: ElevetorGlass003
+    100162: ElevetorGlass004
+    100164: Floor001
+    100166: Floor002
+    100168: Floor003
+    100170: Floor006
+    100172: Floor007
+    100174: Floor008
+    100176: Floor009
+    100178: Floor010
+    100180: Floor011
+    100182: Floor012
+    100184: Floor013
+    100186: Floor014
+    100188: Floor015
+    100190: Floor016
+    100192: Floor017
+    100194: Floor018
+    100196: Floor019
+    100198: Floor020
+    100200: Floor021
+    100202: Floor022
+    100204: Floor023
+    100206: Floor024
+    100208: Floor025
+    100210: Floor026
+    100212: Floor027
+    100214: Floor028
+    100216: Floor029
+    100218: Floor030
+    100220: Floor031
+    100222: Floor032
+    100224: Floor033
+    100226: Floor034
+    100228: Floor035
+    100230: Floor036
+    100232: Floor2x1001
+    100234: Floor2x2001
+    100236: Floor2x2002
+    100238: Floor2x2003
+    100240: Floor2x2004
+    100242: Floor2x2005
+    100244: Floor2x2006
+    100246: Floor2x2007
+    100248: Floor2x2008
+    100250: Floor2x2009
+    100252: Floor2x2010
+    100254: Floor2x2011
+    100256: Floor2x2012
+    100258: Floor2x2013
+    100260: Floor2x2014
+    100262: Floor2x2015
+    100264: Floor2x2016
+    100266: Floor2x2017
+    100268: Floor2x2018
+    100270: Floor2x2019
+    100272: Floor2x2020
+    100274: Floor2x2021
+    100276: Floor2x2022
+    100278: Floor2x2023
+    100280: Floor2x2024
+    100282: Floor2x2025
+    100284: Floor2x2026
+    100286: Floor2x2027
+    100288: Floor2x2028
+    100290: Floor2x2029
+    100292: Floor2x2030
+    100294: Floor2x2031
+    100296: Floor2x2032
+    100298: Floor2x2033
+    100300: Floor2x2034
+    100302: Floor2x2035
+    100304: Floor2x2036
+    100306: Floor2x2037
+    100308: Floor2x2038
+    100310: Floor2x2046
+    100312: Floor2x2047
+    100314: Floor2x2048
+    100316: Floor2x2049
+    100318: Floor2x2050
+    100320: Floor2x2051
+    100322: Floor2x2052
+    100324: Floor2x2053
+    100326: Floor2x2054
+    100328: Floor2x2055
+    100330: Floor2x2056
+    100332: Floor2x2057
+    100334: Floor8x2to1001
+    100336: FloorCorner001
+    100338: FloorCorner002
+    100340: FloorCorner003
+    100342: Joint
+    100344: Joint002
+    100346: Joint003
+    100348: Joint004
+    100350: Joint005
+    100352: Joint006
+    100354: Joint007
+    100356: Joint008
+    100358: Joint009
+    100360: Joint010
+    100362: Joint011
+    100364: Joint012
+    100366: Joint013
+    100368: Lamp
+    100370: LaserDoor001
+    100372: LaserPoint001
+    100374: //RootNode
+    100376: Object001
+    100378: Objective001
+    100380: Objective002
+    100382: Panel
+    100384: Plane001
+    100386: Platform001
+    100388: Platform002
+    100390: Platform003
+    100392: Prototype
+    100394: Rail001
+    100396: Rail002
+    100398: Rail003
+    100400: Rail004
+    100402: Rail005
+    100404: Screen
+    100406: Stairs001
+    100408: Stairs002
+    100410: SwitchFan
+    100412: SwitchFan001
+    100414: SwitchFanStand
+    100416: SwitchFanStand001
+    100418: Tube
+    100420: Tube001
+    100422: Tube002
+    100424: Tube003
+    100426: Tube004
+    100428: Tube006
+    100430: Tube007
+    100432: Tube008
+    100434: Tube009
+    100436: Tube010
+    100438: Tube011
+    100440: Tube012
+    100442: Tube013
+    100444: Tube014
+    100446: Tube015
+    100448: Tube016
+    100450: Tube017
+    100452: Tube018
+    100454: Tube019
+    100456: Tube020
+    100458: Tube021
+    100460: Tube022
+    100462: Tube023
+    100464: Tube024
+    100466: Tube025
+    100468: Tube026
+    100470: Tube027
+    100472: Tube028
+    100474: Tube029
+    100476: Tube030
+    100478: Tube031
+    100480: TubeCorner001
+    100482: TubeCorner002
+    100484: TubeCorner003
+    100486: TubeCorner004
+    100488: TubeCorner005
+    100490: TubeCorner006
+    100492: TubeCorner007
+    100494: TubeCorner008
+    100496: TubeCorner009
+    100498: TubeCorner010
+    100500: TubeCorner011
+    100502: Valve
+    100504: Valve001
+    100506: Valve002
+    100508: Wall001
+    100510: Wall003
+    100512: Wall004
+    100514: Wall005
+    100516: Wall006
+    100518: Wall008
+    100520: Wall009
+    100522: Wall010
+    100524: Wall011
+    100526: Wall012
+    100528: Wall013
+    100530: Wall014
+    100532: Wall015
+    100534: Wall016
+    100536: Wall017
+    100538: Wall018
+    100540: Wall019
+    100542: Wall02 001
+    100544: Wall02 002
+    100546: Wall02 003
+    100548: Wall02 004
+    100550: Wall02 005
+    100552: Wall02 006
+    100554: Wall02 007
+    100556: Wall02 008
+    100558: Wall02 009
+    100560: Wall02 010
+    100562: Wall02 011
+    100564: Wall02 012
+    100566: Wall02 013
+    100568: Wall02 014
+    100570: Wall02 015
+    100572: Wall02 016
+    100574: Wall02 017
+    100576: Wall02 018
+    100578: Wall02 019
+    100580: Wall02 020
+    100582: Wall02 021
+    100584: Wall02 022
+    100586: Wall02 024
+    100588: Wall02 025
+    100590: Wall02 026
+    100592: Wall02 027
+    100594: Wall02 028
+    100596: Wall02 029
+    100598: Wall02 030
+    100600: Wall02 031
+    100602: Wall02 032
+    100604: Wall02 033
+    100606: Wall02 034
+    100608: Wall02 035
+    100610: Wall02 036
+    100612: Wall02 037
+    100614: Wall02 038
+    100616: Wall02 039
+    100618: Wall02 040
+    100620: Wall02 041
+    100622: Wall02 042
+    100624: Wall02 043
+    100626: Wall02 044
+    100628: Wall02 045
+    100630: Wall02 046
+    100632: Wall020
+    100634: Wall021
+    100636: Wall022
+    100638: Wall023
+    100640: Wall024
+    100642: Wall025
+    100644: Wall026
+    100646: Wall027
+    100648: Wall028
+    100650: Wall029
+    100652: Wall030
+    100654: Wall031
+    100656: Wall032
+    100658: Wall033
+    100660: Wall034
+    100662: Wall035
+    100664: Wall036
+    100666: Wall037
+    100668: Wall038
+    100670: Wall039
+    100672: Wall040
+    100674: Wall041
+    100676: Wall042
+    100678: Wall043
+    100680: Wall044
+    100682: Wall045
+    100684: Wall046
+    100686: Wall047
+    100688: Wall048
+    100690: Wall049
+    100692: Wall050
+    100694: Wall051
+    100696: Wall052
+    100698: Wall053
+    100700: Wall054
+    100702: Wall055
+    100704: Wall056
+    100706: Wall057
+    100708: Wall058
+    100710: Wall059
+    100712: Wall060
+    100714: Wall061
+    100716: Wall062
+    100718: Wall063
+    100720: WallCorner001
+    100722: WallCorner002
+    100724: WallCorner003
+    100726: WallCorner004
+    100728: WallCorner005
+    100730: WallCorner006
+    100732: WallCorner007
+    100734: WallCorner008
+    100736: WallCorner009
+    100738: WindSwitch
+    100740: WindSwitch001
+    400000: BigJoint002
+    400002: BigJoint003
+    400004: BigJoint004
+    400006: BigJoint005
+    400008: Box001
+    400010: Box002
+    400012: Cap
+    400014: Ceiling001
+    400016: Ceiling002
+    400018: Ceiling002 1
+    400020: Ceiling003
+    400022: Ceiling004
+    400024: Ceiling005
+    400026: Ceiling006
+    400028: Ceiling007
+    400030: Ceiling008
+    400032: Ceiling009
+    400034: Ceiling010
+    400036: Ceiling011
+    400038: Ceiling013
+    400040: Ceiling014
+    400042: Ceiling015
+    400044: Ceiling016
+    400046: Ceiling017
+    400048: Ceiling018
+    400050: Ceiling019
+    400052: Ceiling020
+    400054: Ceiling021
+    400056: Ceiling022
+    400058: Ceiling023
+    400060: Ceiling024
+    400062: CoolerFan001
+    400064: CoolerFan002
+    400066: CPU
+    400068: CPUCap
+    400070: CPUPower
+    400072: Cube
+    400074: Cube__10_
+    400076: Cube__11_
+    400078: Cube__12_
+    400080: Cube__13_
+    400082: Cube__14_
+    400084: Cube__15_
+    400086: Cube__16_
+    400088: Cube__17_
+    400090: Cube__18_
+    400092: Cube__19_
+    400094: Cube__1_
+    400096: Cube__20_
+    400098: Cube__21_
+    400100: Cube__22_
+    400102: Cube__23_
+    400104: Cube__24_
+    400106: Cube__25_
+    400108: Cube__2_
+    400110: Cube__3_
+    400112: Cube__4_
+    400114: Cube__5_
+    400116: Cube__6_
+    400118: Cube__7_
+    400120: Cube__8_
+    400122: Cube__9_
+    400124: Cylinder002
+    400126: Cylinder003
+    400128: DriveLector
+    400130: Elevator
+    400132: ElevatorEnd
+    400134: ElevatorEnd001
+    400136: ElevatorFloor001
+    400138: ElevatorFloor002
+    400140: ElevatorFloor003
+    400142: ElevatorFloor004
+    400144: ElevatorGlass000
+    400146: ElevatorGlass001
+    400148: ElevatorPanel
+    400150: ElevatorPanel001
+    400152: ElevatorStart
+    400154: ElevatorStart001
+    400156: ElevetorGlass001
+    400158: ElevetorGlass002
+    400160: ElevetorGlass003
+    400162: ElevetorGlass004
+    400164: Floor001
+    400166: Floor002
+    400168: Floor003
+    400170: Floor006
+    400172: Floor007
+    400174: Floor008
+    400176: Floor009
+    400178: Floor010
+    400180: Floor011
+    400182: Floor012
+    400184: Floor013
+    400186: Floor014
+    400188: Floor015
+    400190: Floor016
+    400192: Floor017
+    400194: Floor018
+    400196: Floor019
+    400198: Floor020
+    400200: Floor021
+    400202: Floor022
+    400204: Floor023
+    400206: Floor024
+    400208: Floor025
+    400210: Floor026
+    400212: Floor027
+    400214: Floor028
+    400216: Floor029
+    400218: Floor030
+    400220: Floor031
+    400222: Floor032
+    400224: Floor033
+    400226: Floor034
+    400228: Floor035
+    400230: Floor036
+    400232: Floor2x1001
+    400234: Floor2x2001
+    400236: Floor2x2002
+    400238: Floor2x2003
+    400240: Floor2x2004
+    400242: Floor2x2005
+    400244: Floor2x2006
+    400246: Floor2x2007
+    400248: Floor2x2008
+    400250: Floor2x2009
+    400252: Floor2x2010
+    400254: Floor2x2011
+    400256: Floor2x2012
+    400258: Floor2x2013
+    400260: Floor2x2014
+    400262: Floor2x2015
+    400264: Floor2x2016
+    400266: Floor2x2017
+    400268: Floor2x2018
+    400270: Floor2x2019
+    400272: Floor2x2020
+    400274: Floor2x2021
+    400276: Floor2x2022
+    400278: Floor2x2023
+    400280: Floor2x2024
+    400282: Floor2x2025
+    400284: Floor2x2026
+    400286: Floor2x2027
+    400288: Floor2x2028
+    400290: Floor2x2029
+    400292: Floor2x2030
+    400294: Floor2x2031
+    400296: Floor2x2032
+    400298: Floor2x2033
+    400300: Floor2x2034
+    400302: Floor2x2035
+    400304: Floor2x2036
+    400306: Floor2x2037
+    400308: Floor2x2038
+    400310: Floor2x2046
+    400312: Floor2x2047
+    400314: Floor2x2048
+    400316: Floor2x2049
+    400318: Floor2x2050
+    400320: Floor2x2051
+    400322: Floor2x2052
+    400324: Floor2x2053
+    400326: Floor2x2054
+    400328: Floor2x2055
+    400330: Floor2x2056
+    400332: Floor2x2057
+    400334: Floor8x2to1001
+    400336: FloorCorner001
+    400338: FloorCorner002
+    400340: FloorCorner003
+    400342: Joint
+    400344: Joint002
+    400346: Joint003
+    400348: Joint004
+    400350: Joint005
+    400352: Joint006
+    400354: Joint007
+    400356: Joint008
+    400358: Joint009
+    400360: Joint010
+    400362: Joint011
+    400364: Joint012
+    400366: Joint013
+    400368: Lamp
+    400370: LaserDoor001
+    400372: LaserPoint001
+    400374: //RootNode
+    400376: Object001
+    400378: Objective001
+    400380: Objective002
+    400382: Panel
+    400384: Plane001
+    400386: Platform001
+    400388: Platform002
+    400390: Platform003
+    400392: Prototype
+    400394: Rail001
+    400396: Rail002
+    400398: Rail003
+    400400: Rail004
+    400402: Rail005
+    400404: Screen
+    400406: Stairs001
+    400408: Stairs002
+    400410: SwitchFan
+    400412: SwitchFan001
+    400414: SwitchFanStand
+    400416: SwitchFanStand001
+    400418: Tube
+    400420: Tube001
+    400422: Tube002
+    400424: Tube003
+    400426: Tube004
+    400428: Tube006
+    400430: Tube007
+    400432: Tube008
+    400434: Tube009
+    400436: Tube010
+    400438: Tube011
+    400440: Tube012
+    400442: Tube013
+    400444: Tube014
+    400446: Tube015
+    400448: Tube016
+    400450: Tube017
+    400452: Tube018
+    400454: Tube019
+    400456: Tube020
+    400458: Tube021
+    400460: Tube022
+    400462: Tube023
+    400464: Tube024
+    400466: Tube025
+    400468: Tube026
+    400470: Tube027
+    400472: Tube028
+    400474: Tube029
+    400476: Tube030
+    400478: Tube031
+    400480: TubeCorner001
+    400482: TubeCorner002
+    400484: TubeCorner003
+    400486: TubeCorner004
+    400488: TubeCorner005
+    400490: TubeCorner006
+    400492: TubeCorner007
+    400494: TubeCorner008
+    400496: TubeCorner009
+    400498: TubeCorner010
+    400500: TubeCorner011
+    400502: Valve
+    400504: Valve001
+    400506: Valve002
+    400508: Wall001
+    400510: Wall003
+    400512: Wall004
+    400514: Wall005
+    400516: Wall006
+    400518: Wall008
+    400520: Wall009
+    400522: Wall010
+    400524: Wall011
+    400526: Wall012
+    400528: Wall013
+    400530: Wall014
+    400532: Wall015
+    400534: Wall016
+    400536: Wall017
+    400538: Wall018
+    400540: Wall019
+    400542: Wall02 001
+    400544: Wall02 002
+    400546: Wall02 003
+    400548: Wall02 004
+    400550: Wall02 005
+    400552: Wall02 006
+    400554: Wall02 007
+    400556: Wall02 008
+    400558: Wall02 009
+    400560: Wall02 010
+    400562: Wall02 011
+    400564: Wall02 012
+    400566: Wall02 013
+    400568: Wall02 014
+    400570: Wall02 015
+    400572: Wall02 016
+    400574: Wall02 017
+    400576: Wall02 018
+    400578: Wall02 019
+    400580: Wall02 020
+    400582: Wall02 021
+    400584: Wall02 022
+    400586: Wall02 024
+    400588: Wall02 025
+    400590: Wall02 026
+    400592: Wall02 027
+    400594: Wall02 028
+    400596: Wall02 029
+    400598: Wall02 030
+    400600: Wall02 031
+    400602: Wall02 032
+    400604: Wall02 033
+    400606: Wall02 034
+    400608: Wall02 035
+    400610: Wall02 036
+    400612: Wall02 037
+    400614: Wall02 038
+    400616: Wall02 039
+    400618: Wall02 040
+    400620: Wall02 041
+    400622: Wall02 042
+    400624: Wall02 043
+    400626: Wall02 044
+    400628: Wall02 045
+    400630: Wall02 046
+    400632: Wall020
+    400634: Wall021
+    400636: Wall022
+    400638: Wall023
+    400640: Wall024
+    400642: Wall025
+    400644: Wall026
+    400646: Wall027
+    400648: Wall028
+    400650: Wall029
+    400652: Wall030
+    400654: Wall031
+    400656: Wall032
+    400658: Wall033
+    400660: Wall034
+    400662: Wall035
+    400664: Wall036
+    400666: Wall037
+    400668: Wall038
+    400670: Wall039
+    400672: Wall040
+    400674: Wall041
+    400676: Wall042
+    400678: Wall043
+    400680: Wall044
+    400682: Wall045
+    400684: Wall046
+    400686: Wall047
+    400688: Wall048
+    400690: Wall049
+    400692: Wall050
+    400694: Wall051
+    400696: Wall052
+    400698: Wall053
+    400700: Wall054
+    400702: Wall055
+    400704: Wall056
+    400706: Wall057
+    400708: Wall058
+    400710: Wall059
+    400712: Wall060
+    400714: Wall061
+    400716: Wall062
+    400718: Wall063
+    400720: WallCorner001
+    400722: WallCorner002
+    400724: WallCorner003
+    400726: WallCorner004
+    400728: WallCorner005
+    400730: WallCorner006
+    400732: WallCorner007
+    400734: WallCorner008
+    400736: WallCorner009
+    400738: WindSwitch
+    400740: WindSwitch001
+    2100000: 01 - Default
+    2100002: No Name
+    2100004: 02 - Default
+    2100006: _Level01Default_Prototype
+    2100008: 03 - Default
+    2300000: BigJoint002
+    2300002: BigJoint003
+    2300004: BigJoint004
+    2300006: BigJoint005
+    2300008: Box001
+    2300010: Box002
+    2300012: Cap
+    2300014: Ceiling001
+    2300016: Ceiling002
+    2300018: Ceiling002 1
+    2300020: Ceiling003
+    2300022: Ceiling004
+    2300024: Ceiling005
+    2300026: Ceiling006
+    2300028: Ceiling007
+    2300030: Ceiling008
+    2300032: Ceiling009
+    2300034: Ceiling010
+    2300036: Ceiling011
+    2300038: Ceiling013
+    2300040: Ceiling014
+    2300042: Ceiling015
+    2300044: Ceiling016
+    2300046: Ceiling017
+    2300048: Ceiling018
+    2300050: Ceiling019
+    2300052: Ceiling020
+    2300054: Ceiling021
+    2300056: Ceiling022
+    2300058: Ceiling023
+    2300060: Ceiling024
+    2300062: CoolerFan001
+    2300064: CoolerFan002
+    2300066: CPU
+    2300068: CPUCap
+    2300070: CPUPower
+    2300072: Cube
+    2300074: Cube__10_
+    2300076: Cube__11_
+    2300078: Cube__12_
+    2300080: Cube__13_
+    2300082: Cube__14_
+    2300084: Cube__15_
+    2300086: Cube__16_
+    2300088: Cube__17_
+    2300090: Cube__18_
+    2300092: Cube__19_
+    2300094: Cube__1_
+    2300096: Cube__20_
+    2300098: Cube__21_
+    2300100: Cube__22_
+    2300102: Cube__23_
+    2300104: Cube__24_
+    2300106: Cube__25_
+    2300108: Cube__2_
+    2300110: Cube__3_
+    2300112: Cube__4_
+    2300114: Cube__5_
+    2300116: Cube__6_
+    2300118: Cube__7_
+    2300120: Cube__8_
+    2300122: Cube__9_
+    2300124: Cylinder002
+    2300126: Cylinder003
+    2300128: DriveLector
+    2300130: ElevatorEnd
+    2300132: ElevatorEnd001
+    2300134: ElevatorFloor001
+    2300136: ElevatorFloor002
+    2300138: ElevatorFloor003
+    2300140: ElevatorFloor004
+    2300142: ElevatorGlass000
+    2300144: ElevatorGlass001
+    2300146: ElevatorPanel
+    2300148: ElevatorPanel001
+    2300150: ElevatorStart
+    2300152: ElevatorStart001
+    2300154: ElevetorGlass001
+    2300156: ElevetorGlass002
+    2300158: ElevetorGlass003
+    2300160: ElevetorGlass004
+    2300162: Floor001
+    2300164: Floor002
+    2300166: Floor003
+    2300168: Floor006
+    2300170: Floor007
+    2300172: Floor008
+    2300174: Floor009
+    2300176: Floor010
+    2300178: Floor011
+    2300180: Floor012
+    2300182: Floor013
+    2300184: Floor014
+    2300186: Floor015
+    2300188: Floor016
+    2300190: Floor017
+    2300192: Floor018
+    2300194: Floor019
+    2300196: Floor020
+    2300198: Floor021
+    2300200: Floor022
+    2300202: Floor023
+    2300204: Floor024
+    2300206: Floor025
+    2300208: Floor026
+    2300210: Floor027
+    2300212: Floor028
+    2300214: Floor029
+    2300216: Floor030
+    2300218: Floor031
+    2300220: Floor032
+    2300222: Floor033
+    2300224: Floor034
+    2300226: Floor035
+    2300228: Floor036
+    2300230: Floor2x1001
+    2300232: Floor2x2001
+    2300234: Floor2x2002
+    2300236: Floor2x2003
+    2300238: Floor2x2004
+    2300240: Floor2x2005
+    2300242: Floor2x2006
+    2300244: Floor2x2007
+    2300246: Floor2x2008
+    2300248: Floor2x2009
+    2300250: Floor2x2010
+    2300252: Floor2x2011
+    2300254: Floor2x2012
+    2300256: Floor2x2013
+    2300258: Floor2x2014
+    2300260: Floor2x2015
+    2300262: Floor2x2016
+    2300264: Floor2x2017
+    2300266: Floor2x2018
+    2300268: Floor2x2019
+    2300270: Floor2x2020
+    2300272: Floor2x2021
+    2300274: Floor2x2022
+    2300276: Floor2x2023
+    2300278: Floor2x2024
+    2300280: Floor2x2025
+    2300282: Floor2x2026
+    2300284: Floor2x2027
+    2300286: Floor2x2028
+    2300288: Floor2x2029
+    2300290: Floor2x2030
+    2300292: Floor2x2031
+    2300294: Floor2x2032
+    2300296: Floor2x2033
+    2300298: Floor2x2034
+    2300300: Floor2x2035
+    2300302: Floor2x2036
+    2300304: Floor2x2037
+    2300306: Floor2x2038
+    2300308: Floor2x2046
+    2300310: Floor2x2047
+    2300312: Floor2x2048
+    2300314: Floor2x2049
+    2300316: Floor2x2050
+    2300318: Floor2x2051
+    2300320: Floor2x2052
+    2300322: Floor2x2053
+    2300324: Floor2x2054
+    2300326: Floor2x2055
+    2300328: Floor2x2056
+    2300330: Floor2x2057
+    2300332: Floor8x2to1001
+    2300334: FloorCorner001
+    2300336: FloorCorner002
+    2300338: FloorCorner003
+    2300340: Joint
+    2300342: Joint002
+    2300344: Joint003
+    2300346: Joint004
+    2300348: Joint005
+    2300350: Joint006
+    2300352: Joint007
+    2300354: Joint008
+    2300356: Joint009
+    2300358: Joint010
+    2300360: Joint011
+    2300362: Joint012
+    2300364: Joint013
+    2300366: Lamp
+    2300368: LaserDoor001
+    2300370: LaserPoint001
+    2300372: Object001
+    2300374: Objective001
+    2300376: Objective002
+    2300378: Panel
+    2300380: Plane001
+    2300382: Platform001
+    2300384: Platform002
+    2300386: Platform003
+    2300388: Rail001
+    2300390: Rail002
+    2300392: Rail003
+    2300394: Rail004
+    2300396: Rail005
+    2300398: Screen
+    2300400: Stairs001
+    2300402: Stairs002
+    2300404: SwitchFan
+    2300406: SwitchFan001
+    2300408: SwitchFanStand
+    2300410: SwitchFanStand001
+    2300412: Tube
+    2300414: Tube001
+    2300416: Tube002
+    2300418: Tube003
+    2300420: Tube004
+    2300422: Tube006
+    2300424: Tube007
+    2300426: Tube008
+    2300428: Tube009
+    2300430: Tube010
+    2300432: Tube011
+    2300434: Tube012
+    2300436: Tube013
+    2300438: Tube014
+    2300440: Tube015
+    2300442: Tube016
+    2300444: Tube017
+    2300446: Tube018
+    2300448: Tube019
+    2300450: Tube020
+    2300452: Tube021
+    2300454: Tube022
+    2300456: Tube023
+    2300458: Tube024
+    2300460: Tube025
+    2300462: Tube026
+    2300464: Tube027
+    2300466: Tube028
+    2300468: Tube029
+    2300470: Tube030
+    2300472: Tube031
+    2300474: TubeCorner001
+    2300476: TubeCorner002
+    2300478: TubeCorner003
+    2300480: TubeCorner004
+    2300482: TubeCorner005
+    2300484: TubeCorner006
+    2300486: TubeCorner007
+    2300488: TubeCorner008
+    2300490: TubeCorner009
+    2300492: TubeCorner010
+    2300494: TubeCorner011
+    2300496: Valve
+    2300498: Valve001
+    2300500: Valve002
+    2300502: Wall001
+    2300504: Wall003
+    2300506: Wall004
+    2300508: Wall005
+    2300510: Wall006
+    2300512: Wall008
+    2300514: Wall009
+    2300516: Wall010
+    2300518: Wall011
+    2300520: Wall012
+    2300522: Wall013
+    2300524: Wall014
+    2300526: Wall015
+    2300528: Wall016
+    2300530: Wall017
+    2300532: Wall018
+    2300534: Wall019
+    2300536: Wall02 001
+    2300538: Wall02 002
+    2300540: Wall02 003
+    2300542: Wall02 004
+    2300544: Wall02 005
+    2300546: Wall02 006
+    2300548: Wall02 007
+    2300550: Wall02 008
+    2300552: Wall02 009
+    2300554: Wall02 010
+    2300556: Wall02 011
+    2300558: Wall02 012
+    2300560: Wall02 013
+    2300562: Wall02 014
+    2300564: Wall02 015
+    2300566: Wall02 016
+    2300568: Wall02 017
+    2300570: Wall02 018
+    2300572: Wall02 019
+    2300574: Wall02 020
+    2300576: Wall02 021
+    2300578: Wall02 022
+    2300580: Wall02 024
+    2300582: Wall02 025
+    2300584: Wall02 026
+    2300586: Wall02 027
+    2300588: Wall02 028
+    2300590: Wall02 029
+    2300592: Wall02 030
+    2300594: Wall02 031
+    2300596: Wall02 032
+    2300598: Wall02 033
+    2300600: Wall02 034
+    2300602: Wall02 035
+    2300604: Wall02 036
+    2300606: Wall02 037
+    2300608: Wall02 038
+    2300610: Wall02 039
+    2300612: Wall02 040
+    2300614: Wall02 041
+    2300616: Wall02 042
+    2300618: Wall02 043
+    2300620: Wall02 044
+    2300622: Wall02 045
+    2300624: Wall02 046
+    2300626: Wall020
+    2300628: Wall021
+    2300630: Wall022
+    2300632: Wall023
+    2300634: Wall024
+    2300636: Wall025
+    2300638: Wall026
+    2300640: Wall027
+    2300642: Wall028
+    2300644: Wall029
+    2300646: Wall030
+    2300648: Wall031
+    2300650: Wall032
+    2300652: Wall033
+    2300654: Wall034
+    2300656: Wall035
+    2300658: Wall036
+    2300660: Wall037
+    2300662: Wall038
+    2300664: Wall039
+    2300666: Wall040
+    2300668: Wall041
+    2300670: Wall042
+    2300672: Wall043
+    2300674: Wall044
+    2300676: Wall045
+    2300678: Wall046
+    2300680: Wall047
+    2300682: Wall048
+    2300684: Wall049
+    2300686: Wall050
+    2300688: Wall051
+    2300690: Wall052
+    2300692: Wall053
+    2300694: Wall054
+    2300696: Wall055
+    2300698: Wall056
+    2300700: Wall057
+    2300702: Wall058
+    2300704: Wall059
+    2300706: Wall060
+    2300708: Wall061
+    2300710: Wall062
+    2300712: Wall063
+    2300714: WallCorner001
+    2300716: WallCorner002
+    2300718: WallCorner003
+    2300720: WallCorner004
+    2300722: WallCorner005
+    2300724: WallCorner006
+    2300726: WallCorner007
+    2300728: WallCorner008
+    2300730: WallCorner009
+    2300732: WindSwitch
+    2300734: WindSwitch001
+    3300000: BigJoint002
+    3300002: BigJoint003
+    3300004: BigJoint004
+    3300006: BigJoint005
+    3300008: Box001
+    3300010: Box002
+    3300012: Cap
+    3300014: Ceiling001
+    3300016: Ceiling002
+    3300018: Ceiling002 1
+    3300020: Ceiling003
+    3300022: Ceiling004
+    3300024: Ceiling005
+    3300026: Ceiling006
+    3300028: Ceiling007
+    3300030: Ceiling008
+    3300032: Ceiling009
+    3300034: Ceiling010
+    3300036: Ceiling011
+    3300038: Ceiling013
+    3300040: Ceiling014
+    3300042: Ceiling015
+    3300044: Ceiling016
+    3300046: Ceiling017
+    3300048: Ceiling018
+    3300050: Ceiling019
+    3300052: Ceiling020
+    3300054: Ceiling021
+    3300056: Ceiling022
+    3300058: Ceiling023
+    3300060: Ceiling024
+    3300062: CoolerFan001
+    3300064: CoolerFan002
+    3300066: CPU
+    3300068: CPUCap
+    3300070: CPUPower
+    3300072: Cube
+    3300074: Cube__10_
+    3300076: Cube__11_
+    3300078: Cube__12_
+    3300080: Cube__13_
+    3300082: Cube__14_
+    3300084: Cube__15_
+    3300086: Cube__16_
+    3300088: Cube__17_
+    3300090: Cube__18_
+    3300092: Cube__19_
+    3300094: Cube__1_
+    3300096: Cube__20_
+    3300098: Cube__21_
+    3300100: Cube__22_
+    3300102: Cube__23_
+    3300104: Cube__24_
+    3300106: Cube__25_
+    3300108: Cube__2_
+    3300110: Cube__3_
+    3300112: Cube__4_
+    3300114: Cube__5_
+    3300116: Cube__6_
+    3300118: Cube__7_
+    3300120: Cube__8_
+    3300122: Cube__9_
+    3300124: Cylinder002
+    3300126: Cylinder003
+    3300128: DriveLector
+    3300130: ElevatorEnd
+    3300132: ElevatorEnd001
+    3300134: ElevatorFloor001
+    3300136: ElevatorFloor002
+    3300138: ElevatorFloor003
+    3300140: ElevatorFloor004
+    3300142: ElevatorGlass000
+    3300144: ElevatorGlass001
+    3300146: ElevatorPanel
+    3300148: ElevatorPanel001
+    3300150: ElevatorStart
+    3300152: ElevatorStart001
+    3300154: ElevetorGlass001
+    3300156: ElevetorGlass002
+    3300158: ElevetorGlass003
+    3300160: ElevetorGlass004
+    3300162: Floor001
+    3300164: Floor002
+    3300166: Floor003
+    3300168: Floor006
+    3300170: Floor007
+    3300172: Floor008
+    3300174: Floor009
+    3300176: Floor010
+    3300178: Floor011
+    3300180: Floor012
+    3300182: Floor013
+    3300184: Floor014
+    3300186: Floor015
+    3300188: Floor016
+    3300190: Floor017
+    3300192: Floor018
+    3300194: Floor019
+    3300196: Floor020
+    3300198: Floor021
+    3300200: Floor022
+    3300202: Floor023
+    3300204: Floor024
+    3300206: Floor025
+    3300208: Floor026
+    3300210: Floor027
+    3300212: Floor028
+    3300214: Floor029
+    3300216: Floor030
+    3300218: Floor031
+    3300220: Floor032
+    3300222: Floor033
+    3300224: Floor034
+    3300226: Floor035
+    3300228: Floor036
+    3300230: Floor2x1001
+    3300232: Floor2x2001
+    3300234: Floor2x2002
+    3300236: Floor2x2003
+    3300238: Floor2x2004
+    3300240: Floor2x2005
+    3300242: Floor2x2006
+    3300244: Floor2x2007
+    3300246: Floor2x2008
+    3300248: Floor2x2009
+    3300250: Floor2x2010
+    3300252: Floor2x2011
+    3300254: Floor2x2012
+    3300256: Floor2x2013
+    3300258: Floor2x2014
+    3300260: Floor2x2015
+    3300262: Floor2x2016
+    3300264: Floor2x2017
+    3300266: Floor2x2018
+    3300268: Floor2x2019
+    3300270: Floor2x2020
+    3300272: Floor2x2021
+    3300274: Floor2x2022
+    3300276: Floor2x2023
+    3300278: Floor2x2024
+    3300280: Floor2x2025
+    3300282: Floor2x2026
+    3300284: Floor2x2027
+    3300286: Floor2x2028
+    3300288: Floor2x2029
+    3300290: Floor2x2030
+    3300292: Floor2x2031
+    3300294: Floor2x2032
+    3300296: Floor2x2033
+    3300298: Floor2x2034
+    3300300: Floor2x2035
+    3300302: Floor2x2036
+    3300304: Floor2x2037
+    3300306: Floor2x2038
+    3300308: Floor2x2046
+    3300310: Floor2x2047
+    3300312: Floor2x2048
+    3300314: Floor2x2049
+    3300316: Floor2x2050
+    3300318: Floor2x2051
+    3300320: Floor2x2052
+    3300322: Floor2x2053
+    3300324: Floor2x2054
+    3300326: Floor2x2055
+    3300328: Floor2x2056
+    3300330: Floor2x2057
+    3300332: Floor8x2to1001
+    3300334: FloorCorner001
+    3300336: FloorCorner002
+    3300338: FloorCorner003
+    3300340: Joint
+    3300342: Joint002
+    3300344: Joint003
+    3300346: Joint004
+    3300348: Joint005
+    3300350: Joint006
+    3300352: Joint007
+    3300354: Joint008
+    3300356: Joint009
+    3300358: Joint010
+    3300360: Joint011
+    3300362: Joint012
+    3300364: Joint013
+    3300366: Lamp
+    3300368: LaserDoor001
+    3300370: LaserPoint001
+    3300372: Object001
+    3300374: Objective001
+    3300376: Objective002
+    3300378: Panel
+    3300380: Plane001
+    3300382: Platform001
+    3300384: Platform002
+    3300386: Platform003
+    3300388: Rail001
+    3300390: Rail002
+    3300392: Rail003
+    3300394: Rail004
+    3300396: Rail005
+    3300398: Screen
+    3300400: Stairs001
+    3300402: Stairs002
+    3300404: SwitchFan
+    3300406: SwitchFan001
+    3300408: SwitchFanStand
+    3300410: SwitchFanStand001
+    3300412: Tube
+    3300414: Tube001
+    3300416: Tube002
+    3300418: Tube003
+    3300420: Tube004
+    3300422: Tube006
+    3300424: Tube007
+    3300426: Tube008
+    3300428: Tube009
+    3300430: Tube010
+    3300432: Tube011
+    3300434: Tube012
+    3300436: Tube013
+    3300438: Tube014
+    3300440: Tube015
+    3300442: Tube016
+    3300444: Tube017
+    3300446: Tube018
+    3300448: Tube019
+    3300450: Tube020
+    3300452: Tube021
+    3300454: Tube022
+    3300456: Tube023
+    3300458: Tube024
+    3300460: Tube025
+    3300462: Tube026
+    3300464: Tube027
+    3300466: Tube028
+    3300468: Tube029
+    3300470: Tube030
+    3300472: Tube031
+    3300474: TubeCorner001
+    3300476: TubeCorner002
+    3300478: TubeCorner003
+    3300480: TubeCorner004
+    3300482: TubeCorner005
+    3300484: TubeCorner006
+    3300486: TubeCorner007
+    3300488: TubeCorner008
+    3300490: TubeCorner009
+    3300492: TubeCorner010
+    3300494: TubeCorner011
+    3300496: Valve
+    3300498: Valve001
+    3300500: Valve002
+    3300502: Wall001
+    3300504: Wall003
+    3300506: Wall004
+    3300508: Wall005
+    3300510: Wall006
+    3300512: Wall008
+    3300514: Wall009
+    3300516: Wall010
+    3300518: Wall011
+    3300520: Wall012
+    3300522: Wall013
+    3300524: Wall014
+    3300526: Wall015
+    3300528: Wall016
+    3300530: Wall017
+    3300532: Wall018
+    3300534: Wall019
+    3300536: Wall02 001
+    3300538: Wall02 002
+    3300540: Wall02 003
+    3300542: Wall02 004
+    3300544: Wall02 005
+    3300546: Wall02 006
+    3300548: Wall02 007
+    3300550: Wall02 008
+    3300552: Wall02 009
+    3300554: Wall02 010
+    3300556: Wall02 011
+    3300558: Wall02 012
+    3300560: Wall02 013
+    3300562: Wall02 014
+    3300564: Wall02 015
+    3300566: Wall02 016
+    3300568: Wall02 017
+    3300570: Wall02 018
+    3300572: Wall02 019
+    3300574: Wall02 020
+    3300576: Wall02 021
+    3300578: Wall02 022
+    3300580: Wall02 024
+    3300582: Wall02 025
+    3300584: Wall02 026
+    3300586: Wall02 027
+    3300588: Wall02 028
+    3300590: Wall02 029
+    3300592: Wall02 030
+    3300594: Wall02 031
+    3300596: Wall02 032
+    3300598: Wall02 033
+    3300600: Wall02 034
+    3300602: Wall02 035
+    3300604: Wall02 036
+    3300606: Wall02 037
+    3300608: Wall02 038
+    3300610: Wall02 039
+    3300612: Wall02 040
+    3300614: Wall02 041
+    3300616: Wall02 042
+    3300618: Wall02 043
+    3300620: Wall02 044
+    3300622: Wall02 045
+    3300624: Wall02 046
+    3300626: Wall020
+    3300628: Wall021
+    3300630: Wall022
+    3300632: Wall023
+    3300634: Wall024
+    3300636: Wall025
+    3300638: Wall026
+    3300640: Wall027
+    3300642: Wall028
+    3300644: Wall029
+    3300646: Wall030
+    3300648: Wall031
+    3300650: Wall032
+    3300652: Wall033
+    3300654: Wall034
+    3300656: Wall035
+    3300658: Wall036
+    3300660: Wall037
+    3300662: Wall038
+    3300664: Wall039
+    3300666: Wall040
+    3300668: Wall041
+    3300670: Wall042
+    3300672: Wall043
+    3300674: Wall044
+    3300676: Wall045
+    3300678: Wall046
+    3300680: Wall047
+    3300682: Wall048
+    3300684: Wall049
+    3300686: Wall050
+    3300688: Wall051
+    3300690: Wall052
+    3300692: Wall053
+    3300694: Wall054
+    3300696: Wall055
+    3300698: Wall056
+    3300700: Wall057
+    3300702: Wall058
+    3300704: Wall059
+    3300706: Wall060
+    3300708: Wall061
+    3300710: Wall062
+    3300712: Wall063
+    3300714: WallCorner001
+    3300716: WallCorner002
+    3300718: WallCorner003
+    3300720: WallCorner004
+    3300722: WallCorner005
+    3300724: WallCorner006
+    3300726: WallCorner007
+    3300728: WallCorner008
+    3300730: WallCorner009
+    3300732: WindSwitch
+    3300734: WindSwitch001
+    4300000: Wall001
+    4300002: Tube
+    4300004: Valve
+    4300006: Box001
+    4300008: Box002
+    4300010: Wall003
+    4300012: Lamp
+    4300014: Wall02 001
+    4300016: Wall02 002
+    4300018: Wall02 003
+    4300020: Wall02 004
+    4300022: Wall004
+    4300024: Joint
+    4300026: Joint002
+    4300028: Object001
+    4300030: Joint003
+    4300032: Joint004
+    4300034: Joint005
+    4300036: WallCorner001
+    4300038: Wall02 005
+    4300040: Wall005
+    4300042: Wall02 006
+    4300044: Cap
+    4300046: Floor001
+    4300048: Wall006
+    4300050: LaserDoor001
+    4300052: LaserPoint001
+    4300054: ElevetorGlass001
+    4300056: ElevatorPanel
+    4300058: Floor002
+    4300060: Floor003
+    4300062: Rail001
+    4300064: Stairs001
+    4300066: FloorCorner001
+    4300068: Floor006
+    4300070: Floor2x2001
+    4300072: Floor2x2002
+    4300074: Floor2x2003
+    4300076: Floor2x1001
+    4300078: Floor2x2004
+    4300080: Floor2x2005
+    4300082: Floor2x2006
+    4300084: Floor8x2to1001
+    4300086: ElevatorFloor001
+    4300088: ElevatorEnd
+    4300090: ElevatorStart
+    4300092: ElevatorGlass000
+    4300094: Cube__4_
+    4300096: Cube__6_
+    4300098: Cube__20_
+    4300100: Cube__25_
+    4300102: Cube__23_
+    4300104: Cube__17_
+    4300106: Cube__24_
+    4300108: Cube__3_
+    4300110: Cube__13_
+    4300112: Cube__11_
+    4300114: Cube__2_
+    4300116: Cube__5_
+    4300118: Cube__14_
+    4300120: Cube__7_
+    4300122: Cube__16_
+    4300124: Cube__12_
+    4300126: Cube__1_
+    4300128: Cube__18_
+    4300130: Cube__9_
+    4300132: Cube__22_
+    4300134: Cube__19_
+    4300136: Cube__8_
+    4300138: Cube__21_
+    4300140: Cube__15_
+    4300142: Cube__10_
+    4300144: Cube
+    4300146: Platform001
+    4300148: Platform002
+    4300150: SwitchFan
+    4300152: SwitchFanStand
+    4300154: WindSwitch
+    4300156: WallCorner002
+    4300158: WallCorner003
+    4300160: Wall008
+    4300162: Wall009
+    4300164: Wall010
+    4300166: Wall011
+    4300168: Wall02 007
+    4300170: Wall012
+    4300172: Wall02 008
+    4300174: Floor2x2007
+    4300176: Floor2x2008
+    4300178: Floor2x2009
+    4300180: Tube001
+    4300182: TubeCorner001
+    4300184: Joint006
+    4300186: Tube002
+    4300188: Objective001
+    4300190: Objective002
+    4300192: Panel
+    4300194: Screen
+    4300196: DriveLector
+    4300198: CPUPower
+    4300200: CPUCap
+    4300202: CPU
+    4300204: Cylinder002
+    4300206: Cylinder003
+    4300208: CoolerFan002
+    4300210: CoolerFan001
+    4300212: Platform003
+    4300214: Wall013
+    4300216: Tube003
+    4300218: Tube004
+    4300220: Floor2x2010
+    4300222: Floor2x2011
+    4300224: Floor2x2012
+    4300226: Wall02 009
+    4300228: Wall02 010
+    4300230: Wall014
+    4300232: Floor007
+    4300234: Floor008
+    4300236: Floor009
+    4300238: Floor2x2013
+    4300240: Floor2x2014
+    4300242: Floor2x2015
+    4300244: Floor2x2016
+    4300246: Floor2x2017
+    4300248: Floor2x2018
+    4300250: Floor2x2019
+    4300252: Floor2x2020
+    4300254: Floor2x2021
+    4300256: Floor2x2022
+    4300258: Floor2x2023
+    4300260: Floor2x2024
+    4300262: Floor2x2025
+    4300264: Floor2x2026
+    4300266: Wall015
+    4300268: WallCorner004
+    4300270: WallCorner005
+    4300272: WallCorner006
+    4300274: WallCorner007
+    4300276: Wall016
+    4300278: Wall017
+    4300280: Wall018
+    4300282: Wall019
+    4300284: Wall020
+    4300286: WallCorner008
+    4300288: WallCorner009
+    4300290: Floor010
+    4300292: FloorCorner002
+    4300294: Stairs002
+    4300296: Floor011
+    4300298: Floor012
+    4300300: FloorCorner003
+    4300302: Floor013
+    4300304: Floor014
+    4300306: Rail002
+    4300308: Rail003
+    4300310: Rail004
+    4300312: Rail005
+    4300314: Joint007
+    4300316: Valve001
+    4300318: Joint008
+    4300320: Joint009
+    4300322: Joint010
+    4300324: Tube006
+    4300326: TubeCorner002
+    4300328: Tube007
+    4300330: Tube008
+    4300332: Tube009
+    4300334: Tube010
+    4300336: TubeCorner003
+    4300338: Tube011
+    4300340: Joint011
+    4300342: Valve002
+    4300344: Tube012
+    4300346: Tube013
+    4300348: Joint012
+    4300350: BigJoint002
+    4300352: BigJoint003
+    4300354: BigJoint004
+    4300356: BigJoint005
+    4300358: Joint013
+    4300360: Wall021
+    4300362: Wall022
+    4300364: Wall023
+    4300366: Wall024
+    4300368: Wall025
+    4300370: Wall026
+    4300372: Floor015
+    4300374: Floor016
+    4300376: Floor017
+    4300378: Floor018
+    4300380: Floor019
+    4300382: Floor020
+    4300384: Wall027
+    4300386: Wall028
+    4300388: Floor021
+    4300390: TubeCorner004
+    4300392: TubeCorner005
+    4300394: TubeCorner006
+    4300396: TubeCorner007
+    4300398: Tube014
+    4300400: Tube015
+    4300402: Tube016
+    4300404: Tube017
+    4300406: Tube018
+    4300408: Tube019
+    4300410: Tube020
+    4300412: Tube021
+    4300414: Tube022
+    4300416: Tube023
+    4300418: Tube024
+    4300420: Tube025
+    4300422: TubeCorner008
+    4300424: TubeCorner009
+    4300426: TubeCorner010
+    4300428: TubeCorner011
+    4300430: Wall029
+    4300432: Floor022
+    4300434: Floor023
+    4300436: Floor024
+    4300438: Floor025
+    4300440: Floor026
+    4300442: Floor027
+    4300444: Floor028
+    4300446: Floor029
+    4300448: Floor030
+    4300450: Floor031
+    4300452: Floor032
+    4300454: Floor033
+    4300456: Floor034
+    4300458: Floor035
+    4300460: Floor036
+    4300462: Floor2x2027
+    4300464: Floor2x2028
+    4300466: Floor2x2029
+    4300468: Floor2x2030
+    4300470: Floor2x2031
+    4300472: Floor2x2032
+    4300474: Floor2x2033
+    4300476: Floor2x2034
+    4300478: Floor2x2035
+    4300480: Floor2x2036
+    4300482: Floor2x2037
+    4300484: Floor2x2038
+    4300486: Wall030
+    4300488: Wall031
+    4300490: Wall032
+    4300492: Wall033
+    4300494: Wall034
+    4300496: Wall02 011
+    4300498: Wall035
+    4300500: Wall036
+    4300502: Wall02 012
+    4300504: Wall037
+    4300506: Wall02 013
+    4300508: Wall02 014
+    4300510: Wall038
+    4300512: Wall039
+    4300514: Wall040
+    4300516: Wall041
+    4300518: Wall042
+    4300520: Wall043
+    4300522: SwitchFan001
+    4300524: SwitchFanStand001
+    4300526: WindSwitch001
+    4300528: Wall044
+    4300530: Wall045
+    4300532: Floor2x2046
+    4300534: Floor2x2047
+    4300536: Floor2x2048
+    4300538: Floor2x2049
+    4300540: Floor2x2050
+    4300542: Floor2x2051
+    4300544: Floor2x2052
+    4300546: Floor2x2053
+    4300548: Floor2x2054
+    4300550: Floor2x2055
+    4300552: Floor2x2056
+    4300554: Floor2x2057
+    4300556: Wall02 015
+    4300558: Wall02 016
+    4300560: Wall02 017
+    4300562: Wall02 018
+    4300564: Wall02 019
+    4300566: Wall02 020
+    4300568: Wall02 021
+    4300570: Wall02 022
+    4300572: Wall02 024
+    4300574: Wall02 025
+    4300576: Wall02 026
+    4300578: Wall02 027
+    4300580: Wall02 028
+    4300582: Wall02 029
+    4300584: Wall02 030
+    4300586: Wall02 031
+    4300588: Wall02 032
+    4300590: Wall02 033
+    4300592: Wall02 034
+    4300594: Wall02 035
+    4300596: Wall02 036
+    4300598: Wall02 037
+    4300600: Wall02 038
+    4300602: Wall02 039
+    4300604: Wall02 040
+    4300606: Wall02 041
+    4300608: Wall02 042
+    4300610: Wall02 043
+    4300612: Wall02 044
+    4300614: Wall02 045
+    4300616: Wall02 046
+    4300618: ElevatorEnd001
+    4300620: ElevatorFloor002
+    4300622: ElevatorGlass001
+    4300624: ElevatorStart001
+    4300626: ElevetorGlass002
+    4300628: Wall046
+    4300630: Wall047
+    4300632: Wall048
+    4300634: Wall049
+    4300636: Wall050
+    4300638: Wall051
+    4300640: Wall052
+    4300642: Wall053
+    4300644: Wall054
+    4300646: Wall055
+    4300648: Wall056
+    4300650: Wall057
+    4300652: Wall058
+    4300654: Wall059
+    4300656: Wall060
+    4300658: Wall061
+    4300660: Wall062
+    4300662: Wall063
+    4300664: ElevatorPanel001
+    4300666: Ceiling001
+    4300668: Ceiling002
+    4300670: Ceiling002
+    4300672: Ceiling003
+    4300674: Ceiling004
+    4300676: Ceiling005
+    4300678: Ceiling006
+    4300680: Ceiling007
+    4300682: Ceiling008
+    4300684: Ceiling009
+    4300686: Ceiling011
+    4300688: Ceiling010
+    4300690: Ceiling013
+    4300692: Ceiling014
+    4300694: Ceiling015
+    4300696: Ceiling016
+    4300698: Ceiling017
+    4300700: Ceiling018
+    4300702: Ceiling019
+    4300704: Ceiling020
+    4300706: Ceiling021
+    4300708: Ceiling022
+    4300710: Ceiling023
+    4300712: Plane001
+    4300714: Ceiling024
+    4300716: Tube026
+    4300718: Tube027
+    4300720: Tube028
+    4300722: Tube029
+    4300724: Tube030
+    4300726: Tube031
+    4300728: ElevatorFloor003
+    4300730: ElevetorGlass003
+    4300732: ElevatorFloor004
+    4300734: ElevetorGlass004
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
