@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IElectricObject  {
 
+    Transform transform { get; }
     bool isElectrified { set; get; }
     void Electrify();
 }

@@ -7,8 +7,14 @@ public class StumpBase : MonoBehaviour, IFlamableObjects {
     bool _isOnFire;
     public float life;
     public float burnSpeed;
+    Renderer rend;
 
     public bool isBurned;
+
+    private void Start()
+    {
+        rend = GetComponent<Renderer>();
+    }
 
     public bool isOnFire
     {
@@ -24,6 +30,7 @@ public class StumpBase : MonoBehaviour, IFlamableObjects {
         {
             isBurned = true;
         }
+        rend.material.color = new Color(1 - life / 1000, 0, 0);
     }
 
 

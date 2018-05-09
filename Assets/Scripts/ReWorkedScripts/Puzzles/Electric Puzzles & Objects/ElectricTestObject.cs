@@ -11,6 +11,10 @@ public class ElectricTestObject : MonoBehaviour, IElectricObject {
         set { _isElectrified = value; }
     }
 
+    Transform IElectricObject.transform{
+        get { return transform; }
+    }
+
     public void Electrify()
     {
         _isElectrified = true;

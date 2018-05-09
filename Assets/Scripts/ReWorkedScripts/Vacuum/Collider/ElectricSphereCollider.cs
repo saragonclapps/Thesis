@@ -18,8 +18,8 @@ namespace Skills
             IElectricObject obj;
             obj = c.GetComponent<IElectricObject>();
             if (obj != null)
-                if (!_skillController.electricObjectsToInteract.Contains(obj))
-                    _skillController.electricObjectsToInteract.Add(obj);
+                if (!_skillController.electricObjectsToInteract.Contains(c.transform))
+                    _skillController.electricObjectsToInteract.Add(c.transform);
         }
 
         private void OnTriggerExit(Collider c)
@@ -28,17 +28,17 @@ namespace Skills
             obj = c.GetComponent<IElectricObject>();
             if (obj != null)
             {
-                _skillController.electricObjectsToInteract.Remove(obj);
+                _skillController.electricObjectsToInteract.Remove(c.transform);
             }
         }
 
-        private void OnTriggerStay(Collider c)
+        /*private void OnTriggerStay(Collider c)
         {
             var obj = c.GetComponent<IElectricObject>();
             if (obj != null)
-                if (!_skillController.electricObjectsToInteract.Contains(obj) && (GameInput.instance.blowUpButton))
-                    _skillController.electricObjectsToInteract.Add(obj);
-        }
+                if (!_skillController.electricObjectsToInteract.Contains(c.transform) && (GameInput.instance.blowUpButton))
+                    _skillController.electricObjectsToInteract.Add(c.transform);
+        }*/
     }
 
 }

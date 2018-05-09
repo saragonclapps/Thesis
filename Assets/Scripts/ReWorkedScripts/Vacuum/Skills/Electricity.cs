@@ -7,9 +7,9 @@ namespace Skills
     public class Electricity : ISkill
     {
         IHandEffect _electricityVFX;
-        List<IElectricObject> _electricObjectsToInteract;
+        List<Transform> _electricObjectsToInteract;
 
-        public Electricity(IHandEffect electricityVFX, List<IElectricObject> electricObjectsToInteract)
+        public Electricity(IHandEffect electricityVFX, List<Transform> electricObjectsToInteract)
         {
             _electricityVFX = electricityVFX;
             _electricObjectsToInteract = electricObjectsToInteract;
@@ -27,9 +27,9 @@ namespace Skills
                 _electricityVFX.StartEffect();
                 foreach (var eo in _electricObjectsToInteract)
                 {
-                    eo.Electrify();
+                    eo.GetComponent<IElectricObject>().Electrify();
+                    SkillManager.instance.RemoveAmountToSkill(0.2f, Skills.ELECTRICITY);
                 }
-                SkillManager.instance.RemoveAmountToSkill(0.2f, Skills.ELECTRICITY);
             }
             else
             {

@@ -12,7 +12,6 @@ namespace Skills
         #region Strategy
         ISkill actualAction;
         Dictionary<Skills, ISkill> _skills;
-        Dictionary<Skills, IEnumerable> _lists;
         Skills skillAction;
 
         // BulletShoot _bulletShoot;
@@ -20,6 +19,7 @@ namespace Skills
         FlameThrower _flameThrower;
         WaterLauncher _waterLauncher;
         Electricity _electricity;
+        Freezer _freezer;
         #endregion
 
         #region Atractor Variables
@@ -57,7 +57,8 @@ namespace Skills
 
         #region ElectricityVariables
         IHandEffect electricityVFX;
-        public List<IElectricObject> electricObjectsToInteract;
+        [HideInInspector]
+        public List<Transform> electricObjectsToInteract;
         #endregion
 
         #region HudVariables
@@ -70,7 +71,7 @@ namespace Skills
         public ParticleSystem blowParticle;
         public ParticleSystem fireParticle;
         public ParticleSystem waterParticle;
-        public GameObject electricityPrefab;
+        public ParticleSystem iceParticle;
         #endregion
 
         public Skills currentSkill;
@@ -87,37 +88,37 @@ namespace Skills
             wind = GetComponentInChildren<WindZone>();
             _pC = GetComponent<PlayerController2>();
 
-            //Initializing List Dictionary
-            _lists = new Dictionary<Skills, IEnumerable>();
-            _lists.Add(Skills.VACCUM, objectsToInteract);
-            _lists.Add(Skills.FIRE, flamableObjectsToInteract);
-            _lists.Add(Skills.WATER, wetObjectsToInteract);
-
             //Lists Initializing
             objectsToInteract = new List<IVacuumObject>();
             flamableObjectsToInteract = new List<IFlamableObjects>();
             wetObjectsToInteract = new List<IWaterObject>();
-            electricObjectsToInteract = new List<IElectricObject>();
+            electricObjectsToInteract = new List<Transform>();
+            frozenObjectsToInteract = new List<IFrozenObject>();
 
             //Hand VFX Initializing
             aspireVFX = new VacuumVFX(aspireParticle);
             blowVFX = new VacuumVFX(blowParticle);
             fireVFX = new VacuumVFX(fireParticle);
             waterVFX = new VacuumVFX(waterParticle);
-            electricityVFX = new ElectricityVFX(electricityPrefab, electricObjectsToInteract, vacuumHoleTransform);
+            iceVFX = new VacuumVFX(iceParticle);
+
+            electricityVFX = GetComponentInChildren<ElectricParticleEmitter>();
+            var aux = GetComponentInChildren<ElectricParticleEmitter>();
+            aux.Initialize(electricObjectsToInteract);
 
             //Strategy Initializing
             _attractor = new Attractor(atractForce, shootSpeed, vacuumHoleTransform, aspireVFX, blowVFX, objectsToInteract, wind);
             _flameThrower= new FlameThrower(fireVFX, flamableObjectsToInteract);
             _waterLauncher = new WaterLauncher(waterVFX, wetObjectsToInteract);
             _electricity = new Electricity(electricityVFX, electricObjectsToInteract);
-
+            _freezer = new Freezer(iceVFX, frozenObjectsToInteract);
 
             _skills = new Dictionary<Skills, ISkill>();
             _skills.Add(Skills.VACCUM, _attractor);
             _skills.Add(Skills.FIRE, _flameThrower);
             _skills.Add(Skills.WATER, _waterLauncher);
             _skills.Add(Skills.ELECTRICITY, _electricity);
+            _skills.Add(Skills.ICE, _freezer);
 
             actualAction = _skills[skillAction];
             actualAction.Enter();

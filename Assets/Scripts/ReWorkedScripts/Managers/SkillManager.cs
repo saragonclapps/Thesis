@@ -111,6 +111,9 @@ namespace Skills
         void Update()
         {
             fireAmount = _skillAmount[Skills.FIRE];
+            waterAmount = _skillAmount[Skills.WATER];
+            iceAmount = _skillAmount[Skills.ICE];
+            electricityAmount = _skillAmount[Skills.ELECTRICITY];
         }
     }
 

@@ -21,9 +21,12 @@ public class VacuumVFX : IHandEffect {
 
     public void StartEffect()
     {
-        particle.gameObject.SetActive(true);
-        particle.Play();
-        isPlaying = true;
+        if (!isPlaying)
+        {
+            particle.gameObject.SetActive(true);
+            particle.Play();
+            isPlaying = true;
+        }
     }
 
     public void StopEffect()
