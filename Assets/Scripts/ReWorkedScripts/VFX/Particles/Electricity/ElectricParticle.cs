@@ -20,7 +20,10 @@ public class ElectricParticle : MonoBehaviour {
     public Vector3[] positions;
     public int actualPosition;
 
-    public void Initialize(Transform start, Transform end, float timmer, float dispersion, float rayWidth, Color rayStartColor, Color rayEndColor)
+    ParticleSystem _sparkles;
+
+    public void Initialize(Transform start, Transform end, float timmer, float dispersion, float rayWidth, 
+                           Color rayStartColor, Color rayEndColor, ParticleSystem sparkles)
     {
         trail = GetComponent<TrailRenderer>();
         trail.widthMultiplier = rayWidth;
@@ -28,6 +31,7 @@ public class ElectricParticle : MonoBehaviour {
         trail.endColor = rayEndColor;
 
 
+        _sparkles = sparkles;
         _start = start;
         _end = end;
 
@@ -88,6 +92,9 @@ public class ElectricParticle : MonoBehaviour {
     void Die()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+        _sparkles.gameObject.transform.position = transform.position;
+        _sparkles.Stop();
+        _sparkles.Play();
         Destroy(gameObject);
     }
 }

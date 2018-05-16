@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +25,10 @@ public class ElectricParticleEmitter : MonoBehaviour, IHandEffect {
     public Color rayStartColor;
     public Color rayEndColor;
 
+    [Header("Particle Details")]
+    public ParticleSystem particleBall;
+    public ParticleSystem sparks;
+
     float _randomParticleTimmer;
     float _tick;
 
@@ -32,6 +37,7 @@ public class ElectricParticleEmitter : MonoBehaviour, IHandEffect {
     public void Initialize(List<Transform> ends)
     {
         end = ends;
+        particleBall.gameObject.SetActive(false);
     }
 
     void Execute()
@@ -43,21 +49,26 @@ public class ElectricParticleEmitter : MonoBehaviour, IHandEffect {
                 for (int i = 0; i < particleAmount; i++)
                 {
                     _tick = 0;
-                    _randomParticleTimmer = particleTimmer + Random.Range(-timmerDispersion, timmerDispersion);
+                    _randomParticleTimmer = particleTimmer + UnityEngine.Random.Range(-timmerDispersion, timmerDispersion);
                     var pgo = Instantiate(particlePrefab, start.position, start.rotation,transform);
-                    pgo.GetComponent<ElectricParticle>().Initialize(start, tr, timmer, dispersion , rayWidth, rayStartColor, rayEndColor);
+                    pgo.GetComponent<ElectricParticle>().Initialize(start, tr, timmer, dispersion , rayWidth, rayStartColor, rayEndColor, sparks);
                 }
                 SetLine(tr);  
             }
         }
+        if(linePositions != null)
+            MoveLinePoints();
         _tick += Time.deltaTime;
+
+        line.enabled = end.Count != 0;
+
 	}
 
     public void SetLine(Transform tr)
     {
         var distance = Vector3.Distance(start.position, tr.position);
         var dir = (tr.position - start.position).normalized;
-        var points = Random.Range(5, 10);
+        var points = UnityEngine.Random.Range(5, 10);
         var increment = distance / points;
         linePositions = new Vector3[points];
 
@@ -66,17 +77,30 @@ public class ElectricParticleEmitter : MonoBehaviour, IHandEffect {
         for (int i = 0; i < points -1 ; i++)
         {
             linePositions[i] = start.position + (dir * increment * i);
-            linePositions[i] += start.up * Random.Range(-lineDispersion, lineDispersion) + start.right * Random.Range(-lineDispersion, lineDispersion);
+            linePositions[i] += start.up * UnityEngine.Random.Range(-lineDispersion, lineDispersion) + start.right * UnityEngine.Random.Range(-lineDispersion, lineDispersion);
         }
         linePositions[points-1] = tr.position;
         line.positionCount = points;
         line.SetPositions(linePositions);
     }
 
+    void MoveLinePoints()
+    {
+        for (int i = 0; i < linePositions.Length; i++)
+        {
+            var pos = line.GetPosition(i);
+            var lerpPos = Vector3.Lerp(pos, linePositions[i], 0.5f);
+            line.SetPosition(i,lerpPos);
+        }
+    }
+
     #region IHandEffect
     public void StopEffect()
     {
         _isPlaying = false;
+        if(line != null)
+            line.enabled = false;
+        particleBall.gameObject.SetActive(false);
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
 
@@ -84,10 +108,15 @@ public class ElectricParticleEmitter : MonoBehaviour, IHandEffect {
     {
         if (!_isPlaying)
         {
+            if(line != null)
+                line.enabled = true;
             _isPlaying = true;
             gameObject.SetActive(true);
-            _randomParticleTimmer = particleTimmer + Random.Range(-timmerDispersion, timmerDispersion);
+            _randomParticleTimmer = particleTimmer + UnityEngine.Random.Range(-timmerDispersion, timmerDispersion);
             line = GetComponent<LineRenderer>();
+            particleBall.gameObject.SetActive(true);
+            particleBall.Play();
+            sparks.Stop();
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
         }
     }

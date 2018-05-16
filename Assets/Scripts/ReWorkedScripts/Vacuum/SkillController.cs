@@ -29,8 +29,7 @@ namespace Skills
         [Header("Attractor Variables")]
         public float atractForce;
         public float shootSpeed;
-        public Transform vacuumHoleTransform;
-
+        public Vector3 aspireOffset;
 
         bool _isStuck;
         IHandEffect aspireVFX;
@@ -72,6 +71,9 @@ namespace Skills
         public ParticleSystem fireParticle;
         public ParticleSystem waterParticle;
         public ParticleSystem iceParticle;
+
+        public Transform vacuumHoleTransform;
+        public Transform particleParent;
         #endregion
 
         public Skills currentSkill;
@@ -79,7 +81,7 @@ namespace Skills
 
         void Awake()
         {
-
+            //-0.032 , 0.998
             //hudSkill = new Dictionary<Skills, typeSkill>();
             //hudSkill.Add(Skills.VACCUM, typeSkill.BlowAndAspire);
 
@@ -96,11 +98,11 @@ namespace Skills
             frozenObjectsToInteract = new List<IFrozenObject>();
 
             //Hand VFX Initializing
-            aspireVFX = new VacuumVFX(aspireParticle);
-            blowVFX = new VacuumVFX(blowParticle);
-            fireVFX = new VacuumVFX(fireParticle);
-            waterVFX = new VacuumVFX(waterParticle);
-            iceVFX = new VacuumVFX(iceParticle);
+            aspireVFX = new VacuumVFX(aspireParticle, particleParent, vacuumHoleTransform, aspireOffset);
+            blowVFX = new VacuumVFX(blowParticle, particleParent, vacuumHoleTransform);
+            fireVFX = new VacuumVFX(fireParticle, particleParent, vacuumHoleTransform);
+            waterVFX = new VacuumVFX(waterParticle, particleParent, vacuumHoleTransform);
+            iceVFX = new VacuumVFX(iceParticle, particleParent, vacuumHoleTransform);
 
             electricityVFX = GetComponentInChildren<ElectricParticleEmitter>();
             var aux = GetComponentInChildren<ElectricParticleEmitter>();

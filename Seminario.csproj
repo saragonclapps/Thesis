@@ -316,9 +316,11 @@
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
     <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
-    <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\AnimatorEventsBehaviour.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\MainCharacter\AnimatorEventsBehaviour.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraController.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFMS.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Companion\CompanionController.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Companion\CompanionFanRotator.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\FSM\FSM.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\FSM\IState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\EventManager.cs" />

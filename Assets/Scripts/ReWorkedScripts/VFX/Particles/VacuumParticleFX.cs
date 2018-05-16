@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class VacuumParticleFX : MonoBehaviour {
 
-    public ParticleSystem ps;
+    public ParticleSystem[] ps;
     public Transform target;
-    public float t;
-	
-	void Update ()
+    public float[] t;
+
+    void Start()
     {
-        var particles = new ParticleSystem.Particle[ps.particleCount];
-        var count = ps.GetParticles(particles);
+        UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
+    }
 
-        for (int i = 0; i < count; i++)
+    void Execute ()
+    {
+        for (int i = 0; i < ps.Length; i++)
         {
-            particles[i].position = Vector3.Lerp(particles[i].position, target.position, t);
-        }
+            var particles = new ParticleSystem.Particle[ps[i].particleCount];
+            var count = ps[i].GetParticles(particles);
 
-        ps.SetParticles(particles, count);
+            for (int j = 0; j < count; j++)
+            {
+                particles[j].position = Vector3.Lerp(particles[j].position, target.position, t[i]);
+            }
+
+            ps[i].SetParticles(particles, count);
+        }
 	}
 }

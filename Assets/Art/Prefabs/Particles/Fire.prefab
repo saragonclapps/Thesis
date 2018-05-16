@@ -98,8 +98,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1599152604378576}
-  m_LocalRotation: {x: 0.7071067, y: -0.000000014901156, z: -0.00000006519256, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.02, z: 0}
+  m_LocalRotation: {x: 0.99983484, y: -0.000000055979, z: -0.00000003658505, w: 0.018178517}
+  m_LocalPosition: {x: -1.556, y: 2.188, z: 3.873}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4684787846438238}
@@ -107,7 +107,7 @@ Transform:
   - {fileID: 4320105266162014}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 177.91699, y: -0.000015258789, z: -0.000015258789}
 --- !u!4 &4684787846438238
 Transform:
   m_ObjectHideFlags: 1
@@ -194,7 +194,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -708943656
+  randomSeed: -2105941997
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3555,7 +3555,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1995094166
+  randomSeed: 1658874532
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3999,7 +3999,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 5
+    angle: 10
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -6916,7 +6916,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 999844917
+  randomSeed: -218245883
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7360,7 +7360,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 5
+    angle: 10
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -10277,7 +10277,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1475954318
+  randomSeed: 732976376
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10721,7 +10721,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 5
+    angle: 10
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
