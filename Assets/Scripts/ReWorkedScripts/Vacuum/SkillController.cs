@@ -64,6 +64,19 @@ namespace Skills
         //Dictionary<Skills, typeSkill> hudSkill;
         #endregion
 
+        #region HandVFXRegion
+        public Mesh attractorMesh;
+        public Mesh electricMesh;
+        public Mesh waterMesh;
+        public Mesh iceMesh;
+        public Mesh fireMesh;
+        public SkinnedMeshRenderer hand;
+
+        public GameObject[] lefthandFingers;
+
+        Dictionary<Skills, Mesh> _meshDic;
+        #endregion
+
         #region  Visual Effect
         [Header("VFX References")]
         public ParticleSystem aspireParticle;
@@ -121,6 +134,13 @@ namespace Skills
             _skills.Add(Skills.WATER, _waterLauncher);
             _skills.Add(Skills.ELECTRICITY, _electricity);
             _skills.Add(Skills.ICE, _freezer);
+
+            _meshDic = new Dictionary<Skills, Mesh>();
+            _meshDic.Add(Skills.VACCUM, attractorMesh);
+            _meshDic.Add(Skills.ICE, iceMesh);
+            _meshDic.Add(Skills.FIRE, fireMesh);
+            _meshDic.Add(Skills.WATER, waterMesh);
+            _meshDic.Add(Skills.ELECTRICITY, electricMesh);
 
             actualAction = _skills[skillAction];
             actualAction.Enter();
@@ -184,6 +204,28 @@ namespace Skills
             actualAction.Exit();
             actualAction = _skills[skillAction];
             actualAction.Enter();
+
+            ChangeHandMesh();
+
+        }
+
+        private void ChangeHandMesh()
+        {
+            hand.sharedMesh = _meshDic[skillAction];
+            if(skillAction == Skills.VACCUM)
+            {
+                for (int i = 0; i < lefthandFingers.Length; i++)
+                {
+                    lefthandFingers[i].SetActive(true);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < lefthandFingers.Length; i++)
+                {
+                    lefthandFingers[i].SetActive(false);
+                }
+            }
         }
 
         void RecuCheckAmount(Skills skill, bool sign)

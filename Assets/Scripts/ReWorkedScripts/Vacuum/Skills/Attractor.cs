@@ -14,11 +14,15 @@ public class Attractor : ISkill {
     IHandEffect _blowParticle;
     WindZone _wind;
 
+    SkinnedMeshRenderer _targetMesh;
+    Mesh _atractorMesh;
+
     bool _isStuck;
 
     PathCalculate _pc;
 
-    public Attractor(float atractForce, float shootSpeed, Transform vacuumHole, IHandEffect aspireParticle, IHandEffect blowParticle, /*PathCalculate pc,*/ List<IVacuumObject> objectsToInteract, WindZone wind)
+    public Attractor(float atractForce, float shootSpeed, Transform vacuumHole, IHandEffect aspireParticle,
+                    IHandEffect blowParticle, List<IVacuumObject> objectsToInteract, WindZone wind)
     {
         _atractForce = atractForce;
         _shootSpeed = shootSpeed;
