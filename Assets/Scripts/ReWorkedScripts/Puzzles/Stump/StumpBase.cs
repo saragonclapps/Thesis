@@ -2,37 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StumpBase : MonoBehaviour, IFlamableObjects {
+public class StumpBase : MonoBehaviour{
 
-    bool _isOnFire;
-    public float life;
-    public float burnSpeed;
     Renderer rend;
+    FireSwitch fSwitch;
 
-    public bool isBurned;
+    bool _isBurned;
+
+    public bool isBurned { get { return _isBurned; } }
 
     private void Start()
     {
         rend = GetComponent<Renderer>();
+        fSwitch = GetComponent<FireSwitch>();
+        fSwitch.AddOnSwitchEvent(IsBurned);
+        fSwitch.AddOnSwitchIncreaseEvent(IsOnFire);
     }
 
-    public bool isOnFire
+    void IsOnFire() 
     {
-        get{ return _isOnFire; }
-        set{ _isOnFire = value; }
+        rend.material.color = new Color(1 - fSwitch.life / 1000, 0, 0);
     }
 
-    public void SetOnFire()
+    void IsBurned() 
     {
-        _isOnFire = true;
-        life -= Time.deltaTime * burnSpeed;
-        if (life < 0)
-        {
-            isBurned = true;
-        }
-        rend.material.color = new Color(1 - life / 1000, 0, 0);
+        _isBurned = true;
     }
-
-
 
 }
