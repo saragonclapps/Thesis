@@ -32,7 +32,7 @@ public class DeathTransition : MonoBehaviour {
                 {
                     if (!uniqueDispatch)
                     {
-                        EventManager.DispatchEvent(GameEvent.TRANSITION_DEATH_END);
+                        //EventManager.DispatchEvent(GameEvent.TRANSITION_DEATH_END);
                         uniqueDispatch = true;
                     }
                     CheckCameraIsSpleeping();

@@ -8,7 +8,7 @@ public class Platform : MonoBehaviour
 
     void OnCollisionEnter(Collision c)
     {
-        if (c.collider.gameObject.layer == 8)
+        if (c.collider.gameObject.layer == 9)
         {
             c.transform.SetParent(transform);
         }
@@ -16,7 +16,7 @@ public class Platform : MonoBehaviour
 
     void OnCollisionExit(Collision c)
     {
-        if (c.collider.gameObject.layer == 8)
+        if (c.collider.gameObject.layer == 9)
         {
             c.transform.SetParent(null);
         }

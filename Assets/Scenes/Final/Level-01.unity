@@ -8243,7 +8243,7 @@ Prefab:
         type: 2}
       propertyPath: cam
       value: 
-      objectReference: {fileID: 1858457575}
+      objectReference: {fileID: 0}
     - target: {fileID: 4392742141155514, guid: ca92b4861e97cf4429cb5d6ca0dd6451, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
@@ -8522,6 +8522,26 @@ Prefab:
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
       value: 30.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198196970604289672, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198196970604289672, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198196970604289672, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 30.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114418453964400070, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
+        type: 2}
+      propertyPath: cam2
+      value: 
+      objectReference: {fileID: 1789846474}
     - target: {fileID: 198196970604289672, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
         type: 2}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
@@ -36739,7 +36759,9 @@ Prefab:
       propertyPath: positionSmoothness
       value: 0.1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114218289872517274, guid: 7b7f064c52880294b844b4d191494566, type: 2}
+    - {fileID: 114103448574373788, guid: 7b7f064c52880294b844b4d191494566, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 7b7f064c52880294b844b4d191494566, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &965785292 stripped
@@ -70486,6 +70508,29 @@ Transform:
   m_Father: {fileID: 1194166455}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1789846473 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1731270734992774, guid: 7b7f064c52880294b844b4d191494566,
+    type: 2}
+  m_PrefabInternal: {fileID: 937181891}
+--- !u!114 &1789846474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1789846473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5cce522e4a6a044bf24466af6de64a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lookAt: {fileID: 212314080}
+  positionSmoothness: 0
+  speed: 1.8
+  unadjustedDistance: 0
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!43 &1806210745
 Mesh:
   m_ObjectHideFlags: 0
@@ -71778,12 +71823,6 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
---- !u!114 &1858457575 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114218289872517274, guid: 7b7f064c52880294b844b4d191494566,
-    type: 2}
-  m_PrefabInternal: {fileID: 937181891}
-  m_Script: {fileID: 11500000, guid: fbe5a09b4645e504080af83ff716f0b2, type: 3}
 --- !u!43 &1882256618
 Mesh:
   m_ObjectHideFlags: 0

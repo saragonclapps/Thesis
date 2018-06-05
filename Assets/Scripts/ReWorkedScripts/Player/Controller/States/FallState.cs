@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TPCamera;
 
 namespace Player
 {
@@ -28,7 +29,7 @@ namespace Player
 
         Rigidbody _rb;
         LandChecker _lc;
-        CameraFMS _cam;
+        CameraFSM _cam;
         AnimatorEventsBehaviour _aES;
         Animator _anim;
         PlayerController2 _pC2;
@@ -43,7 +44,7 @@ namespace Player
         bool _isJumpingForward;
         float _jumpSpeed;
 
-        public FallState(Rigidbody rb, PlayerController2 pC2, CameraFMS cam, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpSpeed)
+        public FallState(Rigidbody rb, PlayerController2 pC2, CameraFSM cam, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpSpeed)
         {
             _cam = cam;
             _rb = rb;

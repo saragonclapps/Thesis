@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TPCamera;
 
 namespace Player
 {
@@ -45,7 +46,8 @@ namespace Player
         Animator _anim;
 
         [Header("Camera Reference")]
-        public CameraFMS cam;
+        //public CameraFMS cam;
+        public CameraFSM cam2;
 
         CameraController _camController;
         AnimatorEventsBehaviour _aEB;
@@ -58,22 +60,26 @@ namespace Player
         FSM<Inputs> _fsm;
         public FSM<Inputs> Fsm { get { return _fsm; } }
 
+        [HideInInspector]
         public bool isSkillLocked;
+        [HideInInspector]
+        public bool fixedCamera;
 
         void Awake()
         {
             _anim = GetComponentInChildren<Animator>();
             _lC = GetComponentInChildren<LandChecker>();
-            _camController = cam.GetComponent<CameraController>();
+            //_camController = cam.GetComponent<CameraController>();
             _aEB = GetComponentInChildren<AnimatorEventsBehaviour>();
             _rB = GetComponent<Rigidbody>();
             isSkillLocked = false;
+
             #region FSM
-            idleState = new IdleState(this, _anim, cam.transform, transform);
-            moveState = new MoveState(_camController, transform, angleTurnTolerance, idleTurnTolerance, runningTurnSpeed, speed, this, _aEB, _anim);
-            jumpState = new JumpState(_rB, _camController, this, _lC, _aEB, transform, _anim, jumpForce, jumpSpeed);
-            fallState = new FallState(_rB, this, cam, _lC, _aEB, transform, _anim, jumpSpeed);
-            landState = new LandState(_anim, this, _aEB, _camController);
+            idleState = new IdleState(this, _anim, cam2.transform, transform, cam2);
+            moveState = new MoveState(cam2, transform, angleTurnTolerance, idleTurnTolerance, runningTurnSpeed, speed, this, _aEB, _anim);
+            jumpState = new JumpState(_rB, cam2, this, _lC, _aEB, transform, _anim, jumpForce, jumpSpeed);
+            fallState = new FallState(_rB, this, cam2, _lC, _aEB, transform, _anim, jumpSpeed);
+            landState = new LandState(_anim, this, _aEB, cam2);
 
             //Fsm Transitions
             var idleTransitions = new Dictionary<Inputs, IState<Inputs>>();
@@ -112,10 +118,15 @@ namespace Player
         void Start ()
         {
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
+            EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS, fixedCameraToogle);
         }
-	
 
-	    void Execute () {
+        private void fixedCameraToogle(object[] parameterContainer)
+        {
+            fixedCamera = !fixedCamera;
+        }
+
+        void Execute () {
             CheckInputs();
             _fsm.Execute();
         }

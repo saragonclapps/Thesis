@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TPCamera;
 
 namespace Player
 {
@@ -12,7 +13,7 @@ namespace Player
         #region Global Variables
         float _speed;
         float cameraSmoothness;
-        CameraController _cam;
+        CameraFSM _cam;
         Transform transform;
 
         //Turn Variables
@@ -44,7 +45,7 @@ namespace Player
         Animator _anim;
         #endregion
 
-        public MoveState(CameraController cam, Transform t, float angleTurnTolerance, float idleTurnSpeed, float runingTurnSpeed,float speed, PlayerController2 pC,
+        public MoveState(CameraFSM cam, Transform t, float angleTurnTolerance, float idleTurnSpeed, float runingTurnSpeed,float speed, PlayerController2 pC,
                         AnimatorEventsBehaviour aEB, Animator anim)
         {
             _cam = cam;
@@ -109,7 +110,8 @@ namespace Player
                         _pC.fallDistance = 0.7f;
 
                         cameraSmoothness = 0.1f;
-                        _cam.ChangeSmoothness(cameraSmoothness);
+                        //_cam.ChangeSmoothness(cameraSmoothness);
+                        _cam.normalState.positionSmoothness = cameraSmoothness;
                     }
                     else
                     {
@@ -119,13 +121,15 @@ namespace Player
                         _movementSpeed = _speed / 1.2f;
                         _pC.fallDistance = 0.5f;
 
-                        _cam.ChangeDistance(2f);
+                        
+                        _cam.normalState.unadjustedDistance = 2f;
 
                         if (cameraSmoothness < 0.3f)
                         {
                             cameraSmoothness += 0.1f * Time.deltaTime;
                         }
-                        _cam.ChangeSmoothness(cameraSmoothness);
+                        //_cam.ChangeSmoothness(cameraSmoothness);
+                        //_cam.normalState.positionSmoothness = cameraSmoothness;
                     }
 
                     transform.position += transform.forward * Time.deltaTime * _movementSpeed;

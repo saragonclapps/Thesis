@@ -318,7 +318,12 @@
     <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\MainCharacter\AnimatorEventsBehaviour.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraController.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFixTrigger.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFMS.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFSM.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\Inputs.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\States\FixedState.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\States\NormalState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Companion\CompanionController.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Companion\CompanionFanRotator.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\FSM\FSM.cs" />

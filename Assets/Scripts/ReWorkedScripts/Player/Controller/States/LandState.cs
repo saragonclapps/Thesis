@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TPCamera;
 
 namespace Player
 {
@@ -11,9 +12,9 @@ namespace Player
         Animator _anim;
         PlayerController2 _pC;
         AnimatorEventsBehaviour _aEB;
-        CameraController _cam;
+        CameraFSM _cam;
 
-        public LandState(Animator anim, PlayerController2 pC, AnimatorEventsBehaviour aEB, CameraController cam)
+        public LandState(Animator anim, PlayerController2 pC, AnimatorEventsBehaviour aEB, CameraFSM cam)
         {
             _anim = anim;
             _pC = pC;
@@ -25,7 +26,7 @@ namespace Player
         {
             
             _anim.SetBool("toLand", true);
-            _cam.ChangeDistance(2f);
+            _cam.normalState.unadjustedDistance = 2f;
 
         }
 
@@ -38,8 +39,6 @@ namespace Player
 
         public void Exit()
         {
-            /*if(_pC.CheckMove())
-                _anim.SetFloat("speed", 1);*/
 
             _anim.SetBool("toLand", false);
             

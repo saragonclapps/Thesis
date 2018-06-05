@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TPCamera;
 
 namespace Player
 {
@@ -28,7 +29,8 @@ namespace Player
         [HideInInspector]
         public bool forwardJump;
 
-        CameraController _cam;
+        //CameraController _cam;
+        CameraFSM _cam;
         PlayerController2 _pC2;
         AnimatorEventsBehaviour _aES;
         //private CharacterMove _cm;
@@ -36,7 +38,7 @@ namespace Player
         Transform transform;
         Animator _anim;
 
-        public JumpState(Rigidbody rb, CameraController cam, PlayerController2 pC2, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpForce, float jumpSpeed)
+        public JumpState(Rigidbody rb, CameraFSM cam, PlayerController2 pC2, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpForce, float jumpSpeed)
         {
             _rb = rb;
             _cam = cam;
@@ -72,8 +74,10 @@ namespace Player
             
             _aES.landEnd = false;
 
-            _cam.ChangeDistance(3f);
-            _cam.ChangeSmoothness(0.1f);
+            //_cam.ChangeDistance(3f);
+            _cam.normalState.unadjustedDistance = 3f;
+            //_cam.ChangeSmoothness(0.1f);
+            _cam.normalState.positionSmoothness = 0.1f;
             _pC2.isSkillLocked = true;
         }
 
