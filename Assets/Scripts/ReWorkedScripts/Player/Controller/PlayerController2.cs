@@ -109,7 +109,7 @@ namespace Player
             fallState.Transitions = fallTransitions;
             landState.Transitions = landTransitions;
 
-            _fsm = new FSM<Inputs>(idleState);
+            
             #endregion
 
             fallCount = 0;
@@ -117,13 +117,20 @@ namespace Player
 
         void Start ()
         {
+            _fsm = new FSM<Inputs>(idleState);
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
-            EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS, fixedCameraToogle);
+            EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS, ToFixedCamera);
+            EventManager.AddEventListener(GameEvent.CAMERA_NORMAL, ToNormalCamera);
         }
 
-        private void fixedCameraToogle(object[] parameterContainer)
+        void ToFixedCamera(object[] parameterContainer)
         {
-            fixedCamera = !fixedCamera;
+            fixedCamera = true;
+        }
+
+        void ToNormalCamera(object[] parameterContainer)
+        {
+            fixedCamera = false;
         }
 
         void Execute () {

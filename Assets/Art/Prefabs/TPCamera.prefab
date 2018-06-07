@@ -22,9 +22,7 @@ GameObject:
   - component: {fileID: 20176940466145832}
   - component: {fileID: 124387802709890232}
   - component: {fileID: 81149907740884354}
-  - component: {fileID: 114040957941414250}
-  - component: {fileID: 114218289872517274}
-  - component: {fileID: 114103448574373788}
+  - component: {fileID: 114196380920071300}
   m_Layer: 0
   m_Name: TPCamera
   m_TagString: MainCamera
@@ -88,19 +86,7 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1731270734992774}
   m_Enabled: 1
---- !u!114 &114040957941414250
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1731270734992774}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 0}
---- !u!114 &114103448574373788
+--- !u!114 &114196380920071300
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -108,35 +94,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1731270734992774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 476f7b39d2bc4754f8cf10e2913cce3a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b5cce522e4a6a044bf24466af6de64a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInTransition: 0
-  player: {fileID: 0}
-  MAX_Y_ANGLE: 50
-  MIN_Y_ANGLE: -20
-  lookAt: {fileID: 0}
-  zoomTransform: {fileID: 0}
-  positionSmoothness: 0.3
-  rotationSmoothness: 0.3
+  _lookAt: {fileID: 0}
+  positionSmoothness: 1
   speed: 1
+  unadjustedDistance: 2
   collisionLayer:
     serializedVersion: 2
     m_Bits: 256
-  unadjustedDistance: 2
---- !u!114 &114218289872517274
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1731270734992774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbe5a09b4645e504080af83ff716f0b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  aimToogle: 0
+  xRotationSpeed: 100
+  yRotationSpeed: 10
 --- !u!124 &124387802709890232
 Behaviour:
   m_ObjectHideFlags: 1

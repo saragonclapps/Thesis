@@ -123,8 +123,6 @@ namespace TPCamera
             //camera move
             transform.position = Vector3.Lerp(transform.position, _targetPosition, _positionSmoothness);
             transform.rotation = Quaternion.LookRotation(_lookAt.position - transform.position);
-
-            Debug.Log(Vector3.Distance(transform.position, _lookAt.position));
         }
 
         public void Exit()
