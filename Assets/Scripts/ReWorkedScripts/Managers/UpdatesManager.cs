@@ -18,6 +18,7 @@ public class UpdatesManager : MonoBehaviour {
         if (_instance == null) _instance = this;
         StartCoroutine(CoroutineUpdate());
         isActive = true;
+        QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
     }
 	

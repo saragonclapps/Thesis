@@ -45,8 +45,8 @@ namespace TPCamera
             _currentX = transform.eulerAngles.y;
             _currentY = transform.eulerAngles.x;
             _currentXRotationSpeed = _targetX - _currentX < 0 ? -_xRotationSpeed : _xRotationSpeed;
-            _currentYRotationSpeed = _targetY - _currentY < 0 ? -_yRotationSpeed : _yRotationSpeed;
-
+            //_currentYRotationSpeed = _targetY - _currentY < 0 ? -_yRotationSpeed : _yRotationSpeed;
+            _currentYRotationSpeed = _yRotationSpeed * Mathf.Pow(_targetY - _currentY,2)/35f;
 
             _positionSmoothness = 0.1f;
             _distance = Vector3.Distance(transform.position, _target.position);
@@ -55,7 +55,7 @@ namespace TPCamera
 
         public void Execute()
         {
-            if(Mathf.Abs(_targetX - _currentX) < 0.5f)
+            if(Mathf.Abs(_targetX - _currentX) < _xRotationSpeed * Time.deltaTime * 2)
             {
                 _currentX = _targetX;
                 _positionSmoothness = _positionSmoothness < 1? _positionSmoothness + Time.deltaTime: 1;
@@ -67,13 +67,15 @@ namespace TPCamera
                 
             }
 
-            if (Mathf.Abs(_targetY - _currentY) < 0.5f)
+            if (Mathf.Abs(_targetY - _currentY) < _currentYRotationSpeed * Time.deltaTime * 2)
             {
                 _currentY = _targetY;
             }
             else
             {
+                if (_currentY > 360) _currentY -= 360;
                 _currentY += _currentYRotationSpeed * Time.deltaTime;
+                Debug.Log(_currentY);
             }
 
             _distance = Mathf.Lerp(_distance, _targetDistance, Time.deltaTime);

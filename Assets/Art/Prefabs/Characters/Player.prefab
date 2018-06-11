@@ -4130,8 +4130,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1042600478169684}
-  m_LocalRotation: {x: -0, y: -0.999978, z: 0, w: -0.0066320957}
-  m_LocalPosition: {x: -1.5624757, y: 0.228, z: 0.052388668}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0027893782, y: -0.00091302395, z: 0.91039014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4617459179017474}
@@ -4140,7 +4140,7 @@ Transform:
   - {fileID: 4908758334635124}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180.76, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4394502718534658
 Transform:
   m_ObjectHideFlags: 1
@@ -5745,7 +5745,7 @@ Transform:
   m_GameObject: {fileID: 1992933598073522}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0.056}
-  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 4392742141155514}
   m_RootOrder: 3
@@ -6007,7 +6007,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: f7a7914d5ecf6764fb28e9c4e645ffb8, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 0715f777350c678428cc8584633b3e06, type: 3}
 --- !u!65 &65029049532444196
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -6136,7 +6136,7 @@ MonoBehaviour:
   idleTurnTolerance: 0.45
   runningTurnSpeed: 0.299
   jumpForce: 8
-  jumpSpeed: 6
+  jumpSpeed: 10
   jumpTolerance: 0.5
   collisionDistance: 0.5
   lm:
