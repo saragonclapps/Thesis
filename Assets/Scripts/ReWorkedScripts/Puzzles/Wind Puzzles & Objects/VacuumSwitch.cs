@@ -35,11 +35,13 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
         if (isActive)
         {
             if (currentAmountOfAir < maxAmountOfAir)
-                currentAmountOfAir += 1;
+                currentAmountOfAir += 60*Time.deltaTime;
             else
             {
+                currentAmountOfAir = maxAmountOfAir;
                 if(callbacks != null)
                 {
+                    Debug.Log(currentAmountOfAir / maxAmountOfAir);
                     callbacks();
                     isActive = false;
                     UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
@@ -115,7 +117,7 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
     #region VacuumSwitch Implementation
 
     public float maxAmountOfAir;
-    float currentAmountOfAir;
+    public float currentAmountOfAir;
 
     void Start()
     {
@@ -133,9 +135,14 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
             decreaseCallbacks();
         }
         if(currentAmountOfAir > 0)
-            currentAmountOfAir -= Time.deltaTime;
+            currentAmountOfAir -= 30* Time.deltaTime;
     }
 
     #endregion
+
+    public float GetCurrentProgressPercent()
+    {
+        return isActive ? currentAmountOfAir / maxAmountOfAir: 1;
+    }
 
 }

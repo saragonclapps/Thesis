@@ -56,5 +56,6 @@ public enum GameEvent
     Null,
     CAMERA_FIXPOS,
     CAMERA_NORMAL,
-    PLAYER_DIE
+    PLAYER_DIE,
+    ON_SKILL_CHANGE
 }

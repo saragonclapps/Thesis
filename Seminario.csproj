@@ -323,11 +323,11 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\States\NormalState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Companion\CompanionController.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Companion\CompanionFanRotator.cs" />
-    <Compile Include="Assets\Scripts\ReWorkedScripts\FPSDisplay.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\FSM\FSM.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\FSM\IState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\EventManager.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\GameInput.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\HUDManager.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\SkillManager.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\UpdatesManager.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\ArmAngle.cs" />
@@ -374,11 +374,15 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Vacuum\Skills\Freezer.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Vacuum\Skills\ISkill.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Vacuum\Skills\WaterLauncher.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\FPSDisplay.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\IHandEffect.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\PanelProximity.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\Particles\Electricity\ElectricParticle.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\Particles\Electricity\ElectricParticleEmitter.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\Particles\Electricity\Gizmo.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\Particles\VacuumParticleFX.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\SaveDisk.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\VacuumSwitchVisuals.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\VacuumVFX.cs" />
     <Compile Include="Assets\Shaders\Poss Process\DeathTransition.cs" />
   </ItemGroup>

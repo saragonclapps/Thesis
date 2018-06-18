@@ -205,6 +205,7 @@ namespace Skills
             actualAction = _skills[skillAction];
             actualAction.Enter();
 
+            EventManager.DispatchEvent(GameEvent.ON_SKILL_CHANGE, currentSkill);
             ChangeHandMesh();
 
         }
