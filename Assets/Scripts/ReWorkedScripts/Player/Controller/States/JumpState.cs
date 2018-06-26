@@ -31,18 +31,18 @@ namespace Player
 
         //CameraController _cam;
         CameraFSM _cam;
-        PlayerController _pC2;
+        PlayerController _pC;
         AnimatorEventsBehaviour _aES;
         //private CharacterMove _cm;
 
         Transform transform;
         Animator _anim;
 
-        public JumpState(Rigidbody rb, CameraFSM cam, PlayerController pC2, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpForce, float jumpSpeed)
+        public JumpState(Rigidbody rb, CameraFSM cam, PlayerController pC, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpForce, float jumpSpeed)
         {
             _rb = rb;
             _cam = cam;
-            _pC2 = pC2;
+            _pC = pC;
             _lc = lc;
             //_fall = GetComponent<FallState>();
             _aES = aES;
@@ -66,8 +66,8 @@ namespace Player
             _vertical = GameInput.instance.verticalMove;
             forwardJump = (Mathf.Abs(_horizontal) > 0.1f || Mathf.Abs(_vertical) > 0.1f) && !_pC2.CheckForwardCollision(GetCorrectedForward(), true);*/
 
-            forwardJump = _pC2.Fsm.Last == typeof(MoveState);
-            _pC2.jumpForward = forwardJump;
+            forwardJump = _pC.Fsm.Last == typeof(MoveState);
+            _pC.jumpForward = forwardJump;
             //Set Animator Parameter
 
             _anim.SetBool("toJump", true);
@@ -78,12 +78,12 @@ namespace Player
             _cam.normalState.unadjustedDistance = 3f;
             //_cam.ChangeSmoothness(0.1f);
             _cam.normalState.positionSmoothness = 0.1f;
-            _pC2.isSkillLocked = true;
+            _pC.isSkillLocked = true;
         }
 
         public void Execute()
         {
-            if (_rb.velocity.y <= 0) _pC2.land = _lc.land;
+            if (_rb.velocity.y <= 0) _pC.land = _lc.land;
 
 
             if (forwardJump)
@@ -96,7 +96,8 @@ namespace Player
                 var newDirection = GetCorrectedForward();
 
                 //AirMove
-                transform.position += newDirection * Time.deltaTime * _jumpSpeed / 2;
+                if(!_pC.forwardCheck.isForwardObstructed)
+                    transform.position += newDirection * Time.deltaTime * _jumpSpeed / 2;
             }
 
             

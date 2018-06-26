@@ -158,16 +158,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114418453964400070, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
-        type: 2}
-      propertyPath: cam2
-      value: 
-      objectReference: {fileID: 824287936}
-    - target: {fileID: 114900118701072828, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
-        type: 2}
-      propertyPath: particleParent
-      value: 
-      objectReference: {fileID: 162038062}
     - target: {fileID: 114900118701072828, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
         type: 2}
       propertyPath: blowParticle
@@ -188,31 +178,21 @@ Prefab:
       propertyPath: iceParticle
       value: 
       objectReference: {fileID: 781266492}
-    - target: {fileID: 114418453964400070, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 114900118701072828, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
         type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114737084419095166, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
+      propertyPath: particleParent
+      value: 
+      objectReference: {fileID: 162038062}
+    - target: {fileID: 114418453964400070, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
         type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114736816502951152, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
+      propertyPath: cam2
+      value: 
+      objectReference: {fileID: 824287936}
+    - target: {fileID: 114365843618626154, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
         type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114623374833365170, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 824287936}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca92b4861e97cf4429cb5d6ca0dd6451, type: 2}
   m_IsPrefabParent: 0

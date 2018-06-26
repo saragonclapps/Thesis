@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.4.0f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -340,6 +338,7 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\SkillManager.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\UpdatesManager.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\ArmAngle.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\ForwardChecker.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\Inputs.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\LandChecker.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\PlayerController.cs" />

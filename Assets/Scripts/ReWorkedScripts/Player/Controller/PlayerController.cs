@@ -53,8 +53,10 @@ namespace Player
         AnimatorEventsBehaviour _aEB;
         Rigidbody _rB;
 
-        //Land sensors
+        //Sensors
         LandChecker _lC;
+        [HideInInspector]
+        public ForwardChecker forwardCheck;
         int fallCount;
 
         FSM<Inputs> _fsm;
@@ -72,6 +74,7 @@ namespace Player
             //_camController = cam.GetComponent<CameraController>();
             _aEB = GetComponentInChildren<AnimatorEventsBehaviour>();
             _rB = GetComponent<Rigidbody>();
+            forwardCheck = GetComponentInChildren<ForwardChecker>();
             isSkillLocked = false;
 
             #region FSM

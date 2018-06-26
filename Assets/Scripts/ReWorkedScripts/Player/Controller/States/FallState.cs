@@ -32,7 +32,7 @@ namespace Player
         CameraFSM _cam;
         AnimatorEventsBehaviour _aES;
         Animator _anim;
-        PlayerController _pC2;
+        PlayerController _pC;
         Transform transform;
 
         [HideInInspector]
@@ -44,11 +44,11 @@ namespace Player
         bool _isJumpingForward;
         float _jumpSpeed;
 
-        public FallState(Rigidbody rb, PlayerController pC2, CameraFSM cam, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpSpeed)
+        public FallState(Rigidbody rb, PlayerController pC, CameraFSM cam, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpSpeed)
         {
             _cam = cam;
             _rb = rb;
-            _pC2 = pC2;
+            _pC = pC;
             _lc = lc;
             _aES = aES;
             transform = t;
@@ -70,7 +70,7 @@ namespace Player
             //_aES.landEnd = false;
             landCount = 0;
             ypos = transform.position.y;
-            _isJumpingForward = _pC2.jumpForward;
+            _isJumpingForward = _pC.jumpForward;
             _aES.landEnd = false;
         }
 
@@ -90,12 +90,12 @@ namespace Player
 
             if (landCount >= 2)
             {
-                _pC2.land = true;
+                _pC.land = true;
                 landCount = 0;
             }
             else
             {
-                _pC2.land = _lc.land;
+                _pC.land = _lc.land;
             }
 
             if (_isJumpingForward)
@@ -106,7 +106,8 @@ namespace Player
             var newDirection = GetCorrectedForward();
 
             //AirMove
-            transform.position += newDirection * Time.deltaTime * _jumpSpeed / 2;
+            if (!_pC.forwardCheck.isForwardObstructed)
+                transform.position += newDirection * Time.deltaTime * _jumpSpeed / 2;
 
             _anim.SetFloat("velocityY", _rb.velocity.y);
 
