@@ -150,7 +150,7 @@ Transform:
   m_Children:
   - {fileID: 4570607148003722}
   m_Father: {fileID: 4709271740891062}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4254660801297928
 Transform:
@@ -163,7 +163,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4709271740891062}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 30, y: 90, z: 0}
 --- !u!4 &4388169006940820
 Transform:
@@ -244,8 +244,8 @@ Transform:
   m_LocalPosition: {x: -6, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4254660801297928}
   - {fileID: 4076775486720540}
+  - {fileID: 4254660801297928}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -323,9 +323,9 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.52156866, b: 0.52156866, a: 1}
   m_Intensity: 2
-  m_Range: 15
+  m_Range: 5
   m_SpotAngle: 49.9
   m_CookieSize: 10
   m_Shadows:
@@ -339,7 +339,7 @@ Light:
   m_Cookie: {fileID: 2800000, guid: 583abe04704f78c4ab00061ee90bcb81, type: 3}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
