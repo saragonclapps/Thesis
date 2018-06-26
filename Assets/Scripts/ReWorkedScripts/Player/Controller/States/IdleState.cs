@@ -10,14 +10,14 @@ namespace Player
     {
         Dictionary<Inputs, IState<Inputs>> _transitions;
 
-        PlayerController2 _pC;
+        PlayerController _pC;
         Animator _anim;
         Transform _mainCamera;
         Transform transform;
         CameraFSM _cam;
         SkillController _skill;
 
-        public IdleState(PlayerController2 pC, Animator anim, Transform mainCamera, Transform t, CameraFSM cam)
+        public IdleState(PlayerController pC, Animator anim, Transform mainCamera, Transform t, CameraFSM cam)
         {
             _pC = pC;
             _anim = anim;

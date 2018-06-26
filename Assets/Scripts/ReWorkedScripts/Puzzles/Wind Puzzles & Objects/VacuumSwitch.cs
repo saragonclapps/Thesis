@@ -41,7 +41,6 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
                 currentAmountOfAir = maxAmountOfAir;
                 if(callbacks != null)
                 {
-                    Debug.Log(currentAmountOfAir / maxAmountOfAir);
                     callbacks();
                     isActive = false;
                     UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);

@@ -13,4 +13,9 @@ public class SaveDisk : MonoBehaviour {
 	void Execute () {
         transform.Rotate(rotation* Time.deltaTime);
 	}
+
+    private void OnDestroy()
+    {
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+    }
 }

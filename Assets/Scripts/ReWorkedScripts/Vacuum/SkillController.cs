@@ -90,7 +90,7 @@ namespace Skills
         #endregion
 
         public Skills currentSkill;
-        PlayerController2 _pC;
+        PlayerController _pC;
 
         void Awake()
         {
@@ -101,7 +101,7 @@ namespace Skills
             skillAction = new Skills();
 
             wind = GetComponentInChildren<WindZone>();
-            _pC = GetComponent<PlayerController2>();
+            _pC = GetComponent<PlayerController>();
 
             //Lists Initializing
             objectsToInteract = new List<IVacuumObject>();
@@ -257,6 +257,11 @@ namespace Skills
         {
             skillAction = Skills.VACCUM;
             SkillSet();
+        }
+
+        private void OnDestroy()
+        {
+            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
         }
     }
 

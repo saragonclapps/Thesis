@@ -28,4 +28,9 @@ public class VacuumParticleFX : MonoBehaviour {
             ps[i].SetParticles(particles, count);
         }
 	}
+
+    private void OnDestroy()
+    {
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+    }
 }

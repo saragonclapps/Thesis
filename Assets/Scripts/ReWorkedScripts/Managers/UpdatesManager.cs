@@ -6,6 +6,7 @@ using UnityEngine;
 public class UpdatesManager : MonoBehaviour {
 
     public delegate void _Updates();
+
     private static Dictionary<UpdateType, _Updates> _updates;
 
     private static UpdatesManager _instance;

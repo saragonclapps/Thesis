@@ -40,12 +40,12 @@ namespace Player
 
 
         //Player Controller
-        PlayerController2 _pC;
+        PlayerController _pC;
         AnimatorEventsBehaviour _aEB;
         Animator _anim;
         #endregion
 
-        public MoveState(CameraFSM cam, Transform t, float angleTurnTolerance, float idleTurnSpeed, float runingTurnSpeed,float speed, PlayerController2 pC,
+        public MoveState(CameraFSM cam, Transform t, float angleTurnTolerance, float idleTurnSpeed, float runingTurnSpeed,float speed, PlayerController pC,
                         AnimatorEventsBehaviour aEB, Animator anim)
         {
             _cam = cam;

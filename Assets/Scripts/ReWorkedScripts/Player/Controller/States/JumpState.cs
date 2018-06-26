@@ -31,14 +31,14 @@ namespace Player
 
         //CameraController _cam;
         CameraFSM _cam;
-        PlayerController2 _pC2;
+        PlayerController _pC2;
         AnimatorEventsBehaviour _aES;
         //private CharacterMove _cm;
 
         Transform transform;
         Animator _anim;
 
-        public JumpState(Rigidbody rb, CameraFSM cam, PlayerController2 pC2, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpForce, float jumpSpeed)
+        public JumpState(Rigidbody rb, CameraFSM cam, PlayerController pC2, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpForce, float jumpSpeed)
         {
             _rb = rb;
             _cam = cam;

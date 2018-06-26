@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 114074819683415304}
   - component: {fileID: 114944188131717866}
   - component: {fileID: 114559129053194634}
+  - component: {fileID: 114865008710935572}
+  - component: {fileID: 114744897595413626}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -100,6 +102,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e8395d84f4d07479245cdde71fd82f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114744897595413626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1033268489581780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38cef02d7640e8e4484fd2464097ab0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWithTimmer: 1
+  levelTime: 135
+  isWithPowers: 1
 --- !u!114 &114844332797725974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,6 +127,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eecafbc7d967084d9c8980ae6aeebe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114865008710935572
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1033268489581780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be4abd0b74093a41a1c324f039b735f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 0}
+  dialogueText: {fileID: 0}
+  picture: {fileID: 0}
+  dialogueBoxAnimator: {fileID: 0}
+  pictureBoxAnimator: {fileID: 0}
+  closeBoxes: 0
 --- !u!114 &114944188131717866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,6 +170,9 @@ MonoBehaviour:
   powerBarBack: {fileID: 0}
   powerPercent: {fileID: 0}
   skillMan: {fileID: 0}
+  frameAnimator: {fileID: 0}
+  timmerAnimator: {fileID: 0}
+  timmerText: {fileID: 0}
   currentImage: {fileID: 0}
   fillSpeed: 10
   colorChangeSpeed: 15

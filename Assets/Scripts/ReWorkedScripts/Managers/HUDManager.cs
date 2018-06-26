@@ -30,6 +30,13 @@ public class HUDManager : MonoBehaviour {
     [Header("Skill Manager Reference")]
     public SkillManager skillMan;
 
+    [Header("Animator References")]
+    public Animator frameAnimator;
+    public Animator timmerAnimator;
+
+    [Header("Timmer Text Ref")]
+    public Text timmerText;
+
     Dictionary<Skills.Skills, Image> imageDictionary;
     Dictionary<Skills.Skills, Color> colorDictionary;
 
@@ -44,6 +51,18 @@ public class HUDManager : MonoBehaviour {
     [Header("Transition Speeds")]
     public float fillSpeed;
     public float colorChangeSpeed;
+
+    //Singleton
+    static HUDManager _instance;
+    public static HUDManager instance { get { return _instance; } }
+
+    void Awake()
+    {
+        if(instance == null)
+        {
+            _instance = this;
+        }    
+    }
 
     void Start()
     {
@@ -73,7 +92,7 @@ public class HUDManager : MonoBehaviour {
 
     }
 
-    private void ChangeCurrentSkill(object[] parameterContainer)
+    void ChangeCurrentSkill(object[] parameterContainer)
     {
         isInTransition = true;
         isGoingDown = true;
@@ -91,14 +110,14 @@ public class HUDManager : MonoBehaviour {
         RefreshPowerBar();
     }
 
-    private void RefreshPowerBar()
+    void RefreshPowerBar()
     {
         var amount = skillMan.SkillActualAmount(currentSkill);
         powerPercent.text = (int)(amount * 100) + "%";
         powerBar.fillAmount = amount;
     }
 
-    private void ChangeBarColor()
+    void ChangeBarColor()
     {
         var actualColor = Color.Lerp(powerBar.color, colorDictionary[currentSkill], colorChangeSpeed * Time.deltaTime);
         powerBar.color = actualColor;
@@ -113,7 +132,7 @@ public class HUDManager : MonoBehaviour {
         }
     }
 
-    private void RefreshPower()
+    void RefreshPower()
     {
         fillSign = isGoingDown ? -1 : 1;
         fill += fillSpeed * fillSign * Time.deltaTime;
@@ -133,12 +152,40 @@ public class HUDManager : MonoBehaviour {
         }
     }
 
-    private void ChangeImage()
+    void ChangeImage()
     {
         currentImage.sprite = imageDictionary[currentSkill].sprite;
     }
 
-    private void OnDestroy()
+    public void EnablePowerHUD()
+    {
+        frameAnimator.SetBool("IsOpen", true);
+    }
+
+    public void DisablePowerHUD()
+    {
+        frameAnimator.SetBool("IsOpen", false);
+    }
+
+    public void EnableTimmerHUD()
+    {
+        timmerAnimator.SetBool("IsOpen", true);
+    }
+
+    public void DisableTimmerHUD()
+    {
+        timmerAnimator.SetBool("IsOpen", false);
+    }
+
+    public void RefreshTimmerHUD(float timeLeft)
+    {
+        int mins = (int)timeLeft / 60;
+        int secs = (int)timeLeft - mins * 60;
+
+        timmerText.text = mins.ToString("00") + ":" + secs.ToString("00");
+    }
+
+    void OnDestroy()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }

@@ -15,4 +15,9 @@ public class CompanionFanRotator : MonoBehaviour {
 	void Execute () {
         transform.Rotate(rot * Time.deltaTime);
 	}
+
+    private void OnDestroy()
+    {
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+    }
 }

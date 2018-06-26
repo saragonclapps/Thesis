@@ -10,11 +10,11 @@ namespace Player
 
         Dictionary<Inputs, IState<Inputs>> _transitions;
         Animator _anim;
-        PlayerController2 _pC;
+        PlayerController _pC;
         AnimatorEventsBehaviour _aEB;
         CameraFSM _cam;
 
-        public LandState(Animator anim, PlayerController2 pC, AnimatorEventsBehaviour aEB, CameraFSM cam)
+        public LandState(Animator anim, PlayerController pC, AnimatorEventsBehaviour aEB, CameraFSM cam)
         {
             _anim = anim;
             _pC = pC;

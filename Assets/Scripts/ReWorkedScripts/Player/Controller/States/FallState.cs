@@ -32,7 +32,7 @@ namespace Player
         CameraFSM _cam;
         AnimatorEventsBehaviour _aES;
         Animator _anim;
-        PlayerController2 _pC2;
+        PlayerController _pC2;
         Transform transform;
 
         [HideInInspector]
@@ -44,7 +44,7 @@ namespace Player
         bool _isJumpingForward;
         float _jumpSpeed;
 
-        public FallState(Rigidbody rb, PlayerController2 pC2, CameraFSM cam, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpSpeed)
+        public FallState(Rigidbody rb, PlayerController pC2, CameraFSM cam, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpSpeed)
         {
             _cam = cam;
             _rb = rb;
