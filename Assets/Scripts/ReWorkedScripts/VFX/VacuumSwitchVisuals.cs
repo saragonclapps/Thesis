@@ -22,4 +22,9 @@ public class VacuumSwitchVisuals : MonoBehaviour {
         text.text = (int)(prog *100) + "%";
 
     }
+
+    private void OnDestroy()
+    {
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+    }
 }

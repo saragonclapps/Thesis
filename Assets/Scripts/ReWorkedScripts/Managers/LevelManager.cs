@@ -17,6 +17,9 @@ public class LevelManager : MonoBehaviour {
     float _timmer;
     float _tick;
 
+    bool _hasDiskette;
+    public bool hasDiskette { get { return _hasDiskette; } set { _hasDiskette = value; } }
+
     //For power Configurations
     /* (later)
     public SkillManager skillManager;
@@ -40,6 +43,7 @@ public class LevelManager : MonoBehaviour {
 
     private void RestartLevel(object[] parameterContainer)
     {
+        EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_FINISH, RestartLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

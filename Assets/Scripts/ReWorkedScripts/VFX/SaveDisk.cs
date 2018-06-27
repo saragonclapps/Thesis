@@ -14,6 +14,15 @@ public class SaveDisk : MonoBehaviour {
         transform.Rotate(rotation* Time.deltaTime);
 	}
 
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == 9)
+        {
+            Destroy(gameObject);
+            HUDManager.instance.saveDisk.enabled = true;
+        }
+    }
+
     private void OnDestroy()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);

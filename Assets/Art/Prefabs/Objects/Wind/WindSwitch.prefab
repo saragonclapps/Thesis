@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 65959589343465732}
   - component: {fileID: 114287341215623972}
   - component: {fileID: 114672589242885706}
+  - component: {fileID: 114553920943599748}
   m_Layer: 0
   m_Name: WindSwitch
   m_TagString: Untagged
@@ -114,16 +115,16 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1836549044530210}
-  m_LocalRotation: {x: -0.7071068, y: -0.00000031610134, z: -0.00000031610134, w: 0.7071068}
-  m_LocalPosition: {x: -31.35009, y: 1.799999, z: -0.6500944}
-  m_LocalScale: {x: 0.39375022, y: 0.39375052, z: 0.39375046}
+  m_LocalRotation: {x: -0.49999994, y: 0.4999998, z: 0.5, w: 0.50000036}
+  m_LocalPosition: {x: 2, y: 0, z: 2}
+  m_LocalScale: {x: 0.3948962, y: 0.3948963, z: 0.3948963}
   m_Children:
   - {fileID: 4755020672611630}
   - {fileID: 4066167605720516}
   - {fileID: 4016318152041748}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 90.00001}
 --- !u!4 &4755020672611630
 Transform:
   m_ObjectHideFlags: 1
@@ -298,6 +299,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmountOfAir: 100
   currentAmountOfAir: 0
+--- !u!114 &114553920943599748
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1836549044530210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365f9ecee50312043a283bd5d74d6205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressBar: {fileID: 0}
+  text: {fileID: 0}
 --- !u!114 &114569401528263110
 MonoBehaviour:
   m_ObjectHideFlags: 1

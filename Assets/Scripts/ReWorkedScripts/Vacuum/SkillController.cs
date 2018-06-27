@@ -72,9 +72,16 @@ namespace Skills
         public Mesh fireMesh;
         public SkinnedMeshRenderer hand;
 
+        public GameObject attractorHand;
+        public GameObject electricHand;
+        public GameObject waterHand;
+        public GameObject iceHand;
+        public GameObject fireHand;
+
         public GameObject[] lefthandFingers;
 
         Dictionary<Skills, Mesh> _meshDic;
+        Dictionary<Skills, GameObject> _gODic;
         #endregion
 
         #region  Visual Effect
@@ -142,6 +149,13 @@ namespace Skills
             _meshDic.Add(Skills.WATER, waterMesh);
             _meshDic.Add(Skills.ELECTRICITY, electricMesh);
 
+            _gODic = new Dictionary<Skills, GameObject>();
+            _gODic.Add(Skills.VACCUM, attractorHand);
+            _gODic.Add(Skills.ICE, iceHand);
+            _gODic.Add(Skills.FIRE, fireHand);
+            _gODic.Add(Skills.WATER, waterHand);
+            _gODic.Add(Skills.ELECTRICITY, electricHand);
+
             actualAction = _skills[skillAction];
             actualAction.Enter();
 
@@ -200,13 +214,15 @@ namespace Skills
 
         private void SkillSet()
         {
+            _gODic[currentSkill].SetActive(false);
+            _gODic[skillAction].SetActive(true);
             currentSkill = skillAction;
             actualAction.Exit();
             actualAction = _skills[skillAction];
             actualAction.Enter();
-
+            
             EventManager.DispatchEvent(GameEvent.ON_SKILL_CHANGE, currentSkill);
-            ChangeHandMesh();
+            //ChangeHandMesh();
 
         }
 

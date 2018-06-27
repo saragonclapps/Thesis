@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33376564601902142}
   - component: {fileID: 23924878841893094}
   - component: {fileID: 114926511113833960}
+  - component: {fileID: 135847229867349330}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -112,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1651276413039160}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 14.24, y: 1.29, z: -9.81}
+  m_LocalPosition: {x: 1.435, y: 43.55, z: 87.02084}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4690468938908826}
@@ -147,7 +148,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 718410941e3284b40b83ff102ddebeb6, type: 3}
+  - {fileID: 2100000, guid: 34e370a0d7cf1614db2a10b8023d7a26, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -186,6 +187,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotation: {x: 50, y: 0, z: 0}
+--- !u!135 &135847229867349330
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1212701253267194}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.7
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198551357711315210
 ParticleSystem:
   m_ObjectHideFlags: 1
