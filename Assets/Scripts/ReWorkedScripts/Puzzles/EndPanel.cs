@@ -8,7 +8,7 @@ public class EndPanel : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == 9 && HUDManager.instance.saveDisk)
+        if(other.gameObject.layer == 9 && HUDManager.instance.saveDisk.enabled)
         {
             levelManager.whiteOutAnimator.SetTrigger("WhiteOut");
         }

@@ -21611,9 +21611,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60eab10b2daed644d8d26e8669c3dc1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
+  isActive: 1
   wp: {fileID: 1859573424}
-  t: 0.01
+  period: 8
+  stillTime: 1
+  motionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.7289974
+      value: 0.22465308
+      inSlope: 0.9010376
+      outSlope: 1.7676455
+      tangentMode: 1
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!54 &1725259287
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21689,7 +21714,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1725259285}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.42, y: 5.88, z: -2.46}
+  m_LocalPosition: {x: -6.42, y: 9.73, z: 3.58}
   m_LocalScale: {x: 3, y: 1, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
@@ -21713,7 +21738,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1725259285}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07f75e00061993643ba580f9250611a9, type: 3}
   m_Name: 

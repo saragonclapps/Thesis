@@ -67,6 +67,8 @@ namespace Player
         [HideInInspector]
         public bool fixedCamera;
 
+        bool isActive;
+
         void Awake()
         {
             _anim = GetComponentInChildren<Animator>();
@@ -124,21 +126,34 @@ namespace Player
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
             EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS, ToFixedCamera);
             EventManager.AddEventListener(GameEvent.CAMERA_NORMAL, ToNormalCamera);
+            EventManager.AddEventListener(GameEvent.CAMERA_STORY, ToDemoCamera);
+            isActive = true;
+        }
+
+        private void ToDemoCamera(object[] parameterContainer)
+        {
+            isActive = false;
+            _fsm.ProcessInput(Inputs.Idle);
         }
 
         void ToFixedCamera(object[] parameterContainer)
         {
             fixedCamera = true;
+            isActive = true;
         }
 
         void ToNormalCamera(object[] parameterContainer)
         {
             fixedCamera = false;
+            isActive = true;
         }
 
         void Execute () {
-            CheckInputs();
-            _fsm.Execute();
+            if (isActive)
+            {
+                CheckInputs();
+                _fsm.Execute();
+            }
         }
 
         void CheckInputs()
@@ -192,6 +207,9 @@ namespace Player
         private void OnDestroy()
         {
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+            EventManager.RemoveEventListener(GameEvent.CAMERA_FIXPOS, ToFixedCamera);
+            EventManager.RemoveEventListener(GameEvent.CAMERA_NORMAL, ToNormalCamera);
+            EventManager.RemoveEventListener(GameEvent.CAMERA_STORY, ToDemoCamera);
         }
 
     }

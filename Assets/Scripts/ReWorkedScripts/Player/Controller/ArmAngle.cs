@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Skills;
+using System;
 
 public class ArmAngle : MonoBehaviour {
 
@@ -12,13 +13,28 @@ public class ArmAngle : MonoBehaviour {
     Animator _anim;
     SkillController _skill;
 
+    bool isActive;
+
     void Start () {
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
         _anim = GetComponent<Animator>();
         _skill = GetComponentInParent<SkillController>();
+        EventManager.AddEventListener(GameEvent.CAMERA_STORY, ToStoryCam);
+        EventManager.AddEventListener(GameEvent.CAMERA_NORMAL, ToNormalCam);
 	}
-	
-	void Execute () {
+
+    private void ToNormalCam(object[] parameterContainer)
+    {
+        isActive = true;
+    }
+
+    private void ToStoryCam(object[] parameterContainer)
+    {
+        isActive = false;
+    }
+
+    void Execute ()
+    {
         _currentY += GameInput.instance.cameraAngle;
         _currentY = Mathf.Clamp(_currentY, MIN_Y_ANGLE, MAX_Y_ANGLE);
 
@@ -31,5 +47,7 @@ public class ArmAngle : MonoBehaviour {
     void OnDestroy()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+        EventManager.RemoveEventListener(GameEvent.CAMERA_STORY, ToStoryCam);
+        EventManager.RemoveEventListener(GameEvent.CAMERA_NORMAL, ToNormalCam);
     }
 }

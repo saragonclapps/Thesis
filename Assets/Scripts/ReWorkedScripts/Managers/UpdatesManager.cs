@@ -21,6 +21,7 @@ public class UpdatesManager : MonoBehaviour {
         isActive = true;
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
+        _updates = new Dictionary<UpdateType, _Updates>();
     }
 	
 	// Update is called once per frame

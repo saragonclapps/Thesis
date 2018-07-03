@@ -563,6 +563,31 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114865008710935572, guid: 149b72fe2676dd74aba009cf982f873d,
+        type: 2}
+      propertyPath: nameText
+      value: 
+      objectReference: {fileID: 1743848410}
+    - target: {fileID: 114865008710935572, guid: 149b72fe2676dd74aba009cf982f873d,
+        type: 2}
+      propertyPath: dialogueText
+      value: 
+      objectReference: {fileID: 1373854236}
+    - target: {fileID: 114865008710935572, guid: 149b72fe2676dd74aba009cf982f873d,
+        type: 2}
+      propertyPath: picture
+      value: 
+      objectReference: {fileID: 1582115601}
+    - target: {fileID: 114865008710935572, guid: 149b72fe2676dd74aba009cf982f873d,
+        type: 2}
+      propertyPath: dialogueBoxAnimator
+      value: 
+      objectReference: {fileID: 2008531478}
+    - target: {fileID: 114865008710935572, guid: 149b72fe2676dd74aba009cf982f873d,
+        type: 2}
+      propertyPath: pictureBoxAnimator
+      value: 
+      objectReference: {fileID: 2036643516}
     - target: {fileID: 114944188131717866, guid: 149b72fe2676dd74aba009cf982f873d,
         type: 2}
       propertyPath: firePower
@@ -615,49 +640,24 @@ Prefab:
       objectReference: {fileID: 1021232900}
     - target: {fileID: 114944188131717866, guid: 149b72fe2676dd74aba009cf982f873d,
         type: 2}
+      propertyPath: frameAnimator
+      value: 
+      objectReference: {fileID: 2116784688}
+    - target: {fileID: 114944188131717866, guid: 149b72fe2676dd74aba009cf982f873d,
+        type: 2}
+      propertyPath: timmerAnimator
+      value: 
+      objectReference: {fileID: 1914118905}
+    - target: {fileID: 114944188131717866, guid: 149b72fe2676dd74aba009cf982f873d,
+        type: 2}
+      propertyPath: timmerText
+      value: 
+      objectReference: {fileID: 2011663372}
+    - target: {fileID: 114944188131717866, guid: 149b72fe2676dd74aba009cf982f873d,
+        type: 2}
       propertyPath: currentImage
       value: 
       objectReference: {fileID: 2004797560}
-    - target: {fileID: 114865008710935572, guid: 149b72fe2676dd74aba009cf982f873d,
-        type: 2}
-      propertyPath: nameText
-      value: 
-      objectReference: {fileID: 1743848410}
-    - target: {fileID: 114865008710935572, guid: 149b72fe2676dd74aba009cf982f873d,
-        type: 2}
-      propertyPath: dialogueText
-      value: 
-      objectReference: {fileID: 1373854236}
-    - target: {fileID: 114865008710935572, guid: 149b72fe2676dd74aba009cf982f873d,
-        type: 2}
-      propertyPath: picture
-      value: 
-      objectReference: {fileID: 1582115601}
-    - target: {fileID: 114865008710935572, guid: 149b72fe2676dd74aba009cf982f873d,
-        type: 2}
-      propertyPath: dialogueBoxAnimator
-      value: 
-      objectReference: {fileID: 2008531478}
-    - target: {fileID: 114865008710935572, guid: 149b72fe2676dd74aba009cf982f873d,
-        type: 2}
-      propertyPath: pictureBoxAnimator
-      value: 
-      objectReference: {fileID: 2036643516}
-    - target: {fileID: 114744897595413626, guid: 149b72fe2676dd74aba009cf982f873d,
-        type: 2}
-      propertyPath: isWithTimmer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114744897595413626, guid: 149b72fe2676dd74aba009cf982f873d,
-        type: 2}
-      propertyPath: isWithPowers
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114744897595413626, guid: 149b72fe2676dd74aba009cf982f873d,
-        type: 2}
-      propertyPath: levelTime
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 149b72fe2676dd74aba009cf982f873d, type: 2}
   m_IsPrefabParent: 0
@@ -1200,6 +1200,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf472b5a9b6a2e242afaaa29315355c1, type: 2}
   m_IsPrefabParent: 0
+--- !u!95 &1914118905 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95265734468158822, guid: 06db9f9f5551c824db9eea1ad80d18af,
+    type: 2}
+  m_PrefabInternal: {fileID: 1387137443}
 --- !u!1 &1954415555
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,8 +1244,19 @@ Animator:
   m_PrefabParentObject: {fileID: 95653665106578260, guid: 06db9f9f5551c824db9eea1ad80d18af,
     type: 2}
   m_PrefabInternal: {fileID: 1387137443}
+--- !u!114 &2011663372 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114094792035765176, guid: 06db9f9f5551c824db9eea1ad80d18af,
+    type: 2}
+  m_PrefabInternal: {fileID: 1387137443}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!95 &2036643516 stripped
 Animator:
   m_PrefabParentObject: {fileID: 95008090912307376, guid: 06db9f9f5551c824db9eea1ad80d18af,
+    type: 2}
+  m_PrefabInternal: {fileID: 1387137443}
+--- !u!95 &2116784688 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95986564484011896, guid: 06db9f9f5551c824db9eea1ad80d18af,
     type: 2}
   m_PrefabInternal: {fileID: 1387137443}

@@ -15,20 +15,4 @@ public class StoryElement : MonoBehaviour {
         dialogueNumber ++;
     }
 
-    /*private void Start()
-    {
-        UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
-    }
-
-    void Execute()
-    {
-        if (GameInput.instance.initialJumpButton)
-        {
-            LoadDialogue(null);
-            EventManager.DispatchEvent(GameEvent.STORY_NEXT);
-            EventManager.AddEventListener(GameEvent.STORY_NEXT, LoadDialogue);
-            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
-        }
-    }*/
-
 }

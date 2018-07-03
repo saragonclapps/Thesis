@@ -38,14 +38,22 @@ public class LevelManager : MonoBehaviour {
             HUDManager.instance.EnablePowerHUD();
         }
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
-        EventManager.AddEventListener(GameEvent.TRANSITION_FADEOUT_FINISH, RestartLevel);
-	}
+        EventManager.AddEventListener(GameEvent.TRANSITION_FADEOUT_LOSE_FINISH, RestartLevel);
+        EventManager.AddEventListener(GameEvent.TRANSITION_FADEOUT_WIN_FINISH, NextLevel);
+    }
+
+    private void NextLevel(object[] parameterContainer)
+    {
+        EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_WIN_FINISH, RestartLevel);
+        SceneManager.LoadScene(2);
+    }
 
     private void RestartLevel(object[] parameterContainer)
     {
-        EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_FINISH, RestartLevel);
+        EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_LOSE_FINISH, RestartLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
 
     void Execute ()
     {
@@ -62,4 +70,9 @@ public class LevelManager : MonoBehaviour {
             HUDManager.instance.RefreshTimmerHUD(_timmer);
         }
 	}
+
+    private void OnDestroy()
+    {
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+    }
 }

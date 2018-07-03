@@ -5,6 +5,7 @@ using UnityEngine;
 public class SaveDisk : MonoBehaviour {
 
     public Vector3 rotation;
+    public ParticleSystem aura;
 
 	void Start () {
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
@@ -19,6 +20,7 @@ public class SaveDisk : MonoBehaviour {
         if(other.gameObject.layer == 9)
         {
             Destroy(gameObject);
+            aura.Stop();
             HUDManager.instance.saveDisk.enabled = true;
         }
     }

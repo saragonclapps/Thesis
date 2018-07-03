@@ -19,7 +19,7 @@ public class LevelZeroMasterManager : MonoBehaviour {
         cameraStory = CameraStoryUpdate;
         EventManager.DispatchEvent(GameEvent.CAMERA_STORY, cameraStory);
         EventManager.AddEventListener(GameEvent.STORY_END, WhiteOut);
-        EventManager.AddEventListener(GameEvent.TRANSITION_FADEOUT_FINISH, ChangeLevel);
+        EventManager.AddEventListener(GameEvent.TRANSITION_FADEOUT_WIN_FINISH, ChangeLevel);
     }
 
     private void ChangeLevel(object[] parameterContainer)
@@ -30,6 +30,7 @@ public class LevelZeroMasterManager : MonoBehaviour {
     private void WhiteOut(object[] parameterContainer)
     {
         whiteOutAnimator.SetTrigger("WhiteOut");
+        EventManager.RemoveEventListener(GameEvent.STORY_END, WhiteOut);
     }
 
     private void StartStory(object[] parameterContainer)
@@ -55,5 +56,6 @@ public class LevelZeroMasterManager : MonoBehaviour {
     {
         EventManager.RemoveEventListener(GameEvent.STORY_NEXT, NextPosition);
         EventManager.RemoveEventListener(GameEvent.STORY_NEXT, story.LoadDialogue);
+        EventManager.RemoveEventListener(GameEvent.STORY_END, WhiteOut);
     }
 }
