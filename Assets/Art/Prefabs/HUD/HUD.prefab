@@ -181,7 +181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1495542048834558
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 222311232644382972}
   - component: {fileID: 114173924614376040}
   - component: {fileID: 95868332349858520}
-  - component: {fileID: 114181576114893152}
+  - component: {fileID: 114367024167581190}
   m_Layer: 0
   m_Name: BlackIn
   m_TagString: Untagged
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 222697890415970956}
   - component: {fileID: 114364392429943096}
   - component: {fileID: 95455077677218546}
-  - component: {fileID: 114034608788537302}
+  - component: {fileID: 114494131580723622}
   m_Layer: 0
   m_Name: WhiteOut
   m_TagString: Untagged
@@ -479,17 +479,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114034608788537302
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1662511296573204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8be0d144a9af3dc48a974899963507bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114094792035765176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -610,17 +599,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114181576114893152
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1591675851162378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8be0d144a9af3dc48a974899963507bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114189858079353086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -654,7 +632,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467017739454812}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -756,6 +734,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114367024167581190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591675851162378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72dd30c30bf15494f836f6cdce5213a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114383414008950534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -871,6 +860,17 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: Este es un texto de prueba bastante aburrido en caso de que no funcione
     se pudre todo loco, aguante el paco la pepa y el fernet!
+--- !u!114 &114494131580723622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1662511296573204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72dd30c30bf15494f836f6cdce5213a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114525499336598338
 MonoBehaviour:
   m_ObjectHideFlags: 1
