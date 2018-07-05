@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4933412529531294}
   - component: {fileID: 33639518625485314}
   - component: {fileID: 23639179764653106}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,8 +93,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347435001364684}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.89, z: 0}
+  m_LocalRotation: {x: -0.70710653, y: 0.0000004109319, z: -0.7071071, w: -0.00000041093156}
+  m_LocalPosition: {x: -9.350002, y: 5.799999, z: 3.8499901}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4294580833484396}
@@ -115,7 +115,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100004, guid: 38677f4d2f977634fb22bee2b89b7865, type: 3}
+  - {fileID: 2100000, guid: 22a32be88eebd5e44904d943c3944832, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
