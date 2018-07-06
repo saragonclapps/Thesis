@@ -52,6 +52,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4824387558713120}
+  - component: {fileID: 114335629611807790}
   m_Layer: 0
   m_Name: Floor2x2004
   m_TagString: Untagged
@@ -153,3 +154,14 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9999994, y: 2.000001, z: 0.015000003}
   m_Center: {x: -0.4999997, y: -1.0000005, z: -0.0075000008}
+--- !u!114 &114335629611807790
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1660619663718514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63602819eccd7c4409dd33cffb8c15d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

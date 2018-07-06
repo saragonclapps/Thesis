@@ -39,7 +39,7 @@ public class WayPointPlatform : Platform {
             if (actualDistance < 0.2f)
             {
                 speed = 0;
-                Debug.Log("Frenado");
+
                 if(_stillTimmer < stillTime)
                 {
                     _stillTimmer += Time.deltaTime;
@@ -50,12 +50,11 @@ public class WayPointPlatform : Platform {
                 }
             }else if( actualDistance < initialDistance / 2)
             {
-                Debug.Log("Ascelerando");
+
                 _curveTick -= Time.deltaTime;
             }
             else
             {
-                Debug.Log("Frenando");
                 _curveTick += Time.deltaTime;
             }
             transform.position += dir * speed;

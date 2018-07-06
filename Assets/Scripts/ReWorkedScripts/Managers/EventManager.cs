@@ -67,5 +67,7 @@ public enum GameEvent
     STORY_NEXT,
     STORY_END,
     TIME_UP,
-    ELEVATOR_ON
+    ELEVATOR_ON,
+    SAVEDISK_ENTER,
+    SAVEDISK_END
 }

@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4058791275923512}
+  - component: {fileID: 114041690643043318}
   m_Layer: 0
   m_Name: Ceiling010
   m_TagString: Untagged
@@ -153,3 +154,14 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 7.999965, y: 8.000017, z: 0.28900334}
   m_Center: {x: 3.9999816, y: 3.999994, z: -0.14450322}
+--- !u!114 &114041690643043318
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1662075407607898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63602819eccd7c4409dd33cffb8c15d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

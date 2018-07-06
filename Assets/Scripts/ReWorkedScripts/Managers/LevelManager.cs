@@ -20,12 +20,23 @@ public class LevelManager : MonoBehaviour {
     bool _hasDiskette;
     public bool hasDiskette { get { return _hasDiskette; } set { _hasDiskette = value; } }
 
+
+    public List<Material> breathingScenarioMaterials;
+
+    static LevelManager _instance;
+    public static LevelManager instance { get{ return _instance; } }
+
     //For power Configurations
     /* (later)
     public SkillManager skillManager;
     */
-	
-	void Start ()
+    void Awake()
+    {
+        _instance = this;
+        breathingScenarioMaterials = new List<Material>();
+    }
+
+    void Start ()
     {
         if (isWithTimmer)
         {
@@ -70,6 +81,11 @@ public class LevelManager : MonoBehaviour {
             HUDManager.instance.RefreshTimmerHUD(_timmer);
         }
 	}
+
+    public void AddBreathingMaterial(Material mat)
+    {
+        breathingScenarioMaterials.Add(mat);   
+    }
 
     private void OnDestroy()
     {
