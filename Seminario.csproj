@@ -255,8 +255,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AlphaCutOutEqualizer.cs" />
-    <Compile Include="Assets\BreathingScenario.cs" />
     <Compile Include="Assets\Download\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
     <Compile Include="Assets\Download\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
     <Compile Include="Assets\Download\EffectExamples\Shared\Scripts\GunAim.cs" />
@@ -309,6 +307,7 @@
     <Compile Include="Assets\Download\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\Download\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Download\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
+    <Compile Include="Assets\LevelZeroCutScene.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\CameraControls.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\IcoBumpin.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Misc\HueCube.cs" />
@@ -328,6 +327,11 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFixTrigger.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFMS.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFSM.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutScene.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutSceneCamera.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutScenesManager.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\ElevatorCutScene.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\EndPanelCutScene.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\Inputs.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\States\FixedState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\States\NormalState.cs" />
@@ -395,6 +399,8 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\MediumSizeObject.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\SwitchFan.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\VacuumSwitch.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\AlphaCutOutEqualizer.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\BreathingScenario.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\FPSDisplay.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\IHandEffect.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\Particles\Electricity\ElectricParticle.cs" />

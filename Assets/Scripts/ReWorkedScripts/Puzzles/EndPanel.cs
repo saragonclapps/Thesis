@@ -13,17 +13,11 @@ public class EndPanel : MonoBehaviour {
     public Animator cpuDrive;
     public Vector3 offset;
 
-    public Transform[] cameraPositions;
-    public Transform playerEndPosition;
-    //public GameObject saveDiskGO;
-
-    Action<Transform> cameraUpdate;
-    public int cameraPositionCount = 0;
+    public string cutSceneTag;
+    bool _cutSceneStart;
 
     void Start()
     {
-        cameraUpdate = CameraEndDemo;
-        //saveDiskGO.SetActive(false);
         EventManager.AddEventListener(GameEvent.SAVEDISK_ENTER, SaveDiskEnter);
     }
 
@@ -35,11 +29,10 @@ public class EndPanel : MonoBehaviour {
 
         if (layer == 9)
         {
-            //levelManager.whiteOutAnimator.SetTrigger("WhiteOut");
-            if (saveDisk && dist)
+            if (saveDisk && dist && !_cutSceneStart)
             {
-                //saveDiskGO.SetActive(true);
-                EventManager.DispatchEvent(GameEvent.CAMERA_STORY, cameraUpdate);
+                EventManager.DispatchEvent(GameEvent.CAMERA_STORY, cutSceneTag);
+                _cutSceneStart = true;
             }
             cpuCap.SetBool("isNear", true);
             cpuDrive.SetBool("isNear", true);
@@ -49,7 +42,6 @@ public class EndPanel : MonoBehaviour {
     private void SaveDiskEnter(object[] parameterContainer)
     {
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
-        cameraPositionCount++;
         EventManager.RemoveEventListener(GameEvent.SAVEDISK_ENTER, SaveDiskEnter);
     }
 
@@ -75,16 +67,6 @@ public class EndPanel : MonoBehaviour {
             LevelManager.instance.whiteOutAnimator.SetTrigger("WhiteOut");
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
             
-        }
-    }
-
-    void CameraEndDemo(Transform transform)
-    {
-        transform.position = Vector3.Lerp(transform.position, cameraPositions[cameraPositionCount].position, Time.deltaTime);
-        transform.rotation = Quaternion.Lerp(transform.rotation,cameraPositions[cameraPositionCount].rotation, Time.deltaTime);
-        if(Vector3.Distance(transform.position, cameraPositions[cameraPositionCount].position) < 0.5f)
-        {
-            EventManager.DispatchEvent(GameEvent.SAVEDISK_END);
         }
     }
 

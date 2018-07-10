@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4058751724539708}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CoolerFan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4323296485300556}
   - component: {fileID: 33215091291983056}
   - component: {fileID: 23550045733362990}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,12 +51,13 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4911129056883884}
-  m_Layer: 0
+  - component: {fileID: 95395530843749130}
+  m_Layer: 10
   m_Name: CPUCap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1155749796016804
 GameObject:
@@ -66,7 +67,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4083818347554938}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CPUPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +84,7 @@ GameObject:
   - component: {fileID: 4782936192018388}
   - component: {fileID: 33822721811530712}
   - component: {fileID: 23247887866831168}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4997583300125326}
   - component: {fileID: 136128682204358962}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4195300704304972}
   - component: {fileID: 136628221976251362}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +133,7 @@ GameObject:
   - component: {fileID: 4423359065058698}
   - component: {fileID: 33380375061382538}
   - component: {fileID: 23848055153590152}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,12 +150,12 @@ GameObject:
   - component: {fileID: 4371138364152378}
   - component: {fileID: 33674683915855164}
   - component: {fileID: 23578588985281240}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DriveLector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1330545229318116
 GameObject:
@@ -165,12 +166,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4986503583556276}
   - component: {fileID: 65083495069669712}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1423146460667484
 GameObject:
@@ -181,12 +182,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4422370350181598}
   - component: {fileID: 65230032172697938}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1449692546546280
 GameObject:
@@ -198,7 +199,7 @@ GameObject:
   - component: {fileID: 4190926765166650}
   - component: {fileID: 33859850030285130}
   - component: {fileID: 23355295404393956}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EndPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +216,7 @@ GameObject:
   - component: {fileID: 4075020842968778}
   - component: {fileID: 33224688552676844}
   - component: {fileID: 23888807946042240}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +231,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4299463544078676}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CoolerFan (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,12 +248,12 @@ GameObject:
   - component: {fileID: 4311097594436590}
   - component: {fileID: 33895573366533060}
   - component: {fileID: 23074386999406448}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1594862055702198
 GameObject:
@@ -262,7 +263,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4361673519388778}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +278,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4186114611302280}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CPU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4382092206227100}
   - component: {fileID: 136934717446175046}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +312,7 @@ GameObject:
   - component: {fileID: 33826333499464452}
   - component: {fileID: 23947206551235424}
   - component: {fileID: 136514932307545060}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +330,7 @@ GameObject:
   - component: {fileID: 33404055539300702}
   - component: {fileID: 23525465707987048}
   - component: {fileID: 136612665020066750}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,12 +345,13 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4742302293338550}
-  m_Layer: 0
+  - component: {fileID: 95215932880919708}
+  m_Layer: 10
   m_Name: DriveLector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1861684423967994
 GameObject:
@@ -361,7 +363,7 @@ GameObject:
   - component: {fileID: 4998398901402844}
   - component: {fileID: 33528582085562092}
   - component: {fileID: 23416454386039678}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -376,7 +378,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4840741372632944}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +396,7 @@ GameObject:
   - component: {fileID: 65942535889700128}
   - component: {fileID: 114171562647198216}
   - component: {fileID: 114266033856532218}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EndPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +413,7 @@ GameObject:
   - component: {fileID: 4739343407605712}
   - component: {fileID: 33789111756352642}
   - component: {fileID: 23875031805095314}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,7 +429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4408020309677080}
   - component: {fileID: 65919076927310490}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +446,7 @@ GameObject:
   - component: {fileID: 4260607809699568}
   - component: {fileID: 33207269919793628}
   - component: {fileID: 23617447358019634}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +706,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1820355584291308}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.441, y: 0.63399994, z: 0.922}
+  m_LocalPosition: {x: -0.48, y: 0.627, z: 0.922}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4371138364152378}
@@ -748,7 +750,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1892513178601456}
   m_LocalRotation: {x: -0, y: -0.00000044703478, z: -0, w: 1}
-  m_LocalPosition: {x: -55.32501, y: 14.144001, z: 10.43795}
+  m_LocalPosition: {x: -55.32504, y: 14.144001, z: 10.43795}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4075020842968778}
@@ -766,15 +768,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1032515504231138}
-  m_LocalRotation: {x: 0.00000002235174, y: -0, z: 0.1022982, w: 0.99475384}
-  m_LocalPosition: {x: -0.117, y: 0.287, z: 0.701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.202, y: 0.597, z: 0.923}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4311097594436590}
   - {fileID: 4986503583556276}
   m_Father: {fileID: 4843095644459418}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 11.743001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4931520107890626
 Transform:
   m_ObjectHideFlags: 1
@@ -1366,8 +1368,42 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.53, z: 1.78}
-  m_Center: {x: 0.63, y: 0.9, z: 0.86}
+  m_Size: {x: 3.14, y: 4, z: 4}
+  m_Center: {x: 1.6, y: 1.65, z: 0.9}
+--- !u!95 &95215932880919708
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1820355584291308}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9aa5a343c69f2e046882f23b8409c227, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95395530843749130
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1032515504231138}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5754e0af92dac440a83c97099b70976, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114171562647198216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1379,6 +1415,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdce804bdabf47b419b19fc8a863098d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeDistance: 2
+  cpuCap: {fileID: 95395530843749130}
+  cpuDrive: {fileID: 95215932880919708}
+  offset: {x: 0.93, y: -0.27, z: 0}
+  cameraPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  cutSceneTag: EndPanel
 --- !u!114 &114266033856532218
 MonoBehaviour:
   m_ObjectHideFlags: 1

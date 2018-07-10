@@ -45,7 +45,7 @@ namespace TPCamera
             set {
                 var undist = value;
                 undist = Mathf.Clamp01(undist);
-                _positionSmoothness = value;
+                _positionSmoothness = undist;
                 }
             }
 
@@ -53,7 +53,7 @@ namespace TPCamera
         Vector3[] _adjustedCameraClipPoints;
         Vector3[] _desiredCameraClipPoints;
         LayerMask _collisionLayer;
-
+        LayerMask _distanceCollisionLayer;
         Camera _cam;
 
         public NormalState(Transform lookAt, Transform t, float speed, float positionSmoothness, float unadjustedDistance, Camera cam, LayerMask collisionLayer, GameInput I)
@@ -64,6 +64,7 @@ namespace TPCamera
             _positionSmoothness = positionSmoothness;
             _cam = cam;
             _collisionLayer = collisionLayer;
+            _distanceCollisionLayer = ~_collisionLayer;
             _unadjustedDistance = unadjustedDistance;
             _I = I;
 
@@ -187,14 +188,15 @@ namespace TPCamera
 
                 ray = new Ray(target, _desiredCameraClipPoints[i] - target);
 
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit,_unadjustedDistance + 1 ,_collisionLayer,QueryTriggerInteraction.Ignore))
                 {
                     if (dist == -1) dist = hit.distance;
                     else if (hit.distance < dist) dist = hit.distance;
                 }
             }
 
-            if (dist == -1) return 0;
+
+            if (dist == -1) return _unadjustedDistance;
             else return dist;
 
 

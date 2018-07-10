@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelZeroMasterManager : MonoBehaviour {
 
-    public Transform[] cameraPositions;
     public StoryElement story;
     public Animator whiteOutAnimator;
+    public string cutSceneTag;
 
     int storyCount = 0;
     Action<Transform> cameraStory;
@@ -16,8 +16,6 @@ public class LevelZeroMasterManager : MonoBehaviour {
 	void Start ()
     {
         EventManager.AddEventListener(GameEvent.TRANSITION_FADEIN_FINISH, StartStory);
-        cameraStory = CameraStoryUpdate;
-        EventManager.DispatchEvent(GameEvent.CAMERA_STORY, cameraStory);
         EventManager.AddEventListener(GameEvent.STORY_END, WhiteOut);
         EventManager.AddEventListener(GameEvent.TRANSITION_FADEOUT_WIN_FINISH, ChangeLevel);
     }
@@ -35,26 +33,15 @@ public class LevelZeroMasterManager : MonoBehaviour {
 
     private void StartStory(object[] parameterContainer)
     {
+        EventManager.DispatchEvent(GameEvent.CAMERA_STORY, cutSceneTag);
         EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEIN_FINISH, StartStory);
-        EventManager.AddEventListener(GameEvent.STORY_NEXT, NextPosition);
         EventManager.AddEventListener(GameEvent.STORY_NEXT, story.LoadDialogue);
         story.LoadDialogue(null);
     }
 
-    private void NextPosition(object[] parameterContainer)
-    {
-        storyCount++;
-    }
-
-    void CameraStoryUpdate(Transform transform)
-    {
-        transform.position = cameraPositions[storyCount].position;
-        transform.rotation = cameraPositions[storyCount].rotation;
-    }
 
     void OnDestroy()
     {
-        EventManager.RemoveEventListener(GameEvent.STORY_NEXT, NextPosition);
         EventManager.RemoveEventListener(GameEvent.STORY_NEXT, story.LoadDialogue);
         EventManager.RemoveEventListener(GameEvent.STORY_END, WhiteOut);
     }

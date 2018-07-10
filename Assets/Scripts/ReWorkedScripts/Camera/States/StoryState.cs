@@ -9,30 +9,40 @@ namespace TPCamera
     {
         Dictionary<Inputs, IState<Inputs>> _transitions;
 
-        Action<Transform> _update;
-        public Action<Transform> update { set { _update = value; } }
-
-        Transform transform;
-
-        public StoryState(Transform t)
+        Camera _cam;
+        string _cutSceneTag;
+        Camera _cutSceneCamera;
+        public Camera cutSceneCamera
         {
-            transform = t;
+            set
+            {
+                _cutSceneCamera = value;
+                _cutSceneTag = _cutSceneCamera.GetComponent<CutSceneCamera>().tag;
+            }
+        }
+
+        public StoryState(Camera cam)
+        {
+            _cam = cam;
         }
 
 
         public void Enter()
         {
-
+            _cam.enabled = false;
         }
 
         public void Execute()
         {
-            _update(transform);
+            
         }
 
         public void Exit()
         {
-            
+            _cam.transform.position = _cutSceneCamera.transform.position;
+            _cam.transform.rotation = _cutSceneCamera.transform.rotation;
+            _cam.enabled = true;
+
         }
 
         public Dictionary<Inputs, IState<Inputs>> Transitions

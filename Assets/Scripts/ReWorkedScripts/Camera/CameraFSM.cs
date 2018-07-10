@@ -43,7 +43,7 @@ namespace TPCamera
             #region FSM
             _normalState = new NormalState(_lookAt, transform, speed, positionSmoothness, unadjustedDistance, _cam, collisionLayer, _I);
             _fixedState = new FixedState(transform, xRotationSpeed, yRotationSpeed,_lookAt);
-            _storyState = new StoryState(transform);
+            _storyState = new StoryState(_cam);
 
 
             var normalTransitions = new Dictionary<Inputs, IState<Inputs>>();
@@ -89,7 +89,10 @@ namespace TPCamera
 
         private void ToStory(object[] parameterContainer)
         {
-            _storyState.update = (Action<Transform>)parameterContainer[0];
+            //_storyState.update = (Action<Transform>)parameterContainer[0];
+            var camTag = (string)parameterContainer[0];
+            //CutScenesManager.instance.ActivateCutSceneCamera(camTag);
+            _storyState.cutSceneCamera = CutScenesManager.instance.GetCamera(camTag);
             _fsm.ProcessInput(Inputs.TO_DEMO);
         }
 
