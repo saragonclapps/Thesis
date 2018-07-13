@@ -22,7 +22,8 @@ public class LevelZeroMasterManager : MonoBehaviour {
 
     private void ChangeLevel(object[] parameterContainer)
     {
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
+        MasterManager.instance.LoadScene(2, 1);
     }
 
     private void WhiteOut(object[] parameterContainer)
