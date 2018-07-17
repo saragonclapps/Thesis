@@ -44,7 +44,6 @@ public class CutScenesManager : MonoBehaviour {
     public void ActivateCutSceneCamera(string tag)
     {
         if (cameraDictionary.ContainsKey(tag)) cameraDictionary[tag].Play();
-        else Debug.Log("No se encontro" + tag);
     }
 
     public void DeActivateCutSceneCamera(string tag)
@@ -56,5 +55,10 @@ public class CutScenesManager : MonoBehaviour {
     {
         if (cameraDictionary.ContainsKey(tag)) return cameraDictionary[tag].cam;
         else return null;
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.RemoveEventListener(GameEvent.CAMERA_STORY, ManageCutSceneCamera);
     }
 }

@@ -32,12 +32,12 @@ namespace Player
             _anim.SetBool("toJump", false);
             //_cam.ChangeSmoothness(0.3f);
             _cam.normalState.positionSmoothness = 0.3f;
+            _anim.SetTrigger("toIdle");
             
         }
 
         public void Execute()
         {
-            _anim.SetBool("toIdle", true);
             
             if (((GameInput.instance.absorbButton && _skill.currentSkill == Skills.Skills.VACCUM )|| GameInput.instance.blowUpButton )&& !_pC.fixedCamera)
             {

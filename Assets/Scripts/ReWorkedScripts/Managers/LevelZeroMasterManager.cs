@@ -9,7 +9,7 @@ public class LevelZeroMasterManager : MonoBehaviour {
     public StoryElement story;
     public Animator whiteOutAnimator;
     public string cutSceneTag;
-
+    public string nextLevel;
     int storyCount = 0;
     Action<Transform> cameraStory;
 	
@@ -22,8 +22,8 @@ public class LevelZeroMasterManager : MonoBehaviour {
 
     private void ChangeLevel(object[] parameterContainer)
     {
-        //SceneManager.LoadScene(1);
-        MasterManager.instance.LoadScene(2, 1);
+        MasterManager.nextScene = nextLevel;
+        SceneManager.LoadScene("LoadingScreen");
     }
 
     private void WhiteOut(object[] parameterContainer)
@@ -45,5 +45,6 @@ public class LevelZeroMasterManager : MonoBehaviour {
     {
         EventManager.RemoveEventListener(GameEvent.STORY_NEXT, story.LoadDialogue);
         EventManager.RemoveEventListener(GameEvent.STORY_END, WhiteOut);
+        EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_WIN_FINISH, ChangeLevel);
     }
 }

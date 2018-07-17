@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 48e9203980f54c24fb586d5a7a815044
-timeCreated: 1531338106
+guid: 75dea7f6b17d9fd43bd61c4acba72028
+timeCreated: 1531776448
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -86,7 +86,7 @@ ModelImporter:
     100156: pelos
     100158: Pelvis
     100160: Piel
-    100162: RBrazo
+    100162: RBrazo003
     100164: RBrazo1
     100166: RBrazo2
     100168: RClavicula
@@ -187,7 +187,7 @@ ModelImporter:
     400156: pelos
     400158: Pelvis
     400160: Piel
-    400162: RBrazo
+    400162: RBrazo003
     400164: RBrazo1
     400166: RBrazo2
     400168: RClavicula
@@ -207,50 +207,51 @@ ModelImporter:
     400196: RDedoPulgar2
     400198: RMano
     400200: ropa
-    2100000: equipamiento
-    2100002: shaders
-    2100004: No Name
+    2100000: No Name
+    2100002: equipamiento
+    2100004: shaders
     2100006: 01 - Default
-    4300000: RBrazo
-    4300002: RDedoAnular3
-    4300004: RDedoMenique3
-    4300006: RDedoMenique2
-    4300008: RDedoMenique1
-    4300010: RDedoAnular2
-    4300012: RDedoAnular1
-    4300014: RDedoMayor3
-    4300016: RDedoMayor2
-    4300018: RDedoMayor1
-    4300020: RDedoIndice3
-    4300022: RDedoIndice2
-    4300024: RDedoIndice1
-    4300026: RDedoPulgar2
-    4300028: RDedoPulgar1
-    4300030: Object001
-    4300032: metal
-    4300034: DedoPulgar2
-    4300036: DedoPulgar1
-    4300038: DedoIndice3
-    4300040: DedoIndice2
-    4300042: DedoIndice1
-    4300044: DedoMenique3
-    4300046: DedoMenique2
-    4300048: DedoMenique1
-    4300050: DedoAnular3
-    4300052: DedoAnular2
-    4300054: DedoAnular1
-    4300056: DedoMayor3
-    4300058: DedoMayor2
-    4300060: DedoMayor1
-    4300062: cola
-    4300064: ojo
-    4300066: ojo02
-    4300068: mochila
-    4300070: boots
-    4300072: ropa
-    4300074: hat
-    4300076: pelos
-    4300078: Piel
+    2100008: 09 - Default
+    4300000: Piel
+    4300002: pelos
+    4300004: hat
+    4300006: ropa
+    4300008: boots
+    4300010: mochila
+    4300012: ojo02
+    4300014: ojo
+    4300016: cola
+    4300018: DedoMayor1
+    4300020: DedoMayor2
+    4300022: DedoMayor3
+    4300024: DedoAnular1
+    4300026: DedoAnular2
+    4300028: DedoAnular3
+    4300030: DedoMenique1
+    4300032: DedoMenique2
+    4300034: DedoMenique3
+    4300036: DedoIndice1
+    4300038: DedoIndice2
+    4300040: DedoIndice3
+    4300042: DedoPulgar1
+    4300044: DedoPulgar2
+    4300046: metal
+    4300048: Object001
+    4300050: RDedoPulgar1
+    4300052: RDedoPulgar2
+    4300054: RDedoIndice1
+    4300056: RDedoIndice2
+    4300058: RDedoIndice3
+    4300060: RDedoMayor1
+    4300062: RDedoMayor2
+    4300064: RDedoMayor3
+    4300066: RDedoAnular1
+    4300068: RDedoAnular2
+    4300070: RDedoMenique1
+    4300072: RDedoMenique2
+    4300074: RDedoMenique3
+    4300076: RDedoAnular3
+    4300078: RBrazo003
     7400000: Player_Aim_Left_TOP
     9500000: //RootNode
     13700000: boots
@@ -277,7 +278,7 @@ ModelImporter:
     13700042: ojo02
     13700044: pelos
     13700046: Piel
-    13700048: RBrazo
+    13700048: RBrazo003
     13700050: RDedoAnular1
     13700052: RDedoAnular2
     13700054: RDedoAnular3
@@ -370,7 +371,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

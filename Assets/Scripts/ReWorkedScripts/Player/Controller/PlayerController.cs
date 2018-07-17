@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TPCamera;
+using Skills;
 
 namespace Player
 {
@@ -42,6 +43,7 @@ namespace Player
         JumpState jumpState;
         FallState fallState;
         LandState landState;
+        AimingState aimState;
 
         Animator _anim;
 
@@ -52,6 +54,7 @@ namespace Player
         CameraController _camController;
         AnimatorEventsBehaviour _aEB;
         Rigidbody _rB;
+        SkillController _skill;
 
         //Sensors
         LandChecker _lC;
@@ -77,6 +80,7 @@ namespace Player
             _aEB = GetComponentInChildren<AnimatorEventsBehaviour>();
             _rB = GetComponent<Rigidbody>();
             forwardCheck = GetComponentInChildren<ForwardChecker>();
+            _skill = GetComponentInChildren<SkillController>();
             isSkillLocked = false;
 
             #region FSM
@@ -85,6 +89,7 @@ namespace Player
             jumpState = new JumpState(_rB, cam2, this, _lC, _aEB, transform, _anim, jumpForce, jumpSpeed);
             fallState = new FallState(_rB, this, cam2, _lC, _aEB, transform, _anim, jumpSpeed);
             landState = new LandState(_anim, this, _aEB, cam2);
+            aimState = new AimingState(transform, cam2, _anim, speed);
 
             //Fsm Transitions
             var idleTransitions = new Dictionary<Inputs, IState<Inputs>>();
@@ -96,6 +101,7 @@ namespace Player
             moveTransitions.Add(Inputs.Idle, idleState);
             moveTransitions.Add(Inputs.Jump, jumpState);
             moveTransitions.Add(Inputs.Fall, fallState);
+            moveTransitions.Add(Inputs.Aiming, aimState);
 
             var jumpTransitions = new Dictionary<Inputs, IState<Inputs>>();
             jumpTransitions.Add(Inputs.Land, landState);
@@ -108,11 +114,16 @@ namespace Player
             landTransitions.Add(Inputs.EndLand, idleState);
             landTransitions.Add(Inputs.Jump, jumpState);
 
+            var aimTransitions = new Dictionary<Inputs, IState<Inputs>>();
+            aimTransitions.Add(Inputs.NotAiming, moveState);
+            aimTransitions.Add(Inputs.Idle, idleState);
+
             idleState.Transitions = idleTransitions;
             moveState.Transitions = moveTransitions;
             jumpState.Transitions = jumpTransitions;
             fallState.Transitions = fallTransitions;
             landState.Transitions = landTransitions;
+            aimState.Transitions = aimTransitions;
 
             
             #endregion
@@ -184,6 +195,17 @@ namespace Player
             if (CheckFall())
             {
                 _fsm.ProcessInput(Inputs.Fall);
+            }
+
+            if (((GameInput.instance.absorbButton && _skill.currentSkill == Skills.Skills.VACCUM) || GameInput.instance.blowUpButton) 
+                  && !fixedCamera 
+                  && !GameInput.instance.sprintButton)
+            {
+                _fsm.ProcessInput(Inputs.Aiming);
+            }
+            else
+            {
+                _fsm.ProcessInput(Inputs.NotAiming);
             }
 
         }

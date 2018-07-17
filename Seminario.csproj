@@ -364,7 +364,6 @@
     <Compile Include="Assets\Download\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\Download\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Download\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
-    <Compile Include="Assets\MasterManager.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\CameraControls.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\IcoBumpin.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Misc\HueCube.cs" />
@@ -378,6 +377,7 @@
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
     <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
+    <Compile Include="Assets\Scripts\LoadingScreen.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\MainCharacter\AnimatorEventsBehaviour.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\SaveDisk\SaveDiskEnd.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraController.cs" />
@@ -407,6 +407,8 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\HUDManager.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\LevelManager.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\LevelZeroMasterManager.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\LoadScreenManager.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\MasterManager.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\SkillManager.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Managers\UpdatesManager.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\ArmAngle.cs" />
@@ -414,6 +416,7 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\Inputs.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\LandChecker.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\AimingState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\FallState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\IdleState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\JumpState.cs" />
