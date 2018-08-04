@@ -106,6 +106,47 @@ ModelImporter:
     100196: RDedoPulgar2
     100198: RMano
     100200: ropa
+    100202: CATRigAnkleBone001
+    100204: CATRigAnkleBone001 1
+    100206: CATRigHub001Gizmo
+    100208: CATRigHub003Gizmo
+    100210: CATRigLArm1Gizmo
+    100212: CATRigLArm2Gizmo
+    100214: CATRigLArmCollarboneGizmo
+    100216: CATRigLArmDigit11Gizmo
+    100218: CATRigLArmDigit12Gizmo
+    100220: CATRigLArmDigit21Gizmo
+    100222: CATRigLArmDigit22Gizmo
+    100224: CATRigLArmDigit23Gizmo
+    100226: CATRigLArmDigit31Gizmo
+    100228: CATRigLArmDigit32Gizmo
+    100230: CATRigLArmDigit33Gizmo
+    100232: CATRigLArmDigit41Gizmo
+    100234: CATRigLArmDigit42Gizmo
+    100236: CATRigLArmDigit43Gizmo
+    100238: CATRigLArmDigit51Gizmo
+    100240: CATRigLArmDigit52Gizmo
+    100242: CATRigLArmDigit53Gizmo
+    100244: CATRigLArmPalmGizmo
+    100246: CATRigLLeg1Gizmo
+    100248: CATRigLLeg2Gizmo
+    100250: CATRigLLegAnkleGizmo
+    100252: CATRigLLegDigit12Gizmo
+    100254: CATRigLPiernaPlatform
+    100256: CATRigLPiernaUpVectorNode
+    100258: CATRigRLegPlatform
+    100260: CATRigRLegUpVectorNode
+    100262: CATRigTail2Gizmo
+    100264: CATRigTail3Gizmo
+    100266: CATRigTail4Gizmo
+    100268: CATRigTail5Gizmo
+    100270: CATRigTail6Gizmo
+    100272: Character001
+    100274: frente
+    100276: perfil
+    100278: RBrazo1Gizmo
+    100280: RBrazo2Gizmo
+    100282: RClaviculaGizmo
     400000: //RootNode
     400002: boots
     400004: CATRigLBrazoClavicula
@@ -207,11 +248,138 @@ ModelImporter:
     400196: RDedoPulgar2
     400198: RMano
     400200: ropa
+    400202: CATRigAnkleBone001
+    400204: CATRigAnkleBone001 1
+    400206: CATRigHub001Gizmo
+    400208: CATRigHub003Gizmo
+    400210: CATRigLArm1Gizmo
+    400212: CATRigLArm2Gizmo
+    400214: CATRigLArmCollarboneGizmo
+    400216: CATRigLArmDigit11Gizmo
+    400218: CATRigLArmDigit12Gizmo
+    400220: CATRigLArmDigit21Gizmo
+    400222: CATRigLArmDigit22Gizmo
+    400224: CATRigLArmDigit23Gizmo
+    400226: CATRigLArmDigit31Gizmo
+    400228: CATRigLArmDigit32Gizmo
+    400230: CATRigLArmDigit33Gizmo
+    400232: CATRigLArmDigit41Gizmo
+    400234: CATRigLArmDigit42Gizmo
+    400236: CATRigLArmDigit43Gizmo
+    400238: CATRigLArmDigit51Gizmo
+    400240: CATRigLArmDigit52Gizmo
+    400242: CATRigLArmDigit53Gizmo
+    400244: CATRigLArmPalmGizmo
+    400246: CATRigLLeg1Gizmo
+    400248: CATRigLLeg2Gizmo
+    400250: CATRigLLegAnkleGizmo
+    400252: CATRigLLegDigit12Gizmo
+    400254: CATRigLPiernaPlatform
+    400256: CATRigLPiernaUpVectorNode
+    400258: CATRigRLegPlatform
+    400260: CATRigRLegUpVectorNode
+    400262: CATRigTail2Gizmo
+    400264: CATRigTail3Gizmo
+    400266: CATRigTail4Gizmo
+    400268: CATRigTail5Gizmo
+    400270: CATRigTail6Gizmo
+    400272: Character001
+    400274: frente
+    400276: perfil
+    400278: RBrazo1Gizmo
+    400280: RBrazo2Gizmo
+    400282: RClaviculaGizmo
     2100000: No Name
     2100002: equipamiento
     2100004: shaders
     2100006: 01 - Default
     2100008: 09 - Default
+    2100010: 'Material #27'
+    2100012: 'Material #28'
+    2300000: boots
+    2300002: cola
+    2300004: DedoAnular1
+    2300006: DedoAnular2
+    2300008: DedoAnular3
+    2300010: DedoIndice1
+    2300012: DedoIndice2
+    2300014: DedoIndice3
+    2300016: DedoMayor1
+    2300018: DedoMayor2
+    2300020: DedoMayor3
+    2300022: DedoMenique1
+    2300024: DedoMenique2
+    2300026: DedoMenique3
+    2300028: DedoPulgar1
+    2300030: DedoPulgar2
+    2300032: frente
+    2300034: hat
+    2300036: metal
+    2300038: mochila
+    2300040: Object001
+    2300042: ojo
+    2300044: ojo02
+    2300046: pelos
+    2300048: perfil
+    2300050: Piel
+    2300052: RBrazo003
+    2300054: RDedoAnular1
+    2300056: RDedoAnular2
+    2300058: RDedoAnular3
+    2300060: RDedoIndice1
+    2300062: RDedoIndice2
+    2300064: RDedoIndice3
+    2300066: RDedoMayor1
+    2300068: RDedoMayor2
+    2300070: RDedoMayor3
+    2300072: RDedoMenique1
+    2300074: RDedoMenique2
+    2300076: RDedoMenique3
+    2300078: RDedoPulgar1
+    2300080: RDedoPulgar2
+    2300082: ropa
+    3300000: boots
+    3300002: cola
+    3300004: DedoAnular1
+    3300006: DedoAnular2
+    3300008: DedoAnular3
+    3300010: DedoIndice1
+    3300012: DedoIndice2
+    3300014: DedoIndice3
+    3300016: DedoMayor1
+    3300018: DedoMayor2
+    3300020: DedoMayor3
+    3300022: DedoMenique1
+    3300024: DedoMenique2
+    3300026: DedoMenique3
+    3300028: DedoPulgar1
+    3300030: DedoPulgar2
+    3300032: frente
+    3300034: hat
+    3300036: metal
+    3300038: mochila
+    3300040: Object001
+    3300042: ojo
+    3300044: ojo02
+    3300046: pelos
+    3300048: perfil
+    3300050: Piel
+    3300052: RBrazo003
+    3300054: RDedoAnular1
+    3300056: RDedoAnular2
+    3300058: RDedoAnular3
+    3300060: RDedoIndice1
+    3300062: RDedoIndice2
+    3300064: RDedoIndice3
+    3300066: RDedoMayor1
+    3300068: RDedoMayor2
+    3300070: RDedoMayor3
+    3300072: RDedoMenique1
+    3300074: RDedoMenique2
+    3300076: RDedoMenique3
+    3300078: RDedoPulgar1
+    3300080: RDedoPulgar2
+    3300082: ropa
     4300000: Piel
     4300002: pelos
     4300004: hat
@@ -252,6 +420,8 @@ ModelImporter:
     4300074: RDedoMenique3
     4300076: RDedoAnular3
     4300078: RBrazo003
+    4300080: frente
+    4300082: perfil
     7400000: Player_Aim_Left_TOP
     9500000: //RootNode
     13700000: boots
