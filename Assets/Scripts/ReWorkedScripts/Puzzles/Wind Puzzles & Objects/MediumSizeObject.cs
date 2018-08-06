@@ -13,6 +13,14 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     public Material material;//Edit for shoot vfx.
     private BoxCollider _bC;
 
+    float _alphaCut;
+
+    Vector3 _initialPosition;
+
+    float _disolveTimmer = 1;
+    float _disolveTick;
+    bool _disolve;
+
     bool _isAbsorved;
     bool _isAbsorvable;
     bool _isBeeingAbsorved;
@@ -23,14 +31,54 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     public bool isBeeingAbsorved { get { return _isBeeingAbsorved; } set { _isBeeingAbsorved = value; } }
     public Rigidbody rb { get { return _rb; } set { _rb = value; } }
 
-    private void Awake()
+    private void Start()
     {
+        _initialPosition = transform.position;
         _isAbsorvable = false;
         _rb = GetComponent<Rigidbody>();
         material = GetComponent<Renderer>().material;
         _bC = GetComponent<BoxCollider>();
+        SpawnVFXActivate(true);
+
     }
 
+    void SpawnVFXActivate(bool dir)
+    {
+        if (dir)
+        {
+            _alphaCut = 1;
+            UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, SpawnVFX);
+        }
+        else
+        {
+            _alphaCut = 0;
+            UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, DespawnVFX);
+        }
+    }
+
+    void SpawnVFX()
+    {
+        material.SetFloat("_DisolveAmount", _alphaCut);
+        _alphaCut -= Time.deltaTime;
+        if(_alphaCut <= 0)
+        {
+            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, SpawnVFX);
+        }
+    }
+
+    void DespawnVFX()
+    {
+        material.SetFloat("_DisolveAmount", _alphaCut);
+        _alphaCut += Time.deltaTime;
+        if (_alphaCut >= 1)
+        {
+            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, DespawnVFX);
+            transform.position = _initialPosition;
+            transform.rotation = Quaternion.identity;
+            rb.velocity = Vector3.zero;
+            SpawnVFXActivate(true);
+        }
+    }
     
     public void SuckIn(Transform origin, float atractForce)
     {
@@ -51,8 +99,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
             else if (distance < 1f)
             {
                 rb.isKinematic = true;
-                /*transform.position = Vector3.Lerp(transform.position, origin.position, 0.5f);
-                rb.velocity = Vector3.zero;*/
+                
                 var dir = (origin.position - transform.position).normalized;
                 transform.position += dir * atractForce/10 * Time.deltaTime;
             }
@@ -62,10 +109,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
                 var forceMagnitude = (10) * atractForce / Mathf.Pow(distance, 2);
                 var force = direction.normalized * forceMagnitude;
                 rb.AddForce(force);
-                /*rb.isKinematic = true;
-                float force = atractForce / distance;
-                var dir = (origin.position - transform.position).normalized;
-                transform.position += dir * force * Time.deltaTime;*/
+                
             }
         }
     }
@@ -99,11 +143,38 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         rb.isKinematic = false;
         transform.SetParent(null);
         rb.velocity = direction * shootForce/rb.mass;
+        _disolveTick = 0;
+        UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, DisolveTimmer);
+    }
+
+    void DisolveTimmer()
+    {
+        _disolveTick += Time.deltaTime;
+        if(_disolveTick > _disolveTimmer)
+        {
+            _disolve = true;
+            _disolveTick = 0;
+            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, DisolveTimmer);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         wasShooted = false;
+        if (_disolve)
+        {
+            SpawnVFXActivate(false);
+            _disolve = false;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (_disolve)
+        {
+            SpawnVFXActivate(false);
+            _disolve = false;
+        }
     }
 
     public void ViewFX(bool activate)

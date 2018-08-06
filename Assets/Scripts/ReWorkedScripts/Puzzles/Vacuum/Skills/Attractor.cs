@@ -43,11 +43,8 @@ public class Attractor : ISkill {
 
     public void Execute()
     {
-
         if (_isStuck)
         {
-            /*if(_objectsToInteract.Count > 0)
-                _pc.SimulatePath(_objectsToInteract[0].rb);*/
             _aspireParticle.StopEffect();
             _blowParticle.StopEffect();
             _isStuck = false;
@@ -100,9 +97,9 @@ public class Attractor : ISkill {
             else
             {
                 _aspireParticle.StopEffect();
-                //aspireParticle.TerminateEffect();
+                
                 _blowParticle.StopEffect();
-                //blowParticle.TerminateEffect();
+                _isStuck = false;
                 foreach (var obj in _objectsToInteract)
                 {
                     obj.Exit();
@@ -145,7 +142,7 @@ public class Attractor : ISkill {
             else if (_objectsToInteract[i].isAbsorved && !_objectsToInteract[i].isAbsorvable)
             {
                 var aux = _objectsToInteract[i];
-                _objectsToInteract = new List<IVacuumObject>();
+                _objectsToInteract.RemoveAll(x => x != null);
                 _objectsToInteract.Add(aux);
                 _isStuck = true;
                 _aspireParticle.StopEffect();

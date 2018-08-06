@@ -174,7 +174,6 @@ namespace AmplifyShaderEditor
 		{
 			{"AmplifyShaderEditor.SimpleMaxOp", "AmplifyShaderEditor.SimpleMaxOpNode"},
 			{"AmplifyShaderEditor.SimpleMinNode", "AmplifyShaderEditor.SimpleMinOpNode"},
-			{"AmplifyShaderEditor.IndirectDiffuseLighting", "AmplifyShaderEditor.IndirectDiffuseLightingIndirectLighting"},
 			{"AmplifyShaderEditor.TFHCRemap", "AmplifyShaderEditor.TFHCRemapNode"},
 			{"AmplifyShaderEditor.TFHCPixelateUV", "AmplifyShaderEditor.TFHCPixelate"},
 			{"AmplifyShaderEditor.VirtualTexturePropertyNode", "AmplifyShaderEditor.VirtualTextureObject"},
@@ -279,6 +278,21 @@ namespace AmplifyShaderEditor
 
 				//ASEFolderPath = AssetDatabase.GUIDToAssetPath( ASEFolderGUID );
 				//ASEResourcesPath = ASEFolderPath + ASEResourcesPath;
+			}
+		}
+
+		public static void UpdateSFandRefreshWindows( AmplifyShaderFunction function )
+		{
+			for( int i = 0; i < AllOpenedWindows.Count; i++ )
+			{
+				AllOpenedWindows[ i ].LateRefreshAvailableNodes();
+				if( AllOpenedWindows[ i ].IsShaderFunctionWindow )
+				{
+					if( AllOpenedWindows[ i ].OpenedShaderFunction == function )
+					{
+						AllOpenedWindows[ i ].UpdateTabTitle();
+					}
+				}
 			}
 		}
 

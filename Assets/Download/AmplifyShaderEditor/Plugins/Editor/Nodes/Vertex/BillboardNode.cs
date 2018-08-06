@@ -11,7 +11,7 @@ namespace AmplifyShaderEditor
 	public sealed class BillboardNode : ParentNode
 	{
 		private const string ErrorMessage = "Billboard node should only be connected to vertex ports.";
-		private const string WarningMessage = "This nodes is a bit different from all others as it injects the necessary code into the vertex body and writes directly on the vertex position and normal.\nIt outputs a value of 0 so it can be connected directly to a vertex port.\n[Only if that port is a relative vertex offset].";
+		private const string WarningMessage = "This node is a bit different from all others as it injects the necessary code into the vertex body and writes directly on the vertex position and normal.\nIt outputs a value of 0 so it can be connected directly to a vertex port.\n[Only if that port is a relative vertex offset].";
 
 		[SerializeField]
 		private BillboardType m_billboardType = BillboardType.Cylindrical;
@@ -82,12 +82,12 @@ namespace AmplifyShaderEditor
 				UIUtils.ShowMessage( ErrorMessage );
 				return "0";
 			}
-			if( m_outputPorts[ 0 ].IsLocalValue )
+			if( m_outputPorts[ 0 ].IsLocalValue( dataCollector.PortCategory ) )
 				return "0";
 
-			m_outputPorts[ 0 ].SetLocalValue( "0" );
-			string vertexPosValue = dataCollector.IsTemplate ? dataCollector.TemplateDataCollectorInstance.GetVertexPosition( WirePortDataType.FLOAT4 ) : "v.vertex";
-			string vertexNormalValue = dataCollector.IsTemplate ? dataCollector.TemplateDataCollectorInstance.GetVertexNormal() : "v.normal";
+			m_outputPorts[ 0 ].SetLocalValue( "0", dataCollector.PortCategory );
+			string vertexPosValue = dataCollector.IsTemplate ? dataCollector.TemplateDataCollectorInstance.GetVertexPosition( WirePortDataType.FLOAT4, m_currentPrecisionType ) : "v.vertex";
+			string vertexNormalValue = dataCollector.IsTemplate ? dataCollector.TemplateDataCollectorInstance.GetVertexNormal( m_currentPrecisionType ) : "v.normal";
 			BillboardOpHelper.FillDataCollector( ref dataCollector, m_billboardType, m_rotationIndependent, vertexPosValue, vertexNormalValue, false );
 
 			return "0";

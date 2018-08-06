@@ -9,7 +9,7 @@ namespace AmplifyShaderEditor
 {
 	[Serializable]
 	[NodeAttributes( "Remap", "Math Operators", "Remap value from old min - max range to new min - max range", null, KeyCode.None, true, false, null, null, "The Four Headed Cat - @fourheadedcat" )]
-	public sealed class TFHCRemap : DynamicTypeNode
+	public sealed class TFHCRemapNode : DynamicTypeNode
 	{
 
 		protected override void CommonInit( int uniqueId )
@@ -51,7 +51,7 @@ namespace AmplifyShaderEditor
 
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
 		{
-			string value = m_inputPorts[ 0 ].GenerateShaderForOutput( ref dataCollector, m_inputPorts[ 0 ].DataType, ignoreLocalvar, true );
+			string value = m_inputPorts[ 0 ].GeneratePortInstructions( ref dataCollector );
 			string oldMin = m_inputPorts[ 1 ].GenerateShaderForOutput( ref dataCollector, m_inputPorts[ 0 ].DataType, ignoreLocalvar, true );
 			string oldMax = m_inputPorts[ 2 ].GenerateShaderForOutput( ref dataCollector, m_inputPorts[ 0 ].DataType, ignoreLocalvar, true );
 			string newMin = m_inputPorts[ 3 ].GenerateShaderForOutput( ref dataCollector, m_inputPorts[ 0 ].DataType, ignoreLocalvar, true );

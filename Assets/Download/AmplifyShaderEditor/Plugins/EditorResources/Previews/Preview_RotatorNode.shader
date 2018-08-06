@@ -1,4 +1,4 @@
-﻿Shader "Hidden/RotatorNode"
+Shader "Hidden/RotatorNode"
 {
 	Properties
 	{

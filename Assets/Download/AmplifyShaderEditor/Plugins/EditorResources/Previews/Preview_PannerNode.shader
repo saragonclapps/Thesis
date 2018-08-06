@@ -1,4 +1,4 @@
-﻿Shader "Hidden/PannerNode"
+Shader "Hidden/PannerNode"
 {
 	Properties
 	{

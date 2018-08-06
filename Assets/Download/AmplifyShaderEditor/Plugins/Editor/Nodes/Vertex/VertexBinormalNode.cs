@@ -4,12 +4,13 @@
 // Custom Node Vertex Binormal World
 // Donated by Community Member Kebrus
 
+using UnityEngine;
 using System;
 
 namespace AmplifyShaderEditor
 {
 	[Serializable]
-	[NodeAttributes( "World Bitangent", "Surface Data", "Per pixel world bitangent vector", community: "kebrus" )]
+	[NodeAttributes( "World Bitangent", "Surface Data", "Per pixel world bitangent vector", null, KeyCode.None, true, false, null, null, "kebrus" )]
 	public sealed class VertexBinormalNode : ParentNode
 	{
 		protected override void CommonInit( int uniqueId )
@@ -29,14 +30,14 @@ namespace AmplifyShaderEditor
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
 		{
 			if ( dataCollector.IsTemplate )
-				return GetOutputVectorItem( 0, outputId, dataCollector.TemplateDataCollectorInstance.GetWorldBinormal() );
+				return GetOutputVectorItem( 0, outputId, dataCollector.TemplateDataCollectorInstance.GetWorldBinormal( m_currentPrecisionType ) );
 
 			if( dataCollector.PortCategory == MasterNodePortCategory.Fragment || dataCollector.PortCategory == MasterNodePortCategory.Debug )
 			{
 				dataCollector.ForceNormal = true;
 
-				dataCollector.AddToInput( UniqueId, UIUtils.GetInputDeclarationFromType( m_currentPrecisionType, AvailableSurfaceInputs.WORLD_NORMAL ), true );
-				dataCollector.AddToInput( UniqueId, Constants.InternalData, false );
+				dataCollector.AddToInput( UniqueId, SurfaceInputs.WORLD_NORMAL, m_currentPrecisionType );
+				dataCollector.AddToInput( UniqueId, SurfaceInputs.INTERNALDATA, addSemiColon: false );
 			}
 
 			string worldBitangent = GeneratorUtils.GenerateWorldBitangent( ref dataCollector, UniqueId );
