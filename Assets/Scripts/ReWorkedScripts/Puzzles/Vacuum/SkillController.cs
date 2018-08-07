@@ -98,6 +98,7 @@ namespace Skills
 
         public Skills currentSkill;
         PlayerController _pC;
+        LandChecker _lC;
 
         void Awake()
         {
@@ -109,6 +110,7 @@ namespace Skills
 
             wind = GetComponentInChildren<WindZone>();
             _pC = GetComponent<PlayerController>();
+            _lC = GetComponentInChildren<LandChecker>();
 
             //Lists Initializing
             objectsToInteract = new List<IVacuumObject>();
@@ -202,7 +204,7 @@ namespace Skills
 
             
 
-            if (!(GameInput.instance.crouchButton || GameInput.instance.sprintButton) && !_pC.isSkillLocked)
+            if (!(GameInput.instance.crouchButton || GameInput.instance.sprintButton) && !_pC.isSkillLocked && _lC.land)
             {
                 actualAction.Execute();
             }

@@ -117,6 +117,8 @@ namespace Player
             var aimTransitions = new Dictionary<Inputs, IState<Inputs>>();
             aimTransitions.Add(Inputs.NotAiming, moveState);
             aimTransitions.Add(Inputs.Idle, idleState);
+            aimTransitions.Add(Inputs.Fall, fallState);
+            aimTransitions.Add(Inputs.Jump, jumpState);
 
             idleState.Transitions = idleTransitions;
             moveState.Transitions = moveTransitions;
@@ -196,8 +198,7 @@ namespace Player
             {
                 _fsm.ProcessInput(Inputs.Fall);
             }
-
-            if (((GameInput.instance.absorbButton && _skill.currentSkill == Skills.Skills.VACCUM) || GameInput.instance.blowUpButton) 
+            else if (((GameInput.instance.absorbButton && _skill.currentSkill == Skills.Skills.VACCUM) || GameInput.instance.blowUpButton) 
                   && !fixedCamera 
                   && !GameInput.instance.sprintButton)
             {
@@ -207,6 +208,7 @@ namespace Player
             {
                 _fsm.ProcessInput(Inputs.NotAiming);
             }
+
 
         }
 
