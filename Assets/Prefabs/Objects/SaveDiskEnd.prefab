@@ -85,7 +85,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1856918746042168}
-  m_Mesh: {fileID: 4300002, guid: 718410941e3284b40b83ff102ddebeb6, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 7859dddf0759c5c4fa1775a89f7ac690, type: 3}
 --- !u!95 &95950210615369220
 Animator:
   serializedVersion: 3
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c9deca250ba9c48846b542b0a7dc1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disolveSpeed: 0
+  disolveSpeed: 1
 --- !u!135 &135043562363462320
 SphereCollider:
   m_ObjectHideFlags: 1
