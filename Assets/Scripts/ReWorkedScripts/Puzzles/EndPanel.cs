@@ -64,7 +64,7 @@ public class EndPanel : MonoBehaviour {
         
         if(curedLerpValue >= 0.9f)
         {
-            LevelManager.instance.whiteOutAnimator.SetTrigger("WhiteOut");
+            LevelManager.instance.whiteOutAnimator.SetTrigger("FadeOutWin");
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
             
         }

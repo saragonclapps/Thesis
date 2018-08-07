@@ -32,8 +32,8 @@ public class ElevatorCutScene : MonoBehaviour, CutScene
     public void Enter()
     {
         cam.enabled = true;
-        blackOutAnimator.SetTrigger("FadeOutAndIn");
         EventManager.AddEventListener(GameEvent.TRANSITION_FADEOUT_DEMO, FadeOutEnd);
+        blackOutAnimator.SetTrigger("FadeOutAndIn");
     }
 
     public void Execute()

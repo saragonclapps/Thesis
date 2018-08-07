@@ -395,6 +395,7 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutScene.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutSceneCamera.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutScenesManager.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\DeathFallCutScene.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\ElevatorCutScene.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\EndPanelCutScene.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\LevelZeroCutScene.cs" />
@@ -431,6 +432,7 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\JumpState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\LandState.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Player\Controller\States\MoveState.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\DeathFallTrigger.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Electric Puzzles &amp; Objects\ElectricTestObject.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Electric Puzzles &amp; Objects\IElectricObject.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\EndPanel.cs" />

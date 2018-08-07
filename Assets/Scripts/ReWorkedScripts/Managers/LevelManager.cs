@@ -65,8 +65,8 @@ public class LevelManager : MonoBehaviour {
     {
         EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_LOSE_FINISH, RestartLevel);
         var aux = SceneManager.GetActiveScene().name;
-        Debug.Log(aux);
-        SceneManager.LoadScene(aux);
+        MasterManager.nextScene = aux;
+        SceneManager.LoadScene("LoadingScreen");
     }
 
 
@@ -77,7 +77,7 @@ public class LevelManager : MonoBehaviour {
             if (_timmer > 0) _timmer -= Time.deltaTime;
             else
             {
-                blackOutAnimator.SetTrigger("WhiteOut");
+                blackOutAnimator.SetTrigger("FadeOutLose");
                 UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
                 HUDManager.instance.DisableTimmerHUD();
                 HUDManager.instance.DisablePowerHUD();
