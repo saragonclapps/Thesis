@@ -146,7 +146,7 @@ namespace Player
         private void ToDemoCamera(object[] parameterContainer)
         {
             isActive = false;
-            _fsm.ProcessInput(Inputs.Idle);
+            //_fsm.ProcessInput(Inputs.Idle);
         }
 
         void ToFixedCamera(object[] parameterContainer)
@@ -161,24 +161,22 @@ namespace Player
             isActive = true;
         }
 
-        void Execute () {
-            if (isActive)
-            {
-                CheckInputs();
-                _fsm.Execute();
-            }
+        void Execute ()
+        {    
+            CheckInputs();
+            _fsm.Execute();
         }
 
         void CheckInputs()
         {
             
+            if (GameInput.instance.initialJumpButton && !land && CheckJump() && isActive) _fsm.ProcessInput(Inputs.Jump);
+
             if (CheckMove())
             {
                 _fsm.ProcessInput(Inputs.Move);
             }
             else _fsm.ProcessInput(Inputs.Idle);
-
-            if (GameInput.instance.initialJumpButton && !land && CheckJump()) _fsm.ProcessInput(Inputs.Jump);
 
             if (land)
             {
@@ -200,7 +198,8 @@ namespace Player
             }
             else if (((GameInput.instance.absorbButton && _skill.currentSkill == Skills.Skills.VACCUM) || GameInput.instance.blowUpButton) 
                   && !fixedCamera 
-                  && !GameInput.instance.sprintButton)
+                  && !GameInput.instance.sprintButton 
+                  && isActive)
             {
                 _fsm.ProcessInput(Inputs.Aiming);
             }
@@ -209,12 +208,11 @@ namespace Player
                 _fsm.ProcessInput(Inputs.NotAiming);
             }
 
-
         }
 
         public bool CheckMove()
         {
-            return Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f;
+            return (Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f) && isActive;
         }
 
         public bool CheckFall()
