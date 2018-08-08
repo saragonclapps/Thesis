@@ -52,7 +52,7 @@ GameObject:
   - component: {fileID: 4168363391241056}
   - component: {fileID: 65801946179503478}
   - component: {fileID: 114832098239205974}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,8 +167,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1387909139240476}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000008493661}
-  m_LocalPosition: {x: 10.54, y: 0, z: 2.65}
+  m_LocalRotation: {x: -0, y: -0.79335266, z: -0, w: 0.6087623}
+  m_LocalPosition: {x: 40.6, y: -4.73, z: 14.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4452396230695350}
@@ -176,7 +176,7 @@ Transform:
   - {fileID: 224266801331864982}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -105.00001, z: 0}
 --- !u!4 &4452396230695350
 Transform:
   m_ObjectHideFlags: 1
