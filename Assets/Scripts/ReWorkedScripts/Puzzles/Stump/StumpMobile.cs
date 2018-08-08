@@ -5,19 +5,26 @@ using UnityEngine;
 public class StumpMobile : MonoBehaviour {
 
     public StumpBase sBase;
-    Animation anim;
+    Animator anim;
 
     void Start()
     {
-        anim = GetComponent<Animation>();
+        anim = GetComponent<Animator>();
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (sBase.isBurned && 
-            collision.gameObject.GetComponent<IVacuumObject>() != null)
+        if(collision.gameObject.layer == 12)
         {
-            anim.Play();
+            if (sBase != null && sBase.isBurned)
+            {
+                anim.SetTrigger("Play");
+            }else if(sBase == null)
+            {
+                anim.SetTrigger("Play");
+            }
+
         }
+        
     }
 }

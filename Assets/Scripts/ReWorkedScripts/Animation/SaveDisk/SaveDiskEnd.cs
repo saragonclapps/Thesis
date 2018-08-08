@@ -15,7 +15,7 @@ public class SaveDiskEnd : MonoBehaviour {
     void Start()
     {
         mat = GetComponent<MeshRenderer>().material;
-        mat.SetFloat("_Cutoff", 1);
+        mat.SetFloat("_DisolveAmount", disolveLerp);
 
         anim = GetComponent<Animator>();
         EventManager.AddEventListener(GameEvent.SAVEDISK_END, OnFinalSceneStart);
@@ -34,7 +34,7 @@ public class SaveDiskEnd : MonoBehaviour {
         if(disolveLerp > 0)
         {
             disolveLerp -= Time.deltaTime * disolveSpeed;
-            mat.SetFloat("_Cutoff", disolveLerp);
+            mat.SetFloat("_DisolveAmount", disolveLerp);
         }
         else
         {
