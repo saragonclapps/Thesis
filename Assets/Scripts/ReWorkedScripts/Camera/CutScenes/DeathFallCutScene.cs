@@ -30,7 +30,7 @@ public class DeathFallCutScene : MonoBehaviour, CutScene {
     public void Execute()
     {
         transform.LookAt(target);
-        
+        transform.position -= transform.forward * Time.deltaTime * 3f;
     }
 
     public void Exit()
