@@ -28,7 +28,7 @@ public class LevelZeroMasterManager : MonoBehaviour {
 
     private void WhiteOut(object[] parameterContainer)
     {
-        whiteOutAnimator.SetTrigger("WhiteOut");
+        whiteOutAnimator.SetTrigger("FadeOutWin");
         EventManager.RemoveEventListener(GameEvent.STORY_END, WhiteOut);
     }
 
