@@ -312,6 +312,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Seminario.Plugins.csproj">
+      <Project>{1237BA42-FCDB-07A4-2B02-244DB1780283}</Project>
+      <Name>Seminario.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Community\ForceShield\ForceShieldDestroyBall.cs" />
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Community\ForceShield\ForceShieldImpactDetection.cs" />
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Community\ForceShield\ForceShieldShootBall.cs" />
@@ -871,6 +877,7 @@
     <None Include="Assets\Shaders\Surface\VFX\Overlay.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Shield.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Vacuum object.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />

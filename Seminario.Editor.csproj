@@ -312,6 +312,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Seminario.Plugins.csproj">
+      <Project>{1237BA42-FCDB-07A4-2B02-244DB1780283}</Project>
+      <Name>Seminario.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="Seminario.csproj">
       <Project>{47CD9B01-BD62-EBED-8D63-29902D4B48CF}</Project>
       <Name>Seminario</Name>
@@ -817,6 +821,7 @@
     <Compile Include="Assets\ProCore\ProGrids\Editor\pg_ParameterWindow.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Editor\pg_Preferences.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Editor\pg_ToggleContent.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Utilities\Editor\ZFightFinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AmplifyShaderEditor\ChangeLog.txt" />
@@ -1204,6 +1209,7 @@
     <None Include="Assets\Shaders\Surface\VFX\Overlay.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Shield.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Vacuum object.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
