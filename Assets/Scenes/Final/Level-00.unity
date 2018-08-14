@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657832, g: 0.49641216, b: 0.5748164, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -793,7 +793,7 @@ Prefab:
     - target: {fileID: 114744897595413626, guid: 149b72fe2676dd74aba009cf982f873d,
         type: 2}
       propertyPath: nextLevel
-      value: 
+      value: Level-01
       objectReference: {fileID: 0}
     - target: {fileID: 114744897595413626, guid: 149b72fe2676dd74aba009cf982f873d,
         type: 2}
@@ -1014,7 +1014,7 @@ MonoBehaviour:
   story: {fileID: 198944790}
   whiteOutAnimator: {fileID: 710428093}
   cutSceneTag: Level0
-  nextLevel: Level-Art final
+  nextLevel: Level-01
 --- !u!4 &1336101310
 Transform:
   m_ObjectHideFlags: 0
