@@ -312,6 +312,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Seminario.Plugins.csproj">
+      <Project>{1237BA42-FCDB-07A4-2B02-244DB1780283}</Project>
+      <Name>Seminario.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Community\ForceShield\ForceShieldDestroyBall.cs" />
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Community\ForceShield\ForceShieldImpactDetection.cs" />
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Community\ForceShield\ForceShieldShootBall.cs" />
@@ -473,6 +479,8 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\MediumSizeObject.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\SwitchFan.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\VacuumSwitch.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Utilities\DebugConsole.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Utilities\Sampler.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\AlphaCutOutEqualizer.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\BreathingScenario.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\FPSDisplay.cs" />
@@ -843,6 +851,7 @@
     <None Include="Assets\Shaders\Poss Process\DeathTransition.shader" />
     <None Include="Assets\Shaders\Poss Process\Vignette.shader" />
     <None Include="Assets\Shaders\Surface\BreathingScenario.shader" />
+    <None Include="Assets\Shaders\Surface\BreathingTracks.shader" />
     <None Include="Assets\Shaders\Surface\CustomLightingCustomRim.shader" />
     <None Include="Assets\Shaders\Surface\Disolve.shader" />
     <None Include="Assets\Shaders\Surface\Forest\Trees Basic.shader" />
@@ -871,6 +880,7 @@
     <None Include="Assets\Shaders\Surface\VFX\Overlay.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Shield.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Vacuum object.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />

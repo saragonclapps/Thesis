@@ -22,13 +22,14 @@ public class LevelZeroMasterManager : MonoBehaviour {
 
     private void ChangeLevel(object[] parameterContainer)
     {
-        MasterManager.nextScene = nextLevel;
+        MasterManager.GetNextScene(SceneManager.GetActiveScene());
+        //MasterManager.nextScene = next;
         SceneManager.LoadScene("LoadingScreen");
     }
 
     private void WhiteOut(object[] parameterContainer)
     {
-        whiteOutAnimator.SetTrigger("WhiteOut");
+        whiteOutAnimator.SetTrigger("FadeOutWin");
         EventManager.RemoveEventListener(GameEvent.STORY_END, WhiteOut);
     }
 

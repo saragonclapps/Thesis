@@ -20,8 +20,6 @@ public class LevelManager : MonoBehaviour {
     bool _hasDiskette;
     public bool hasDiskette { get { return _hasDiskette; } set { _hasDiskette = value; } }
 
-    public string nextLevel;
-
     public List<Material> breathingScenarioMaterials;
 
     static LevelManager _instance;
@@ -54,18 +52,26 @@ public class LevelManager : MonoBehaviour {
         EventManager.AddEventListener(GameEvent.TRANSITION_FADEOUT_WIN_FINISH, NextLevel);
     }
 
-    void NextLevel(object[] parameterContainer)
+    public void PreviousLevel()
     {
-        EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_WIN_FINISH, NextLevel);
-        MasterManager.nextScene = nextLevel;
+        MasterManager.GetPreviousScene(SceneManager.GetActiveScene());
         SceneManager.LoadScene("LoadingScreen");
     }
 
-    private void RestartLevel(object[] parameterContainer)
+    public void NextLevel(object[] parameterContainer)
+    {
+        EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_WIN_FINISH, NextLevel);
+        var current = SceneManager.GetActiveScene();
+        MasterManager.GetNextScene(current);
+        //MasterManager.nextScene = next;
+
+        SceneManager.LoadScene("LoadingScreen");
+    }
+
+    public void RestartLevel(object[] parameterContainer)
     {
         EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_LOSE_FINISH, RestartLevel);
-        var aux = SceneManager.GetActiveScene().name;
-        MasterManager.nextScene = aux;
+        var aux = SceneManager.GetActiveScene();
         SceneManager.LoadScene("LoadingScreen");
     }
 

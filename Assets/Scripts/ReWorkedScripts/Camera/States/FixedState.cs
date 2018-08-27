@@ -75,7 +75,6 @@ namespace TPCamera
             {
                 if (_currentY > 360) _currentY -= 360;
                 _currentY += _currentYRotationSpeed * Time.deltaTime;
-                Debug.Log(_currentY);
             }
 
             _distance = Mathf.Lerp(_distance, _targetDistance, Time.deltaTime);

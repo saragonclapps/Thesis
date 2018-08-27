@@ -15,9 +15,9 @@ public class LoadScreenManager : MonoBehaviour {
         StartCoroutine(LoadSceneAsync(MasterManager.nextScene));
 	}
 	
-	IEnumerator LoadSceneAsync(string sceneName)
+	IEnumerator LoadSceneAsync(int sceneIndex)
     {
-        operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        operation = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
 
         while (!operation.isDone)
         {

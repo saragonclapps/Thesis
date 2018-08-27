@@ -59,6 +59,10 @@ public class GameInput : MonoBehaviour
     public bool skillUp;
     [HideInInspector]
     public bool skillDown;
+
+    //Debug
+    [HideInInspector]
+    public bool consoleButton;
     #endregion
 
     //future configurations
@@ -81,6 +85,11 @@ public class GameInput : MonoBehaviour
     //LockFeatures
     Dictionary<Features, bool> _featuresDic;
 
+    public GameObject debugConsole;
+    public DebugConsole console;
+    bool consoleToggle;
+
+
 	void Awake ()
     {
         if(_instance == null)
@@ -98,6 +107,8 @@ public class GameInput : MonoBehaviour
         _featuresDic.Add(Features.STEALTH, false);*/
 
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
+        consoleToggle = false;
+        ToggleConsole();
     }
 
     void Execute()
@@ -176,7 +187,28 @@ public class GameInput : MonoBehaviour
         //}
 
 
+        consoleButton = Input.GetKeyDown(KeyCode.F11);
+        if (consoleButton)
+        {
+            consoleToggle = !consoleToggle;
+            ToggleConsole();
+        }
+    }
 
+    private void ToggleConsole()
+    {
+        if (!consoleToggle)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        debugConsole.SetActive(consoleToggle);
+        console.enabled = consoleToggle;
     }
 
     private void UpdateCameraValues()//Replace observer

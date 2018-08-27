@@ -1,8 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine.SceneManagement;
 
 public class MasterManager
 {
-    public static string nextScene = "Level-00";
+    public static int nextScene;
+
+    public static Scene[] scenes;
+
+    public static void GetNextScene(Scene current)
+    {
+        nextScene = current.buildIndex + 1;
+    }
+
+    public static void GetPreviousScene(Scene current)
+    {
+        nextScene = current.buildIndex - 1;
+    }
 }
