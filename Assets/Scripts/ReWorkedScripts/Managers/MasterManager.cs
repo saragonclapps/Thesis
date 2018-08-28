@@ -2,7 +2,7 @@
 
 public class MasterManager
 {
-    public static int nextScene;
+    public static int nextScene = 1;
 
     public static Scene[] scenes;
 

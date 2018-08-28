@@ -14,7 +14,7 @@ MonoBehaviour:
   debugViews:
     m_Enabled: 1
     m_Settings:
-      mode: 0
+      mode: 5
       depth:
         scale: 1
       motionVectors:
@@ -97,7 +97,7 @@ MonoBehaviour:
       logMin: -8
       logMax: 4
   bloom:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       bloom:
         intensity: 0.3
