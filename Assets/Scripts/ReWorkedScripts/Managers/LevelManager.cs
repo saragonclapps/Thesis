@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
 
-    public bool isWithTimmer;
+    bool isWithTimmer = false;
     public float levelTime;
     public bool isWithPowers;
 

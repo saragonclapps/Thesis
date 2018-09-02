@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DebugConsole : MonoBehaviour
 {
@@ -36,7 +37,13 @@ public class DebugConsole : MonoBehaviour
         AddCommands("!next", LoadNextLevel, "Load next Level");
         AddCommands("!restart", RestartLevel, "Restart Level");
         AddCommands("!last", LoadPreviousLevel, "Load previous Level");
+        AddCommands("!test", LoadTestLevel, "Load Test Level");
 	}
+
+    private void LoadTestLevel()
+    {
+        SceneManager.LoadScene("Test-Cris");
+    }
 
     public void AddCommands(string cheat, ConsoleCommand com, string description)
     {

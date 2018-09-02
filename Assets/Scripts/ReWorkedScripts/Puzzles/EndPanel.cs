@@ -6,7 +6,6 @@ using System;
 public class EndPanel : MonoBehaviour {
 
     float curedLerpValue = 0;
-    List<Material> breathingMaterials;
     public float activeDistance;
 
     public Animator cpuCap;
@@ -16,9 +15,13 @@ public class EndPanel : MonoBehaviour {
     public string cutSceneTag;
     bool _cutSceneStart;
 
+    public Animator panelAnimator;
+    public GameObject saveDisk;
+
     void Start()
     {
         EventManager.AddEventListener(GameEvent.SAVEDISK_ENTER, SaveDiskEnter);
+        saveDisk.SetActive(false);
     }
 
     void OnTriggerStay(Collider other)
@@ -32,6 +35,7 @@ public class EndPanel : MonoBehaviour {
             if (saveDisk && dist && !_cutSceneStart)
             {
                 EventManager.DispatchEvent(GameEvent.CAMERA_STORY, cutSceneTag);
+                this.saveDisk.SetActive(true);
                 _cutSceneStart = true;
             }
             cpuCap.SetBool("isNear", true);
@@ -41,6 +45,7 @@ public class EndPanel : MonoBehaviour {
 
     private void SaveDiskEnter(object[] parameterContainer)
     {
+        panelAnimator.SetTrigger("Win");
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
         EventManager.RemoveEventListener(GameEvent.SAVEDISK_ENTER, SaveDiskEnter);
     }
