@@ -38,6 +38,7 @@ public class DebugConsole : MonoBehaviour
         AddCommands("!restart", RestartLevel, "Restart Level");
         AddCommands("!last", LoadPreviousLevel, "Load previous Level");
         AddCommands("!test", LoadTestLevel, "Load Test Level");
+        AddCommands("!prototype", LoadPrototype, "Load prototype Level");
 	}
 
     private void LoadTestLevel()
@@ -45,7 +46,12 @@ public class DebugConsole : MonoBehaviour
         SceneManager.LoadScene("Test-Cris");
     }
 
+    private void LoadPrototype()
+    {
+        SceneManager.LoadScene("Prototype");
+    }
     public void AddCommands(string cheat, ConsoleCommand com, string description)
+
     {
         _myCommands.Add(cheat, com);
         _descriptions.Add(cheat, description);
