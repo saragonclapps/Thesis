@@ -5,10 +5,10 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     public bool isActive;
-
+    public bool relateParent;
     void OnCollisionEnter(Collision c)
     {
-        if (c.collider.gameObject.layer == 9)
+        if (c.collider.gameObject.layer == 9 && relateParent)
         {
             c.transform.SetParent(transform);
         }
@@ -16,7 +16,7 @@ public class Platform : MonoBehaviour
 
     void OnCollisionExit(Collision c)
     {
-        if (c.collider.gameObject.layer == 9)
+        if (c.collider.gameObject.layer == 9 && relateParent)
         {
             c.transform.SetParent(null);
         }

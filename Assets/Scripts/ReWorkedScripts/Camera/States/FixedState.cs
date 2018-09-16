@@ -55,7 +55,7 @@ namespace TPCamera
 
         public void Execute()
         {
-            if(Mathf.Abs(_targetX - _currentX) < _xRotationSpeed * Time.deltaTime * 2)
+            if(Mathf.Abs(_targetX - _currentX) < _xRotationSpeed * Time.deltaTime * 10)
             {
                 _currentX = _targetX;
                 _positionSmoothness = _positionSmoothness < 1? _positionSmoothness + Time.deltaTime: 1;
