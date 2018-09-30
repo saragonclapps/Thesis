@@ -31,6 +31,8 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     public bool isBeeingAbsorved { get { return _isBeeingAbsorved; } set { _isBeeingAbsorved = value; } }
     public Rigidbody rb { get { return _rb; } set { _rb = value; } }
 
+    public bool respawnable;
+
     private void Start()
     {
         _initialPosition = transform.position;
@@ -149,12 +151,16 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
 
     void DisolveTimmer()
     {
-        _disolveTick += Time.deltaTime;
-        if(_disolveTick > _disolveTimmer)
+        if (respawnable)
         {
-            _disolve = true;
-            _disolveTick = 0;
-            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, DisolveTimmer);
+            _disolveTick += Time.deltaTime;
+            if(_disolveTick > _disolveTimmer)
+            {
+                _disolve = true;
+                _disolveTick = 0;
+                UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, DisolveTimmer);
+            }
+
         }
     }
 

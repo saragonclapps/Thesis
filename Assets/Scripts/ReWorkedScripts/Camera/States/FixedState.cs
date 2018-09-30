@@ -48,14 +48,14 @@ namespace TPCamera
             //_currentYRotationSpeed = _targetY - _currentY < 0 ? -_yRotationSpeed : _yRotationSpeed;
             _currentYRotationSpeed = _yRotationSpeed * Mathf.Pow(_targetY - _currentY,2)/35f;
 
-            _positionSmoothness = 0.1f;
             _distance = Vector3.Distance(transform.position, _target.position);
+            _positionSmoothness = 0.01f;
             //Debug.Log(_currentX);
         }
 
         public void Execute()
         {
-            if(Mathf.Abs(_targetX - _currentX) < _xRotationSpeed * Time.deltaTime * 10)
+            /*if(Mathf.Abs(_targetX - _currentX) < _xRotationSpeed * Time.deltaTime * 10)
             {
                 _currentX = _targetX;
                 _positionSmoothness = _positionSmoothness < 1? _positionSmoothness + Time.deltaTime: 1;
@@ -66,8 +66,8 @@ namespace TPCamera
                 _currentX += _currentXRotationSpeed * Time.deltaTime;
                 
             }
-
-            if (Mathf.Abs(_targetY - _currentY) < _currentYRotationSpeed * Time.deltaTime * 2)
+            Debug.Log("Diference: " + Mathf.Abs(_targetY - _currentY) + "Comparation: " + _yRotationSpeed * Time.deltaTime * 2);
+            if (Mathf.Abs(_targetY - _currentY) < _yRotationSpeed * Time.deltaTime * 2)
             {
                 _currentY = _targetY;
             }
@@ -84,8 +84,18 @@ namespace TPCamera
             var targetPosition = _target.position + rotation * dir;
 
             transform.position = Vector3.Lerp(transform.position, targetPosition, _positionSmoothness);
-            transform.LookAt(_target);
+            transform.LookAt(_target);*/
+            var d = _positionSmoothness < 0.3f ? 5 : 1;
+            _positionSmoothness = _positionSmoothness < 1 ? _positionSmoothness + Time.deltaTime/d : 1;
+            Debug.Log(_positionSmoothness);
 
+            var dir = new Vector3(0, 0, -_targetDistance);
+            var rotation = Quaternion.Euler(_targetY, _targetX, 0);
+            var targetPosition = _target.position + rotation * dir;
+
+            transform.position = Vector3.Lerp(transform.position, targetPosition, _positionSmoothness);
+
+            transform.LookAt(_target);
         }
 
         public void Exit()
