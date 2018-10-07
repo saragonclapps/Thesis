@@ -29,6 +29,7 @@ public class ObjectToWeight : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+
         var o = collision.collider.GetComponent<ObjectToWeight>();
         if (o != null)
         {
