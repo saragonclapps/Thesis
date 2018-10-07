@@ -6,8 +6,19 @@ using System;
 public class Weight : MonoBehaviour {
 
     List<ObjectToWeight> _total;
+    /// <summary>
+    /// Executes when weight is reached
+    /// </summary>
     public delegate void OnWeight();
+
+    /// <summary>
+    /// Executes when new object enters the weight
+    /// </summary>
     public delegate void OnWeightEnter();
+
+    /// <summary>
+    /// Executes when an object leaves the weight
+    /// </summary>
     public delegate void OnWeightExit();
 
     OnWeight callbacks;

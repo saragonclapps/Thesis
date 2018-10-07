@@ -8,7 +8,7 @@ public class WeightActionTest : MonoBehaviour {
 	
 	void Start ()
     {
-        weight.AddOnWeightEvent(OnWeight);
+        weight.AddOnWeightEnterEvent(OnWeight);
 	}
 
     void OnWeight()
