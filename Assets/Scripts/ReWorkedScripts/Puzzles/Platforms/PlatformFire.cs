@@ -10,10 +10,17 @@ public class PlatformFire : Platform
 
     public float platformSpeed;
     public float lerpValue;
+
+    public float positionOffset;
+    public float minX;
+    public float maxX;
+    public float minZ;
+    public float maxZ;
     
     Vector3 directionedSpeed;
 
     bool isMoving;
+
 
     void Start ()
     {
@@ -33,20 +40,54 @@ public class PlatformFire : Platform
                 switch (propulsors[i].dir)
                 {
                     case PlatformFirePropulsor.direction.X:
-                        directionedSpeed.x = Mathf.Lerp(directionedSpeed.x, platformSpeed, lerpValue);
-                        Debug.Log("X");
+                        if(transform.position.x <= maxX - positionOffset)
+                        {
+                            directionedSpeed.x = Mathf.Lerp(directionedSpeed.x, platformSpeed, lerpValue);
+                        }else if(transform.position.x < maxX)
+                        {
+                            directionedSpeed.x = Mathf.Lerp(directionedSpeed.x, 0, lerpValue);
+                        }else
+                        {
+                            directionedSpeed.x = 0;
+                        }
                         break;
                     case PlatformFirePropulsor.direction.X_NEGATIVE:
-                        directionedSpeed.x = Mathf.Lerp(directionedSpeed.x, -platformSpeed, lerpValue);
-                        Debug.Log("-X");
+                        if(transform.position.x >= minX + positionOffset)
+                        {
+                            directionedSpeed.x = Mathf.Lerp(directionedSpeed.x, -platformSpeed, lerpValue);
+                        }else if(transform.position.x > minX)
+                        {
+                            directionedSpeed.x = Mathf.Lerp(directionedSpeed.x,0,lerpValue);
+                        }else
+                        {
+                           directionedSpeed.x = 0; 
+                        }
                         break;
                     case PlatformFirePropulsor.direction.Z:
-                        directionedSpeed.z = Mathf.Lerp(directionedSpeed.z, platformSpeed, lerpValue);
-                        Debug.Log("Z");
+                        if(transform.position.z <= maxZ - positionOffset)
+                        {
+                            directionedSpeed.z = Mathf.Lerp(directionedSpeed.z, platformSpeed, lerpValue);
+
+                        }else if(transform.position.z <= maxZ)
+                        {
+                            directionedSpeed.z = Mathf.Lerp(directionedSpeed.z,0,lerpValue);
+                        }else
+                        {
+                            directionedSpeed.z = 0;
+                        }
                         break;
                     case PlatformFirePropulsor.direction.Z_NEGATIVE:
-                        directionedSpeed.z = Mathf.Lerp(directionedSpeed.z, -platformSpeed, lerpValue);
-                        Debug.Log("-Z");
+                        if(transform.position.z >= minZ + positionOffset)
+                        {
+                            directionedSpeed.z = Mathf.Lerp(directionedSpeed.z, -platformSpeed, lerpValue);
+                        }else if(transform.position.z >= minZ)
+                        {
+                            directionedSpeed.z = Mathf.Lerp(directionedSpeed.z,0,lerpValue);
+                        }else
+                        {
+                            directionedSpeed.z = 0;
+                        }
+                        
                         break;
                     default:
                         break;
@@ -62,6 +103,20 @@ public class PlatformFire : Platform
         }
         transform.position += directionedSpeed * Time.deltaTime;
         isMoving = false;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        var p1 = new Vector3(minX, transform.position.y, minZ);
+        var p2 = new Vector3(minX, transform.position.y, maxZ);
+        var p3 = new Vector3(maxX, transform.position.y, minZ);
+        var p4 = new Vector3(maxX, transform.position.y, maxZ);
+
+        Gizmos.DrawLine(p1,p2);
+        Gizmos.DrawLine(p2,p4);
+        Gizmos.DrawLine(p4,p3);
+        Gizmos.DrawLine(p3,p1);
     }
 
     private void OnDestroy()

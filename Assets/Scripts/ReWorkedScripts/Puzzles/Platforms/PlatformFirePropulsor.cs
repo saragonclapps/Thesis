@@ -12,7 +12,6 @@ public class PlatformFirePropulsor : MonoBehaviour, IFlamableObjects {
     public void SetOnFire()
     {
         _isOnFire = true;
-        Debug.Log(gameObject.name);
     }
 
     /*// Use this for initialization
