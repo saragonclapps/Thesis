@@ -87,7 +87,7 @@ namespace TPCamera
             transform.LookAt(_target);*/
             var d = _positionSmoothness < 0.3f ? 5 : 1;
             _positionSmoothness = _positionSmoothness < 1 ? _positionSmoothness + Time.deltaTime/d : 1;
-            Debug.Log(_positionSmoothness);
+            //Debug.Log(_positionSmoothness);
 
             var dir = new Vector3(0, 0, -_targetDistance);
             var rotation = Quaternion.Euler(_targetY, _targetX, 0);
