@@ -41,9 +41,9 @@ public class DebugConsole : MonoBehaviour
         AddCommands("!prototype 1", () => LoadPrototype(1), "Load prototype Level");
         AddCommands("!prototype 2", () => LoadPrototype(2), "Load prototype Level");
         AddCommands("!prototype 3", () => LoadPrototype(3), "Load prototype Level");
-        AddCommands("!prototype 4", () => LoadPrototype(4), "Load prototype Level");
-        AddCommands("!prototype 5", () => LoadPrototype(5), "Load prototype Level");
-        AddCommands("!prototype 6", () => LoadPrototype(6), "Load prototype Level");
+        AddCommands("!p 1", () => LoadPrototype(1), "Load prototype Level");
+        AddCommands("!p 2", () => LoadPrototype(2), "Load prototype Level");
+        AddCommands("!p 3", () => LoadPrototype(3), "Load prototype Level");
     }
 
     private void LoadTestLevel()

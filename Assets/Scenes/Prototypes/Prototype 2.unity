@@ -1587,51 +1587,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 4919677595909654, guid: 891d38fcb6827f04f9cea0432db21afc, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.500001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4919677595909654, guid: 891d38fcb6827f04f9cea0432db21afc, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.500001
-      objectReference: {fileID: 0}
+    - target: {fileID: 114008765901496920, guid: 891d38fcb6827f04f9cea0432db21afc,
+        type: 2}
+      propertyPath: pesimeter
+      value: 
+      objectReference: {fileID: 1088420904}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 891d38fcb6827f04f9cea0432db21afc, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &77348914 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1180416570070668, guid: 891d38fcb6827f04f9cea0432db21afc,
-    type: 2}
-  m_PrefabInternal: {fileID: 77348913}
---- !u!95 &77348915
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 77348914}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 804bceebd0856b747ba4cf4bde2902f1, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &77348916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 77348914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eafe7bbc0dfaa0459e6ba53912908d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pesimeter: {fileID: 1088420904}
 --- !u!4 &77348917 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4919677595909654, guid: 891d38fcb6827f04f9cea0432db21afc,
@@ -14662,7 +14625,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh332348
+  m_Name: pb_Mesh37668
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
