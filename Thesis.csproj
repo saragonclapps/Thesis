@@ -322,7 +322,6 @@
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Official\Smear\Smear.cs" />
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Official\TemplateExamples\PostProcess\Sobel\PostProcessExample.cs" />
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Official\TemplateExamples\Sprites\SpriteMask\SpriteMaskController.cs" />
-    <Compile Include="Assets\Art\AnimationsSwitch\PlayAnimation.cs" />
     <Compile Include="Assets\Download\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
     <Compile Include="Assets\Download\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
     <Compile Include="Assets\Download\EffectExamples\Shared\Scripts\GunAim.cs" />
@@ -388,6 +387,7 @@
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
     <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
+    <Compile Include="Assets\Scripts\PlayAnimation.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\MainCharacter\AnimatorEventsBehaviour.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\SaveDisk\SaveDiskEnd.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Audio\AmbientMusic.cs" />
@@ -503,6 +503,7 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\Particles\VacuumParticleFX.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\VacuumSwitchVisuals.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\VacuumVFX.cs" />
+    <Compile Include="Assets\Scripts\Rotation.cs" />
     <Compile Include="Assets\Shaders\Poss Process\DeathTransition.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -888,6 +889,7 @@
     <None Include="Assets\Shaders\Surface\Toon\SoftToon Alpha.shader" />
     <None Include="Assets\Shaders\Surface\Toon\SoftToon.shader" />
     <None Include="Assets\Shaders\Surface\Toon\Toon_CustomLighting_With_Disolve.shader" />
+    <None Include="Assets\Shaders\Surface\Transparent\AlphaSymmetric.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Line Animation.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Overlay.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Shield.shader" />

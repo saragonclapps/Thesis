@@ -45,8 +45,8 @@ public class FadeAwayPlatform : Platform {
 
                 var value = curve.Evaluate(_tick / period);
                 var alpha = value < 0 ? 0 : value; 
-                var col = _renderer.material.color;
-                _renderer.material.color = new Color(col.r, col.g, col.b, alpha);
+                var col = _renderer.material.GetColor("_color");
+                _renderer.material.SetColor("_color", new Color(col.r, col.g, col.b, alpha));
 
 
                 _collider.isTrigger = alpha == 0? true: false;
