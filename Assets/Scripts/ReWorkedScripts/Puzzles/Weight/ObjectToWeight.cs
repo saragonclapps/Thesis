@@ -10,6 +10,10 @@ public class ObjectToWeight : MonoBehaviour {
 
     bool wasAdded;
 
+    float _timmer = 2;
+    [SerializeField]
+    float _tick;
+
 	void Start ()
     {
         _rb = GetComponent<Rigidbody>();
@@ -20,10 +24,14 @@ public class ObjectToWeight : MonoBehaviour {
 
     private void Execute()
     {
-        if(control != null && _rb.IsSleeping() && !wasAdded)
+        if(control != null && !wasAdded)
         {
-            control.AddToWeight(this);
-            wasAdded = true;
+            _tick += Time.deltaTime;
+            if(_tick>_timmer)
+            {
+                control.AddToWeight(this);
+                wasAdded = true;
+            }
         }
     }
 
@@ -49,6 +57,7 @@ public class ObjectToWeight : MonoBehaviour {
             control.RemoveFromWeight(this);
             control = null;
             wasAdded = false;
+            _tick = 0;
         }
     }
 
