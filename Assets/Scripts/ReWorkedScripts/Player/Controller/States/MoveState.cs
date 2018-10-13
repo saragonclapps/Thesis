@@ -21,6 +21,7 @@ namespace Player
         Vector3 _newDirection;
         Vector3 _desiredForward;
         bool _turn;
+        bool cameraChange;
 
         float _angleTurnTolerance;
 
@@ -63,6 +64,18 @@ namespace Player
             _oldDirection = _oldDirection.normalized;
 
             cameraSmoothness = 0.3f;
+            EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS, OnFixCameraEnter);
+            EventManager.AddEventListener(GameEvent.CAMERA_NORMAL, OnNormalCameraEnter);
+        }
+
+        private void OnNormalCameraEnter(object[] parameterContainer)
+        {
+            cameraChange = false;
+        }
+
+        private void OnFixCameraEnter(object[] parameterContainer)
+        {
+            cameraChange = true;
         }
 
         public void Enter()
@@ -82,6 +95,10 @@ namespace Player
 
         public void Execute()
         {
+            if (cameraChange)
+            {
+                cameraChange = !GameInput.instance.onDirectionChange;
+            }
             if (_turn)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_newDirection), _idleTurnSpeed);
@@ -157,18 +174,22 @@ namespace Player
         /// </summary>
         void GetCorrectedForward()
         {
-            //Get inputs
-            _horizontal = GameInput.instance.horizontalMove;
-            _vertical = GameInput.instance.verticalMove;
-            _movementSpeed = new Vector2(_horizontal, _vertical).normalized.magnitude * _speed;
+            
+                //Get inputs
+                _horizontal = GameInput.instance.horizontalMove;
+                _vertical = GameInput.instance.verticalMove;
+                _movementSpeed = new Vector2(_horizontal, _vertical).normalized.magnitude * _speed;
 
             //Get cameraForward(2D floor plain)
-            var camForwardWithOutY = new Vector3(_cam.transform.forward.x, 0, _cam.transform.forward.z);
-            var anglesign = Vector3.Cross(new Vector3(0, 0, 1), camForwardWithOutY).y > 0 ? 1 : -1;
-            _angleCorrection = Vector3.Angle(new Vector3(0, 0, 1), camForwardWithOutY) * anglesign;
-
-            //Get forward multiplying the input vector3 with the quaternion containing the camera angle
-            _newDirection = (Quaternion.Euler(0f, _angleCorrection, 0f) * new Vector3(_horizontal, 0, _vertical)).normalized;
+            if (!cameraChange)
+            {
+                var camForwardWithOutY = new Vector3(_cam.transform.forward.x, 0, _cam.transform.forward.z);
+                var anglesign = Vector3.Cross(new Vector3(0, 0, 1), camForwardWithOutY).y > 0 ? 1 : -1;
+                _angleCorrection = Vector3.Angle(new Vector3(0, 0, 1), camForwardWithOutY) * anglesign;
+            }
+                //Get forward multiplying the input vector3 with the quaternion containing the camera angle
+                _newDirection = (Quaternion.Euler(0f, _angleCorrection, 0f) * new Vector3(_horizontal, 0, _vertical)).normalized;
+            
         }
 
         public Dictionary<Inputs, IState<Inputs>> Transitions

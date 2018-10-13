@@ -8,8 +8,8 @@ public class GameInput : MonoBehaviour
 {
 
     private static GameInput _instance;
-    public static GameInput instance { get{ return _instance; } }
-    
+    public static GameInput instance { get { return _instance; } }
+
     #region buttons
     //Buttons
     [HideInInspector]
@@ -44,7 +44,10 @@ public class GameInput : MonoBehaviour
     public float verticalMove;
     [HideInInspector]
     public bool chatButton;
-    
+
+
+    [HideInInspector]
+    public bool onDirectionChange;
 
     //Cammera
     [HideInInspector]
@@ -193,6 +196,8 @@ public class GameInput : MonoBehaviour
             consoleToggle = !consoleToggle;
             ToggleConsole();
         }
+
+        onDirectionChange = (Math.Abs(horizontalMove) <= 0.2f && Math.Abs(verticalMove) <= 0.2f);
     }
 
     private void ToggleConsole()

@@ -16,11 +16,5 @@ public class CameraFixTrigger : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit(Collider c)
-    {
-        if (c.gameObject.layer == 9)
-        {
-            EventManager.DispatchEvent(GameEvent.CAMERA_NORMAL);
-        }
-    }
+
 }

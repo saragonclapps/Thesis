@@ -84,6 +84,7 @@ public class EndPanel : MonoBehaviour {
     private void OnDestroy()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+        EventManager.RemoveEventListener(GameEvent.SAVEDISK_ENTER, SaveDiskEnter);
     }
 
 }

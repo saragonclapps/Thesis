@@ -53,6 +53,7 @@ namespace TPCamera
             var fixedTransitions = new Dictionary<Inputs, IState<Inputs>>();
             fixedTransitions.Add(Inputs.TO_NORMAL, _normalState);
             fixedTransitions.Add(Inputs.TO_DEMO, _storyState);
+            fixedTransitions.Add(Inputs.TO_FIXED, _fixedState);
 
             var storyTransitions = new Dictionary<Inputs, IState<Inputs>>();
             storyTransitions.Add(Inputs.TO_NORMAL, _normalState);

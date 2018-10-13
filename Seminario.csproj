@@ -327,7 +327,6 @@
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Official\Smear\Smear.cs" />
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Official\TemplateExamples\PostProcess\Sobel\PostProcessExample.cs" />
     <Compile Include="Assets\AmplifyShaderEditor\Examples\Official\TemplateExamples\Sprites\SpriteMask\SpriteMaskController.cs" />
-    <Compile Include="Assets\Art\AnimationsSwitch\PlayAnimation.cs" />
     <Compile Include="Assets\Download\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
     <Compile Include="Assets\Download\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
     <Compile Include="Assets\Download\EffectExamples\Shared\Scripts\GunAim.cs" />
@@ -393,6 +392,7 @@
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
     <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
+    <Compile Include="Assets\Scripts\PlayAnimation.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\MainCharacter\AnimatorEventsBehaviour.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\SaveDisk\SaveDiskEnd.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Audio\AmbientMusic.cs" />
@@ -402,6 +402,7 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFixTrigger.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFMS.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFSM.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraNormalTrigger.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutScene.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutSceneCamera.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutScenesManager.cs" />
@@ -459,11 +460,15 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\LaserTower.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Ice Puzzles &amp; Objects\IFrozenObject.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\PanelProximity.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\ElevatorPlatform.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\Extras\Platform.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\Extras\SwitchPlatform.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\Extras\Waypoint.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\FadeAwayPlatform.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\OscilatingMobilePlatform.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\PlatformFire.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\PlatformFirePropulsor.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\PlatformWindEngine.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\WayPointPlatform.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\SaveDisk.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Stump\StumpBase.cs" />
@@ -504,6 +509,7 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\Particles\VacuumParticleFX.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\VacuumSwitchVisuals.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\VacuumVFX.cs" />
+    <Compile Include="Assets\Scripts\Rotation.cs" />
     <Compile Include="Assets\Shaders\Poss Process\DeathTransition.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -889,6 +895,7 @@
     <None Include="Assets\Shaders\Surface\Toon\SoftToon Alpha.shader" />
     <None Include="Assets\Shaders\Surface\Toon\SoftToon.shader" />
     <None Include="Assets\Shaders\Surface\Toon\Toon_CustomLighting_With_Disolve.shader" />
+    <None Include="Assets\Shaders\Surface\Transparent\AlphaSymmetric.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Line Animation.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Overlay.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Shield.shader" />

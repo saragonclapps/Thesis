@@ -38,6 +38,7 @@ public class SaveDiskEnd : MonoBehaviour {
         }
         else
         {
+            if (anim == null) anim = GetComponent<Animator>();
             anim.SetTrigger("EnterDrive");
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
         }
@@ -53,5 +54,6 @@ public class SaveDiskEnd : MonoBehaviour {
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
         EventManager.RemoveEventListener(GameEvent.CAMERA_STORY, OnFinalSceneStart);
+        EventManager.RemoveEventListener(GameEvent.SAVEDISK_END, OnFinalSceneStart);
     }
 }
