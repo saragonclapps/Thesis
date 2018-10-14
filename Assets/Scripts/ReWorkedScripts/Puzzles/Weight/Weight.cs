@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 public class Weight : MonoBehaviour {
@@ -9,26 +10,33 @@ public class Weight : MonoBehaviour {
     /// <summary>
     /// Executes when weight is reached
     /// </summary>
-    public delegate void OnWeight();
+    public UnityEvent onWeight;
 
     /// <summary>
     /// Executes when new object enters the weight
     /// </summary>
-    public delegate void OnWeightEnter();
+    public UnityEvent onWeightEnter;
 
     /// <summary>
     /// Executes when an object leaves the weight
     /// </summary>
-    public delegate void OnWeightExit();
+    public UnityEvent onWeightExit;
 
-    OnWeight callbacks;
-    OnWeightEnter enterCallbacks;
-    OnWeightExit exitCallbacks;
 
     public float actionWeight;
     float totalWeight;
 
     private bool wasOnWeight;
+
+    void Awake()
+    {
+        if (onWeight == null)
+            onWeight = new UnityEvent();
+        if (onWeightEnter == null)
+            onWeightEnter = new UnityEvent();
+        if (onWeightExit == null)
+            onWeightExit = new UnityEvent();
+    }
 
     private void Start()
     {
@@ -44,9 +52,9 @@ public class Weight : MonoBehaviour {
         {
             totalWeight += otw.mass;
         }
-        if(totalWeight >= actionWeight && callbacks != null)
+        if(totalWeight >= actionWeight && onWeight != null)
         {
-            callbacks();
+            onWeight.Invoke();
         }
 	}
 
@@ -63,9 +71,9 @@ public class Weight : MonoBehaviour {
         {
             total += o.mass;
         }
-        if(total >= actionWeight && enterCallbacks != null)
+        if(total >= actionWeight && onWeightEnter != null)
         {
-            enterCallbacks();
+            onWeightEnter.Invoke();
             wasOnWeight = true;
         }
 
@@ -84,41 +92,11 @@ public class Weight : MonoBehaviour {
         {
             total += o.mass;
         }
-        if (total <= actionWeight && exitCallbacks != null && wasOnWeight)
+        if (total <= actionWeight && onWeightExit != null && wasOnWeight)
         {
-            exitCallbacks();
+            onWeightExit.Invoke();
             wasOnWeight = false;
         }
-    }
-
-    public void AddOnWeightEvent(OnWeight callback)
-    {
-        callbacks += callback;
-    }
-
-    public void RemoveOnWeightEvent(OnWeight callback)
-    {
-        callbacks -= callback;
-    }
-
-    public void AddOnWeightEnterEvent(OnWeightEnter callback)
-    {
-        enterCallbacks += callback;
-    }
-
-    public void RemoveOnWeightEnterEvent(OnWeightEnter callback)
-    {
-        enterCallbacks -= callback;
-    }
-
-    public void AddOnWeightExitEvent(OnWeightExit callback)
-    {
-        exitCallbacks += callback;
-    }
-
-    public void RemoveOnWeightExitEvent(OnWeightExit callback)
-    {
-        exitCallbacks -= callback;
     }
 
     private void OnDestroy()

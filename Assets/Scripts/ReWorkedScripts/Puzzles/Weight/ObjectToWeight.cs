@@ -52,7 +52,12 @@ public class ObjectToWeight : MonoBehaviour {
 
     private void OnCollisionExit(Collision collision)
     {
-        if(control != null)
+        RemoveWeightFromControl();
+    }
+
+    public void RemoveWeightFromControl()
+    {
+        if (control != null)
         {
             control.RemoveFromWeight(this);
             control = null;
@@ -64,6 +69,7 @@ public class ObjectToWeight : MonoBehaviour {
     private void OnDestroy()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+        RemoveWeightFromControl();
     }
 
 }

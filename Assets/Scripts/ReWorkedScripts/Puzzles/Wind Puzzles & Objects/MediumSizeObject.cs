@@ -16,6 +16,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     float _alphaCut;
 
     Vector3 _initialPosition;
+    public float respawnDistance;
 
     float _disolveTimmer = 1;
     float _disolveTick;
@@ -41,7 +42,19 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         material = GetComponent<Renderer>().material;
         _bC = GetComponent<BoxCollider>();
         SpawnVFXActivate(true);
+        
+    }
 
+    void Execute()
+    {
+        var d = Mathf.Abs((transform.position - _initialPosition).magnitude);
+        if (d > respawnDistance)
+        {
+            wasShooted = false;
+            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, DisolveTimmer);
+            _disolve = false;
+            SpawnVFXActivate(false);
+        }
     }
 
     void SpawnVFXActivate(bool dir)
@@ -50,11 +63,15 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         {
             _alphaCut = 1;
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, SpawnVFX);
+            if (respawnable)
+                UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
         }
         else
         {
             _alphaCut = 0;
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, DespawnVFX);
+            if (respawnable)
+                UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
         }
     }
 
@@ -75,11 +92,16 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         if (_alphaCut >= 1)
         {
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, DespawnVFX);
-            transform.position = _initialPosition;
-            transform.rotation = Quaternion.identity;
-            rb.velocity = Vector3.zero;
-            SpawnVFXActivate(true);
+            RepositionOnSpawn();
         }
+    }
+
+    public void RepositionOnSpawn()
+    {
+        transform.position = _initialPosition;
+        transform.rotation = Quaternion.identity;
+        rb.velocity = Vector3.zero;
+        SpawnVFXActivate(true);
     }
     
     public void SuckIn(Transform origin, float atractForce)
@@ -164,25 +186,6 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        wasShooted = false;
-        if (_disolve)
-        {
-            SpawnVFXActivate(false);
-            _disolve = false;
-        }
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (_disolve)
-        {
-            SpawnVFXActivate(false);
-            _disolve = false;
-        }
-    }
-
     public void ViewFX(bool activate)
     {
         if (activate)
@@ -205,5 +208,36 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         transform.SetParent(null);
         rb.isKinematic = false;
         isAbsorved = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        wasShooted = false;
+        if (_disolve)
+        {
+            SpawnVFXActivate(false);
+            _disolve = false;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (_disolve)
+        {
+            SpawnVFXActivate(false);
+            _disolve = false;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, respawnDistance);
+    }
+
+    private void OnDestroy()
+    {
+        if(respawnable)
+            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
 }

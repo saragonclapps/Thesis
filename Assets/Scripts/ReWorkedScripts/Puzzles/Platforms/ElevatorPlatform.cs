@@ -31,20 +31,24 @@ public class ElevatorPlatform : Platform, IVacuumObject
 
     public float currentSpeed { get { return _currentSpeed; } set { _currentSpeed = value; } }
 
-    public void SuckIn(Transform origin, float atractForce)
+    public void SuckIn(Transform origin, float atractForce){}
+
+    public void BlowUp(Transform origin, float atractForce, Vector3 direction)
     {
-        if(origin.position.y > transform.position.y && origin.IsChildOf(transform))
+        if (origin.position.y > transform.position.y && origin.IsChildOf(transform))
         {
-            goUp = true;
+            ActivateElevate();
         }
     }
-
-    public void BlowUp(Transform origin, float atractForce, Vector3 direction){}
     public void Exit(){}
     public void ReachedVacuum(){}
     public void Shoot(float shootForce, Vector3 direction){}
     public void ViewFX(bool active){}
 
+    public void ActivateElevate()
+    {
+        goUp = true;
+    }
     #endregion
 
     
