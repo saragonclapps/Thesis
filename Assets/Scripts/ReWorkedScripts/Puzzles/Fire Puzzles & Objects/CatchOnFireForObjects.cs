@@ -15,6 +15,8 @@ public class CatchOnFireForObjects : MonoBehaviour, IFlamableObjects {
     MediumSizeObject m;
     Renderer rend;
 
+    public bool consumable;
+
     public bool isOnFire
     {
         get{ return _isOnFire; }
@@ -37,7 +39,8 @@ public class CatchOnFireForObjects : MonoBehaviour, IFlamableObjects {
         rend.material.SetFloat("_DisolveAmount", 0);
         otw = GetComponent<ObjectToWeight>();
         m = GetComponent<MediumSizeObject>();
-        UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
+        if(consumable)
+            UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
     }
 	
 	void Execute ()
@@ -79,6 +82,7 @@ public class CatchOnFireForObjects : MonoBehaviour, IFlamableObjects {
 
     private void OnDestroy()
     {
-        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+        if(consumable)
+            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
 }

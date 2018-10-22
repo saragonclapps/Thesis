@@ -12,7 +12,6 @@ namespace Player
 
         private Collider _col;
         private Rigidbody _rb;
-        //private FallState _fall;
         private LandChecker _lc;
 
         float _jumpSpeed;
@@ -38,6 +37,8 @@ namespace Player
         Transform transform;
         Animator _anim;
 
+        Vector3 initialForward;
+
         public JumpState(Rigidbody rb, CameraFSM cam, PlayerController pC, LandChecker lc, AnimatorEventsBehaviour aES, Transform t, Animator anim, float jumpForce, float jumpSpeed)
         {
             _rb = rb;
@@ -56,15 +57,9 @@ namespace Player
 
         public void Enter()
         {
-            //_cm.SetColliderDimensions(0);
             //Apply jump force
             _rb.velocity = Vector3.up * _jumpForce;
             forwardJump = false;
-
-            //If jumping in place or forward
-            /*_horizontal = GameInput.instance.horizontalMove;
-            _vertical = GameInput.instance.verticalMove;
-            forwardJump = (Mathf.Abs(_horizontal) > 0.1f || Mathf.Abs(_vertical) > 0.1f) && !_pC2.CheckForwardCollision(GetCorrectedForward(), true);*/
 
             forwardJump = _pC.Fsm.Last == typeof(MoveState);
             _pC.jumpForward = forwardJump;
@@ -74,17 +69,18 @@ namespace Player
             
             _aES.landEnd = false;
 
-            //_cam.ChangeDistance(3f);
             _cam.normalState.unadjustedDistance = 3f;
-            //_cam.ChangeSmoothness(0.1f);
             _cam.normalState.positionSmoothness = 0.1f;
             _pC.isSkillLocked = true;
+
+            initialForward = GetCorrectedForward();
         }
 
         public void Execute()
         {
             if (_rb.velocity.y <= 0) _pC.land = _lc.land;
 
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(initialForward), 0.5f);
 
             if (forwardJump)
             {
