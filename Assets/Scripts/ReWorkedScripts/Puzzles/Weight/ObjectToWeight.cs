@@ -10,7 +10,7 @@ public class ObjectToWeight : MonoBehaviour {
 
     bool wasAdded;
 
-    float _timmer = 2;
+    float _timmer = 1;
     [SerializeField]
     float _tick;
 
@@ -71,5 +71,4 @@ public class ObjectToWeight : MonoBehaviour {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
         RemoveWeightFromControl();
     }
-
 }
