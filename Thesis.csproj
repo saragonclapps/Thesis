@@ -397,6 +397,7 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFixTrigger.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFMS.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraFSM.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CameraNormalTrigger.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutScene.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutSceneCamera.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Camera\CutScenes\CutScenesManager.cs" />
@@ -444,11 +445,12 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Electric Puzzles &amp; Objects\IElectricObject.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\EndPanel.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\BoxTemperature.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\CatchOnFireForObjects.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\FireRefiller.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\FireSwitch.cs" />
-    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\FireTestObject.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\FireWall.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\GlassBreak.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\HeatTransfer.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\IFlamableObjects.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\IHeat.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\LaserTower.cs" />
@@ -484,6 +486,7 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Weight\Weight.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Weight\WeightActionTest.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\DeathFallTrigger.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\DiskAbsorver.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\Elevator.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\FencePuzzleAbsorver.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\IVacuumObject.cs" />

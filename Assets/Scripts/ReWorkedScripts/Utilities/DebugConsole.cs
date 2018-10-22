@@ -38,12 +38,12 @@ public class DebugConsole : MonoBehaviour
         AddCommands("!restart", RestartLevel, "Restart Level");
         AddCommands("!last", LoadPreviousLevel, "Load previous Level");
         AddCommands("!test", LoadTestLevel, "Load Test Level");
-        AddCommands("!prototype 1", () => LoadPrototype(1), "Load prototype Level");
-        AddCommands("!prototype 2", () => LoadPrototype(2), "Load prototype Level");
-        AddCommands("!prototype 3", () => LoadPrototype(3), "Load prototype Level");
-        AddCommands("!p 1", () => LoadPrototype(1), "Load prototype Level");
-        AddCommands("!p 2", () => LoadPrototype(2), "Load prototype Level");
-        AddCommands("!p 3", () => LoadPrototype(3), "Load prototype Level");
+
+        for (int i = 1; i < 5; i++){
+            AddCommands("!prototype " + i, () => LoadPrototype(1), "Load prototype Level " + i);
+            AddCommands("!p 1" + i, () => LoadPrototype(1), "Load prototype Level " + i);
+        }
+
     }
 
     private void LoadTestLevel()
