@@ -122,8 +122,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364766466205766}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -9.91, y: 0.185, z: -5.52}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -33.5, y: 34.5, z: 56}
+  m_LocalScale: {x: 1.2140317, y: 1, z: 1}
   m_Children:
   - {fileID: 4014084007809998}
   - {fileID: 4285552163631598}
@@ -212,7 +212,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 42241080e16548d4fbed7fae89603175, type: 2}
+  - {fileID: 2100000, guid: e414af1524d258047bb6b82b8860062c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -308,7 +308,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  fireAmount: 50
+  fireAmount: 30
   fireRefillSpeed: 10
 --- !u!198 &198050400295634380
 ParticleSystem:
