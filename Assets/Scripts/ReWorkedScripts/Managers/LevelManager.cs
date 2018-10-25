@@ -4,6 +4,7 @@ using UnityEngine;
 using Skills;
 using System;
 using UnityEngine.SceneManagement;
+using Player;
 
 public class LevelManager : MonoBehaviour {
 
@@ -25,29 +26,38 @@ public class LevelManager : MonoBehaviour {
     static LevelManager _instance;
     public static LevelManager instance { get{ return _instance; } }
 
+    List<CheckPoint> checkPoints;
     //For power Configurations
     /* (later)
     public SkillManager skillManager;
     */
+
+    PlayerController _PC;
+
     void Awake()
     {
         _instance = this;
+        checkPoints = new List<CheckPoint>();
         breathingScenarioMaterials = new List<Material>();
+        
     }
 
     void Start ()
     {
-        if (isWithTimmer)
+        _PC = FindObjectOfType<PlayerController>();
+       
+        foreach (var cp in checkPoints)
         {
-            _timmer = levelTime;
-            HUDManager.instance.EnableTimmerHUD();
+            if(cp.checkPointName == MasterManager.checkPointName)
+            {
+                _PC.transform.position = cp.transform.position;
+                _PC.transform.rotation = cp.transform.rotation;
+            }
         }
-
         if (isWithPowers)
         {
             HUDManager.instance.EnablePowerHUD();
         }
-        UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
         EventManager.AddEventListener(GameEvent.TRANSITION_FADEOUT_LOSE_FINISH, RestartLevel);
         EventManager.AddEventListener(GameEvent.TRANSITION_FADEOUT_WIN_FINISH, NextLevel);
     }
@@ -75,22 +85,35 @@ public class LevelManager : MonoBehaviour {
         SceneManager.LoadScene("LoadingScreen");
     }
 
-
-    void Execute ()
+    public void AddCheckPointToList(CheckPoint cp)
     {
-        if (isWithTimmer)
+        if (!checkPoints.Contains(cp))
         {
-            if (_timmer > 0) _timmer -= Time.deltaTime;
-            else
-            {
-                blackOutAnimator.SetTrigger("FadeOutLose");
-                UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
-                HUDManager.instance.DisableTimmerHUD();
-                HUDManager.instance.DisablePowerHUD();
-            }
-            HUDManager.instance.RefreshTimmerHUD(_timmer);
+            checkPoints.Add(cp);
         }
-	}
+    }
+
+    public void SetActiveCheckPoint(string cpName)
+    {
+        bool isIncluded = false;
+        foreach (var cp in checkPoints)
+        {
+            if (cp.checkPointName == cpName)
+            {
+                isIncluded = true;
+                break;
+            }
+        }
+
+        if (isIncluded)
+        {
+            MasterManager.checkPointName = cpName;
+        }
+        else
+        {
+            Debug.LogWarning("El checkpoint no se encuentra en la lista");
+        }
+    }
 
     public void AddBreathingMaterial(Material mat)
     {
@@ -99,6 +122,6 @@ public class LevelManager : MonoBehaviour {
 
     private void OnDestroy()
     {
-        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+
     }
 }

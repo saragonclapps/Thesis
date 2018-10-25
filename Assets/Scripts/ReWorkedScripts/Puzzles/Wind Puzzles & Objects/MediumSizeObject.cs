@@ -168,7 +168,6 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         transform.SetParent(null);
         rb.velocity = direction * shootForce/rb.mass;
         _disolveTick = 0;
-        UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, DisolveTimmer);
     }
 
     void DisolveTimmer()
@@ -213,20 +212,12 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     private void OnCollisionEnter(Collision collision)
     {
         wasShooted = false;
-        if (_disolve)
-        {
-            SpawnVFXActivate(false);
-            _disolve = false;
-        }
+
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        if (_disolve)
-        {
-            SpawnVFXActivate(false);
-            _disolve = false;
-        }
+
     }
 
     private void OnDrawGizmosSelected()
