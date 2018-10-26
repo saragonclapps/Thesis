@@ -48,8 +48,16 @@ public class FadeAwayPlatform : Platform {
                 var col = _renderer.material.GetColor("_color");
                 _renderer.material.SetColor("_color", new Color(col.r, col.g, col.b, alpha));
 
-
-                _collider.isTrigger = alpha == 0? true: false;
+                if(alpha <= 0.2f)
+                {
+                    _collider.isTrigger = true;
+                    gameObject.layer = 10;
+                }
+                else
+                {
+                    _collider.isTrigger = false;
+                    gameObject.layer = 8;
+                }
             }
             else
             {

@@ -14,6 +14,14 @@ public class Platform : MonoBehaviour
         }
     }
 
+    void OnCollisionStay(Collision c)
+    {
+        if(c.collider.gameObject.layer == 9 && relateParent && c.transform.parent != transform)
+        {
+            c.transform.SetParent(transform);
+        }
+    }
+
     void OnCollisionExit(Collision c)
     {
         if (c.collider.gameObject.layer == 9 && relateParent)
