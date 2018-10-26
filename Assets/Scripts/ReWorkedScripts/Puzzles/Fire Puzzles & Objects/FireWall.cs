@@ -16,7 +16,7 @@ public class FireWall : MonoBehaviour, IVacuumObject
     Rigidbody _rb;
 
     ParticleSystem[] _ps;
-    float t = 0.05f;
+    float t = 0.5f;
     float att = 0.1f;
     float blowAtt = 0.05f;
 
@@ -58,16 +58,15 @@ public class FireWall : MonoBehaviour, IVacuumObject
 
     public void SuckIn(Transform origin, float atractForce)
     {
-        if(fireAmount > 0)
-        {
+        //if(fireAmount > 0)
+        //{
             for (int i = 0; i < _ps.Length; i++)
             {
                 var particles = new ParticleSystem.Particle[_ps[i].particleCount];
                 var count = _ps[i].GetParticles(particles);
-
                 for (int j = 0; j < count; j++)
                 {
-                    particles[j].position = Vector3.Lerp(particles[j].position, vacuum.position, t);
+                    particles[j].position = Vector3.Lerp(particles[j].position, vacuum.position, 1 - particles[j].remainingLifetime/ particles[j].startLifetime);
                 }
 
                 _ps[i].SetParticles(particles, count);
@@ -77,15 +76,28 @@ public class FireWall : MonoBehaviour, IVacuumObject
 
             origin.GetComponentInParent<SkillManager>().AddAmountToSkill(fireRefillSpeed * Time.deltaTime, Skills.Skills.FIRE);
             fireAmount -= fireRefillSpeed * Time.deltaTime;
-        }
-        else
+        //}
+        /*else
         {
             for (int i = 0; i < _ps.Length; i++)
             {
                 _ps[i].Stop();
-                _box.size = new Vector3(2, 0.25f, 0.15f);
-                _box.center = Vector3.zero;
             }
+            _box.size = new Vector3(2, 0.25f, 0.15f);
+            _box.center = Vector3.zero;
+        }*/
+        if(fireAmount > 0)
+        {
+            origin.GetComponentInParent<SkillManager>().AddAmountToSkill(fireRefillSpeed * Time.deltaTime, Skills.Skills.FIRE);
+            fireAmount -= fireRefillSpeed * Time.deltaTime;
+        }else
+        {
+            for (int i = 0; i < _ps.Length; i++)
+            {
+                _ps[i].Stop();
+            }
+            _box.isTrigger = true;
+            gameObject.layer = 10;
         }
 
     }
