@@ -17,6 +17,9 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
 
     Vector3 _initialPosition;
     public float respawnDistance;
+    public float respawnTime;
+
+    float _respawnTick;
 
     float _disolveTimmer = 1;
     float _disolveTick;
@@ -51,7 +54,6 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         if (d > respawnDistance)
         {
             wasShooted = false;
-            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, DisolveTimmer);
             _disolve = false;
             SpawnVFXActivate(false);
         }
@@ -77,12 +79,24 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
 
     void SpawnVFX()
     {
-        material.SetFloat("_DisolveAmount", _alphaCut);
-        _alphaCut -= Time.deltaTime;
-        if(_alphaCut <= 0)
+        if(_respawnTick >= respawnTime)
         {
-            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, SpawnVFX);
+            material.SetFloat("_DisolveAmount", _alphaCut);
+            _alphaCut -= Time.deltaTime;
+            _rb.useGravity = true;
+            _bC.isTrigger = false   ;
+            if (_alphaCut <= 0)
+            {
+                UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, SpawnVFX);
+                wasShooted = false;
+                _respawnTick = 0;
+            }
         }
+        else
+        {
+            _respawnTick += Time.deltaTime;
+        }
+        
     }
 
     void DespawnVFX()
@@ -101,7 +115,10 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         transform.position = _initialPosition;
         transform.rotation = Quaternion.identity;
         rb.velocity = Vector3.zero;
+        _rb.useGravity = false;
+        _bC.isTrigger = true;
         SpawnVFXActivate(true);
+        wasShooted = true;
     }
     
     public void SuckIn(Transform origin, float atractForce)
@@ -168,21 +185,6 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         transform.SetParent(null);
         rb.velocity = direction * shootForce/rb.mass;
         _disolveTick = 0;
-    }
-
-    void DisolveTimmer()
-    {
-        if (respawnable)
-        {
-            _disolveTick += Time.deltaTime;
-            if(_disolveTick > _disolveTimmer)
-            {
-                _disolve = true;
-                _disolveTick = 0;
-                UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, DisolveTimmer);
-            }
-
-        }
     }
 
     public void ViewFX(bool activate)
