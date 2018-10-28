@@ -5,7 +5,6 @@ using UnityEngine;
 public class LandChecker : MonoBehaviour {
 
     public bool land;
-    private Rigidbody _rb;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,6 +19,10 @@ public class LandChecker : MonoBehaviour {
         if(other.gameObject.layer != 10)
         {
             land = true;
+        }
+        else
+        {
+            land = false;
         }
     }
 

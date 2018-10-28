@@ -6,6 +6,8 @@ public class MasterManager
 
     public static Scene[] scenes;
 
+    public static string checkPointName;
+
     public static void GetNextScene(Scene current)
     {
         nextScene = current.buildIndex + 1;
