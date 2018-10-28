@@ -11,9 +11,12 @@ public class WayPointPlatform : Platform {
     public float period;
     [Header("Time")]
     public float stillTime;
+    [Header("Start Delay Time")]
+    public float startTime;
     [Header("Motion Curve")]
     public AnimationCurve motionCurve;
 
+    float _startTick;
     float _curveTick;
     float _stillTimmer;
 
@@ -33,31 +36,42 @@ public class WayPointPlatform : Platform {
     {
         if (isActive)
         {
-            var actualDistance = Mathf.Abs((wp.transform.position - transform.position).magnitude);
-            var speed = motionCurve.Evaluate(_curveTick / period * 2) < 0.01f ? 0.01f: motionCurve.Evaluate(_curveTick / period * 2);
-
-            if (actualDistance < 0.2f)
+            if(_startTick>= startTime)
             {
-                speed = 0;
+                var actualDistance = Mathf.Abs((wp.transform.position - transform.position).magnitude);
+                var speed = motionCurve.Evaluate(_curveTick / period * 2) < 0.01f ? 0.01f: motionCurve.Evaluate(_curveTick / period * 2);
 
-                if(_stillTimmer < stillTime)
+                if (actualDistance < 0.2f)
                 {
-                    _stillTimmer += Time.deltaTime;
+                    speed = 0;
+
+                    if(_stillTimmer < stillTime)
+                    {
+                        _stillTimmer += Time.deltaTime;
+                    }
+                    else
+                    {
+                        SetNextWaypoint();
+                    }
+                }else if( actualDistance < initialDistance / 2)
+                {
+
+                    _curveTick -= Time.deltaTime;
                 }
                 else
                 {
-                    SetNextWaypoint();
+                    _curveTick += Time.deltaTime;
                 }
-            }else if( actualDistance < initialDistance / 2)
-            {
-
-                _curveTick -= Time.deltaTime;
+                transform.position += dir * speed;
             }
             else
             {
-                _curveTick += Time.deltaTime;
+                _startTick += Time.deltaTime;
             }
-            transform.position += dir * speed;
+        }
+        else
+        {
+            _startTick = 0;
         }
     }
 

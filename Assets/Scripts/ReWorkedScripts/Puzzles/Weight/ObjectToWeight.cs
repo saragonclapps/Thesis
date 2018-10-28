@@ -8,9 +8,7 @@ public class ObjectToWeight : MonoBehaviour {
     public float mass;
     public Weight control;
 
-    bool wasAdded;
-
-    float _timmer = 1;
+    float _timmer = 2;
     [SerializeField]
     float _tick;
 
@@ -18,19 +16,17 @@ public class ObjectToWeight : MonoBehaviour {
     {
         _rb = GetComponent<Rigidbody>();
         mass = _rb.mass;
-        wasAdded = false;
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
     }
 
     private void Execute()
     {
-        if(control != null && !wasAdded)
+        if(control != null)
         {
             _tick += Time.deltaTime;
             if(_tick>_timmer)
             {
                 control.AddToWeight(this);
-                wasAdded = true;
             }
         }
     }
@@ -50,9 +46,26 @@ public class ObjectToWeight : MonoBehaviour {
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        RemoveWeightFromControl();
+        var o = collision.collider.GetComponent<ObjectToWeight>();
+        if(o != null)
+        {
+            control = o.control;
+        }
+        var w = collision.collider.GetComponent<Weight>();
+        
+        if(w != null)
+        {
+            control = w;
+        }
+        
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if(collider.gameObject.GetComponent<Weight>())
+            RemoveWeightFromControl();
     }
 
     public void RemoveWeightFromControl()
@@ -61,7 +74,6 @@ public class ObjectToWeight : MonoBehaviour {
         {
             control.RemoveFromWeight(this);
             control = null;
-            wasAdded = false;
             _tick = 0;
         }
     }

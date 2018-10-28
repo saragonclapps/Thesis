@@ -189,9 +189,7 @@ namespace Player
                 _fsm.ProcessInput(Inputs.EndLand);
             }
 
-            //Triple check for fall state
-            if (_rB.velocity.y < -0.2f && !_lC.land) fallCount++;
-            else fallCount = 0;
+            
             if (CheckFall())
             {
                 _fsm.ProcessInput(Inputs.Fall);
@@ -217,6 +215,9 @@ namespace Player
 
         public bool CheckFall()
         {
+            //Triple check for fall state
+            if (_rB.velocity.y < -0.2f && !_lC.land) fallCount++;
+            else fallCount = 0;
             return fallCount >= 2 && !Physics.Raycast(transform.position, -transform.up, fallDistance, fallLayer);
         }
 
