@@ -130,7 +130,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
 
             if (distance <= 0.5f)
             {
-                _bC.enabled = false;
+                _bC.isTrigger = true;
                 rb.isKinematic = true;
                 transform.position = origin.position;
                 isAbsorved = true;
@@ -178,7 +178,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
 
     public void Shoot(float shootForce, Vector3 direction)
     {
-        _bC.enabled = true;
+        _bC.isTrigger = false;
         wasShooted = true;
         isAbsorved = false;
         rb.isKinematic = false;
@@ -204,7 +204,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
 
     public void Exit()
     {
-        _bC.enabled = true;
+        _bC.isTrigger = false;
         ViewFX(false);
         transform.SetParent(null);
         rb.isKinematic = false;
@@ -213,8 +213,11 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
 
     private void OnCollisionEnter(Collision collision)
     {
-        wasShooted = false;
-
+        //TODO: Find a better way to exclude "Player" collision
+        if(collision.gameObject.name != "Player")
+        {
+            wasShooted = false;
+        }
     }
 
     private void OnCollisionStay(Collision collision)
