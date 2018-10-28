@@ -73,6 +73,7 @@ public class FireWall : MonoBehaviour, IVacuumObject
                 {
                     isActive = false;
                     _offTick = 0;
+                    _onTick = 0;
                     fireAmount = 0;
                     DeactivateParticles();
                 }
@@ -84,6 +85,7 @@ public class FireWall : MonoBehaviour, IVacuumObject
                 {
                     isActive = true;
                     _onTick = 0;
+                    _offTick = 0;
                     fireAmount = initialFireAmount;
                     ActivateParticles();
                 }
