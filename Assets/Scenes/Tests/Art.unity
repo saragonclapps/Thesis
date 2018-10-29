@@ -4099,6 +4099,48 @@ Transform:
   m_PrefabParentObject: {fileID: 4154428918537656, guid: df292231d077b484eb0df4c2048fda89,
     type: 2}
   m_PrefabInternal: {fileID: 210299225}
+--- !u!1001 &1569998850
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4533235990994674, guid: 2db7813974d3b8041ba1367f3fc972d7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533235990994674, guid: 2db7813974d3b8041ba1367f3fc972d7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533235990994674, guid: 2db7813974d3b8041ba1367f3fc972d7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533235990994674, guid: 2db7813974d3b8041ba1367f3fc972d7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533235990994674, guid: 2db7813974d3b8041ba1367f3fc972d7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533235990994674, guid: 2db7813974d3b8041ba1367f3fc972d7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533235990994674, guid: 2db7813974d3b8041ba1367f3fc972d7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533235990994674, guid: 2db7813974d3b8041ba1367f3fc972d7, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 2db7813974d3b8041ba1367f3fc972d7, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &1572514020 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4786310183812176, guid: 6d6ee93612752954b91bfe986d901613,
