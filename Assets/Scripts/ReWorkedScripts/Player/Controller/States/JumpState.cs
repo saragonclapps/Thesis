@@ -24,6 +24,7 @@ namespace Player
         private float _horizontal;
         private float _vertical;
 
+        bool fixCamera;
 
         [HideInInspector]
         public bool forwardJump;
@@ -55,6 +56,16 @@ namespace Player
             _jumpSpeed = jumpSpeed;
         }
 
+        private void OnNormalCameraEnter(object[] parameterContainer)
+        {
+            fixCamera = true;
+        }
+
+        private void OnFixCameraEnter(object[] parameterContainer)
+        {
+            fixCamera = false;
+        }
+
         public void Enter()
         {
             //Apply jump force
@@ -74,13 +85,17 @@ namespace Player
             _pC.isSkillLocked = true;
 
             initialForward = GetCorrectedForward();
+
+            EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS, OnFixCameraEnter);
+            EventManager.AddEventListener(GameEvent.CAMERA_NORMAL, OnNormalCameraEnter);
         }
 
         public void Execute()
         {
             if (_rb.velocity.y <= 0) _pC.land = _lc.land;
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(initialForward), 0.5f);
+            if(fixCamera)
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(initialForward), 0.5f);
 
             if (forwardJump)
             {
@@ -107,6 +122,8 @@ namespace Player
         public void Exit()
         {
             _anim.SetBool("toJump", false);
+            EventManager.RemoveEventListener(GameEvent.CAMERA_FIXPOS, OnFixCameraEnter);
+            EventManager.RemoveEventListener(GameEvent.CAMERA_NORMAL, OnNormalCameraEnter);
         }
 
         Vector3 GetCorrectedForward()

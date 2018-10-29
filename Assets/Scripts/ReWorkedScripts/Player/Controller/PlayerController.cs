@@ -138,6 +138,7 @@ namespace Player
             _fsm = new FSM<Inputs>(idleState);
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
             EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS, ToFixedCamera);
+            EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS_END, onFixCameraTransitionEnd);
             EventManager.AddEventListener(GameEvent.CAMERA_NORMAL, ToNormalCamera);
             EventManager.AddEventListener(GameEvent.CAMERA_STORY, ToDemoCamera);
             isActive = true;
@@ -152,12 +153,18 @@ namespace Player
         void ToFixedCamera(object[] parameterContainer)
         {
             fixedCamera = true;
-            isActive = true;
+            isActive = cam2.Fsm.Last.ToString() == "TPCamera.FixedState";
+
         }
 
         void ToNormalCamera(object[] parameterContainer)
         {
             fixedCamera = false;
+            isActive = true;
+        }
+
+        void onFixCameraTransitionEnd(object[] parameterContainer)
+        {
             isActive = true;
         }
 
@@ -233,6 +240,8 @@ namespace Player
             EventManager.RemoveEventListener(GameEvent.CAMERA_FIXPOS, ToFixedCamera);
             EventManager.RemoveEventListener(GameEvent.CAMERA_NORMAL, ToNormalCamera);
             EventManager.RemoveEventListener(GameEvent.CAMERA_STORY, ToDemoCamera);
+            jumpState.Exit();
+            moveState.Exit();
         }
 
     }

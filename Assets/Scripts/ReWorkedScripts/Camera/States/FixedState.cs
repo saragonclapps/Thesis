@@ -96,6 +96,10 @@ namespace TPCamera
             transform.position = Vector3.Lerp(transform.position, targetPosition, _positionSmoothness);
 
             transform.LookAt(_target);
+            if(Mathf.Abs(Vector3.Distance(transform.position, targetPosition)) < 0.5f)
+            {
+                EventManager.DispatchEvent(GameEvent.CAMERA_FIXPOS_END);
+            }
         }
 
         public void Exit()

@@ -166,7 +166,8 @@ namespace Player
 
             _anim.SetFloat("speed", 0);
             _anim.SetBool("sprint", false);
-           
+            EventManager.RemoveEventListener(GameEvent.CAMERA_FIXPOS, OnFixCameraEnter);
+            EventManager.RemoveEventListener(GameEvent.CAMERA_NORMAL, OnNormalCameraEnter);
         }
 
         /// <summary>
