@@ -14,7 +14,6 @@ namespace TPCamera
         public NormalState normalState { get { return _normalState; } }
         NormalState _normalState;
         FixedState _fixedState;
-        [HideInInspector]
         StoryState _storyState;
 
         #region NormalState Variables
