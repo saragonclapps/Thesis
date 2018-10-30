@@ -19,4 +19,11 @@ public class CheckPoint : MonoBehaviour {
             LevelManager.instance.SetActiveCheckPoint(checkPointName);
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0, 200, 0, 0.7f); ;
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.DrawCube(Vector3.zero, Vector3.one);
+    }
 }
