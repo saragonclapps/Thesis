@@ -63,6 +63,7 @@ public class ForwardChecker : MonoBehaviour {
     {
         if(c.gameObject.layer != 9)
         {
+            if(c.gameObject.layer != 10)
             isForwardObstructed = true;
         }
     }
@@ -71,7 +72,8 @@ public class ForwardChecker : MonoBehaviour {
     {
         if (c.gameObject.layer != 9)
         {
-            isForwardObstructed = true;
+            if (c.gameObject.layer != 10)
+                isForwardObstructed = true;
         }
     }
 
@@ -79,7 +81,8 @@ public class ForwardChecker : MonoBehaviour {
     {
         if (c.gameObject.layer != 9)
         {
-            isForwardObstructed = false;
+            if (c.gameObject.layer != 10)
+                isForwardObstructed = false;
         }
     }
 }

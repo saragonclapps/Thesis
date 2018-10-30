@@ -1723,7 +1723,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 44541030}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.35, y: -0.049999237, z: -0.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 585680306}
@@ -5876,7 +5876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &140020434
 Transform:
   m_ObjectHideFlags: 0
@@ -63841,7 +63841,7 @@ Transform:
   m_GameObject: {fileID: 1484719126}
   m_LocalRotation: {x: -0, y: -0.7071071, z: -0, w: 0.70710653}
   m_LocalPosition: {x: -29.38997, y: 10.299999, z: 6.3499684}
-  m_LocalScale: {x: 2, y: 1, z: 2}
+  m_LocalScale: {x: 2.5, y: 1, z: 2.5}
   m_Children:
   - {fileID: 983387679}
   m_Father: {fileID: 1989760048}
@@ -63860,10 +63860,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  relateParent: 0
+  relateParent: 1
   wp: {fileID: 1375828073}
   period: 9
   stillTime: 1
+  startTime: 0
   motionCurve:
     serializedVersion: 2
     m_Curve:
@@ -71863,10 +71864,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  relateParent: 0
+  relateParent: 1
   wp: {fileID: 1717746854}
   period: 10
-  stillTime: 1
+  stillTime: 2
+  startTime: 1
   motionCurve:
     serializedVersion: 2
     m_Curve:
@@ -87670,7 +87672,7 @@ Prefab:
     - target: {fileID: 224200262061570112, guid: f5d91642fcbf26a48b1236fdc64f2e20,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 35.42799
       objectReference: {fileID: 0}
     - target: {fileID: 224748126637159978, guid: f5d91642fcbf26a48b1236fdc64f2e20,
         type: 2}
@@ -87715,7 +87717,7 @@ Prefab:
     - target: {fileID: 224200262061570112, guid: f5d91642fcbf26a48b1236fdc64f2e20,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: -0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 224508430236928550, guid: f5d91642fcbf26a48b1236fdc64f2e20,
         type: 2}
@@ -90987,6 +90989,11 @@ Prefab:
       propertyPath: vacuumSwitch
       value: 
       objectReference: {fileID: 2102163627}
+    - target: {fileID: 114451568767742662, guid: 6fe99b84f68666a4fb9eda1a26e85fb6,
+        type: 2}
+      propertyPath: relateParent
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6fe99b84f68666a4fb9eda1a26e85fb6, type: 2}
   m_IsPrefabParent: 0

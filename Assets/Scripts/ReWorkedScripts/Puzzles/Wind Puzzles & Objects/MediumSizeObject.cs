@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Material))]
-public class MediumSizeObject : MonoBehaviour, IVacuumObject {
+public class MediumSizeObject : MonoBehaviour, IVacuumObject
+{
 
     [HideInInspector]
     public bool wasShooted;
@@ -45,7 +46,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         material = GetComponent<Renderer>().material;
         _bC = GetComponent<BoxCollider>();
         SpawnVFXActivate(true);
-        
+
     }
 
     void Execute()
@@ -120,7 +121,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         SpawnVFXActivate(true);
         wasShooted = true;
     }
-    
+
     public void SuckIn(Transform origin, float atractForce)
     {
         if (!wasShooted)
@@ -135,14 +136,14 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
                 transform.position = origin.position;
                 isAbsorved = true;
                 transform.SetParent(origin);
-                
+
             }
             else if (distance < 1f)
             {
                 rb.isKinematic = true;
-                
+
                 var dir = (origin.position - transform.position).normalized;
-                transform.position += dir * atractForce/10 * Time.deltaTime;
+                transform.position += dir * atractForce / 10 * Time.deltaTime;
             }
             else
             {
@@ -150,21 +151,21 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
                 var forceMagnitude = (10) * atractForce / Mathf.Pow(distance, 2);
                 var force = direction.normalized * forceMagnitude;
                 rb.AddForce(force);
-                
+
             }
         }
     }
 
     public void BlowUp(Transform origin, float atractForce, Vector3 direction)
     {
-        if(!wasShooted)
+        if (!wasShooted)
         {
             rb.isKinematic = false;
             isAbsorved = false;
             transform.SetParent(null);
             var distanceRaw = transform.position - origin.position;
             var distance = distanceRaw.magnitude;
-            var forceMagnitude =  10 * atractForce * 10 / Mathf.Pow(distance, 2);
+            var forceMagnitude = 10 * atractForce * 10 / Mathf.Pow(distance, 2);
             forceMagnitude = Mathf.Clamp(forceMagnitude, 0, 2000);
             var force = direction.normalized * forceMagnitude;
             rb.AddForce(force);
@@ -173,7 +174,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
 
     public void ReachedVacuum()
     {
-        
+
     }
 
     public void Shoot(float shootForce, Vector3 direction)
@@ -183,7 +184,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         isAbsorved = false;
         rb.isKinematic = false;
         transform.SetParent(null);
-        rb.velocity = direction * shootForce/rb.mass;
+        rb.velocity = direction * shootForce / rb.mass;
         _disolveTick = 0;
     }
 
@@ -192,7 +193,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         if (activate)
         {
             //View VFX
-            
+
             material.SetFloat("_Alpha", 0.3f);
         }
         else
@@ -233,7 +234,14 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
 
     private void OnDestroy()
     {
-        if(respawnable)
+        if (respawnable)
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(200, 200, 200, 0.6f); ;
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.DrawCube(Vector3.zero, Vector3.one);
     }
 }

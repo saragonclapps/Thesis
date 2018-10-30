@@ -83,5 +83,4 @@ public class ObjectToWeight : MonoBehaviour {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
         RemoveWeightFromControl();
     }
-
 }

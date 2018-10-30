@@ -39,10 +39,19 @@ public class DebugConsole : MonoBehaviour
         AddCommands("!last", LoadPreviousLevel, "Load previous Level");
         AddCommands("!test", LoadTestLevel, "Load Test Level");
 
-        for (int i = 1; i < 5; i++){
-            AddCommands("!prototype " + i, () => LoadPrototype(1), "Load prototype Level " + i);
-            AddCommands("!p 1" + i, () => LoadPrototype(1), "Load prototype Level " + i);
-        }
+        AddCommands("!prototype " + 1, () => LoadPrototype(1), "Load prototype Level " + 1);
+        AddCommands("!prototype " + 2, () => LoadPrototype(2), "Load prototype Level " + 2);
+        AddCommands("!prototype " + 3, () => LoadPrototype(3), "Load prototype Level " + 3);
+        AddCommands("!prototype " + 4, () => LoadPrototype(4), "Load prototype Level " + 4);
+        AddCommands("!p " + 0, () => SceneManager.LoadScene("Level-01"), "Load prototype Level " + 0);
+        AddCommands("!p " + 1, () => LoadPrototype(1), "Load prototype Level " + 1);
+        AddCommands("!p " + 2, () => LoadPrototype(2), "Load prototype Level " + 2);
+        AddCommands("!p " + 3, () => LoadPrototype(3), "Load prototype Level " + 3);
+        AddCommands("!p " + 4, () => LoadPrototype(4), "Load prototype Level " + 4);
+        //for (int i = 1; i < 4; i++){
+        //    AddCommands("!prototype " + i, () => LoadPrototype(i), "Load prototype Level " + i);
+        //    AddCommands("!p " + i, () => LoadPrototype(i), "Load prototype Level " + i);
+        //}
 
     }
 
