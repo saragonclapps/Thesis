@@ -30,6 +30,7 @@ namespace Player
         public void Enter()
         {
             _anim.SetBool("toJump", false);
+            _anim.SetBool("toLand", true);
             //_cam.ChangeSmoothness(0.3f);
             _cam.normalState.positionSmoothness = 0.3f;
             _anim.SetTrigger("toIdle");

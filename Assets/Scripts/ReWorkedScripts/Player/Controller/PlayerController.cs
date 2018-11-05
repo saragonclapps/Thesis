@@ -51,7 +51,6 @@ namespace Player
         //public CameraFMS cam;
         public CameraFSM cam2;
 
-        CameraController _camController;
         AnimatorEventsBehaviour _aEB;
         Rigidbody _rB;
         SkillController _skill;

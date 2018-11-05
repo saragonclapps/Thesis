@@ -1672,8 +1672,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4629393814800342}
-  - component: {fileID: 65029049532444196}
   - component: {fileID: 114892594035677424}
+  - component: {fileID: 64148378941907026}
   m_Layer: 10
   m_Name: LandChecker
   m_TagString: Untagged
@@ -4247,8 +4247,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1042600478169684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2175059, y: 1.3601986, z: -9.663406}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -16.776676, y: 0.2, z: -7.71144}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4617459179017474}
@@ -4258,7 +4258,7 @@ Transform:
   - {fileID: 4290934736345714}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4394502718534658
 Transform:
   m_ObjectHideFlags: 1
@@ -4961,13 +4961,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1536984080235728}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.707107, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0.039, z: 0.054}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.1654627}
   m_Children: []
   m_Father: {fileID: 4392742141155514}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!4 &4631247373099122
 Transform:
   m_ObjectHideFlags: 1
@@ -6321,6 +6321,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!64 &64148378941907026
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536984080235728}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 0715f777350c678428cc8584633b3e06, type: 3}
 --- !u!64 &64545413855141326
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -6335,18 +6349,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 0715f777350c678428cc8584633b3e06, type: 3}
---- !u!65 &65029049532444196
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1536984080235728}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.2, z: 0.33}
-  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!65 &65615211353309084
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -6562,7 +6564,7 @@ MonoBehaviour:
   fallDistance: 0.5
   fallLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294966271
   cam2: {fileID: 0}
   forwardCheck: {fileID: 0}
   isSkillLocked: 0
@@ -6655,7 +6657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atractForce: 50
-  shootSpeed: 300
+  shootSpeed: 100
   aspireOffset: {x: 0, y: 0, z: 1.5}
   electricObjectsToInteract: []
   attractorMesh: {fileID: 4300048, guid: 8d1511c37f99e044cbcd62c47e895544, type: 3}

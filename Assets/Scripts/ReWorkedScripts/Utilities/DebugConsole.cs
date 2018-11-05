@@ -62,7 +62,8 @@ public class DebugConsole : MonoBehaviour
 
     private void LoadPrototype(int value)
     {
-        SceneManager.LoadScene("Prototype " + value);
+        MasterManager.nextScene = value + 1;
+        SceneManager.LoadScene("LoadingScreen");
     }
 
     public void AddCommands(string cheat, ConsoleCommand com, string description)

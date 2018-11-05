@@ -54,6 +54,10 @@ namespace Player
 
             _jumpForce = jumpForce;
             _jumpSpeed = jumpSpeed;
+            fixCamera = true;
+
+            EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS, OnFixCameraEnter);
+            EventManager.AddEventListener(GameEvent.CAMERA_NORMAL, OnNormalCameraEnter);
         }
 
         private void OnNormalCameraEnter(object[] parameterContainer)
@@ -77,6 +81,7 @@ namespace Player
             //Set Animator Parameter
 
             _anim.SetBool("toJump", true);
+            _anim.SetBool("toLand", false);
             
             _aES.landEnd = false;
 
@@ -84,17 +89,16 @@ namespace Player
             _cam.normalState.positionSmoothness = 0.1f;
             _pC.isSkillLocked = true;
 
-            initialForward = GetCorrectedForward();
+            initialForward = GetCorrectedForward(true);
 
-            EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS, OnFixCameraEnter);
-            EventManager.AddEventListener(GameEvent.CAMERA_NORMAL, OnNormalCameraEnter);
+            
         }
 
         public void Execute()
         {
-            if (_rb.velocity.y <= 0) _pC.land = _lc.land;
+            if (_rb.velocity.y <= -0.1) _pC.land = _lc.land;
 
-            if(fixCamera)
+            if (fixCamera)
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(initialForward), 0.5f);
 
             if (forwardJump)
@@ -104,7 +108,7 @@ namespace Player
 
             if (Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f)
             {
-                var newDirection = GetCorrectedForward();
+                var newDirection = GetCorrectedForward(false);
 
                 //AirMove
                 if(!_pC.forwardCheck.isForwardObstructed)
@@ -122,23 +126,34 @@ namespace Player
         public void Exit()
         {
             _anim.SetBool("toJump", false);
-            EventManager.RemoveEventListener(GameEvent.CAMERA_FIXPOS, OnFixCameraEnter);
-            EventManager.RemoveEventListener(GameEvent.CAMERA_NORMAL, OnNormalCameraEnter);
         }
 
-        Vector3 GetCorrectedForward()
+        Vector3 GetCorrectedForward(bool transition)
         {
             //Get inputs
             _horizontal = GameInput.instance.horizontalMove;
             _vertical = GameInput.instance.verticalMove;
-
-            //Get cameraForward(2D floor plain)
             var camForwardWithOutY = new Vector3(_cam.transform.forward.x, 0, _cam.transform.forward.z);
-            var anglesign = Vector3.Cross(new Vector3(0, 0, 1), camForwardWithOutY).y > 0 ? 1 : -1;
-            var _angleCorrection = Vector3.Angle(new Vector3(0, 0, 1), camForwardWithOutY) * anglesign;
+            if (!transition)
+            {
+                //Get cameraForward(2D floor plain)
+                
+                var anglesign = Vector3.Cross(new Vector3(0, 0, 1), camForwardWithOutY).y > 0 ? 1 : -1;
+                var _angleCorrection = Vector3.Angle(new Vector3(0, 0, 1), camForwardWithOutY) * anglesign;
 
-            //Get forward multiplying the input vector3 with the quaternion containing the camera angle
-            return (Quaternion.Euler(0f, _angleCorrection, 0f) * new Vector3(_horizontal, 0, _vertical)).normalized;
+                //Get forward multiplying the input vector3 with the quaternion containing the camera angle
+                return (Quaternion.Euler(0f, _angleCorrection, 0f) * new Vector3(_horizontal, 0, _vertical)).normalized;
+            }
+            else
+            {
+                return camForwardWithOutY;
+            }
+        }
+
+        public void OnDestroy()
+        {
+            EventManager.RemoveEventListener(GameEvent.CAMERA_FIXPOS, OnFixCameraEnter);
+            EventManager.RemoveEventListener(GameEvent.CAMERA_NORMAL, OnNormalCameraEnter);
         }
 
         public Dictionary<Inputs, IState<Inputs>> Transitions

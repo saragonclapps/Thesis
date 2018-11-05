@@ -30,9 +30,6 @@ namespace TPCamera
         #endregion
 
         #region FixedState Variables
-        [Header("Fixed State Variables")]
-        public float xRotationSpeed;
-        public float yRotationSpeed;
         #endregion
 
         void Awake()
@@ -41,7 +38,7 @@ namespace TPCamera
             _I = GameInput.instance;
             #region FSM
             _normalState = new NormalState(_lookAt, transform, speed, positionSmoothness, unadjustedDistance, _cam, collisionLayer, _I);
-            _fixedState = new FixedState(transform, xRotationSpeed, yRotationSpeed,_lookAt);
+            _fixedState = new FixedState(transform,_lookAt, unadjustedDistance);
             _storyState = new StoryState(_cam);
 
 
