@@ -59,6 +59,8 @@ GameObject:
   - component: {fileID: 4520195041641084}
   - component: {fileID: 33079495112191740}
   - component: {fileID: 23595962659699220}
+  - component: {fileID: 95234942839603304}
+  - component: {fileID: 114906049541399456}
   m_Layer: 0
   m_Name: PesimeterPlace
   m_TagString: Untagged
@@ -98,8 +100,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552024229860828}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.412, y: 1.5, z: 5.5341687}
+  m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.70710784}
+  m_LocalPosition: {x: -38.737133, y: 0, z: -8.365248}
   m_LocalScale: {x: 1.5, y: 1, z: 1.5}
   m_Children:
   - {fileID: 4564406314920192}
@@ -121,7 +123,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3265b2bf42fad1a4a99287b5041a65d7, type: 3}
+  - {fileID: 2100000, guid: ad94a6f4f30a2c54997da666632fb098, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,7 +157,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3265b2bf42fad1a4a99287b5041a65d7, type: 3}
+  - {fileID: 2100000, guid: 2c1057fa0cdec8448bb1c2321abc1fca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -228,6 +230,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4103643, y: 0.4103644, z: 0.12376704}
   m_Center: {x: 0, y: -9.636986e-10, z: 0.024252275}
+--- !u!95 &95234942839603304
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1983450555785304}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e32899c2e53671a4bb1a31552dcfb5e7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95466317637979770
 Animator:
   serializedVersion: 3
@@ -275,7 +294,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114906049541399456}
         m_MethodName: toggleAnim
         m_Mode: 6
         m_Arguments:
@@ -302,7 +321,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114906049541399456}
         m_MethodName: toggleAnim
         m_Mode: 6
         m_Arguments:
@@ -327,4 +346,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eafe7bbc0dfaa0459e6ba53912908d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pesimeter: {fileID: 114062124424777530}
+  initalPlay: 0
+--- !u!114 &114906049541399456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1983450555785304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eafe7bbc0dfaa0459e6ba53912908d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initalPlay: 0
