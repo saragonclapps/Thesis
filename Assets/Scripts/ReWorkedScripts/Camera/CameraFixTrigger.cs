@@ -16,5 +16,11 @@ public class CameraFixTrigger : MonoBehaviour {
         }
     }
 
-
+    private void OnDrawGizmos()
+    {
+        var collider = GetComponent<BoxCollider>();
+        Gizmos.color = new Color(0, 10, 70, 0.7f); ;
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.DrawCube(collider.center, collider.size);
+    }
 }
