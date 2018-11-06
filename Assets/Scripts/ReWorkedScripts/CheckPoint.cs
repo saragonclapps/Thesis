@@ -22,8 +22,9 @@ public class CheckPoint : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
+        var collider = GetComponent<BoxCollider>();
         Gizmos.color = new Color(0, 200, 0, 0.7f); ;
         Gizmos.matrix = transform.localToWorldMatrix;
-        Gizmos.DrawCube(Vector3.zero, Vector3.one);
+        Gizmos.DrawCube(collider.center, collider.size);
     }
 }
