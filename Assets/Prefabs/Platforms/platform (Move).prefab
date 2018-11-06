@@ -146,7 +146,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: a14d0a439c7467f41a21874d0335f5df, type: 2}
+  - {fileID: 2100000, guid: 2a76c47958326e5498fde617335b7303, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -224,10 +224,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  relateParent: 0
+  relateParent: 1
   wp: {fileID: 0}
   period: 8
   stillTime: 1
+  startTime: 0
   motionCurve:
     serializedVersion: 2
     m_Curve:
