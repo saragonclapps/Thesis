@@ -16,14 +16,11 @@ public class LandChecker : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
-        /*if(other.gameObject.layer != 10)
+        if(other.gameObject.layer != 10)
         {
             land = true;
         }
-        else
-        {
-            land = false;
-        }*/
+        
     }
 
     private void OnTriggerExit(Collider other)
