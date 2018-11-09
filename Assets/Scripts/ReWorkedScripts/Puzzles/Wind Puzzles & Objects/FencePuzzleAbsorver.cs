@@ -4,25 +4,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FencePuzzleAbsorver : MonoBehaviour, IVacuumObject
-
+public class FencePuzzleAbsorver : MediumSizeObject, IVacuumObject
 {
-    bool _isAbsorved;
-    bool _isAbsorvable;
-    bool _isBeeingAbsorved;
-    Rigidbody _rb;
-
-    public bool isAbsorved { get { return _isAbsorved; } set { _isAbsorved = value; } }
-    public bool isAbsorvable { get { return _isAbsorvable; } }
-    public bool isBeeingAbsorved { get { return _isBeeingAbsorved; } set { _isBeeingAbsorved = value; } }
-    public Rigidbody rb { get { return _rb; } set { _rb = value; } }
+    BoxCollider _bc;
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody>();   
+        _rb = GetComponent<Rigidbody>();
+        _bc = GetComponent<BoxCollider>();
+
+        _bc.material.dynamicFriction = 0.6f;
+        UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
     }
 
-    public void BlowUp(Transform origin, float atractForce, Vector3 direction)
+    void Execute()
+    {
+        if (_isBeeingAbsorved)
+        {
+            _bc.material.dynamicFriction = 0.0f;
+        }
+        else
+        {
+            _bc.material.dynamicFriction = 0.6f;
+        }
+    }
+
+    public new void BlowUp(Transform origin, float atractForce, Vector3 direction)
     {
         var distance = (transform.position - origin.position).magnitude;
         var forceMagnitude = rb.mass * atractForce * 10 / Mathf.Pow(distance, 2);
@@ -31,7 +38,7 @@ public class FencePuzzleAbsorver : MonoBehaviour, IVacuumObject
         rb.AddForce(force);
     }
 
-    public  void SuckIn(Transform origin, float atractForce)
+    public new void SuckIn(Transform origin, float atractForce)
     {
         var direction = origin.position - transform.position;
         var distance = direction.magnitude;
@@ -40,9 +47,11 @@ public class FencePuzzleAbsorver : MonoBehaviour, IVacuumObject
         rb.AddForce(force);
     }
 
-    public  void Exit(){}
-    public  void ReachedVacuum(){}
-    public  void Shoot(float shootForce, Vector3 direction){}
-    public  void ViewFX(bool active){}
+    private void OnDestroy()
+    {
+        UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
+    }
+    public new void Exit(){}
+    public new void ViewFX(bool activate){}
 
 }

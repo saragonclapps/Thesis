@@ -26,10 +26,10 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
     float _disolveTick;
     bool _disolve;
 
-    bool _isAbsorved;
-    bool _isAbsorvable;
-    bool _isBeeingAbsorved;
-    Rigidbody _rb;
+    protected bool _isAbsorved;
+    protected bool _isAbsorvable;
+    protected bool _isBeeingAbsorved;
+    protected Rigidbody _rb;
 
     public bool isAbsorved { get { return _isAbsorved; } set { _isAbsorved = value; } }
     public bool isAbsorvable { get { return _isAbsorvable; } }
