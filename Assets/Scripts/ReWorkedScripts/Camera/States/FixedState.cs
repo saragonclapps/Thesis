@@ -47,7 +47,6 @@ namespace TPCamera
             {
                 _currentX = _currentX < 0 ? _currentX + 360: _currentX -360 ;
             }
-            Debug.Log(_currentX);
             var auxT = (_targetX - _currentX) > 180 ? _targetX - _currentX - 180 : _targetX - _currentX;
             var aux1 = Mathf.Abs(0 - auxT);
             var aux2 = Mathf.Abs(180 - auxT);
