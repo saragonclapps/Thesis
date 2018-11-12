@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4783733687963458}
   - component: {fileID: 114827053687461976}
+  - component: {fileID: 114903672757810086}
   m_Layer: 0
   m_Name: Platform002
   m_TagString: Untagged
@@ -53,7 +54,6 @@ GameObject:
   - component: {fileID: 4848996340720672}
   - component: {fileID: 33221162942449914}
   - component: {fileID: 23603397490962566}
-  - component: {fileID: 111817918263062200}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -156,21 +156,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0833135, y: 6.083316, z: 1.0000002}
   m_Center: {x: 0, y: 0, z: 0.5000001}
---- !u!111 &111817918263062200
-Animation:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958272536197496}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: ee036cda58f547e4ab97a3ff8a4785b2, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: ee036cda58f547e4ab97a3ff8a4785b2, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 1
-  m_CullingType: 1
 --- !u!114 &114827053687461976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -182,3 +167,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63602819eccd7c4409dd33cffb8c15d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114903672757810086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1239162251348288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a719b4c8afbf049997250f2cb13b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive: 1
+  scalePosition: 5
+  scaleRotation: 1
+  positionSpeed: 1
+  rotationSpeed: 1
+  shakePositionRange: 0.1
+  shakeRotationRange: 0.1
