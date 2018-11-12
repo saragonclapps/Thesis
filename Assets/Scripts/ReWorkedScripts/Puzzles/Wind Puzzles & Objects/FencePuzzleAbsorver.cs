@@ -49,7 +49,7 @@ public class FencePuzzleAbsorver : MediumSizeObject, IVacuumObject
 
     private void OnDestroy()
     {
-        UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
     public new void Exit(){}
     public new void ViewFX(bool activate){}

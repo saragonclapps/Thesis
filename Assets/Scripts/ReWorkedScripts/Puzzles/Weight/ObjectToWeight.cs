@@ -62,9 +62,9 @@ public class ObjectToWeight : MonoBehaviour {
         
     }
 
-    private void OnTriggerExit(Collider collider)
+    private void OnCollisionExit(Collision collision)
     {
-        if(collider.gameObject.GetComponent<Weight>())
+        if(collision.collider.gameObject.GetComponent<Weight>())
             RemoveWeightFromControl();
     }
 
@@ -73,14 +73,13 @@ public class ObjectToWeight : MonoBehaviour {
         if (control != null)
         {
             control.RemoveFromWeight(this);
-            control = null;
             _tick = 0;
         }
     }
 
     private void OnDestroy()
     {
-        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
         RemoveWeightFromControl();
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
 }
