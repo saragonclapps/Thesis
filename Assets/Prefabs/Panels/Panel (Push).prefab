@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 33795673436884634}
   - component: {fileID: 23374256584824280}
   - component: {fileID: 65450164046604556}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4555119189327744}
   - component: {fileID: 65969203819379682}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 224985976626418052}
   - component: {fileID: 222327646210735552}
   - component: {fileID: 114166221838243882}
+  - component: {fileID: 114983136517751174}
   m_Layer: 5
   m_Name: Back (1)
   m_TagString: Untagged
@@ -125,6 +126,7 @@ GameObject:
   - component: {fileID: 224744901172057836}
   - component: {fileID: 222827047697103134}
   - component: {fileID: 114953921867972204}
+  - component: {fileID: 114260629192690442}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -140,7 +142,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4866512998233734}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1414353170999884}
   m_LocalRotation: {x: -0, y: -0.9602713, z: -0, w: 0.2790682}
-  m_LocalPosition: {x: 23.3, y: 1.19, z: 3.14}
+  m_LocalPosition: {x: 23, y: -0.5, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4335966118406908}
@@ -372,6 +374,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114260629192690442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1839199038200652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b5db33364946f4fa2b538c7bed9ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 1
+  x: 0
+  y: 0
+  z: 1
 --- !u!114 &114530983373714528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -428,6 +445,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114983136517751174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668493989570352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b5db33364946f4fa2b538c7bed9ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: -47
+  x: 0
+  y: 0
+  z: 1
 --- !u!222 &222327646210735552
 CanvasRenderer:
   m_ObjectHideFlags: 1
