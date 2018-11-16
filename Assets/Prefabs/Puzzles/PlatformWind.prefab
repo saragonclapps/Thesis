@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1196772828071612}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -30.69827, y: 1, z: -8.5}
+  m_LocalPosition: {x: -50.5, y: 0, z: 24.5}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4515304441177590}
@@ -120,7 +120,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3265b2bf42fad1a4a99287b5041a65d7, type: 3}
   - {fileID: 2100000, guid: 3265b2bf42fad1a4a99287b5041a65d7, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -214,7 +213,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 3265b2bf42fad1a4a99287b5041a65d7, type: 3}
@@ -241,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b958aa99fb53c4783b7e401fba3290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plat: {fileID: 0}
+  plat: {fileID: 114940639608688366}
 --- !u!114 &114940639608688366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -257,7 +256,7 @@ MonoBehaviour:
   relateParent: 1
   speed: 10
   lerpValue: 0.1
-  minY: 1
-  maxY: 8
+  minY: 34.37
+  maxY: 42.31
   maxYOffset: 1
   gravityValue: 5
