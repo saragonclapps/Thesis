@@ -64,7 +64,7 @@ public class CatchOnFireForObjects : MonoBehaviour, IFlamableObjects {
                 }
                 else
                 {
-                    Destroy(gameObject);
+                    Die();
                 }
             }
         }
@@ -79,10 +79,25 @@ public class CatchOnFireForObjects : MonoBehaviour, IFlamableObjects {
         rend.material.SetFloat("_DisolveAmount", 1 - scale);
         
     }
+    
+    void Die()
+    {
+        if(fireParticle.transform.parent != null)
+        {
+            fireParticle.transform.SetParent(null);
+            transform.position += Vector3.up * 500000;
 
+        }else
+        {
+            Destroy(gameObject);
+            Destroy(fireParticle);
+        }
+    }
     private void OnDestroy()
     {
         if(consumable)
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+        
+
     }
 }

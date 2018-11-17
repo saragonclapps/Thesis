@@ -81,10 +81,9 @@ public class Weight : MonoBehaviour {
 
     public void RemoveFromWeight(ObjectToWeight otw)
     {
-        if (_total.Contains(otw))
-        {
-            _total.Remove(otw);
-        }
+        
+        _total.Remove(otw);
+        
 
         //ExitCallbacks
         float total = 0;

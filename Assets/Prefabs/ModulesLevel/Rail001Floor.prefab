@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4771461275805380}
   - component: {fileID: 65141174706703026}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,6 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4604875745848834}
+  - component: {fileID: 114101517024818254}
   m_Layer: 0
   m_Name: Rail001Floor
   m_TagString: Untagged
@@ -66,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1991428887657954}
   m_LocalRotation: {x: 1, y: -0, z: -0, w: 0.00000008146034}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0.079, y: -0, z: 1.991}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_Children: []
   m_Father: {fileID: 4604875745848834}
@@ -78,8 +79,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1547976034290570}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.89, z: 0}
+  m_LocalRotation: {x: 0.70710665, y: -0.00000040550833, z: 0.00000028629896, w: 0.7071069}
+  m_LocalPosition: {x: -3.4280088, y: 7.790001, z: 4.014001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4771461275805380}
@@ -93,13 +94,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1447929574230412}
-  m_LocalRotation: {x: 1, y: -0.000000021073445, z: 0.000000021073403, w: 0.00000011920929}
-  m_LocalPosition: {x: -0, y: -2, z: -0}
+  m_LocalRotation: {x: 0.7071077, y: -0.00000017370064, z: 0.000000054491252, w: -0.70710593}
+  m_LocalPosition: {x: 0.075, y: -0, z: -1.979}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4604875745848834}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!23 &23934370233594660
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -114,7 +115,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100004, guid: 38677f4d2f977634fb22bee2b89b7865, type: 3}
+  - {fileID: 2100000, guid: c2d5723b9d532314e81efa37bcaebcbd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -153,3 +154,14 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 0.030000448, z: 0.16446747}
   m_Center: {x: -0.9999994, y: -1.9849992, z: -0.082234226}
+--- !u!114 &114101517024818254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1547976034290570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63602819eccd7c4409dd33cffb8c15d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
