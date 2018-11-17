@@ -35,10 +35,10 @@ namespace Skills
 
         private void OnTriggerStay(Collider c)
         {
-            var flameObj = c.GetComponent<IFlamableObjects>();
-            if (flameObj != null)
-                if (!_skill.flamableObjectsToInteract.Contains(flameObj) && (GameInput.instance.blowUpButton))
-                    _skill.flamableObjectsToInteract.Add(flameObj);
+            var obj = c.GetComponent<IVacuumObject>();
+            if (obj != null)
+                if (!_skill.objectsToInteract.Contains(obj) && (GameInput.instance.blowUpButton))
+                    _skill.objectsToInteract.Add(obj);
         }
         #endregion
     }
