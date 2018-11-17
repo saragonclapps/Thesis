@@ -64,8 +64,13 @@ public class ObjectToWeight : MonoBehaviour {
 
     private void OnCollisionExit(Collision collision)
     {
-        if(collision.collider.gameObject.GetComponent<Weight>())
+        var o = collision.collider.GetComponent<ObjectToWeight>();
+        var w = collision.collider.GetComponent<Weight>();
+        if (control != null &&(o != null || w!= null))
+        {
             RemoveWeightFromControl();
+            control = null;
+        }
     }
 
     public void RemoveWeightFromControl()
