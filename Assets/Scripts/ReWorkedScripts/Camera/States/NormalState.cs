@@ -25,7 +25,8 @@ namespace TPCamera
         float _speed;
         float _unadjustedDistance;
         float _actualDistance;
-        
+        float _collisionOffset;
+
         public float unadjustedDistance {
             get { return _unadjustedDistance; }
             set {_unadjustedDistance = value; }
@@ -67,6 +68,7 @@ namespace TPCamera
             _distanceCollisionLayer = ~_collisionLayer;
             _unadjustedDistance = unadjustedDistance;
             _I = I;
+            _collisionOffset = 0.2f;
 
             //Variables Initialization
             _currentX = _lookAt.eulerAngles.y;
@@ -110,7 +112,7 @@ namespace TPCamera
 
             if (_isColliding)
             {
-                _distance = GetAdjustedDistance(_lookAt.position);
+                _distance = GetAdjustedDistance(_lookAt.position) - _collisionOffset;
             }
             else
             {
