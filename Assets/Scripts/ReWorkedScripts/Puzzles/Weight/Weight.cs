@@ -24,9 +24,11 @@ public class Weight : MonoBehaviour {
 
 
     public float actionWeight;
-    float totalWeight;
+    float _totalWeight;
 
     private bool wasOnWeight;
+
+    public float totalWeight{ set { _totalWeight = value; } }
 
     void Awake()
     {
@@ -47,12 +49,12 @@ public class Weight : MonoBehaviour {
 
     void Execute()
     {
-        totalWeight = 0;
+        _totalWeight = 0;
         foreach (var otw in _total)
         {
-            totalWeight += otw.mass;
+            _totalWeight += otw.mass;
         }
-        if(totalWeight >= actionWeight && onWeight != null)
+        if(_totalWeight >= actionWeight && onWeight != null)
         {
             onWeight.Invoke();
         }
@@ -93,10 +95,17 @@ public class Weight : MonoBehaviour {
         }
         if (total <= actionWeight && onWeightExit != null && wasOnWeight)
         {
-            onWeightExit.Invoke();
-            wasOnWeight = false;
+            DeactivateWeight();
         }
     }
+
+    public void DeactivateWeight()
+    {
+        onWeightExit.Invoke();
+        wasOnWeight = false;
+    }
+
+
 
     private void OnDestroy()
     {

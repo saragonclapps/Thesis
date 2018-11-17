@@ -87,6 +87,15 @@ public class randomMove : MonoBehaviour {
         transform.localPosition = Vector3.Lerp(transform.localPosition, _newPosition, _randomSpeedPosition);
         transform.localRotation = Quaternion.Lerp(transform.localRotation, _newRotation, _randomSpeedRotation);
     }
+
+    private void OnDrawGizmos()
+    {
+        //PENDING!!!!!
+        /*var collider = GetComponentInChildren<BoxCollider>();
+        Gizmos.color = new Color(255, 255, 255, 0.5f);
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.DrawCube(collider.center, collider.size);*/
+    }
 }
 
 public static class Rand

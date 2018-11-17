@@ -62,6 +62,11 @@ public class FadeAwayPlatform : Platform {
                 {
                     _collider.isTrigger = false;
                     gameObject.layer = 8;
+                    if(transform.childCount< 0)
+                    {
+                        var heroLC = GetComponentInChildren<LandChecker>();
+                        heroLC.land = false;
+                    }
                 }
             }
             else

@@ -35,8 +35,6 @@ namespace Skills
         IHandEffect aspireVFX;
         IHandEffect blowVFX;
 
-        WindZone wind;
-
         #endregion
 
         #region FireVariables
@@ -107,8 +105,6 @@ namespace Skills
             //hudSkill.Add(Skills.VACCUM, typeSkill.BlowAndAspire);
 
             skillAction = new Skills();
-
-            wind = GetComponentInChildren<WindZone>();
             _pC = GetComponent<PlayerController>();
             _lC = GetComponentInChildren<LandChecker>();
 
@@ -131,7 +127,7 @@ namespace Skills
             aux.Initialize(electricObjectsToInteract);
 
             //Strategy Initializing
-            _attractor = new Attractor(atractForce, shootSpeed, vacuumHoleTransform, aspireVFX, blowVFX, objectsToInteract, wind);
+            _attractor = new Attractor(atractForce, shootSpeed, vacuumHoleTransform, aspireVFX, blowVFX, objectsToInteract);
             _flameThrower= new FlameThrower(fireVFX, flamableObjectsToInteract);
             _waterLauncher = new WaterLauncher(waterVFX, wetObjectsToInteract);
             _electricity = new Electricity(electricityVFX, electricObjectsToInteract);

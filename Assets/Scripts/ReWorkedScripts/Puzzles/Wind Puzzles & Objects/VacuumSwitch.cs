@@ -125,6 +125,7 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
         isActive = true;
         _isAbsorvable = false;
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
+        UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, RemainKinematic);
     }
 
     void Execute()
@@ -135,6 +136,13 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
         }
         if(currentAmountOfAir > 0)
             currentAmountOfAir -= 30* Time.deltaTime;
+        
+    }
+
+    //TODO: Select if you want kinematic to return to false when you stop blowing up IVacuumObjects
+    void RemainKinematic()
+    {
+        _rb.isKinematic = true;
     }
 
     #endregion
@@ -142,6 +150,12 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
     public float GetCurrentProgressPercent()
     {
         return isActive ? currentAmountOfAir / maxAmountOfAir: 1;
+    }
+
+    private void OnDestroy()
+    {
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, RemainKinematic);
     }
 
 }

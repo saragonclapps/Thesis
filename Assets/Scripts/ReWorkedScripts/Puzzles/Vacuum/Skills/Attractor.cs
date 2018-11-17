@@ -12,7 +12,6 @@ public class Attractor : ISkill {
     Transform _vacuumHoleTransform;
     IHandEffect _aspireParticle;
     IHandEffect _blowParticle;
-    WindZone _wind;
 
     SkinnedMeshRenderer _targetMesh;
     Mesh _atractorMesh;
@@ -22,7 +21,7 @@ public class Attractor : ISkill {
     PathCalculate _pc;
 
     public Attractor(float atractForce, float shootSpeed, Transform vacuumHole, IHandEffect aspireParticle,
-                    IHandEffect blowParticle, List<IVacuumObject> objectsToInteract, WindZone wind)
+                    IHandEffect blowParticle, List<IVacuumObject> objectsToInteract)
     {
         _atractForce = atractForce;
         _shootSpeed = shootSpeed;
@@ -34,8 +33,6 @@ public class Attractor : ISkill {
 
         _aspireParticle.StopEffect();
         _blowParticle.StopEffect();
-
-        _wind = wind;
 
     }
 
@@ -84,7 +81,7 @@ public class Attractor : ISkill {
                 Reject();
                 if (!_blowParticle.IsPlaying())
                     _blowParticle.StartEffect();
-                _wind.windMain = 1;
+
             }
             else if (GameInput.instance.absorbButton)
             {
@@ -92,7 +89,7 @@ public class Attractor : ISkill {
                 if (!_aspireParticle.IsPlaying() && !_isStuck)
                     _aspireParticle.StartEffect();
                 Attract();
-                _wind.windMain = -1;
+
             }
             else
             {
@@ -104,7 +101,7 @@ public class Attractor : ISkill {
                 {
                     obj.Exit();
                 }
-                _wind.windMain = 0;
+
             }
            
         }
