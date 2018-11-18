@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WallMobile : MonoBehaviour {
 
+    [Range(0.1f,0.9f)]
     public float speedModifier;
     Animator _anim;
 	void Start ()
