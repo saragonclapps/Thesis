@@ -374,7 +374,6 @@
     <Compile Include="Assets\Download\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\Download\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Download\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
-    <Compile Include="Assets\PesimeterCheck.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\CameraControls.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\IcoBumpin.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Misc\HueCube.cs" />
@@ -391,6 +390,7 @@
     <Compile Include="Assets\randomMove.cs" />
     <Compile Include="Assets\Scripts\PlayAnimation.cs" />
     <Compile Include="Assets\Scripts\PointLaser.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\Dilating Door\DilatingDoor.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\MainCharacter\AnimatorEventsBehaviour.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Animation\SaveDisk\SaveDiskEnd.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Audio\AmbientMusic.cs" />
@@ -462,6 +462,7 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Objects\Crane\CraneBehaviour.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Objects\Crane\CraneCollder.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Objects\Crane\CraneObject.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Objects\Mobile Wall\WallMobile.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\PanelProximity.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\ElevatorPlatform.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Platforms\Extras\Platform.cs" />
@@ -490,6 +491,7 @@
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Vacuum\Skills\WaterLauncher.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Water Puzzles &amp; Objects\IWaterObject.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Weight\ObjectToWeight.cs" />
+    <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Weight\PesimeterCheck.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Weight\Weight.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Weight\WeightActionTest.cs" />
     <Compile Include="Assets\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\DeathFallTrigger.cs" />
