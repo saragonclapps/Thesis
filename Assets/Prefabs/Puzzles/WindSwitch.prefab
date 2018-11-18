@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4614936752841814}
   - component: {fileID: 65962944356973572}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4647835356078432}
   - component: {fileID: 65347984179638242}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4016318152041748
 Transform:
@@ -369,7 +369,7 @@ BoxCollider:
   m_GameObject: {fileID: 1836549044530210}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3.5054111, y: 6.9179335, z: 6.1433907}
   m_Center: {x: 1.8233352, y: -5.041706, z: 5.3646407}

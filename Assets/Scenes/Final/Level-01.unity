@@ -25245,10 +25245,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1836549044530210, guid: 10ef6d61e9c1d194598c3df09f803006, type: 2}
-      propertyPath: m_Name
-      value: WindSwitch (elevator)
-      objectReference: {fileID: 0}
     - target: {fileID: 114672589242885706, guid: 10ef6d61e9c1d194598c3df09f803006,
         type: 2}
       propertyPath: progressBar
@@ -25259,6 +25255,10 @@ Prefab:
       propertyPath: text
       value: 
       objectReference: {fileID: 1676783846}
+    - target: {fileID: 1836549044530210, guid: 10ef6d61e9c1d194598c3df09f803006, type: 2}
+      propertyPath: m_Name
+      value: WindSwitch (elevator)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10ef6d61e9c1d194598c3df09f803006, type: 2}
   m_IsPrefabParent: 0
@@ -61225,6 +61225,11 @@ Prefab:
     - target: {fileID: 114737084419095166, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
         type: 2}
       propertyPath: initialIceAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114737084419095166, guid: ca92b4861e97cf4429cb5d6ca0dd6451,
+        type: 2}
+      propertyPath: initialFlameAmount
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
