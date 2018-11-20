@@ -9,7 +9,7 @@ Material:
   m_Name: HologramObject
   m_Shader: {fileID: 4800000, guid: f3ff8c1dd15794446995393fe2d927e7, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 0
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -24,7 +24,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _HologramSize: 2.35
-    - _Opacity: 0
+    - _Opacity: 0.1
     - _RimBias: 0.263
     - _RimPower: 4.58
     - _RimScale: 5.88
