@@ -9,7 +9,7 @@ Material:
   m_Name: Wall02 047
   m_Shader: {fileID: 4800000, guid: cc5170e475db82b459f27d7fa1e10830, type: 3}
   m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 2
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -20,6 +20,10 @@ Material:
     m_TexEnvs:
     - _Albedo:
         m_Texture: {fileID: 2800000, guid: 5380b2ccf1c146f4a9429a37385a9034, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AlphaTexture:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
