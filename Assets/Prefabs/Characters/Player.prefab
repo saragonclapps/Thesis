@@ -4230,8 +4230,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1042600478169684}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -30.939486, y: 0, z: -4.4443827}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4617459179017474}
@@ -4241,7 +4241,7 @@ Transform:
   - {fileID: 4290934736345714}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4394502718534658
 Transform:
   m_ObjectHideFlags: 1
@@ -4932,8 +4932,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1536984080235728}
   m_LocalRotation: {x: 0.707107, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0.039, z: 0.054}
-  m_LocalScale: {x: 1, y: 1, z: 0.1654627}
+  m_LocalPosition: {x: -0, y: 0, z: 0.054}
+  m_LocalScale: {x: 0.95, y: 0.95, z: 0.1654627}
   m_Children: []
   m_Father: {fileID: 4392742141155514}
   m_RootOrder: 2
@@ -6329,8 +6329,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1.6, z: 0.3}
-  m_Center: {x: 0, y: 0.8, z: 0.35}
+  m_Size: {x: 0.3, y: 1, z: 0.2}
+  m_Center: {x: 0, y: 1, z: 0.35}
 --- !u!95 &95374664034642278
 Animator:
   serializedVersion: 3
@@ -6595,10 +6595,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359042c6c4493a646a81238ec07d4740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialFlameAmount: 300
-  initialElectricityAmount: 300
-  initialWaterAmount: 300
-  initialIceAmount: 300
+  initialFlameAmount: 0
+  initialElectricityAmount: 0
+  initialWaterAmount: 0
+  initialIceAmount: 0
   fireAmount: 0
   electricityAmount: 0
   waterAmount: 0
