@@ -83,7 +83,7 @@ namespace Player
             _anim.SetBool("toJump", true);
             _anim.SetBool("toLand", false);
             
-            _aES.landEnd = false;
+            //_aES.landEnd = false;
 
             _cam.normalState.unadjustedDistance = 3f;
             _cam.normalState.positionSmoothness = 0.1f;
@@ -91,7 +91,7 @@ namespace Player
 
             initialForward = GetCorrectedForward(true);
 
-            
+            _pC.forwardCheck.SetCollider(true);
         }
 
         public void Execute()
