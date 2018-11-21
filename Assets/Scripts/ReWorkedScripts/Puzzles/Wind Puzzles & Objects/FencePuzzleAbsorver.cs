@@ -8,12 +8,13 @@ public class FencePuzzleAbsorver : MediumSizeObject, IVacuumObject
 {
     BoxCollider _bc;
 
-    private void Start()
+    new void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _bc = GetComponent<BoxCollider>();
 
         _bc.material.dynamicFriction = 0.6f;
+        base.Start();
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
     }
 
