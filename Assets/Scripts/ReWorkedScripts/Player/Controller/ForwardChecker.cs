@@ -28,7 +28,7 @@ public class ForwardChecker : MonoBehaviour {
 	void Start ()
     {
         _walkCenter = new Vector3(0, 1, 0.35f);
-        _walkSize = new Vector3(0.3f, 1, 0.2f);
+        _walkSize = new Vector3(0.3f, 1, 0.3f);
         _jumpCenter = new Vector3(0,0.8f,0.35f);
         _jumpSize = new Vector3(0.5f,1.6f,0.3f);
 
