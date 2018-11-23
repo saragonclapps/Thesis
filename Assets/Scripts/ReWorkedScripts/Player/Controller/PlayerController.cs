@@ -233,6 +233,14 @@ namespace Player
             return !Physics.Raycast(transform.position + transform.up * 1.6f, transform.up, jumpTolerance);
         }
 
+        public void RespawnOnCheckPoint(Transform tr)
+        {
+            transform.position = tr.position;
+            transform.rotation = tr.rotation;
+            _rB.velocity = Vector3.zero;
+            isActive = true;
+        }
+
         private void OnDestroy()
         {
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
