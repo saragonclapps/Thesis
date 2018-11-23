@@ -106,15 +106,6 @@ namespace Skills
         {
             return _skillAmount[sk]/_maxSkillAmount[sk];
         }
-
-        //For Debuging only (to see amounts of fire)
-        void Update()
-        {
-            fireAmount = _skillAmount[Skills.FIRE];
-            waterAmount = _skillAmount[Skills.WATER];
-            iceAmount = _skillAmount[Skills.ICE];
-            electricityAmount = _skillAmount[Skills.ELECTRICITY];
-        }
     }
 
 
