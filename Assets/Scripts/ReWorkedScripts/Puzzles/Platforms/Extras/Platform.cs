@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    public bool isActive;
+    protected bool _isActive;
     public bool relateParent;
 
     protected bool hasHero;
+
+    public bool isActive { get { return _isActive; } set { _isActive = value; } }
 
     void OnCollisionEnter(Collision c)
     {
