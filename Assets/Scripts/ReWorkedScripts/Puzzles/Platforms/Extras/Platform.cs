@@ -13,7 +13,7 @@ public class Platform : MonoBehaviour
 
     void OnCollisionEnter(Collision c)
     {
-        if (c.collider.gameObject.layer == 9 && relateParent)
+        if (relateParent)
         {
             c.transform.SetParent(transform);
             hasHero = true;
@@ -22,7 +22,7 @@ public class Platform : MonoBehaviour
 
     void OnCollisionStay(Collision c)
     {
-        if(c.collider.gameObject.layer == 9 && relateParent && c.transform.parent != transform)
+        if(relateParent && c.transform.parent != transform)
         {
             c.transform.SetParent(transform);
             hasHero = true;
@@ -31,7 +31,7 @@ public class Platform : MonoBehaviour
 
     void OnCollisionExit(Collision c)
     {
-        if (c.collider.gameObject.layer == 9 && relateParent)
+        if (relateParent)
         {
             c.transform.SetParent(null);
             hasHero = false;
