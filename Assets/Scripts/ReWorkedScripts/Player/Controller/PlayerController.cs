@@ -54,6 +54,7 @@ namespace Player
         AnimatorEventsBehaviour _aEB;
         Rigidbody _rB;
         SkillController _skill;
+        PlayerTemperature _temp;
 
         //Sensors
         LandChecker _lC;
@@ -80,6 +81,7 @@ namespace Player
             _rB = GetComponent<Rigidbody>();
             forwardCheck = GetComponentInChildren<ForwardChecker>();
             _skill = GetComponentInChildren<SkillController>();
+            _temp = GetComponentInChildren<PlayerTemperature>();
             isSkillLocked = false;
 
             #region FSM
@@ -238,6 +240,7 @@ namespace Player
             transform.position = tr.position;
             transform.rotation = tr.rotation;
             _rB.velocity = Vector3.zero;
+            _temp.Restart();
             isActive = true;
         }
 
