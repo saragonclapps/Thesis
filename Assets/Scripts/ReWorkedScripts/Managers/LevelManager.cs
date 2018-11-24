@@ -8,15 +8,12 @@ using Player;
 
 public class LevelManager : MonoBehaviour {
 
-    bool isWithTimmer = false;
     public float levelTime;
     public bool isWithPowers;
 
     public Animator blackOutAnimator;
     public Animator whiteOutAnimator;
 
-    float _timmer;
-    float _tick;
 
     bool _hasDiskette;
     public bool hasDiskette { get { return _hasDiskette; } set { _hasDiskette = value; } }
@@ -26,11 +23,7 @@ public class LevelManager : MonoBehaviour {
     static LevelManager _instance;
     public static LevelManager instance { get{ return _instance; } }
 
-    List<CheckPoint> checkPoints;
-    //For power Configurations
-    /* (later)
-    public SkillManager skillManager;
-    */
+    public List<CheckPoint> checkPoints;
 
     PlayerController _PC;
 
@@ -80,9 +73,19 @@ public class LevelManager : MonoBehaviour {
 
     public void RestartLevel(object[] parameterContainer)
     {
-        EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_LOSE_FINISH, RestartLevel);
-        var aux = SceneManager.GetActiveScene();
-        SceneManager.LoadScene("LoadingScreen");
+        for (int i = 0; i < checkPoints.Count; i++)
+        {
+            if (checkPoints[i].checkPointName == MasterManager.checkPointName)
+            {
+                _PC.RespawnOnCheckPoint(checkPoints[i].transform);
+                EventManager.DispatchEvent(GameEvent.CAMERA_NORMAL);
+                CutScenesManager.instance.DeActivateCutSceneCamera("DeathFall");
+                _PC.cam2.normalState.SetInitialPosition(checkPoints[i].transform);
+            }
+        }
+         
+        blackOutAnimator.SetTrigger("FadeInWithoutReset");
+
     }
 
     public void AddCheckPointToList(CheckPoint cp)
@@ -122,6 +125,6 @@ public class LevelManager : MonoBehaviour {
 
     private void OnDestroy()
     {
-
+        EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_LOSE_FINISH, RestartLevel);
     }
 }

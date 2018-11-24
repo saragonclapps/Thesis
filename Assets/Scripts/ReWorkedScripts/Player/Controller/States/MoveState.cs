@@ -89,8 +89,8 @@ namespace Player
             }
             //Set Animator Transition
             _anim.SetFloat("speed", 1);
-            
-            
+            _pC.forwardCheck.SetCollider(false);
+
         }
 
         public void Execute()
@@ -116,7 +116,7 @@ namespace Player
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_newDirection), _runingTurnSpeed);
 
                 //MoveForward
-                if (_aEB.landEnd)
+                if (_aEB.landEnd && !_pC.forwardCheck.isForwardObstructed)
                 {
                     if (GameInput.instance.sprintButton)
                     {

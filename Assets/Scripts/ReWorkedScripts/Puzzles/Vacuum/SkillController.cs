@@ -12,7 +12,8 @@ namespace Skills
         #region Strategy
         ISkill actualAction;
         Dictionary<Skills, ISkill> _skills;
-        Skills skillAction;
+        [Header("Set this for initial skill")]
+        public Skills skillAction;
 
         // BulletShoot _bulletShoot;
         Attractor _attractor;
@@ -104,7 +105,7 @@ namespace Skills
             //hudSkill = new Dictionary<Skills, typeSkill>();
             //hudSkill.Add(Skills.VACCUM, typeSkill.BlowAndAspire);
 
-            skillAction = new Skills();
+            //skillAction = new Skills();
             _pC = GetComponent<PlayerController>();
             _lC = GetComponentInChildren<LandChecker>();
 
@@ -156,7 +157,7 @@ namespace Skills
 
             actualAction = _skills[skillAction];
             actualAction.Enter();
-
+            SkillSet();
         }
 
         void Start()
@@ -168,7 +169,6 @@ namespace Skills
         {
             if (GameInput.instance.skillUp)
             {
-
                 if (skillAction + 1 != Skills.LAST)
                 {
                     skillAction++;
@@ -197,8 +197,6 @@ namespace Skills
                 SkillSet();
 
             }
-
-            
 
             if (!(GameInput.instance.crouchButton || GameInput.instance.sprintButton) && !_pC.isSkillLocked && _lC.land)
             {

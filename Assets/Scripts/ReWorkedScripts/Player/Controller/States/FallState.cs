@@ -71,7 +71,9 @@ namespace Player
             landCount = 0;
             ypos = transform.position.y;
             _isJumpingForward = _pC.jumpForward;
-            _aES.landEnd = false;
+            //_aES.landEnd = false;
+            _anim.SetBool("toLand", false);
+            _pC.forwardCheck.SetCollider(true);
         }
 
         public void Execute()

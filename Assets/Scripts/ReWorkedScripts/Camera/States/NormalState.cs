@@ -94,8 +94,6 @@ namespace TPCamera
                 _currentY += _I.cameraAngle * _speed;
             }
             else _I = GameInput.instance;
-            var oldX = _currentX;
-            var oldY = _currentY;
             _currentY = Mathf.Clamp(_currentY, MIN_Y_ANGLE, MAX_Y_ANGLE);
             _actualDistance = Mathf.Lerp(_actualDistance, _unadjustedDistance, Time.deltaTime * 3);
 
@@ -137,6 +135,14 @@ namespace TPCamera
         {
             get { return _transitions; }
             set { _transitions = value; }
+        }
+
+        public void SetInitialPosition(Transform tr)
+        {
+            transform.position = tr.position;
+            _currentX = tr.eulerAngles.y;
+            _currentY = tr.eulerAngles.x;
+            _actualDistance = Vector3.Distance(tr.position, _lookAt.position);
         }
 
         #region Camera Collision Manager
