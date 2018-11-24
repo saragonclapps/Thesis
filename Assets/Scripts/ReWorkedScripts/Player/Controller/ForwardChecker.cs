@@ -17,9 +17,22 @@ public class ForwardChecker : MonoBehaviour {
 
     public bool isForwardObstructed;
 
+    Vector3 _walkCenter;
+    Vector3 _walkSize;
+    Vector3 _jumpCenter;
+    Vector3 _jumpSize;
+
+    BoxCollider _box;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        _walkCenter = new Vector3(0, 1, 0.35f);
+        _walkSize = new Vector3(0.3f, 1, 0.3f);
+        _jumpCenter = new Vector3(0,0.8f,0.35f);
+        _jumpSize = new Vector3(0.5f,1.6f,0.3f);
+
+        _box = GetComponent<BoxCollider>();
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
 	}
 	
@@ -52,6 +65,20 @@ public class ForwardChecker : MonoBehaviour {
     bool CheckMove()
     {
         return Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f;
+    }
+
+    public void SetCollider(bool jump)
+    {
+        if (jump)
+        {
+            _box.center = _jumpCenter;
+            _box.size = _jumpSize;
+        }
+        else
+        {
+            _box.center = _walkCenter;
+            _box.size = _walkSize;
+        }
     }
 
     void OnDestroy()

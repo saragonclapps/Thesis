@@ -20,6 +20,12 @@ public class DebugConsole : MonoBehaviour
     {
         inpField.Select();
         inpField.text = "";
+        inpField.ActivateInputField();
+    }
+
+    private void OnDisable()
+    {
+        ClearConsole();
     }
 
     private void Awake()
@@ -33,7 +39,7 @@ public class DebugConsole : MonoBehaviour
     {
         //agrego los comandos
         AddCommands("!help", ShowHelp, "EL BOTON ROJO");
-        AddCommands("clr", ClearConsole, "Clears past actions from log");
+        AddCommands("cls", ClearConsole, "Clears past actions from log");
         AddCommands("!next", LoadNextLevel, "Load next Level");
         AddCommands("!restart", RestartLevel, "Restart Level");
         AddCommands("!last", LoadPreviousLevel, "Load previous Level");

@@ -6,6 +6,7 @@ using UnityEngine;
 public class CheckPoint : MonoBehaviour {
 
     public string checkPointName;
+    public Transform cameraPosition;
 
     private void Start()
     {
@@ -15,6 +16,14 @@ public class CheckPoint : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.layer == 9)
+        {
+            LevelManager.instance.SetActiveCheckPoint(checkPointName);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 9)
         {
             LevelManager.instance.SetActiveCheckPoint(checkPointName);
         }

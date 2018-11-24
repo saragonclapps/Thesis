@@ -38,7 +38,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
 
     public bool respawnable;
 
-    private void Start()
+    protected void Start()
     {
         _initialPosition = transform.position;
         _isAbsorvable = false;
@@ -85,7 +85,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
             material.SetFloat("_DisolveAmount", _alphaCut);
             _alphaCut -= Time.deltaTime;
             _rb.useGravity = true;
-            _bC.isTrigger = false   ;
+            _bC.isTrigger = false;
             if (_alphaCut <= 0)
             {
                 UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, SpawnVFX);

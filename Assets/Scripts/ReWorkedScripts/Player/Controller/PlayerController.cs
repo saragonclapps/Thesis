@@ -224,13 +224,21 @@ namespace Player
             //Triple check for fall state
             if (_rB.velocity.y < -0.2f && !_lC.land) fallCount++;
             else fallCount = 0;
-            return fallCount >= 2 && !Physics.Raycast(transform.position, -transform.up, fallDistance, fallLayer);
+            return fallCount >= 2 && !Physics.Raycast(transform.position, -transform.up, fallDistance, fallLayer,QueryTriggerInteraction.Ignore);
         }
 
         bool CheckJump()
         {
             Debug.DrawLine(transform.position + transform.up * 1.6f, transform.position + transform.up * 1.6f + transform.up * jumpTolerance);
             return !Physics.Raycast(transform.position + transform.up * 1.6f, transform.up, jumpTolerance);
+        }
+
+        public void RespawnOnCheckPoint(Transform tr)
+        {
+            transform.position = tr.position;
+            transform.rotation = tr.rotation;
+            _rB.velocity = Vector3.zero;
+            isActive = true;
         }
 
         private void OnDestroy()
