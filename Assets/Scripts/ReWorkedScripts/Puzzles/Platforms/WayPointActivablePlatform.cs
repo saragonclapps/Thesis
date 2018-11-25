@@ -14,16 +14,18 @@ public class WayPointActivablePlatform : Platform {
     public float period;
     float _curveTick;
 
-    public new bool isActive
+    public PlayAnimation playAnimation;
+
+    public new bool SetActive
     {
         get
         {
-            return _isActive;
+            return isActive;
         }
         set
         {
-            _isActive = value;
-            if (_isActive)
+            isActive = value;
+            if (value)
             {
                 targetWaypoint = activeWaypoint;
             }
@@ -37,7 +39,7 @@ public class WayPointActivablePlatform : Platform {
     void Start ()
     {
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
-        isActive = false;
+        SetActive = false;
 	}
 
     void Execute()
@@ -50,6 +52,7 @@ public class WayPointActivablePlatform : Platform {
         {
             speed = 0;
             _curveTick = 0;
+            playAnimation.toggleAnim(SetActive);
         }
         else
         {
