@@ -137,6 +137,8 @@ namespace TPCamera
             set { _transitions = value; }
         }
 
+        public float currentY { get { return _currentY; } }
+
         public void SetInitialPosition(Transform tr)
         {
             transform.position = tr.position;

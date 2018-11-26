@@ -114,4 +114,9 @@ public class WayPointPlatform : Platform {
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
+
+    public void SetState(bool state)
+    {
+        isActive = state; 
+    }
 }

@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 33145129631034186}
   - component: {fileID: 23707579252517752}
   - component: {fileID: 64542067986769104}
+  - component: {fileID: 65568637036987042}
   m_Layer: 0
   m_Name: PlatformWind
   m_TagString: Untagged
@@ -72,7 +73,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1196772828071612}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -50.5, y: 0, z: 24.5}
+  m_LocalPosition: {x: -32.8, y: 17.25, z: -13.6}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4515304441177590}
@@ -211,7 +212,7 @@ MeshCollider:
   m_GameObject: {fileID: 1577098205749452}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
@@ -229,6 +230,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 0.25, z: 1.5}
   m_Center: {x: 0, y: 0.05, z: 0}
+--- !u!65 &65568637036987042
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1577098205749452}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8186169, y: 1.8312762, z: 0.28689414}
+  m_Center: {x: 0, y: 1.3337285e-16, z: 0.040635273}
 --- !u!114 &114379669721709306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -256,7 +269,7 @@ MonoBehaviour:
   relateParent: 1
   speed: 10
   lerpValue: 0.1
-  minY: 34.37
-  maxY: 42.31
+  minY: 71.5
+  maxY: 95
   maxYOffset: 1
   gravityValue: 5
