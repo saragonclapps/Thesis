@@ -163,6 +163,7 @@ namespace Skills
         void Start()
         {
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
+            EventManager.DispatchEvent(GameEvent.ON_SKILL_CHANGE, currentSkill);
         }
 
         void Execute()
