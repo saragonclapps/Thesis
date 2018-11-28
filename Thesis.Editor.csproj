@@ -726,6 +726,8 @@
     <Compile Include="Assets\AmplifyShaderEditor\Plugins\Editor\Wires\WireBezierReference.cs" />
     <Compile Include="Assets\AmplifyShaderEditor\Plugins\Editor\Wires\WirePort.cs" />
     <Compile Include="Assets\AmplifyShaderEditor\Plugins\Editor\Wires\WireReference.cs" />
+    <Compile Include="Assets\Download\Glitch\Kino\Glitch\Editor\AnalogGlitchEditor.cs" />
+    <Compile Include="Assets\Download\Glitch\Kino\Glitch\Editor\DigitalGlitchEditor.cs" />
     <Compile Include="Assets\Download\PostProcessing\Editor\Attributes\PostProcessingModelEditorAttribute.cs" />
     <Compile Include="Assets\Download\PostProcessing\Editor\Models\AmbientOcclusionModelEditor.cs" />
     <Compile Include="Assets\Download\PostProcessing\Editor\Models\AntialiasingModelEditor.cs" />
@@ -1106,6 +1108,8 @@
     <None Include="Assets\Download\CrystalGlass\Shader\ScreenSpace\Refraction.Shader" />
     <None Include="Assets\Download\CrystalGlass\Shader\ScreenSpace\Transparent.shader" />
     <None Include="Assets\Download\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
+    <None Include="Assets\Download\Glitch\Kino\Glitch\Shader\AnalogGlitch.shader" />
+    <None Include="Assets\Download\Glitch\Kino\Glitch\Shader\DigitalGlitch.shader" />
     <None Include="Assets\Download\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\Download\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
     <None Include="Assets\Download\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
@@ -1206,6 +1210,9 @@
     <None Include="Assets\Shaders\Surface\VFX\Overlay.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Shield.shader" />
     <None Include="Assets\Shaders\Surface\VFX\Vacuum object.shader" />
+    <None Include="Assets\Standard Assets\Effects\Projectors\Guidelines.txt" />
+    <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorLight.shader" />
+    <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
