@@ -15,8 +15,9 @@ public class WayPointActivablePlatform : Platform {
     float _curveTick;
 
     public PlayAnimation playAnimation;
+    bool isPlayerUnder;
 
-    public new bool SetActive
+    public bool SetActive
     {
         get
         {
@@ -58,12 +59,26 @@ public class WayPointActivablePlatform : Platform {
         {
             _curveTick += Time.deltaTime;
         }
+        if(dir.y < 0 && isPlayerUnder)
+        {
+            dir = Vector3.zero;
+            _curveTick -= Time.deltaTime;
+        }
         transform.position += dir * speed;
+        isPlayerUnder = false;
     }
 
     private void OnDestroy()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.layer == 9)
+        {
+            isPlayerUnder = true;
+        }
     }
 
 }
