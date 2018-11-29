@@ -43,6 +43,8 @@ public class HUDManager : MonoBehaviour {
     public Image currentImage;
     Skills.Skills currentSkill;
 
+    SkillController _skillController;
+
     bool isInTransition;
     bool isGoingDown;
     float fill;
@@ -84,7 +86,9 @@ public class HUDManager : MonoBehaviour {
         fill = 1;
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
         EventManager.AddEventListener(GameEvent.ON_SKILL_CHANGE, ChangeCurrentSkill);
-        currentSkill = Skills.Skills.VACCUM;
+        _skillController = FindObjectOfType<SkillController>();
+
+        currentSkill = _skillController.skillAction;
         ChangeImage();
         powerBar.color = colorDictionary[currentSkill];
         powerBarBack.color = colorDictionary[currentSkill];
@@ -188,5 +192,6 @@ public class HUDManager : MonoBehaviour {
     void OnDestroy()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+        EventManager.RemoveEventListener(GameEvent.ON_SKILL_CHANGE, ChangeCurrentSkill);
     }
 }

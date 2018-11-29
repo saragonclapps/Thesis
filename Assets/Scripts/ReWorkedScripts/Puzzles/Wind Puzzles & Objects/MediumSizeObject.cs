@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Material))]
+[RequireComponent(typeof(Rigidbody))]
 public class MediumSizeObject : MonoBehaviour, IVacuumObject
 {
 
@@ -232,7 +233,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         Gizmos.DrawWireSphere(transform.position, respawnDistance);
     }
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         if (respawnable)
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);

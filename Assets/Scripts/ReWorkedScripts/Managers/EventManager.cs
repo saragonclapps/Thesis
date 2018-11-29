@@ -40,7 +40,7 @@ public class EventManager {
     {
         if(_events == null)
         {
-            Debug.Log("No events suscribed");
+            Debug.Log("No events suscribed" + "Event: " + eT.ToString());
             return;
         }
         if(_events.ContainsKey(eT))
