@@ -21,6 +21,8 @@ public class ForwardChecker : MonoBehaviour {
     Vector3 _walkSize;
     Vector3 _jumpCenter;
     Vector3 _jumpSize;
+    Vector3 _absCenter;
+    Vector3 _absSize;
 
     BoxCollider _box;
 
@@ -31,6 +33,8 @@ public class ForwardChecker : MonoBehaviour {
         _walkSize = new Vector3(0.3f, 1, 0.3f);
         _jumpCenter = new Vector3(0,0.8f,0.35f);
         _jumpSize = new Vector3(0.5f,1.6f,0.3f);
+        _absCenter = new Vector3(0, 1, 0.7f);
+        _absSize = new Vector3(0.3f, 1, 1f);
 
         _box = GetComponent<BoxCollider>();
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
@@ -67,17 +71,24 @@ public class ForwardChecker : MonoBehaviour {
         return Mathf.Abs(GameInput.instance.horizontalMove) > 0.1f || Mathf.Abs(GameInput.instance.verticalMove) > 0.1f;
     }
 
-    public void SetCollider(bool jump)
+    public void SetCollider(FowardSizes fs)
     {
-        if (jump)
+        switch (fs)
         {
-            _box.center = _jumpCenter;
-            _box.size = _jumpSize;
-        }
-        else
-        {
-            _box.center = _walkCenter;
-            _box.size = _walkSize;
+            case FowardSizes.WALK:
+                _box.center = _walkCenter;
+                _box.size = _walkSize;
+                break;
+            case FowardSizes.AIR:
+                _box.center = _jumpCenter;
+                _box.size = _jumpSize;
+                break;
+            case FowardSizes.ABSORBING:
+                _box.center = _absCenter;
+                _box.size = _absSize;
+                break;
+            default:
+                break;
         }
     }
 
@@ -111,5 +122,12 @@ public class ForwardChecker : MonoBehaviour {
             if (c.gameObject.layer != 10)
                 isForwardObstructed = false;
         }
+    }
+
+    public enum FowardSizes
+    {
+        WALK,
+        AIR,
+        ABSORBING
     }
 }

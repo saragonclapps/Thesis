@@ -90,7 +90,7 @@ namespace Player
             jumpState = new JumpState(_rB, cam2, this, _lC, _aEB, transform, _anim, jumpForce, jumpSpeed);
             fallState = new FallState(_rB, this, cam2, _lC, _aEB, transform, _anim, jumpSpeed);
             landState = new LandState(_anim, this, _aEB, cam2);
-            aimState = new AimingState(transform, cam2, _anim, speed);
+            aimState = new AimingState(transform, cam2, _anim, speed, this);
 
             //Fsm Transitions
             var idleTransitions = new Dictionary<Inputs, IState<Inputs>>();
