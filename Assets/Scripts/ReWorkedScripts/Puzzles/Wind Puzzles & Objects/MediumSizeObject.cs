@@ -61,7 +61,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         }
     }
 
-    void SpawnVFXActivate(bool dir)
+    public void SpawnVFXActivate(bool dir)
     {
         if (dir)
         {
