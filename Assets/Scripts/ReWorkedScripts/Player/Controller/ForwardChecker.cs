@@ -99,28 +99,25 @@ public class ForwardChecker : MonoBehaviour {
 
     void OnTriggerEnter(Collider c)
     {
-        if(c.gameObject.layer != 9)
-        {
-            if(c.gameObject.layer != 10)
+        if(c.gameObject.layer != 9 && c.gameObject.layer != 10 && c.gameObject.layer != 12)
+        { 
             isForwardObstructed = true;
         }
     }
 
     void OnTriggerStay(Collider c)
     {
-        if (c.gameObject.layer != 9)
+        if (c.gameObject.layer != 9 && c.gameObject.layer != 10 && c.gameObject.layer != 12)
         {
-            if (c.gameObject.layer != 10)
-                isForwardObstructed = true;
+            isForwardObstructed = true;
         }
     }
 
     private void OnTriggerExit(Collider c)
     {
-        if (c.gameObject.layer != 9)
-        {
-            if (c.gameObject.layer != 10)
-                isForwardObstructed = false;
+        if (c.gameObject.layer != 9 && c.gameObject.layer != 10 && c.gameObject.layer != 12)
+        { 
+            isForwardObstructed = false;
         }
     }
 
