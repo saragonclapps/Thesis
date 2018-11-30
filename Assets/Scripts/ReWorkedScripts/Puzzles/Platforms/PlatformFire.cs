@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public class PlatformFire : Platform
     public float maxZ;
     
     Vector3 directionedSpeed;
+    Vector3 initialPosition;
 
     bool isMoving;
 
@@ -27,11 +29,12 @@ public class PlatformFire : Platform
         var p = GetComponentsInChildren<PlatformFirePropulsor>();
         propulsors = new PlatformFirePropulsor[p.Length];
         propulsors = p;
-
+        initialPosition = transform.position;
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
+        EventManager.AddEventListener(GameEvent.TRANSITION_FADEOUT_LOSE_FINISH, RestartPosition);
 	}
-	
-	void Execute()
+
+    void Execute()
     {
         for (int i = 0; i < propulsors.Length; i++)
         {
@@ -105,6 +108,11 @@ public class PlatformFire : Platform
         isMoving = false;
     }
 
+    private void RestartPosition(object[] parameterContainer)
+    {
+        transform.position = initialPosition;
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
@@ -122,5 +130,6 @@ public class PlatformFire : Platform
     private void OnDestroy()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+        EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_LOSE_FINISH, RestartPosition);
     }
 }
