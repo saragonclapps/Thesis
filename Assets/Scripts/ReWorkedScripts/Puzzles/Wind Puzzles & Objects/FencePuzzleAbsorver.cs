@@ -48,7 +48,7 @@ public class FencePuzzleAbsorver : MediumSizeObject, IVacuumObject
         rb.AddForce(force);
     }
 
-    private void OnDestroy()
+    private new void OnDestroy()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
         base.OnDestroy();
