@@ -96,7 +96,11 @@ public class PlatformFire : Platform
                         break;
                 }
                 isMoving = true;
-                propulsors[i].isOnFire = false;
+                if (propulsors[i].absorvedFire)
+                {
+                    propulsors[i].isOnFire = false;
+                    propulsors[i].absorvedFire = false;
+                }
             }
         }
         if (!isMoving)
@@ -105,7 +109,12 @@ public class PlatformFire : Platform
             
         }
         transform.position += directionedSpeed * Time.deltaTime;
+        //clamps
+        var clampedX = Mathf.Clamp(transform.position.x, minX + positionOffset/2, maxX - positionOffset/2);
+        var clampedZ = Mathf.Clamp(transform.position.z, minZ + positionOffset/2, maxZ - positionOffset/2);
+        transform.position = new Vector3(clampedX, transform.position.y, clampedZ);
         isMoving = false;
+
     }
 
     private void RestartPosition(object[] parameterContainer)

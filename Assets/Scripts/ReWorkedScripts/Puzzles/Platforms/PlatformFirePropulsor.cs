@@ -8,6 +8,7 @@ public class PlatformFirePropulsor : MonoBehaviour, IFlamableObjects {
 
     bool _isOnFire;
     public bool isOnFire { get { return _isOnFire; } set { _isOnFire = value; } }
+    public bool absorvedFire;
     GameObject fireParticles;
     ParticleSystem[] _ps;
     public AnimationCurve curve;
@@ -19,7 +20,6 @@ public class PlatformFirePropulsor : MonoBehaviour, IFlamableObjects {
     public void SetOnFire()
     {
         _isOnFire = true;
-       
     }
 
     // Use this for initialization
@@ -55,9 +55,11 @@ public class PlatformFirePropulsor : MonoBehaviour, IFlamableObjects {
         }
         if (_isOnFire)
         {
+            absorvedFire = true;
             _cdTick = 0;
         }
-	}
+
+    }
 
     private void OnDestroy()
     {
