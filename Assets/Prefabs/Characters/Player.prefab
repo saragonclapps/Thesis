@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 4616179206038898}
   - component: {fileID: 135038589178913986}
   - component: {fileID: 114660259392595278}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: ElectricSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1843,7 +1843,7 @@ GameObject:
   - component: {fileID: 4249906903302064}
   - component: {fileID: 135966229122540138}
   - component: {fileID: 114197452683313960}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: Craneo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2619,7 +2619,7 @@ GameObject:
   - component: {fileID: 114165236962524120}
   - component: {fileID: 114265679492609276}
   - component: {fileID: 114632117460504346}
-  m_Layer: 13
+  m_Layer: 8
   m_Name: VacuumCone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3762,7 +3762,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1883879349859514}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.6, z: 0.074}
+  m_LocalPosition: {x: 0, y: 0.162, z: 0.074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4392742141155514}
@@ -4259,8 +4259,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1042600478169684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.195, y: 0.235, z: 2.289}
+  m_LocalRotation: {x: 0.011950918, y: 0.7281382, z: 0.0048180833, w: -0.68530935}
+  m_LocalPosition: {x: 5.5, y: 0, z: -3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4617459179017474}
@@ -4271,7 +4271,7 @@ Transform:
   - {fileID: 4224222601920250}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -1.3410001, y: -453.478, z: 0.619}
 --- !u!4 &4394502718534658
 Transform:
   m_ObjectHideFlags: 1
@@ -6625,7 +6625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359042c6c4493a646a81238ec07d4740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialFlameAmount: 0
+  initialFlameAmount: 1000
   initialElectricityAmount: 0
   initialWaterAmount: 0
   initialIceAmount: 0
@@ -6706,9 +6706,9 @@ Projector:
   m_NearClipPlane: 0.1
   m_FarClipPlane: 10
   m_FieldOfView: 45
-  m_AspectRatio: 1.2
+  m_AspectRatio: 1.1
   m_Orthographic: 1
-  m_OrthographicSize: 0.75
+  m_OrthographicSize: 0.5
   m_Material: {fileID: 2100000, guid: e30ff3588e719f34bbf0c66f22d97487, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2
