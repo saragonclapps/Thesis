@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class BoxTemperature : MonoBehaviour, IHeat, IFlamableObjects
 {
-    [SerializeField]
-    float _temperature;
+    public float _temperature;
     bool _isOnFire;
 
     public float temperature{ get{ return _temperature; }}
@@ -20,6 +19,11 @@ public class BoxTemperature : MonoBehaviour, IHeat, IFlamableObjects
     public float life;
     public float maxTemperature;
     public float heatTransferMultiplier;
+    public Gradient burnGradient;
+
+    public bool indestructible;
+
+    Material mat;
 
     bool _setToDestroy;
 
@@ -31,13 +35,15 @@ public class BoxTemperature : MonoBehaviour, IHeat, IFlamableObjects
     void Start ()
     {
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
+        mat = GetComponent<Renderer>().material;
 	}
 	
 	void Execute ()
     {
-        _temperature -= Time.deltaTime * heatTransferMultiplier / 10;
+        //_temperature -= Time.deltaTime * heatTransferMultiplier / 10;
         _temperature = Mathf.Clamp(_temperature, 0, maxTemperature);
-
+        mat.SetFloat("_BurnAmount", _temperature/maxTemperature * 0.9f);
+        mat.SetColor("_Gradient", burnGradient.Evaluate(_temperature / maxTemperature));
         if (_setToDestroy)
         {
             DestroyBox();
@@ -55,10 +61,13 @@ public class BoxTemperature : MonoBehaviour, IHeat, IFlamableObjects
 
     public void Hit(float damage)
     {
-        life -= damage * Time.deltaTime;
-        if(life < 0)
+        if (!indestructible)
         {
-            _setToDestroy = true;
+            life -= damage * Time.deltaTime;
+            if(life < 0)
+            {
+                _setToDestroy = true;
+            }
         }
     }
 
