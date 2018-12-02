@@ -5949,6 +5949,48 @@ Transform:
   m_PrefabParentObject: {fileID: 4455625118556092, guid: 5b06d5ae3d2c2934cba8317ccd480a44,
     type: 2}
   m_PrefabInternal: {fileID: 1971202357}
+--- !u!1001 &2081126899
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4495254070165100, guid: b7a8c96af7137344eaccee4db52c51b9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 37.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495254070165100, guid: b7a8c96af7137344eaccee4db52c51b9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495254070165100, guid: b7a8c96af7137344eaccee4db52c51b9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 3.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495254070165100, guid: b7a8c96af7137344eaccee4db52c51b9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495254070165100, guid: b7a8c96af7137344eaccee4db52c51b9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.98068726
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495254070165100, guid: b7a8c96af7137344eaccee4db52c51b9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495254070165100, guid: b7a8c96af7137344eaccee4db52c51b9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.1955825
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495254070165100, guid: b7a8c96af7137344eaccee4db52c51b9, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b7a8c96af7137344eaccee4db52c51b9, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &2081989456 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4893982631624840, guid: 5406d10cfe3cb0042969442954b421cd,
