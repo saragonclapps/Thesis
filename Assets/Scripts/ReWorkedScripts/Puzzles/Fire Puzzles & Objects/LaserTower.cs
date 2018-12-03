@@ -10,6 +10,7 @@ public class LaserTower : MonoBehaviour
     public float targetTemperature;
     public float damage;
     IHeat _laserTarget;
+    IHeat _lastTarget;
 
     public float delay = 2;
     [SerializeField]
@@ -61,11 +62,22 @@ public class LaserTower : MonoBehaviour
         }
         if (_laserTarget != null)
         {
-            DrawLaser();
             var dir = -(_laserTarget.Transform.position - turretLaser.transform.position).normalized;
             var targetRot = Quaternion.LookRotation(dir);
             turretLaser.rotation = Quaternion.Slerp(turretLaser.rotation, targetRot, 0.5f);
             chargerRotationSpeed = Mathf.Lerp(chargerRotationSpeed, maxChargerRotationSpeed, 0.5f);
+            if(_laserTarget != _lastTarget)
+            {
+                _delayTick = 0;
+                _lastTarget = _laserTarget;
+                hasTargeted = false;
+                emitter.StopEffect();
+                line.enabled = false;
+            }
+            else
+            {
+                DrawLaser();
+            }
         }
         else
         {
@@ -85,10 +97,11 @@ public class LaserTower : MonoBehaviour
         if(_delayTick > delay)
         {
             _laserTarget.Hit(damage);
+            emitter.Initialize(_laserTarget.Transform);
             if (!hasTargeted)
             {
                 emitter.StartEffect();
-                emitter.Initialize(_laserTarget.Transform);
+                line.enabled = true;
                 hasTargeted = true;
             }
         }

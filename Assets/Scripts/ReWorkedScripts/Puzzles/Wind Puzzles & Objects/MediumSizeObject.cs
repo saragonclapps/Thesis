@@ -121,6 +121,13 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         _bC.isTrigger = true;
         SpawnVFXActivate(true);
         wasShooted = true;
+
+        //for box temperature
+        var bt = GetComponent<BoxTemperature>();
+        if (bt)
+        {
+            bt.ResetBox();
+        }
     }
 
     public void SuckIn(Transform origin, float atractForce)

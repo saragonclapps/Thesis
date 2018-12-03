@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 65116716427794268}
   - component: {fileID: 95753700490523296}
   - component: {fileID: 114044295335284078}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: LaserPoint (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4112107723484280}
   - component: {fileID: 65087602550016762}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 65372843532950674}
   - component: {fileID: 95648272385926090}
   - component: {fileID: 114968659329695372}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: LaserPoint (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4773671128294584}
   - component: {fileID: 65039748017401562}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 65820786820730798}
   - component: {fileID: 95165247628478740}
   - component: {fileID: 114123755129463142}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: LaserPoint (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 65898245401498430}
   - component: {fileID: 95509720189221544}
   - component: {fileID: 114226566797962000}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: LaserPoint (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 65983469147544412}
   - component: {fileID: 95793584056219706}
   - component: {fileID: 114011788529837942}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: LaserPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1070,8 +1070,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1565665219511552}
-  m_LocalRotation: {x: -0, y: 0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 38.879, y: 2, z: 9.07}
+  m_LocalRotation: {x: -0, y: -0.000000014901161, z: -0, w: 1}
+  m_LocalPosition: {x: -37.28, y: 34.449997, z: 60.950005}
   m_LocalScale: {x: 1, y: 1, z: 1.4071386}
   m_Children:
   - {fileID: 4050187820718810}
@@ -1082,7 +1082,7 @@ Transform:
   - {fileID: 4592126853717620}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4560258139919940
 Transform:
   m_ObjectHideFlags: 1

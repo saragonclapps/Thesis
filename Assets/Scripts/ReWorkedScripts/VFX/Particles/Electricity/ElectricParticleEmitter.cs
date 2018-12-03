@@ -66,7 +66,7 @@ public class ElectricParticleEmitter : MonoBehaviour, IHandEffect {
             MoveLinePoints();
         _tick += Time.deltaTime;
 
-        line.enabled = end.Count != 0;
+        //line.enabled = end.Count != 0;
 
 	}
 
@@ -141,5 +141,10 @@ public class ElectricParticleEmitter : MonoBehaviour, IHandEffect {
         return _isPlaying;
     }
     #endregion
+
+    private void OnDestroy()
+    {
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+    }
 
 }

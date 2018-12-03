@@ -27,6 +27,9 @@ public class BoxTemperature : MonoBehaviour, IHeat, IFlamableObjects
 
     bool _setToDestroy;
 
+    float _initialTemperature;
+    float _initialLife;
+
     public void SetOnFire()
     {
         _temperature += Time.deltaTime * heatTransferMultiplier;
@@ -36,7 +39,10 @@ public class BoxTemperature : MonoBehaviour, IHeat, IFlamableObjects
     {
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
         mat = GetComponent<Renderer>().material;
-	}
+        _initialTemperature = _temperature;
+        _initialLife = life;
+
+    }
 	
 	void Execute ()
     {
@@ -69,6 +75,12 @@ public class BoxTemperature : MonoBehaviour, IHeat, IFlamableObjects
                 _setToDestroy = true;
             }
         }
+    }
+
+    public void ResetBox()
+    {
+        _temperature = _initialTemperature;
+        life = _initialLife;
     }
 
     private void OnDestroy()
