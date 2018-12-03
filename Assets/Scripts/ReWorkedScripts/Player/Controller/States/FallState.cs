@@ -73,7 +73,7 @@ namespace Player
             _isJumpingForward = _pC.jumpForward;
             //_aES.landEnd = false;
             _anim.SetBool("toLand", false);
-            _pC.forwardCheck.SetCollider(true);
+            _pC.forwardCheck.SetCollider(ForwardChecker.FowardSizes.AIR);
         }
 
         public void Execute()

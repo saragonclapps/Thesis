@@ -12,7 +12,7 @@ public class HeatTransfer : MonoBehaviour
         fo = GetComponent<IFlamableObjects>();
 	}
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (fo.isOnFire)
         {

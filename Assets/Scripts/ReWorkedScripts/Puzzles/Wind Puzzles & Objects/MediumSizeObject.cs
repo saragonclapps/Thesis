@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Material))]
+[RequireComponent(typeof(Rigidbody))]
 public class MediumSizeObject : MonoBehaviour, IVacuumObject
 {
 
@@ -60,7 +61,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         }
     }
 
-    void SpawnVFXActivate(bool dir)
+    public void SpawnVFXActivate(bool dir)
     {
         if (dir)
         {
@@ -120,6 +121,13 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         _bC.isTrigger = true;
         SpawnVFXActivate(true);
         wasShooted = true;
+
+        //for box temperature
+        var bt = GetComponent<BoxTemperature>();
+        if (bt)
+        {
+            bt.ResetBox();
+        }
     }
 
     public void SuckIn(Transform origin, float atractForce)
@@ -232,7 +240,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         Gizmos.DrawWireSphere(transform.position, respawnDistance);
     }
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         if (respawnable)
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);

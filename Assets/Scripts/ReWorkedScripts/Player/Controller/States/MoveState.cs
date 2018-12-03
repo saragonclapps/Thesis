@@ -89,7 +89,7 @@ namespace Player
             }
             //Set Animator Transition
             _anim.SetFloat("speed", 1);
-            _pC.forwardCheck.SetCollider(false);
+            _pC.forwardCheck.SetCollider(ForwardChecker.FowardSizes.WALK);
 
         }
 

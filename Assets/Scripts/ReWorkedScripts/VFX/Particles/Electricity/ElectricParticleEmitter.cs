@@ -40,6 +40,12 @@ public class ElectricParticleEmitter : MonoBehaviour, IHandEffect {
         particleBall.gameObject.SetActive(false);
     }
 
+    public void Initialize(Transform end)
+    {
+        this.end = new List<Transform>();
+        this.end.Add(end);
+    }
+
     void Execute()
     {
 		if(_tick > _randomParticleTimmer)
@@ -60,7 +66,7 @@ public class ElectricParticleEmitter : MonoBehaviour, IHandEffect {
             MoveLinePoints();
         _tick += Time.deltaTime;
 
-        line.enabled = end.Count != 0;
+        //line.enabled = end.Count != 0;
 
 	}
 
@@ -73,25 +79,28 @@ public class ElectricParticleEmitter : MonoBehaviour, IHandEffect {
         linePositions = new Vector3[points];
 
         start.forward = dir;
+        linePositions[0] = start.position;
 
-        for (int i = 0; i < points -1 ; i++)
+        for (int i = 1; i < points - 1 ; i++)
         {
             linePositions[i] = start.position + (dir * increment * i);
             linePositions[i] += start.up * UnityEngine.Random.Range(-lineDispersion, lineDispersion) + start.right * UnityEngine.Random.Range(-lineDispersion, lineDispersion);
         }
-        linePositions[points-1] = tr.position;
+        linePositions[points - 1] = tr.position;
         line.positionCount = points;
         line.SetPositions(linePositions);
     }
 
     void MoveLinePoints()
     {
-        for (int i = 0; i < linePositions.Length; i++)
+        var count = line.positionCount;
+        for (int i = 0; i < count - 1; i++)
         {
             var pos = line.GetPosition(i);
             var lerpPos = Vector3.Lerp(pos, linePositions[i], 0.5f);
             line.SetPosition(i,lerpPos);
         }
+        line.SetPosition(count - 1, end[0].position);
     }
 
     #region IHandEffect
@@ -132,5 +141,10 @@ public class ElectricParticleEmitter : MonoBehaviour, IHandEffect {
         return _isPlaying;
     }
     #endregion
+
+    private void OnDestroy()
+    {
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+    }
 
 }

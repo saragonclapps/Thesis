@@ -35,7 +35,7 @@ public class ElevatorPlatform : Platform, IVacuumObject
 
     public void BlowUp(Transform origin, float atractForce, Vector3 direction)
     {
-        if (origin.position.y > transform.position.y && origin.IsChildOf(transform))
+        if (origin.position.y > transform.position.y)
         {
             ActivateElevate();
         }
@@ -73,7 +73,7 @@ public class ElevatorPlatform : Platform, IVacuumObject
             _currentSpeed = Mathf.Lerp(_currentSpeed, 0, lerpValue);
         }
 
-        if(transform.position.y >= minY)
+        if(transform.position.y >= minY && !goUp)
         {
             transform.position -= transform.up * gravityValue * Time.deltaTime;
             

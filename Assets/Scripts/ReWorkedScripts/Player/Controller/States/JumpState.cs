@@ -91,7 +91,7 @@ namespace Player
 
             initialForward = GetCorrectedForward(true);
 
-            _pC.forwardCheck.SetCollider(true);
+            _pC.forwardCheck.SetCollider(ForwardChecker.FowardSizes.AIR);
         }
 
         public void Execute()
