@@ -137,7 +137,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
             var direction = origin.position - transform.position;
             var distance = direction.magnitude;
 
-            if (distance <= 0.5f)
+            if (distance <= 0.7f)
             {
                 _bC.isTrigger = true;
                 rb.isKinematic = true;
