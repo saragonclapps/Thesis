@@ -17,6 +17,7 @@ public class Attractor : ISkill {
     Mesh _atractorMesh;
 
     bool _isStuck;
+    public bool isStuck { get { return _isStuck; } }
 
     PathCalculate _pc;
 

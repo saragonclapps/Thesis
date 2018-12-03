@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TPCamera;
+using Skills;
 
 namespace Player
 {
@@ -19,23 +20,30 @@ namespace Player
         float _horizontalSpeed;
         float _verticalSpeed;
 
-        public AimingState(Transform t, CameraFSM mainCamera, Animator anim, float speed)
+        PlayerController _pc;
+        SkillController _skills;
+
+        public AimingState(Transform t, CameraFSM mainCamera, Animator anim, float speed, PlayerController pc, SkillController skills)
         {
             transform = t;
             _mainCamera = mainCamera.transform;
             _anim = anim;
             _horizontalSpeed = speed/6;
             _verticalSpeed = speed/3;
+            _pc = pc;
+            _skills = skills;
         }
 
         public void Enter()
         {
             _anim.SetBool("isAbsorbing", true);
             _anim.SetFloat("speed", 1);
+            
         }
 
         public void Execute()
         {
+
             _horizontal = GameInput.instance.horizontalMove;
             _vertical = GameInput.instance.verticalMove;
 
@@ -44,11 +52,22 @@ namespace Player
             _anim.SetFloat("horizontalSpeed", moveVector.x * 90);
             _anim.SetFloat("verticalSpeed", moveVector.y * 90);
 
-            transform.position += transform.forward * moveVector.y * _verticalSpeed * Time.deltaTime;
-            transform.position += transform.right * moveVector.x * _horizontalSpeed * Time.deltaTime;
+            if (!_pc.forwardCheck.isForwardObstructed)
+            {
+                transform.position += transform.forward * moveVector.y * _verticalSpeed * Time.deltaTime;
+                transform.position += transform.right * moveVector.x * _horizontalSpeed * Time.deltaTime;
+            }
 
             var camYRotation = Quaternion.Euler(0, _mainCamera.eulerAngles.y, 0);
             transform.rotation = camYRotation;
+            if (_skills.attractor.isStuck)
+            {
+                _pc.forwardCheck.SetCollider(ForwardChecker.FowardSizes.ABSORBING);
+            }
+            else
+            {
+                _pc.forwardCheck.SetCollider(ForwardChecker.FowardSizes.WALK);
+            }
         }
 
         public void Exit()

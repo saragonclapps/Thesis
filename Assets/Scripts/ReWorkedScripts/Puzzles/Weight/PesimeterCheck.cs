@@ -21,7 +21,7 @@ public class PesimeterCheck : MonoBehaviour {
         else
         {
             w.totalWeight = 0;
-            w.DeactivateWeight();
+            w.RemoveAllObjectsToWeight();
         }
     }
 

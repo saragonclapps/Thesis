@@ -21,6 +21,9 @@ namespace Skills
         WaterLauncher _waterLauncher;
         Electricity _electricity;
         Freezer _freezer;
+
+        public Attractor attractor { get { return _attractor; } }
+
         #endregion
 
         #region Atractor Variables

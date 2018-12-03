@@ -40,7 +40,8 @@ public class CraneBehaviour : MonoBehaviour {
 
         if (attract)
         {
-            objectsToInteract[0].transform.position = craneHead.position;
+            if(objectsToInteract.Count > 0)
+                objectsToInteract[0].transform.position = craneHead.position;
             craneCollider.transform.position = craneHead.position;
         }
         else

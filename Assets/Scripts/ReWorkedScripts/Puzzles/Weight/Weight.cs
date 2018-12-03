@@ -73,7 +73,7 @@ public class Weight : MonoBehaviour {
         {
             total += o.mass;
         }
-        if(total >= actionWeight && onWeightEnter != null)
+        if(total >= actionWeight && onWeightEnter != null && !wasOnWeight)
         {
             onWeightEnter.Invoke();
             wasOnWeight = true;
@@ -83,7 +83,6 @@ public class Weight : MonoBehaviour {
 
     public void RemoveFromWeight(ObjectToWeight otw)
     {
-        
         _total.Remove(otw);
         
 
@@ -96,6 +95,14 @@ public class Weight : MonoBehaviour {
         if (total <= actionWeight && onWeightExit != null && wasOnWeight)
         {
             DeactivateWeight();
+        }
+    }
+
+    public void RemoveAllObjectsToWeight()
+    {
+        for (int i = _total.Count - 1; i >= 0; i--)
+        {
+            RemoveFromWeight(_total[i]);
         }
     }
 
