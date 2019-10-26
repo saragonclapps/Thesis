@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.PostProcessing;
 using UnityEngine;
 
-[RequireComponent(typeof(PostProcessingBehaviour))]
 public class CameraController : MonoBehaviour {
 
     #region Global Variables
@@ -54,7 +52,7 @@ public class CameraController : MonoBehaviour {
     private GameInput _I;
 
     //Post-Processing Variables
-    private PostProcessingProfile _postProcessing;
+    // private PostProcessingProfile _postProcessing;
     private float _apertureNormal = 1.9f;
     private float _apertureZoom = 15f;
 
@@ -88,7 +86,7 @@ public class CameraController : MonoBehaviour {
         _I = GameInput.instance;
         isInTransition = false;
         //VFX (runtime change values of posproccesing)
-        _postProcessing = GetComponent<PostProcessingBehaviour>().profile;
+        // _postProcessing = GetComponent<PostProcessingBehaviour>().profile;
         //UpdateFocusDistance();
         //UpdateDiaphragm(_apertureNormal);
     }
@@ -104,9 +102,9 @@ public class CameraController : MonoBehaviour {
 
     private void UpdateDiaphragm(float value = 7f)
     {
-        var d = _postProcessing.depthOfField.settings;
-        d.aperture = value;
-        _postProcessing.depthOfField.settings = d;
+        // var d = _postProcessing.depthOfField.settings;
+        // d.aperture = value;
+        // _postProcessing.depthOfField.settings = d;
     }
 
     #endregion End VFX events
