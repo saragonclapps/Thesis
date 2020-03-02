@@ -130,6 +130,8 @@
      <Compile Include="Assets\Dreamteck\Utilities\TS_Mesh.cs" />
      <Compile Include="Assets\Dreamteck\Utilities\TS_Transform.cs" />
      <Compile Include="Assets\HologramObject.cs" />
+     <Compile Include="Assets\MyContent\Final - Postprocessing\FrameManager.cs" />
+     <Compile Include="Assets\MyContent\Shared\PostProcess.cs" />
      <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\CameraControls.cs" />
      <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\IcoBumpin.cs" />
      <Compile Include="Assets\ProCore\ProBuilder\API Examples\Misc\HueCube.cs" />
@@ -275,6 +277,10 @@
      <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\VacuumSwitchVisuals.cs" />
      <Compile Include="Assets\Scripts\ReWorkedScripts\VFX\VacuumVFX.cs" />
      <Compile Include="Assets\Scripts\Rotation.cs" />
+     <Compile Include="Assets\shaders 103 asset\ReplacementManagerCamera.cs" />
+     <Compile Include="Assets\shaders 103 asset\Scripts\QuickGlow.cs" />
+     <Compile Include="Assets\shaders 103 asset\Scripts\ReplacementShaderEffect.cs" />
+     <Compile Include="Assets\shaders 103 asset\Scripts\SimpleBlur.cs" />
      <Compile Include="Assets\Shaders\Poss Process\DeathTransition.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
@@ -312,6 +318,7 @@
      <None Include="Assets\AmplifyShaderEditor\Examples\Community\LowPolyWater\Credits.txt" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Templates\Legacy\Sprites-Default.shader" />
      <None Include="Assets\AmplifyShaderEditor\Examples\Official\ScreenSpaceDetail\ScreenSpaceDetail.shader" />
+     <None Include="Assets\shaders 103 asset\Shaders\QuickBlur.shader" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_ZBufferParams.shader" />
      <None Include="Assets\AmplifyShaderEditor\Examples\Official\SimpleTerrain\SimpleTerrainBase.shader" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_SimpleSubtractOpNode.shader" />
@@ -419,6 +426,7 @@
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_WorldSpaceLightPosNode.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\AmplifyShaderEditor\Examples\Community\2Sided\2Sided.shader" />
+     <None Include="Assets\MyContent\Final - Postprocessing Greyscale\BlackAndWhite.shader" />
      <None Include="Assets\Shaders\Surface\CustomLightingCustomRim.shader" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_GetLocalVarNode.shader" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_Log2OpNode.shader" />
@@ -527,6 +535,7 @@
      <None Include="Assets\AmplifyShaderEditor\Examples\Official\Projectors\ProjectorLight.shader" />
      <None Include="Assets\AmplifyShaderEditor\Examples\Official\SimpleTexture\SimpleTexture.shader" />
      <None Include="Assets\AmplifyShaderEditor\Examples\Official\StencilExample\Portals\Portal03\StencilMask03.shader" />
+     <None Include="Assets\shaders 103 asset\Shaders\CompositeAdd.shader" />
      <None Include="Assets\AmplifyShaderEditor\Examples\Official\XRay\XRay.shader" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_PrimitiveIDVariableNode.shader" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_SimpleMinNode.shader" />
@@ -579,6 +588,7 @@
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\TextureArrayInspector.shader" />
      <None Include="Assets\AmplifyShaderEditor\Examples\Official\SimpleLambert\SimpleLambert.shader" />
      <None Include="Assets\AmplifyShaderEditor\Examples\Official\ObjectNormalRefraction\ShaderBallInterior.shader" />
+     <None Include="Assets\shaders 103 asset\Shaders\OverDraw.shader" />
      <None Include="Assets\Shaders\Surface\Toon\Custom Lighting Rim.shader" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\LinearPreviews.shader" />
      <None Include="Assets\AmplifyShaderEditor\Examples\Official\SimpleTerrain\SimpleWater.shader" />
@@ -630,6 +640,7 @@
      <None Include="Assets\ProCore\ProGrids\About\changelog.txt" />
      <None Include="Assets\ProCore\ProBuilder\Shader\pb_NormalPreview.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+     <None Include="Assets\shaders 103 asset\Shaders\ShowDepth.shader" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Templates\Legacy\UnlitLightmap.shader" />
      <None Include="Assets\AmplifyShaderEditor\Examples\Official\MultiPassDistortion\MultiPassDistortion.shader" />
      <None Include="Assets\AmplifyShaderEditor\Examples\Official\MultiPassDistortion\DoublePassUnlitTemplate.shader" />
@@ -708,6 +719,7 @@
      <None Include="Assets\AmplifyShaderEditor\Examples\Community\EnvironmentGradient\MourEnvironmentGradient.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_SimplifiedFModOpNode.shader" />
+     <None Include="Assets\MyContent\Final - Postprocessing\Framecolor.shader" />
      <None Include="Assets\ProCore\ProBuilder\Shader\pb_SmoothingPreview.shader" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_DdyOpNode.shader" />
      <None Include="Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_Vector3Node.shader" />
@@ -746,6 +758,9 @@
  <Reference Include="Unity.CollabProxy.Editor">
  <HintPath>C:/Users/steve/OneDrive/Documents/Workspace/Unity/Thesis/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.Postprocessing.Editor">
+ <HintPath>C:/Users/steve/OneDrive/Documents/Workspace/Unity/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="com.unity.multiplayer-weaver.Editor">
  <HintPath>C:/Users/steve/OneDrive/Documents/Workspace/Unity/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
  </Reference>
@@ -757,6 +772,9 @@
  </Reference>
  <Reference Include="Unity.2D.Sprite.Editor">
  <HintPath>C:/Users/steve/OneDrive/Documents/Workspace/Unity/Thesis/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Postprocessing.Runtime">
+ <HintPath>C:/Users/steve/OneDrive/Documents/Workspace/Unity/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Tilemap.Editor">
  <HintPath>C:/Users/steve/OneDrive/Documents/Workspace/Unity/Thesis/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
@@ -781,12 +799,6 @@
  </Reference>
  <Reference Include="com.unity.multiplayer-hlapi.Runtime">
  <HintPath>C:/Users/steve/OneDrive/Documents/Workspace/Unity/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Postprocessing.Editor">
- <HintPath>C:/Users/steve/OneDrive/Documents/Workspace/Unity/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Postprocessing.Runtime">
- <HintPath>C:/Users/steve/OneDrive/Documents/Workspace/Unity/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/2019.2.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

@@ -1038,6 +1038,7 @@
         </e>
         <e p="Cable.shader" t="Include" />
         <e p="Crystal.shader" t="Include" />
+        <e p="CrystalCullMode.shader" t="Include" />
         <e p="Download" t="Include">
           <e p="CrystalGlass" t="Include">
             <e p="Readme.txt" t="Include" />
@@ -1238,6 +1239,18 @@
           </e>
         </e>
         <e p="HologramObject.cs" t="Include" />
+        <e p="MyContent" t="Include">
+          <e p="Final - Postprocessing" t="Include">
+            <e p="Framecolor.shader" t="Include" />
+            <e p="FrameManager.cs" t="Include" />
+          </e>
+          <e p="Final - Postprocessing Greyscale" t="Include">
+            <e p="BlackAndWhite.shader" t="Include" />
+          </e>
+          <e p="Shared" t="Include">
+            <e p="PostProcess.cs" t="Include" />
+          </e>
+        </e>
         <e p="Panel Hologram.shader" t="Include" />
         <e p="Panel.shader" t="Include" />
         <e p="ProCore" t="Include">
@@ -1663,6 +1676,20 @@
               <e p="Shield.shader" t="Include" />
               <e p="Vacuum object.shader" t="Include" />
             </e>
+          </e>
+        </e>
+        <e p="shaders 103 asset" t="Include">
+          <e p="ReplacementManagerCamera.cs" t="Include" />
+          <e p="Scripts" t="Include">
+            <e p="QuickGlow.cs" t="Include" />
+            <e p="ReplacementShaderEffect.cs" t="Include" />
+            <e p="SimpleBlur.cs" t="Include" />
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="CompositeAdd.shader" t="Include" />
+            <e p="OverDraw.shader" t="Include" />
+            <e p="QuickBlur.shader" t="Include" />
+            <e p="ShowDepth.shader" t="Include" />
           </e>
         </e>
         <e p="Standard Assets" t="Include">

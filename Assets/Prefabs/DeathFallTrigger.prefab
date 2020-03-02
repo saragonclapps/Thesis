@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 114599334499728560}
   - component: {fileID: 6603279994042948014}
   - component: {fileID: 2300235089772424869}
+  - component: {fileID: 7197520860742374688}
   m_Layer: 10
   m_Name: DeathFallCamera
   m_TagString: Untagged
@@ -189,6 +190,19 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &7197520860742374688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311967878092650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a671ebf72342af4aa7ec3ea6b014f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  postprocessEffect: {fileID: 2100000, guid: 99dc03fca9023d54199ad2f076a0ad89, type: 2}
 --- !u!1 &1607902861135438
 GameObject:
   m_ObjectHideFlags: 0
