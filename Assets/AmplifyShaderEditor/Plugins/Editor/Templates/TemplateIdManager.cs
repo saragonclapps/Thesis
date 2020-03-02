@@ -7,6 +7,14 @@ using UnityEngine;
 namespace AmplifyShaderEditor
 {
 	[Serializable]
+	public class TemplatePassId
+	{
+		public string PassId;
+		public bool RemoveFromShader;
+	}
+
+
+	[Serializable]
 	public class TemplateTag
 	{
 		public string Tag = string.Empty;
@@ -27,12 +35,14 @@ namespace AmplifyShaderEditor
 		public string Tag;
 		public string ReplacementText;
 		public bool IsReplaced = false;
-		public TemplateId( int bodyIdx, string uniqueID, string tag )
+		public bool EmptyReplacer = false;
+		public TemplateId( int bodyIdx, string uniqueID, string tag, bool emptyReplacer = false )
 		{
 			StartIdx = bodyIdx;
 			UniqueID = uniqueID;
 			Tag = tag;
-			ReplacementText = tag;
+			EmptyReplacer = emptyReplacer;
+			ReplacementText = emptyReplacer ? string.Empty : tag;
 		}
 
 		public void SetReplacementText( string replacementText )
@@ -40,9 +50,10 @@ namespace AmplifyShaderEditor
 			ReplacementText = replacementText;
 			IsReplaced = true;
 		}
+
 		public void Reset()
 		{
-			ReplacementText = Tag;
+			ReplacementText = EmptyReplacer?string.Empty:Tag;
 			IsReplaced = false;
 		}
 	}
@@ -60,6 +71,9 @@ namespace AmplifyShaderEditor
 		[SerializeField]
 		private List<TemplateTag> m_registeredTags = new List<TemplateTag>();
 
+		[SerializeField]
+		private List<TemplatePassId> m_registeredPassIds = new List<TemplatePassId>();
+
 		private Dictionary<string, TemplateId> m_registeredIdsDict = new Dictionary<string, TemplateId>();
 
 		public TemplateIdManager( string shaderBody )
@@ -69,6 +83,9 @@ namespace AmplifyShaderEditor
 
 		public void Destroy()
 		{
+			m_registeredPassIds.Clear();
+			m_registeredPassIds = null;
+
 			m_registeredTags.Clear();
 			m_registeredTags = null;
 
@@ -99,21 +116,31 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		public void RegisterId( int bodyIdx, string uniqueID, string tag )
+		public void RegisterId( int bodyIdx, string uniqueID, string tag, bool emptyReplacer = false )
 		{
 			if( bodyIdx < 0 )
 				return;
 
 			RefreshIds();
 
-			TemplateId templateId = new TemplateId( bodyIdx, uniqueID, tag );
+			TemplateId templateId = new TemplateId( bodyIdx, uniqueID, tag, emptyReplacer );
 			m_registeredIds.Add( templateId );
 			m_registeredIdsDict.Add( uniqueID, templateId );
 		}
 
-		public void RegisterTag( string tag , string replacement = null )
+		public void RegisterTag( string tag, string replacement = null )
 		{
-			m_registeredTags.Add( new TemplateTag( tag, replacement ));
+			m_registeredTags.Add( new TemplateTag( tag, replacement ) );
+		}
+
+		public void RegisterPassId( string passId )
+		{
+			m_registeredPassIds.Add( new TemplatePassId() { PassId = passId, RemoveFromShader = false } );
+		}
+
+		public void SetPassIdUsage( int idx , bool removeFromShader )
+		{
+			m_registeredPassIds[ idx ].RemoveFromShader = removeFromShader;
 		}
 
 		public void SetReplacementText( string uniqueId, string replacementText )
@@ -144,23 +171,30 @@ namespace AmplifyShaderEditor
 				}
 			}
 
+			int count = m_registeredPassIds.Count;
+			for( int i = 0; i < count; i++ )
+			{
+				if( m_registeredPassIds[ i ].RemoveFromShader )
+					finalShaderBody = finalShaderBody.Replace( m_registeredPassIds[ i ].PassId, string.Empty );
+			}
+
 			for( int i = 0; i < idCount; i++ )
 			{
-				if( !m_registeredIds[ i ].IsReplaced )
+				if( !m_registeredIds[ i ].IsReplaced && !m_registeredIds[ i ].Tag.Equals( m_registeredIds[ i ].ReplacementText ) )
 				{
 					finalShaderBody = finalShaderBody.Replace( m_registeredIds[ i ].Tag, m_registeredIds[ i ].ReplacementText );
 				}
 			}
 
-			int tagCount = m_registeredTags.Count;
-			for( int i = 0; i < tagCount; i++ )
+			count = m_registeredTags.Count;
+			for( int i = 0; i < count; i++ )
 			{
 				finalShaderBody = finalShaderBody.Replace( m_registeredTags[ i ].Tag, m_registeredTags[ i ].Replacement );
 			}
 
-			finalShaderBody = finalShaderBody.Replace( TemplatesManager.TemplateExcludeFromGraphTag, string.Empty );
-			finalShaderBody = finalShaderBody.Replace( TemplatesManager.TemplateMainPassTag, string.Empty );
-			
+			//finalShaderBody = finalShaderBody.Replace( TemplatesManager.TemplateExcludeFromGraphTag, string.Empty );
+			//finalShaderBody = finalShaderBody.Replace( TemplatesManager.TemplateMainPassTag, string.Empty );
+
 			return finalShaderBody;
 		}
 

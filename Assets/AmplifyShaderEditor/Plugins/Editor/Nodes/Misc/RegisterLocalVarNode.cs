@@ -12,6 +12,8 @@ namespace AmplifyShaderEditor
 	[NodeAttributes( "Register Local Var", "Miscellaneous", "Forces a local variable to be written with the given name. Can then be fetched at any place with a <b>Get Local Var</b> node.", null, KeyCode.R )]
 	public sealed class RegisterLocalVarNode : ParentNode
 	{
+		private const double MaxEditingTimestamp = 1;
+
 		private const string LocalDefaultNameStr = "myVarName";
 		private const string LocalVarNameStr = "Var Name";
 		private const string OrderIndexStr = "Order Index";
@@ -39,14 +41,23 @@ namespace AmplifyShaderEditor
 		[SerializeField]
 		private List<GetLocalVarNode> m_registeredGetLocalVars = new List<GetLocalVarNode>();
 
+		[NonSerialized]
+		private double m_editingTimestamp;
+
+		[NonSerialized]
+		private bool m_editingTimestampFlag;
+
 		protected override void CommonInit( int uniqueId )
 		{
 			base.CommonInit( uniqueId );
 			AddInputPort( WirePortDataType.FLOAT, false, Constants.EmptyPortValue );
 			AddOutputPort( WirePortDataType.FLOAT, Constants.EmptyPortValue );
 			m_textLabelWidth = 85;
-			if( UIUtils.CurrentWindow != null && UIUtils.CurrentWindow.CurrentGraph != null )
-				m_variableName += UIUtils.LocalVarNodeAmount();
+			m_customPrecision = true;
+
+			if( m_containerGraph != null )
+				m_variableName += m_containerGraph.LocalVarNodes.NodesList.Count;
+
 			m_oldName = m_variableName;
 			UpdateTitle();
 			m_previewShaderGUID = "5aaa1d3ea9e1fa64781647e035a82334";
@@ -55,7 +66,7 @@ namespace AmplifyShaderEditor
 		protected override void OnUniqueIDAssigned()
 		{
 			base.OnUniqueIDAssigned();
-			UIUtils.RegisterLocalVarNode( this );
+			m_containerGraph.LocalVarNodes.AddNode( this );
 		}
 
 		public override void OnInputPortConnected( int portId, int otherNodeId, int otherPortId, bool activateNode = true )
@@ -77,22 +88,33 @@ namespace AmplifyShaderEditor
 			SetAdditonalTitleText( string.Format( Constants.SubTitleVarNameFormatStr, m_variableName ) );
 		}
 
+		public override void OnNodeLogicUpdate( DrawInfo drawInfo )
+		{
+			base.OnNodeLogicUpdate( drawInfo );
+			if( m_editingTimestampFlag && ( EditorApplication.timeSinceStartup - m_editingTimestamp ) > MaxEditingTimestamp )
+			{
+				m_editingTimestampFlag = false;
+				CheckAndChangeName();
+			}
+		}
+
 		void DrawMainProperties()
 		{
 			EditorGUI.BeginChangeCheck();
 			m_variableName = EditorGUILayoutTextField( LocalVarNameStr, m_variableName );
 			if( EditorGUI.EndChangeCheck() )
 			{
-				CheckAndChangeName();
+				m_editingTimestampFlag = true;
+				m_editingTimestamp = EditorApplication.timeSinceStartup;
+				//CheckAndChangeName();
 			}
 
 			DrawPrecisionProperty();
 		}
 
-		public override void AfterDuplication( ParentNode original )
+		public override void AfterDuplication()
 		{
-			base.AfterDuplication( original );
-
+			base.AfterDuplication();
 			CheckAndChangeName();
 		}
 
@@ -104,24 +126,29 @@ namespace AmplifyShaderEditor
 				m_variableName = LocalDefaultNameStr + OutputId;
 			}
 			bool isNumericName = UIUtils.IsNumericName( m_variableName );
-			if( !isNumericName && UIUtils.IsLocalvariableNameAvailable( m_variableName ) )
+			bool isLocalVarNameAvailable = m_containerGraph.ParentWindow.DuplicatePrevBufferInstance.IsLocalvariableNameAvailable( m_variableName );
+			if( !isNumericName && isLocalVarNameAvailable )
 			{
-				UIUtils.ReleaseLocalVariableName( UniqueId, m_oldName );
-				UIUtils.RegisterLocalVariableName( UniqueId, m_variableName );
+				m_containerGraph.ParentWindow.DuplicatePrevBufferInstance.ReleaseLocalVariableName( UniqueId, m_oldName );
+				m_containerGraph.ParentWindow.DuplicatePrevBufferInstance.RegisterLocalVariableName( UniqueId, m_variableName );
 				m_oldName = m_variableName;
-				UIUtils.UpdateLocalVarDataNode( UniqueId, m_variableName );
+				m_containerGraph.LocalVarNodes.UpdateDataOnNode( UniqueId, m_variableName );
 				UpdateTitle();
 				m_forceUpdate = true;
 			}
 			else
 			{
-				//if( isNumericName )
-				//{
-				//	UIUtils.ShowMessage( "Local variable name cannot start or be numerical values" );
-				//}
+				if( isNumericName )
+				{
+					UIUtils.ShowMessage( UniqueId, string.Format( "Local variable name '{0}' cannot start or be numerical values. Reverting back to '{1}'.", m_variableName, m_oldName ), MessageSeverity.Warning );
+				}
+				else if( !isLocalVarNameAvailable )
+				{
+					UIUtils.ShowMessage( UniqueId, string.Format( "Local variable name '{0}' already being used. Reverting back to '{1}'.", m_variableName, m_oldName ), MessageSeverity.Warning );
+				}
 
 				m_variableName = m_oldName;
-				UIUtils.UpdateLocalVarDataNode( UniqueId, m_variableName );
+				m_containerGraph.LocalVarNodes.UpdateDataOnNode( UniqueId, m_variableName );
 			}
 		}
 
@@ -136,14 +163,14 @@ namespace AmplifyShaderEditor
 					EditorGUILayout.LabelField( string.Format( GetLocalVarLabel, m_registeredGetLocalVars[ i ].UniqueId ) );
 					if( GUILayout.Button( "\u25BA", "minibutton", GUILayout.Width( 17 ) ) )
 					{
-						UIUtils.FocusOnNode( m_registeredGetLocalVars[ i ], 0, false );
+						m_containerGraph.ParentWindow.FocusOnNode( m_registeredGetLocalVars[ i ], 0, false );
 					}
 					EditorGUILayout.EndHorizontal();
 				}
 
 				if( GUILayout.Button( "Back" ) )
 				{
-					UIUtils.FocusOnNode( this, 0, false );
+					m_containerGraph.ParentWindow.FocusOnNode( this, 0, false );
 				}
 			}
 			else
@@ -194,7 +221,7 @@ namespace AmplifyShaderEditor
 			if( m_reRegisterName )
 			{
 				m_reRegisterName = false;
-				UIUtils.RegisterLocalVariableName( UniqueId, m_variableName );
+				m_containerGraph.ParentWindow.DuplicatePrevBufferInstance.RegisterLocalVariableName( UniqueId, m_variableName );
 			}
 
 			if( m_forceUpdate )
@@ -211,7 +238,10 @@ namespace AmplifyShaderEditor
 				return m_outputPorts[ 0 ].LocalValue( dataCollector.PortCategory );
 			}
 			string result = m_inputPorts[ 0 ].GeneratePortInstructions( ref dataCollector );
-			RegisterLocalVariable( 0, result, ref dataCollector, m_variableName + OutputId );
+			if( m_inputPorts[ 0 ].DataType == WirePortDataType.OBJECT )
+				m_outputPorts[ 0 ].SetLocalValue( result, dataCollector.PortCategory );
+			else
+				RegisterLocalVariable( 0, result, ref dataCollector, m_variableName + OutputId );
 			return m_outputPorts[ 0 ].LocalValue( dataCollector.PortCategory );
 		}
 
@@ -219,6 +249,7 @@ namespace AmplifyShaderEditor
 		{
 			base.ReadFromString( ref nodeParams );
 			m_variableName = GetCurrentParam( ref nodeParams );
+			m_oldName = m_variableName;
 			if( UIUtils.CurrentShaderVersion() > 14 )
 				m_orderIndex = Convert.ToInt32( GetCurrentParam( ref nodeParams ) );
 
@@ -230,12 +261,12 @@ namespace AmplifyShaderEditor
 			{
 				m_autoIndexActive = false;
 			}
-
-			UIUtils.UpdateLocalVarDataNode( UniqueId, m_variableName );
-
-			UIUtils.ReleaseLocalVariableName( UniqueId, m_oldName );
-			UIUtils.RegisterLocalVariableName( UniqueId, m_variableName );
-
+			if( !m_isNodeBeingCopied )
+			{
+				m_containerGraph.LocalVarNodes.UpdateDataOnNode( UniqueId, m_variableName );
+				m_containerGraph.ParentWindow.DuplicatePrevBufferInstance.ReleaseLocalVariableName( UniqueId, m_oldName );
+				m_containerGraph.ParentWindow.DuplicatePrevBufferInstance.RegisterLocalVariableName( UniqueId, m_variableName );
+			}
 			m_forceUpdate = true;
 		}
 
@@ -302,7 +333,7 @@ namespace AmplifyShaderEditor
 			m_registeredGetLocalVars.Clear();
 			m_registeredGetLocalVars = null;
 
-			UIUtils.UnregisterLocalVarNode( this );
+			m_containerGraph.LocalVarNodes.RemoveNode( this );
 		}
 
 		public override void ActivateNode( int signalGenNodeId, int signalGenPortId, Type signalGenNodeType )

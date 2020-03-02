@@ -1,6 +1,4 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader /*ase_name*/ "ASETemplateShaders/Legacy/PostProcess" /*end*/
+Shader /*ase_name*/ "Hidden/Templates/Legacy/PostProcess" /*end*/
 {
 	Properties
 	{
@@ -15,8 +13,8 @@ Shader /*ase_name*/ "ASETemplateShaders/Legacy/PostProcess" /*end*/
 		ZTest Always
 		Cull Off
 		ZWrite Off
-		/*ase_pass*/
 
+		/*ase_pass*/
 		Pass
 		{ 
 			CGPROGRAM 
@@ -56,7 +54,7 @@ Shader /*ase_name*/ "ASETemplateShaders/Legacy/PostProcess" /*end*/
 			{
 				v2f_img_custom o;
 				/*ase_vert_code:v=appdata_img_custom;o=v2f_img_custom*/
-				o.pos = UnityObjectToClipPos ( v.vertex );
+				o.pos = UnityObjectToClipPos( v.vertex );
 				o.uv = float4( v.texcoord.xy, 1, 1 );
 
 				#if UNITY_UV_STARTS_AT_TOP

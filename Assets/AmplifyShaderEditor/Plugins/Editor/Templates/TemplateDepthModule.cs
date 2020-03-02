@@ -13,24 +13,24 @@ namespace AmplifyShaderEditor
 	{
 		private const string ZWriteFormatter = "ZWrite {0}\n";
 		private const string ZTestFormatter = "ZTest {0}\n";
-		
-		[ SerializeField]
+
+		[SerializeField]
 		private bool m_validZTest = false;
 
 		[SerializeField]
-		private InlineProperty m_zTestMode = new InlineProperty(0);
+		private InlineProperty m_zTestMode = new InlineProperty( 0 );
 
 		[SerializeField]
 		private bool m_validZWrite = false;
 
 		[SerializeField]
-		private InlineProperty m_zWriteMode = new InlineProperty(0);
+		private InlineProperty m_zWriteMode = new InlineProperty( 0 );
 
 		[SerializeField]
-		private InlineProperty m_offsetFactor = new InlineProperty(0);
+		private InlineProperty m_offsetFactor = new InlineProperty( 0 );
 
 		[SerializeField]
-		private InlineProperty m_offsetUnits = new InlineProperty(0);
+		private InlineProperty m_offsetUnits = new InlineProperty( 0 );
 
 		[SerializeField]
 		private bool m_offsetEnabled = false;
@@ -40,12 +40,16 @@ namespace AmplifyShaderEditor
 
 		public TemplateDepthModule() : base( "Depth" ) { }
 
-		public void CopyFrom( TemplateDepthModule other )
+		public void CopyFrom( TemplateDepthModule other, bool allData )
 		{
-			m_independentModule = other.IndependentModule;
-			m_validZTest = other.ValidZTest;
-			m_validZWrite = other.ValidZWrite;
-			m_validOffset = other.ValidOffset;
+			if( allData )
+			{
+				m_independentModule = other.IndependentModule;
+				m_validZTest = other.ValidZTest;
+				m_validZWrite = other.ValidZWrite;
+				m_validOffset = other.ValidOffset;
+			}
+
 			m_zTestMode.CopyFrom( other.ZTestMode );
 			m_zWriteMode.CopyFrom( other.ZWriteMode );
 			m_offsetFactor.CopyFrom( other.OffsetFactor );
@@ -68,6 +72,8 @@ namespace AmplifyShaderEditor
 					m_zTestMode.SetInlineByName( depthData.ZTestInlineValue );
 				}
 			}
+
+
 
 			if( depthData.ValidZWrite && m_validZWrite != depthData.ValidZWrite )
 			{
@@ -103,11 +109,11 @@ namespace AmplifyShaderEditor
 				{
 					m_offsetUnits.SetInlineByName( depthData.OffsetUnitsInlineValue );
 				}
+				m_offsetEnabled = depthData.ValidOffset;
 			}
 
 			m_validZTest = depthData.ValidZTest;
 			m_validZWrite = depthData.ValidZWrite;
-			m_offsetEnabled = depthData.ValidOffset;
 			m_validOffset = depthData.ValidOffset;
 			m_validData = m_validZTest || m_validZWrite || m_validOffset;
 		}
@@ -119,7 +125,7 @@ namespace AmplifyShaderEditor
 			owner.ContainerGraph.ParentWindow.InnerWindowVariables.ExpandedDepth = foldoutValue;
 		}
 
-		public override void Draw( UndoParentNode owner , bool style = true)
+		public override void Draw( UndoParentNode owner, bool style = true )
 		{
 			bool foldout = owner.ContainerGraph.ParentWindow.InnerWindowVariables.ExpandedDepth;
 			if( style )
@@ -148,7 +154,7 @@ namespace AmplifyShaderEditor
 			GUI.color = new Color( cachedColor.r, cachedColor.g, cachedColor.b, ( EditorGUIUtility.isProSkin ? 0.5f : 0.25f ) );
 			//EditorGUILayout.BeginVertical( UIUtils.MenuItemBackgroundStyle );
 			GUI.color = cachedColor;
-			
+
 			EditorGUILayout.Separator();
 
 			if( m_validZWrite )
@@ -164,20 +170,20 @@ namespace AmplifyShaderEditor
 				if( m_offsetEnabled )
 				{
 					EditorGUI.indentLevel++;
-					m_offsetFactor.FloatField( ref owner , ZBufferOpHelper.OffsetFactorStr );
-					m_offsetUnits.FloatField( ref owner , ZBufferOpHelper.OffsetUnitsStr);
+					m_offsetFactor.FloatField( ref owner, ZBufferOpHelper.OffsetFactorStr );
+					m_offsetUnits.FloatField( ref owner, ZBufferOpHelper.OffsetUnitsStr );
 					EditorGUI.indentLevel--;
 				}
 			}
 			EditorGUILayout.Separator();
-			
+
 			//EditorGUILayout.EndVertical();
 			if( EditorGUI.EndChangeCheck() )
 			{
 				m_isDirty = true;
 			}
 		}
-		
+
 		public void ReadZWriteFromString( ref uint index, ref string[] nodeParams )
 		{
 			bool validDataOnMeta = m_validZWrite;
@@ -238,12 +244,12 @@ namespace AmplifyShaderEditor
 				}
 				else
 				{
-					m_offsetFactor.ReadFromString( ref index, ref nodeParams );
-					m_offsetUnits.ReadFromString( ref index, ref nodeParams );
+					m_offsetFactor.ReadFromString( ref index, ref nodeParams, false );
+					m_offsetUnits.ReadFromString( ref index, ref nodeParams, false );
 				}
 			}
 		}
-		
+
 		public override void ReadFromString( ref uint index, ref string[] nodeParams )
 		{
 			ReadZWriteFromString( ref index, ref nodeParams );
@@ -271,7 +277,7 @@ namespace AmplifyShaderEditor
 			if( m_validOffset )
 			{
 				IOUtils.AddFieldValueToString( ref nodeInfo, m_offsetEnabled );
-				m_offsetFactor.WriteToString(ref nodeInfo);
+				m_offsetFactor.WriteToString( ref nodeInfo );
 				m_offsetUnits.WriteToString( ref nodeInfo );
 			}
 		}
@@ -283,7 +289,7 @@ namespace AmplifyShaderEditor
 			WriteOffsetToString( ref nodeInfo );
 		}
 
-		public bool IsActive { get { return ( m_zTestMode.IsValid || m_zTestMode.IntValue != 0) || ( m_zWriteMode .IsValid || m_zWriteMode.IntValue != 0) || m_offsetEnabled; } }
+		public bool IsActive { get { return ( m_zTestMode.IsValid || m_zTestMode.IntValue != 0 ) || ( m_zWriteMode.IsValid || m_zWriteMode.IntValue != 0 ) || m_offsetEnabled; } }
 		public string CurrentZWriteMode
 		{
 			get
@@ -304,8 +310,8 @@ namespace AmplifyShaderEditor
 				if( m_zTestMode.IsValid )
 					return string.Format( ZTestFormatter, m_zTestMode.GetValueOrProperty() );
 
-				int finalZTestMode = ( m_zTestMode.IntValue == 0 )?3 : m_zTestMode.IntValue;
-				return string.Format( ZTestFormatter,  ZBufferOpHelper.ZTestModeValues[ finalZTestMode ] );
+				int finalZTestMode = ( m_zTestMode.IntValue == 0 ) ? 3 : m_zTestMode.IntValue;
+				return string.Format( ZTestFormatter, ZBufferOpHelper.ZTestModeValues[ finalZTestMode ] );
 			}
 		}
 
@@ -329,5 +335,57 @@ namespace AmplifyShaderEditor
 		public InlineProperty OffsetUnits { get { return m_offsetUnits; } }
 		public bool OffsetEnabled { get { return m_offsetEnabled; } }
 
+
+		public ZTestMode ZTestModeValue
+		{
+			set
+			{
+				m_zTestMode.IntValue = ZBufferOpHelper.ZTestModeDict[ value ];
+				m_zTestMode.Active = false;
+			}
+			get
+			{
+				return (ZTestMode)( m_zTestMode.IntValue - 1 );
+			}
+		}
+		public ZWriteMode ZWriteModeValue
+		{
+			set
+			{
+				m_zWriteMode.IntValue = ZBufferOpHelper.ZWriteModeDict[ value ];
+				m_zWriteMode.Active = false;
+			}
+			get
+			{
+				return (ZWriteMode)( m_zWriteMode.IntValue - 1 );
+			}
+		}
+		public float OffsetFactorValue
+		{
+			set
+			{
+				m_offsetEnabled = true;
+				m_offsetFactor.FloatValue = value;
+				m_offsetFactor.Active = false;
+			}
+			get
+			{
+				return m_offsetFactor.FloatValue;
+			}
+		}
+
+		public float OffsetUnitsValue
+		{
+			set
+			{
+				m_offsetEnabled = true;
+				m_offsetUnits.FloatValue = value;
+				m_offsetUnits.Active = false;
+			}
+			get
+			{
+				return m_offsetUnits.FloatValue;
+			}
+		}
 	}
 }

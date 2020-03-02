@@ -92,7 +92,9 @@ namespace AmplifyShaderEditor
 		GraphButton,
 		NodeWindowOffSquare,
 		NodeHeaderSquare,
-		NodeWindowOnSquare
+		NodeWindowOnSquare,
+		ConsoleLogMessage,
+		ConsoleLogCircle
 	}
 
 	public enum MasterNodePortCategory
@@ -198,18 +200,26 @@ namespace AmplifyShaderEditor
 		VertexData
 	}
 
-	public enum TransformSpace
+	public enum TransformSpaceFrom
 	{
 		Object = 0,
 		World,
 		View,
-		//Clip,
-		//Tangent,
-		//Screen??
+		Tangent
+	}
+
+	public enum TransformSpaceTo
+	{
+		Object = 0,
+		World,
+		View,
+		Tangent,
+		Clip
 	}
 
 	public class UIUtils
 	{
+		public static string NewTemplateGUID;
 		public static int SerializeHelperCounter = 0;
 		public static bool IgnoreDeselectAll = false;
 
@@ -235,6 +245,7 @@ namespace AmplifyShaderEditor
 		public static GUIStyle BoldWarningStyle;
 		public static GUIStyle BoldInfoStyle;
 		public static GUIStyle Separator;
+		public static GUIStyle ToolbarMainTitle;
 		public static GUIStyle ToolbarSearchTextfield;
 		public static GUIStyle ToolbarSearchCancelButton;
 		public static GUIStyle MiniButtonTopLeft;
@@ -259,6 +270,10 @@ namespace AmplifyShaderEditor
 		public static GUIStyle GraphDropDown;
 
 		public static GUIStyle EmptyStyle = new GUIStyle();
+
+		public static GUIStyle ConsoleLogLabel;
+		public static GUIStyle ConsoleLogMessage;
+		public static GUIStyle ConsoleLogCircle;
 
 		public static GUIStyle TooltipBox;
 		public static GUIStyle Box;
@@ -390,7 +405,10 @@ namespace AmplifyShaderEditor
 			"UNITY_PASS_FORWARDBASE",
 			"UNITY_PASS_FORWARDADD",
 			"UNITY_PASS_DEFERRED",
-			"UNITY_PASS_SHADOWCASTER"
+			"UNITY_PASS_SHADOWCASTER",
+			"UNITY_INSTANCING_ENABLED",
+			"DIRECTIONAL_COOKIE"
+
 		};
 
 		public static readonly string[] CategoryPresets =
@@ -558,6 +576,8 @@ namespace AmplifyShaderEditor
 			{ ToolButtonType.Options,          new List<string>() { "Open Options menu." } },
 			{ ToolButtonType.Update,           new List<string>() { "Open or create a new shader first.", "Click to enable to update current shader.", "Shader up-to-date." } },
 			{ ToolButtonType.Live,             new List<string>() { "Open or create a new shader first.", "Click to enable live shader preview", "Click to enable live shader and material preview." , "Live preview active, click to disable." } },
+			{ ToolButtonType.TakeScreenshot,   new List<string>() { "Take screenshot", "Take screenshot" }},
+			{ ToolButtonType.Share,            new List<string>() { "Share selection", "Share selection" }},
 			{ ToolButtonType.CleanUnusedNodes, new List<string>() { "No unconnected nodes to clean.", "Remove all nodes not connected( directly or indirectly) to the master node." }},
 			{ ToolButtonType.Help,             new List<string>() { "Show help window." } },
 			{ ToolButtonType.FocusOnMasterNode,new List<string>() { "Focus on active master node." } },
@@ -632,7 +652,7 @@ namespace AmplifyShaderEditor
 		{
 			{PrecisionType.Float,	"float"},
 			{PrecisionType.Half,	"half"},
-			{PrecisionType.Fixed,	"half"}
+			{PrecisionType.Inherit,	"float"}
 		};
 
 		private static Dictionary<VariableQualifiers, string> m_qualifierToCg = new Dictionary<VariableQualifiers, string>()
@@ -671,7 +691,8 @@ namespace AmplifyShaderEditor
 			{WirePortDataType.SAMPLER1D,	"sampler1D"},
 			{WirePortDataType.SAMPLER2D,	"sampler2D"},
 			{WirePortDataType.SAMPLER3D,	"sampler3D"},
-			{WirePortDataType.SAMPLERCUBE,	"samplerCUBE"}
+			{WirePortDataType.SAMPLERCUBE,	"samplerCUBE"},
+			{WirePortDataType.UINT,			"uint"}
 		};
 
 		private static Dictionary<KeyCode, string> m_keycodeToString = new Dictionary<KeyCode, string>()
@@ -806,10 +827,15 @@ namespace AmplifyShaderEditor
 			BoldWarningStyle = null;
 			BoldInfoStyle = null;
 			Separator = null;
+			ToolbarMainTitle = null;
 
 			GraphButtonIcon = null;
 			GraphButton = null;
 			GraphDropDown = null;
+
+			ConsoleLogLabel = null;
+			ConsoleLogMessage = null;
+			ConsoleLogCircle = null;
 
 			MiniButtonTopLeft = null;
 			MiniButtonTopMid = null;
@@ -950,6 +976,7 @@ namespace AmplifyShaderEditor
 			BoldInfoStyle.normal.textColor = Color.white;
 			BoldInfoStyle.alignment = TextAnchor.MiddleCenter;
 
+			ToolbarMainTitle = new GUIStyle( MainSkin.customStyles[ (int)CustomStyle.MainCanvasTitle ] );
 			Separator = new GUIStyle( MainSkin.customStyles[ (int)CustomStyle.FlatBackground ] );
 			MiniButtonTopLeft = new GUIStyle( MainSkin.customStyles[ (int)CustomStyle.MiniButtonTopLeft ] );
 			MiniButtonTopMid = new GUIStyle( MainSkin.customStyles[ (int)CustomStyle.MiniButtonTopMid ] );
@@ -987,7 +1014,7 @@ namespace AmplifyShaderEditor
 			GraphDropDown = new GUIStyle( MainSkin.customStyles[ (int)CustomStyle.GraphButton ] );
 			GraphDropDown.padding.right = 20;
 
-			Box = new GUIStyle( GUI.skin.box );
+			Box = new GUIStyle( MainSkin.box );
 			Button = new GUIStyle( GUI.skin.button );
 			TextArea = new GUIStyle( GUI.skin.textArea );
 			Label = new GUIStyle( GUI.skin.label );
@@ -995,6 +1022,10 @@ namespace AmplifyShaderEditor
 			Textfield = new GUIStyle( GUI.skin.textField );
 			//ShaderIcon = EditorGUIUtility.IconContent( "Shader Icon" ).image;
 			//MaterialIcon = EditorGUIUtility.IconContent( "Material Icon" ).image;
+
+			ConsoleLogLabel = new GUIStyle( GUI.skin.label );
+			ConsoleLogMessage = new GUIStyle( MainSkin.customStyles[ (int)CustomStyle.ConsoleLogMessage ] );
+			ConsoleLogCircle = new GUIStyle( MainSkin.customStyles[ (int)CustomStyle.ConsoleLogCircle ] );
 
 			NodeWindowOffSquare = GetCustomStyle( CustomStyle.NodeWindowOffSquare );
 			NodeHeaderSquare = GetCustomStyle( CustomStyle.NodeHeaderSquare );
@@ -1034,7 +1065,10 @@ namespace AmplifyShaderEditor
 			FetchMenuItemStyles();
 		}
 
-
+		public static bool IsLoading
+		{
+			get { return CurrentWindow.OutsideGraph.IsLoading; }
+		}
 
 		public static void CheckNullMaterials()
 		{
@@ -1172,6 +1206,8 @@ namespace AmplifyShaderEditor
 			MiniSamplerButton.fontSize = (int)( 8 * drawInfo.InvertedZoom );
 
 			InternalDataOnPort.fontSize = (int)( 8 * drawInfo.InvertedZoom );
+			ToolbarMainTitle.padding.left = 0;
+			ToolbarMainTitle.padding.right = 0;
 
 			CheckNullMaterials();
 		}
@@ -1223,14 +1259,7 @@ namespace AmplifyShaderEditor
 
 		public static string FinalPrecisionWirePortToCgType( PrecisionType precisionType, WirePortDataType type )
 		{
-			PrecisionType finalPrecision = GetFinalPrecision( precisionType );
-			if( type == WirePortDataType.OBJECT )
-				return string.Empty;
-
-			if( type == WirePortDataType.INT )
-				return m_wirePortToCgType[ type ];
-
-			return string.Format( m_precisionWirePortToCgType[ type ], m_precisionTypeToCg[ finalPrecision ] );
+			return PrecisionWirePortToCgType( precisionType, type );
 		}
 
 		public static string PrecisionWirePortToCgType( PrecisionType precisionType, WirePortDataType type )
@@ -1239,6 +1268,9 @@ namespace AmplifyShaderEditor
 				return string.Empty;
 
 			if( type == WirePortDataType.INT )
+				return m_wirePortToCgType[ type ];
+
+			if( type == WirePortDataType.UINT )
 				return m_wirePortToCgType[ type ];
 
 			return string.Format( m_precisionWirePortToCgType[ type ], m_precisionTypeToCg[ precisionType ] );
@@ -1301,8 +1333,8 @@ namespace AmplifyShaderEditor
 			{
 				return ( parameterName != null ) ? parameterName : value.ToString();
 			}
-
-			PrecisionType currentPrecision = GetFinalPrecision( nodePrecision );
+			
+			PrecisionType currentPrecision = nodePrecision;
 			string precisionStr = m_precisionTypeToCg[ currentPrecision ];
 			string newTypeStr = m_wirePortToCgType[ newType ];
 			newTypeStr = m_textInfo.ToTitleCase( newTypeStr );
@@ -1716,6 +1748,7 @@ namespace AmplifyShaderEditor
 				case WirePortDataType.FLOAT4x4: return 16;
 				case WirePortDataType.COLOR: return 4;
 				case WirePortDataType.INT: return 1;
+				case WirePortDataType.UINT: return 1;
 			}
 			return 0;
 		}
@@ -1734,8 +1767,16 @@ namespace AmplifyShaderEditor
 			return WirePortDataType.FLOAT;
 		}
 
-		public static string GenerateUniformName( WirePortDataType dataType, string dataName ) { return string.Format( Constants.UniformDec, WirePortToCgType( dataType ), dataName ); }
-		public static string GenerateUniformName( string dataType, string dataName ) { return string.Format( Constants.UniformDec, dataType, dataName ); }
+		public static string GenerateUniformName( bool excludeUniformKeyword, WirePortDataType dataType, string dataName )
+		{
+			return GenerateUniformName( excludeUniformKeyword, WirePortToCgType( dataType ), dataName );
+		}
+
+		public static string GenerateUniformName( bool excludeUniformKeyword, string dataType, string dataName )
+		{
+			int index = excludeUniformKeyword ? 1 : 0;
+			return string.Format( Constants.UniformDec[index], dataType, dataName );
+		}
 
 		public static string GeneratePropertyName( string name, PropertyType propertyType, bool forceUnderscore = false )
 		{
@@ -1753,21 +1794,21 @@ namespace AmplifyShaderEditor
 
 			return name;
 		}
-
+		
 		public static string UrlReplaceInvalidStrings( string originalString )
 		{
-			foreach( KeyValuePair<string, string> kvp in Constants.UrlReplacementStringValues )
+			for( int i = 0; i < Constants.UrlReplacementStringValuesLen; i++ )
 			{
-				originalString = originalString.Replace( kvp.Key, kvp.Value );
+				originalString = originalString.Replace( Constants.UrlReplacementStringValues[i,0], Constants.UrlReplacementStringValues[i,1] );
 			}
 			return originalString;
 		}
 
 		public static string ReplaceInvalidStrings( string originalString )
 		{
-			foreach( KeyValuePair<string, string> kvp in Constants.ReplacementStringValues )
+			for(int i = 0; i< Constants.ReplacementStringValuesLen;i++ )
 			{
-				originalString = originalString.Replace( kvp.Key, kvp.Value );
+				originalString = originalString.Replace( Constants.ReplacementStringValues[i,0], Constants.ReplacementStringValues[ i, 1 ] );
 			}
 			return originalString;
 		}
@@ -1857,19 +1898,19 @@ namespace AmplifyShaderEditor
 
 		public static string InvalidParameter( ParentNode node )
 		{
-			ShowMessage( "Invalid entrance type on node" + node, MessageSeverity.Error );
+			ShowMessage( node.UniqueId, "Invalid entrance type on node" + node, MessageSeverity.Error );
 			return "0";
 		}
 
 		public static string NoConnection( ParentNode node )
 		{
-			ShowMessage( "No Input connection on node" + node, MessageSeverity.Error );
+			ShowMessage( node.UniqueId, "No Input connection on node" + node, MessageSeverity.Error );
 			return "0";
 		}
 
 		public static string UnknownError( ParentNode node )
 		{
-			ShowMessage( "Unknown error on node" + node, MessageSeverity.Error );
+			ShowMessage( node.UniqueId, "Unknown error on node" + node, MessageSeverity.Error );
 			return "0";
 		}
 
@@ -1937,7 +1978,7 @@ namespace AmplifyShaderEditor
 			return newShader;
 		}
 
-		public static Shader CreateNewEmpty( string customPath = null )
+		public static Shader CreateNewEmpty( string customPath = null , string customShaderName = null )
 		{
 			if( CurrentWindow == null )
 				return null;
@@ -1960,16 +2001,24 @@ namespace AmplifyShaderEditor
 
 			if( string.IsNullOrEmpty( customPath ) )
 			{
-				IOUtils.GetShaderName( out shaderName, out pathName, "New AmplifyShader", m_latestOpenedFolder );
+				IOUtils.GetShaderName( out shaderName, out pathName, Constants.DefaultShaderName, m_latestOpenedFolder );
 			}
 			else
 			{
 				pathName = customPath;
-				shaderName = "New AmplifyShader";
-				string uniquePath = pathName.Remove( 0, pathName.IndexOf( "Assets" ) );
-				string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath( uniquePath + shaderName + ".shader" );
-				pathName = assetPathAndName;
-				shaderName = assetPathAndName.Remove( 0, assetPathAndName.IndexOf( shaderName ) );
+				if( string.IsNullOrEmpty( customShaderName ) )
+				{
+					shaderName = Constants.DefaultShaderName;
+					int indexOfAssets = pathName.IndexOf( "Assets" );
+					string uniquePath = ( indexOfAssets > 0 ) ? pathName.Remove( 0, indexOfAssets ) : pathName;
+					string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath( uniquePath + shaderName + ".shader" );
+					pathName = assetPathAndName;
+					shaderName = assetPathAndName.Remove( 0, assetPathAndName.IndexOf( shaderName ) );
+				}
+				else
+				{
+					shaderName = customShaderName;
+				}
 				shaderName = shaderName.Remove( shaderName.Length - 7 );
 			}
 			if( !System.String.IsNullOrEmpty( shaderName ) && !System.String.IsNullOrEmpty( pathName ) )
@@ -1989,7 +2038,7 @@ namespace AmplifyShaderEditor
 		}
 
 
-		public static Shader CreateNewEmptyTemplate( string templateGUID, string customPath = null )
+		public static Shader CreateNewEmptyTemplate( string templateGUID, string customPath = null, string customShaderName = null )
 		{
 			if( CurrentWindow == null )
 				return null;
@@ -2012,16 +2061,24 @@ namespace AmplifyShaderEditor
 
 			if( string.IsNullOrEmpty( customPath ) )
 			{
-				IOUtils.GetShaderName( out shaderName, out pathName, "New AmplifyShader", m_latestOpenedFolder );
+				IOUtils.GetShaderName( out shaderName, out pathName, Constants.DefaultShaderName, m_latestOpenedFolder );
 			}
 			else
 			{
 				pathName = customPath;
-				shaderName = "New AmplifyShader";
-				string uniquePath = pathName.Remove( 0, pathName.IndexOf( "Assets" ) );
-				string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath( uniquePath + shaderName + ".shader" );
-				pathName = assetPathAndName;
-				shaderName = assetPathAndName.Remove( 0, assetPathAndName.IndexOf( shaderName ) );
+				if( string.IsNullOrEmpty( customShaderName ) )
+				{
+					shaderName = Constants.DefaultShaderName;
+					int indexOfAssets = pathName.IndexOf( "Assets" );
+					string uniquePath = ( indexOfAssets > 0 ) ? pathName.Remove( 0, indexOfAssets ) : pathName;
+					string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath( uniquePath + shaderName + ".shader" );
+					pathName = assetPathAndName;
+					shaderName = assetPathAndName.Remove( 0, assetPathAndName.IndexOf( shaderName ) );
+				}
+				else
+				{
+					shaderName = customShaderName;
+				}
 				shaderName = shaderName.Remove( shaderName.Length - 7 );
 			}
 			if( !System.String.IsNullOrEmpty( shaderName ) && !System.String.IsNullOrEmpty( pathName ) )
@@ -2108,38 +2165,37 @@ namespace AmplifyShaderEditor
 
 		public static bool DetectNodeLoopsFrom( ParentNode node, Dictionary<int, int> currentNodes )
 		{
-			if( currentNodes.ContainsKey( node.UniqueId ) )
-			{
-				currentNodes.Clear();
-				currentNodes = null;
-				return true;
-			}
-
-			currentNodes.Add( node.UniqueId, 1 );
-			bool foundLoop = false;
 			for( int i = 0; i < node.InputPorts.Count; i++ )
 			{
 				if( node.InputPorts[ i ].IsConnected )
 				{
 					ParentNode newNode = node.InputPorts[ i ].GetOutputNode();
-					if( newNode.InputPorts.Count > 0 )
-					{
-						Dictionary<int, int> newDict = new Dictionary<int, int>();
-						foreach( KeyValuePair<int, int> entry in currentNodes )
-						{
-							newDict.Add( entry.Key, entry.Value );
-						}
-						foundLoop = foundLoop || DetectNodeLoopsFrom( newNode, newDict );
-						if( foundLoop )
-							break;
-					}
+					if( !currentNodes.ContainsKey( newNode.UniqueId ) )
+						RecursiveNodeFill( newNode, currentNodes );
 				}
 			}
 
+			bool found = currentNodes.ContainsKey( node.UniqueId );
 			currentNodes.Clear();
 			currentNodes = null;
 
-			return foundLoop;
+			return found;
+		}
+
+		private static void RecursiveNodeFill( ParentNode node, Dictionary<int, int> currentNodes )
+		{
+			if( !currentNodes.ContainsKey( node.UniqueId ) )
+				currentNodes.Add( node.UniqueId, 1 );
+
+			for( int i = 0; i < node.InputPorts.Count; i++ )
+			{
+				if( node.InputPorts[ i ].IsConnected )
+				{
+					ParentNode newNode = node.InputPorts[ i ].GetOutputNode();
+					if( !currentNodes.ContainsKey( newNode.UniqueId ) )
+						RecursiveNodeFill( newNode, currentNodes );
+				}
+			}
 		}
 
 		public static ParentNode CreateNode( System.Type type, bool registerUndo, Vector2 pos, int nodeId = -1, bool addLast = true )
@@ -2156,6 +2212,14 @@ namespace AmplifyShaderEditor
 			if( CurrentWindow != null )
 			{
 				CurrentWindow.CurrentGraph.DestroyNode( nodeId );
+			}
+		}
+
+		public static void ShowMessage( int ownerId, string message, MessageSeverity severity = MessageSeverity.Normal, bool registerTimestamp = true )
+		{
+			if( CurrentWindow != null )
+			{
+				CurrentWindow.ShowMessage( ownerId, message, severity, registerTimestamp );
 			}
 		}
 
@@ -2184,6 +2248,16 @@ namespace AmplifyShaderEditor
 			}
 			return null;
 		}
+
+		public static PropertyNode GetInternalTemplateNode( string propertyName )
+		{
+			if( CurrentWindow != null )
+			{
+				return CurrentWindow.CurrentGraph.GetInternalTemplateNode( propertyName );
+			}
+			return null;
+		}
+
 
 		public static void DeleteConnection( bool isInput, int nodeId, int portId, bool registerOnLog, bool propagateCallback )
 		{
@@ -2324,6 +2398,38 @@ namespace AmplifyShaderEditor
 				return CurrentWindow.DuplicatePrevBufferInstance.CheckUniformNameOwner( name );
 			}
 			return -1;
+		}
+
+		public static string GetUniqueUniformName( string name )
+		{
+			int num = 0;
+			Regex reg = new Regex( @"([0-9]+)$" );
+			Match match = reg.Match( name );
+			if( match.Success )
+			{
+				string s = match.Groups[ 1 ].Captures[ 0 ].Value;
+				num = int.Parse( s );
+				name = name.Replace( s, "" );
+			}
+
+			for( int i = num + 1; i < 1000; i++ )
+			{
+				string testName = name + i;
+
+				if( CheckInvalidUniformName( testName ) )
+				{
+					continue;
+				}
+
+				if( CurrentWindow != null )
+				{
+					if( CurrentWindow.DuplicatePrevBufferInstance.IsUniformNameAvailable( testName ) )
+					{
+						return testName;
+					}
+				}
+			}
+			return name;
 		}
 
 		public static bool RegisterLocalVariableName( int nodeId, string name )
@@ -2472,9 +2578,21 @@ namespace AmplifyShaderEditor
 
 		public static void CopyValuesFromMaterial( Material mat )
 		{
-			if( CurrentWindow != null )
+			if( CurrentWindow != null && CurrentWindow.CurrentMaterial == mat )
 			{
 				CurrentWindow.CurrentGraph.CopyValuesFromMaterial( mat );
+			}
+			else
+			{
+				int aseWindowCount = IOUtils.AllOpenedWindows.Count;
+				for( int i = 0; i < aseWindowCount; i++ )
+				{
+					if( IOUtils.AllOpenedWindows[ i ] != m_currentWindow && IOUtils.AllOpenedWindows[ i ].CurrentMaterial == mat )
+					{
+						IOUtils.AllOpenedWindows[ i ].CurrentGraph.CopyValuesFromMaterial( mat );
+						break;
+					}
+				}
 			}
 		}
 
@@ -2529,6 +2647,10 @@ namespace AmplifyShaderEditor
 		public static void UpdateTextureArrayDataNode( int uniqueId, string data ) { if( CurrentWindow != null ) { CurrentWindow.CurrentGraph.TextureArrayNodes.UpdateDataOnNode( uniqueId, data ); } }
 		public static int GetTextureArrayNodeRegisterId( int uniqueId ) { if( CurrentWindow != null ) { return CurrentWindow.CurrentGraph.TextureArrayNodes.GetNodeRegisterIdx( uniqueId ); } return -1; }
 		public static int GetTextureArrayNodeAmount() { if( CurrentWindow != null ) { return CurrentWindow.CurrentGraph.TextureArrayNodes.NodesList.Count; } return -1; }
+
+		// Raw Property Node
+		public static void RegisterRawPropertyNode( PropertyNode node ) { if( CurrentWindow != null ) { CurrentWindow.OutsideGraph.RawPropertyNodes.AddNode( node ); } }
+		public static void UnregisterRawPropertyNode( PropertyNode node ) { if( CurrentWindow != null ) { CurrentWindow.OutsideGraph.RawPropertyNodes.RemoveNode( node ); } }
 
 		// Property Node
 		public static void RegisterPropertyNode( PropertyNode node ) { if( CurrentWindow != null ) { CurrentWindow.CurrentGraph.PropertyNodes.AddNode( node ); } }
@@ -2593,6 +2715,16 @@ namespace AmplifyShaderEditor
 		public static RegisterLocalVarNode GetLocalVarNode( int idx ) { if( CurrentWindow != null ) { return CurrentWindow.CurrentGraph.LocalVarNodes.GetNode( idx ); } return null; }
 		public static void UpdateLocalVarDataNode( int uniqueId, string data ) { if( CurrentWindow != null ) { CurrentWindow.CurrentGraph.LocalVarNodes.UpdateDataOnNode( uniqueId, data ); } }
 
+		//Global Array
+		public static void RegisterGlobalArrayNode( GlobalArrayNode node ) { if( CurrentWindow != null ) { CurrentWindow.CurrentGraph.GlobalArrayNodes.AddNode( node ); } }
+		public static void UnregisterGlobalArrayNode( GlobalArrayNode node ) { if( CurrentWindow != null ) { CurrentWindow.CurrentGraph.GlobalArrayNodes.RemoveNode( node ); } }
+		public static string[] GlobalArrayNodeArr() { if( CurrentWindow != null ) { return CurrentWindow.CurrentGraph.GlobalArrayNodes.NodesArr; } return null; }
+		public static GlobalArrayNode GetGlobalArrayNode( int idx ) { if( CurrentWindow != null ) { return CurrentWindow.CurrentGraph.GlobalArrayNodes.GetNode( idx ); } return null; }
+		public static int GetGlobalArrayNodeRegisterId( int uniqueId ) { if( CurrentWindow != null ) { return CurrentWindow.CurrentGraph.GlobalArrayNodes.GetNodeRegisterIdx( uniqueId ); } return -1; }
+		public static void UpdateGlobalArrayDataNode( int uniqueId, string data ) { if( CurrentWindow != null ) { CurrentWindow.CurrentGraph.GlobalArrayNodes.UpdateDataOnNode( uniqueId, data ); } }
+		public static int GetGlobalArrayNodeAmount() { if( CurrentWindow != null ) { return CurrentWindow.CurrentGraph.GlobalArrayNodes.NodesList.Count; } return -1; }
+
+
 		public static void FocusOnNode( ParentNode node, float zoom, bool selectNode ) { if( CurrentWindow != null ) { CurrentWindow.FocusOnNode( node, zoom, selectNode ); } }
 		public static PrecisionType CurrentPrecision() { if( CurrentWindow != null ) { return CurrentWindow.CurrentGraph.CurrentPrecision; } return PrecisionType.Float; }
 		public static string CurrentPrecisionCg() { if( CurrentWindow != null ) { return m_precisionTypeToCg[ CurrentWindow.CurrentGraph.CurrentPrecision ]; } return m_precisionTypeToCg[ PrecisionType.Float ]; }
@@ -2618,12 +2750,12 @@ namespace AmplifyShaderEditor
 		{
 			string inPortName = inPort.Name.Equals( Constants.EmptyPortValue ) ? inPort.PortId.ToString() : inPort.Name;
 			string outPortName = outPort.Name.Equals( Constants.EmptyPortValue ) ? outPort.PortId.ToString() : outPort.Name;
-			ShowMessage( string.Format( ( fromInput ? IncorrectInputConnectionErrorMsg : IncorrectOutputConnectionErrorMsg ), inPortName, inNode.Attributes.Name, inPort.DataType, outPort.DataType, outPortName, outNode.Attributes.Name ) );
+			ShowMessage( outNode.UniqueId, string.Format( ( fromInput ? IncorrectInputConnectionErrorMsg : IncorrectOutputConnectionErrorMsg ), inPortName, inNode.Attributes.Name, inPort.DataType, outPort.DataType, outPortName, outNode.Attributes.Name ) );
 		}
 
 		public static void ShowNoVertexModeNodeMessage( ParentNode node )
 		{
-			ShowMessage( string.Format( NoVertexModeNodeWarning, node.Attributes.Name ), MessageSeverity.Warning );
+			ShowMessage( node.UniqueId, string.Format( NoVertexModeNodeWarning, node.Attributes.Name ), MessageSeverity.Warning );
 		}
 
 		public static int TotalExampleMaterials { get { return m_exampleMaterialIDs.Count; } }

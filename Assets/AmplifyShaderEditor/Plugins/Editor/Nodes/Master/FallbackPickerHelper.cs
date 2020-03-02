@@ -17,8 +17,9 @@ namespace AmplifyShaderEditor
 		[SerializeField]
 		private string m_fallbackShader = string.Empty;
 
-		public FallbackPickerHelper()
+		public void Init()
 		{
+			hideFlags = HideFlags.HideAndDontSave;
 			m_dummyMaterial = null;
 			m_dummyCommand = null;
 		}
@@ -29,6 +30,8 @@ namespace AmplifyShaderEditor
 			m_fallbackShader = owner.EditorGUILayoutTextField( FallbackShaderStr, m_fallbackShader );
 			if ( GUILayout.Button( string.Empty, UIUtils.InspectorPopdropdownFallback, GUILayout.Width( 17 ), GUILayout.Height( 19 ) ) )
 			{
+				EditorGUI.FocusTextInControl( null );
+				GUI.FocusControl( null );
 				DisplayShaderContext( owner, GUILayoutUtility.GetRect( GUIContent.none, EditorStyles.popup ) );
 			}
 			EditorGUILayout.EndHorizontal();
@@ -46,7 +49,6 @@ namespace AmplifyShaderEditor
 			UnityEditorInternal.InternalEditorUtility.SetupShaderMenu( m_dummyMaterial );
 #pragma warning restore 0618
 			EditorUtility.DisplayPopupMenu( r, ShaderPoputContext, m_dummyCommand );
-
 		}
 
 		private void OnSelectedShaderPopup( string command, Shader shader )

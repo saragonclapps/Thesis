@@ -32,11 +32,15 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		public void CopyFrom( TemplateShaderModelModule other )
+		public void CopyFrom( TemplateShaderModelModule other , bool allData )
 		{
-			m_independentModule = other.IndependentModule;
-			m_shaderModelIdx = other.CurrentShaderModel;
-			m_encapsulateOnCGInlude = other.EncapsulateOnCGInlude;
+			if( allData )
+			{
+				m_independentModule = other.IndependentModule;
+				m_encapsulateOnCGInlude = other.EncapsulateOnCGInlude;
+			}
+
+			m_shaderModelIdx = other.CurrentShaderModelIdx;
 		}
 
 		public override void ReadFromString( ref uint index, ref string[] nodeParams )
@@ -88,7 +92,8 @@ namespace AmplifyShaderEditor
 			m_validData = newValidData;
 		}
 
-		public int CurrentShaderModel { get { return m_shaderModelIdx; } }
+		public int CurrentShaderModelIdx { get { return m_shaderModelIdx; } }
+		public string CurrentShaderModel { get { return TemplateHelperFunctions.AvailableShaderModels[ m_shaderModelIdx ]; } }
 		public bool EncapsulateOnCGInlude { get { return m_encapsulateOnCGInlude; } }
 		public int InterpolatorAmount
 		{

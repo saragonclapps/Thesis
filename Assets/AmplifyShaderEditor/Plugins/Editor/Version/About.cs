@@ -12,7 +12,7 @@ namespace AmplifyShaderEditor
 		private Vector2 m_scrollPosition = Vector2.zero;
 		private Texture2D m_aboutImage;
 
-		[MenuItem( "Window/Amplify Shader Editor/About...", false, 20 )]
+		[MenuItem( "Window/Amplify Shader Editor/About...", false, 2001 )]
 		static void Init()
 		{
 			About window = (About)GetWindow( typeof( About ), true, "About Amplify Shader Editor" );
@@ -21,7 +21,7 @@ namespace AmplifyShaderEditor
 			window.Show();
 		}
 
-		[MenuItem( "Window/Amplify Shader Editor/Manual", false, 21 )]
+		[MenuItem( "Window/Amplify Shader Editor/Manual", false, 2000 )]
 		static void OpenManual()
 		{
 			Application.OpenURL( "http://wiki.amplify.pt/index.php?title=Unity_Products:Amplify_Shader_Editor/Manual" );

@@ -14,12 +14,14 @@ namespace AmplifyShaderEditor
 			m_funcType = "UnityObjectToViewPos";
 			//TODO: revisit this later
 			m_funcLWFormatOverride = "TransformWorldToView( TransformObjectToWorld( {0}) )";
+			m_funcHDFormatOverride = "TransformWorldToView( TransformObjectToWorld( {0}) )";
 			m_inputPorts[ 0 ].ChangeType( WirePortDataType.FLOAT3, false );
 			m_outputPorts[ 0 ].ChangeType( WirePortDataType.FLOAT3, false );
 			m_outputPorts[ 0 ].Name = "XYZ";
 			AddOutputPort( WirePortDataType.FLOAT, "X" );
 			AddOutputPort( WirePortDataType.FLOAT, "Y" );
 			AddOutputPort( WirePortDataType.FLOAT, "Z" );
+			m_previewShaderGUID = "b790bc1d468a51840a9facef372b4729";
 		}
 
 		protected override void OnUniqueIDAssigned()

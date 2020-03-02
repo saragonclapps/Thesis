@@ -8,7 +8,7 @@ using UnityEditor;
 namespace AmplifyShaderEditor
 {
 	[Serializable]
-	[NodeAttributes( "Vertex TexCoord", "Vertex Data", "Vertex texture coordinates, can be used in both local vertex offset and fragment outputs" )]
+	[NodeAttributes( "Vertex TexCoord", "Vertex Data", "Vertex texture coordinates, can be used in both local vertex offset and fragment outputs", tags: "uv" )]
 	public sealed class TexCoordVertexDataNode : VertexDataNode
 	{
 		[SerializeField]
@@ -44,7 +44,7 @@ namespace AmplifyShaderEditor
 			}
 
 			EditorGUI.BeginChangeCheck();
-			m_index = EditorGUILayoutIntPopup( Constants.AvailableUVChannelLabel, m_index, Constants.AvailableUVChannelsStr, Constants.AvailableUVChannels );
+			m_index = EditorGUILayoutIntPopup( Constants.AvailableUVChannelLabel, m_index, Constants.AvailableUVSetsStr, Constants.AvailableUVChannels );
 			if( EditorGUI.EndChangeCheck() )
 			{
 				m_currentVertexData = ( m_index == 0 ) ? "texcoord" : "texcoord" + Constants.AvailableUVChannelsStr[ m_index ];
@@ -62,7 +62,7 @@ namespace AmplifyShaderEditor
 				if( EditorGUI.EndChangeCheck() )
 				{
 					UpdateOutput();
-					m_dropdownEditing = false;
+					DropdownEditing = false;
 				}
 			}
 		}
@@ -216,5 +216,20 @@ namespace AmplifyShaderEditor
 			IOUtils.AddFieldValueToString( ref nodeInfo, m_index );
 			IOUtils.AddFieldValueToString( ref nodeInfo, m_texcoordSize );
 		}
+
+		public override void PropagateNodeData( NodeData nodeData, ref MasterNodeDataCollector dataCollector )
+		{
+			base.PropagateNodeData( nodeData, ref dataCollector );
+			if( dataCollector.IsTemplate )
+			{
+				dataCollector.TemplateDataCollectorInstance.SetUVUsage( m_index, m_texcoordSize );
+			}
+			else if( m_index > 3 )
+			{
+				dataCollector.AddCustomAppData( string.Format( TemplateHelperFunctions.TexUVFullSemantic, m_index ) );
+			}
+		}
+
+		
 	}
 }

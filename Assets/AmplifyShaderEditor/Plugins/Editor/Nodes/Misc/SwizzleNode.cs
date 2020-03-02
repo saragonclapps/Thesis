@@ -27,6 +27,12 @@ namespace AmplifyShaderEditor
 		[SerializeField]
 		private int[] m_selectedOutputSwizzleTypes = new int[] { 0, 1, 2, 3 };
 
+		[SerializeField]
+		private int m_maskId;
+
+		[SerializeField]
+		private Vector4 m_maskValue = Vector4.one;
+
 		private readonly string[] SwizzleVectorChannels = { "x", "y", "z", "w" };
 		private readonly string[] SwizzleColorChannels = { "r", "g", "b", "a" };
 		private readonly string[] SwizzleChannelLabels = { "Channel 0", "Channel 1", "Channel 2", "Channel 3" };
@@ -53,7 +59,80 @@ namespace AmplifyShaderEditor
 			m_autoWrapProperties = true;
 			m_autoUpdateOutputPort = false;
 			m_hasLeftDropdown = true;
+			m_previewShaderGUID = "d20531704ce28b14bafb296f291f6608";
 			SetAdditonalTitleText( "Value( XYZW )" );
+			CalculatePreviewData();
+		}
+
+		public override void OnEnable()
+		{
+			base.OnEnable();
+			m_maskId = Shader.PropertyToID( "_Mask" );
+		}
+
+		public override void SetPreviewInputs()
+		{
+			base.SetPreviewInputs();
+			PreviewMaterial.SetVector( m_maskId, m_maskValue );
+		}
+
+		void CalculatePreviewData()
+		{
+			switch( m_outputPorts[ 0 ].DataType )
+			{
+				default: m_maskValue = Vector4.zero; break;
+				case WirePortDataType.INT:
+				case WirePortDataType.FLOAT: m_maskValue = new Vector4( 1, 0, 0, 0 ); break;
+				case WirePortDataType.FLOAT2: m_maskValue = new Vector4( 1, 1, 0, 0 ); break;
+				case WirePortDataType.FLOAT3: m_maskValue = new Vector4( 1, 1, 1, 0 ); break;
+				case WirePortDataType.FLOAT4:
+				case WirePortDataType.COLOR: m_maskValue = Vector4.one; break;
+			}
+
+			int inputMaxChannelId = 0;
+			switch( m_inputPorts[ 0 ].DataType )
+			{
+				case WirePortDataType.FLOAT4:
+				case WirePortDataType.COLOR:
+				inputMaxChannelId = 3;
+				break;
+				case WirePortDataType.FLOAT3:
+				inputMaxChannelId = 2;
+				break;
+				case WirePortDataType.FLOAT2:
+				inputMaxChannelId = 1;
+				break;
+				case WirePortDataType.INT:
+				case WirePortDataType.FLOAT:
+				inputMaxChannelId = 0;
+				break;
+				case WirePortDataType.OBJECT:
+				case WirePortDataType.FLOAT3x3:
+				case WirePortDataType.FLOAT4x4:
+				break;
+			}
+			
+			m_previewMaterialPassId = -1;
+			float passValue = 0;
+			for( int i = 3; i > -1; i-- )
+			{
+				int currentSwizzle = Mathf.Min( inputMaxChannelId, m_selectedOutputSwizzleTypes[ i ] );
+				if( currentSwizzle > 0 )
+				{
+					passValue += Mathf.Pow( 4, 3 - i ) * currentSwizzle;
+				}
+			}
+
+			m_previewMaterialPassId = (int)passValue;
+
+			if( m_previewMaterialPassId == -1 )
+			{
+				m_previewMaterialPassId = 0;
+				if( DebugConsoleWindow.DeveloperMode )
+				{
+					UIUtils.ShowMessage( UniqueId, "Could not find pass ID for swizzle", MessageSeverity.Error );
+				}
+			}
 		}
 
 		public override void AfterCommonInit()
@@ -105,7 +184,7 @@ namespace AmplifyShaderEditor
 					}
 
 					UpdatePorts();
-					m_dropdownEditing = false;
+					DropdownEditing = false;
 				}
 			}
 		}
@@ -180,6 +259,7 @@ namespace AmplifyShaderEditor
 			}
 
 			EditorGUILayout.EndVertical();
+
 		}
 
 		void UpdatePorts()
@@ -232,16 +312,17 @@ namespace AmplifyShaderEditor
 				break;
 			}
 
-			for ( int i = 0; i < count; i++ )
-			{
-				m_selectedOutputSwizzleTypes[ i ] = Mathf.Clamp( m_selectedOutputSwizzleTypes[ i ], 0, inputMaxChannelId );
-			}
+			//for ( int i = 0; i < count; i++ )
+			//{
+				//m_selectedOutputSwizzleTypes[ i ] = Mathf.Clamp( m_selectedOutputSwizzleTypes[ i ], 0, inputMaxChannelId );
+			//}
 
 			// Update Title
 			string additionalText = string.Empty;
 			for ( int i = 0; i < count; i++ )
 			{
-				additionalText += GetSwizzleComponentForChannel( m_selectedOutputSwizzleTypes[ i ] ).ToUpper();
+				int currentSwizzle = Mathf.Min( inputMaxChannelId, m_selectedOutputSwizzleTypes[ i ] );
+				additionalText += GetSwizzleComponentForChannel( currentSwizzle ).ToUpper();
 			}
 
 			if ( additionalText.Length > 0 )
@@ -249,6 +330,7 @@ namespace AmplifyShaderEditor
 			else
 				SetAdditonalTitleText( string.Empty );
 
+			CalculatePreviewData();
 			m_sizeIsDirty = true;
 		}
 
@@ -270,6 +352,30 @@ namespace AmplifyShaderEditor
 				return m_outputPorts[ 0 ].LocalValue( dataCollector.PortCategory );
 			
 			string value = string.Format( "({0}).", m_inputPorts[ 0 ].GeneratePortInstructions( ref dataCollector ) );
+
+			int inputMaxChannelId = 0;
+			switch( m_inputPorts[ 0 ].DataType )
+			{
+				case WirePortDataType.FLOAT4:
+				case WirePortDataType.COLOR:
+				inputMaxChannelId = 3;
+				break;
+				case WirePortDataType.FLOAT3:
+				inputMaxChannelId = 2;
+				break;
+				case WirePortDataType.FLOAT2:
+				inputMaxChannelId = 1;
+				break;
+				case WirePortDataType.INT:
+				case WirePortDataType.FLOAT:
+				inputMaxChannelId = 0;
+				break;
+				case WirePortDataType.OBJECT:
+				case WirePortDataType.FLOAT3x3:
+				case WirePortDataType.FLOAT4x4:
+				break;
+			}
+
 			int count = 0;
 			switch ( m_selectedOutputType )
 			{
@@ -292,9 +398,11 @@ namespace AmplifyShaderEditor
 				case WirePortDataType.FLOAT4x4:
 				break;
 			}
+
 			for ( int i = 0; i < count; i++ )
 			{
-				value += GetSwizzleComponentForChannel( m_selectedOutputSwizzleTypes[ i ] );
+				int currentSwizzle = Mathf.Min( inputMaxChannelId, m_selectedOutputSwizzleTypes[ i ] );
+				value += GetSwizzleComponentForChannel( currentSwizzle );
 			}
 
 			return CreateOutputLocalVariable( 0, value, ref dataCollector );

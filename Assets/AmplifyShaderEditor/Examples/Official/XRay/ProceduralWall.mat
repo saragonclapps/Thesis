@@ -107,8 +107,17 @@ Material:
         name: _Slope
       second: 0.025
     - first:
+        name: _TessMax
+      second: 25
+    - first:
+        name: _TessMin
+      second: 10
+    - first:
         name: _TessPhongStrength
       second: 1
+    - first:
+        name: _TessValue
+      second: 12
     - first:
         name: _Zoom
       second: 5

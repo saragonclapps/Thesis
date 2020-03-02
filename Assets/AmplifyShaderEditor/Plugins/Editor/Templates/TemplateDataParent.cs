@@ -17,6 +17,9 @@ namespace AmplifyShaderEditor
 	public class TemplateIncludePragmaContainter
 	{
 		[SerializeField]
+		private int m_nativeTopIndex = -1;
+
+		[SerializeField]
 		private List<string> m_nativeDirectivesList = new List<string>();
 
 		[SerializeField]
@@ -119,8 +122,9 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		public void AddNativeDirective( string native )
+		public void AddNativeDirective( string native, int topIndex )
 		{
+			m_nativeTopIndex = topIndex;
 			m_nativeDirectivesList.Add( native );
 		}
 
@@ -150,6 +154,7 @@ namespace AmplifyShaderEditor
 		public List<string> PragmasList { get { return m_pragmasList; } }
 		public List<string> DefinesList { get { return m_definesList; } }
 		public List<string> NativeDirectivesList { get { return m_nativeDirectivesList; } }
+		public int NativeTopIndex { get { return m_nativeTopIndex; } }
 
 	}
 
@@ -174,7 +179,7 @@ namespace AmplifyShaderEditor
 		[SerializeField]
 		protected TemplateDataType m_templateType;
 
-		[ SerializeField]
+		[SerializeField]
 		protected string m_name;
 
 		[SerializeField]
@@ -193,13 +198,20 @@ namespace AmplifyShaderEditor
 		protected bool m_communityTemplate = false;
 
 		public virtual void Destroy() { }
-		public virtual void Reload() { }
-		public string Name { get { return m_name; } set { m_name = value; } }
+		public virtual bool Reload() { return true; }
+		public string Name
+		{
+			get { return m_name; }
+			set
+			{
+				m_name = value.StartsWith( "Hidden/" ) ? value.Replace( "Hidden/", string.Empty ) : value;
+			}
+		}
 		public string GUID { get { return m_guid; } set { m_guid = value; } }
 		public int OrderId { get { return m_orderId; } set { m_orderId = value; } }
 		public string DefaultShaderName { get { return m_defaultShaderName; } set { m_defaultShaderName = value; } }
 		public bool IsValid { get { return m_isValid; } }
 		public TemplateDataType TemplateType { get { return m_templateType; } }
-		public virtual void Init( string name, string guid ) { }
+		public virtual void Init( string name, string guid, bool isCommunity ) { m_communityTemplate = isCommunity; }
 	}
 }

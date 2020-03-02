@@ -48,7 +48,7 @@ namespace AmplifyShaderEditor
 			m_isMainOutputNode = false;
 			m_connStatus = NodeConnectionStatus.Connected;
 			m_activeType = GetType();
-			m_currentPrecisionType = PrecisionType.Float;
+			m_currentPrecisionType = PrecisionType.Inherit;
 			m_textLabelWidth = 100;
 			m_autoWrapProperties = true;
 			AddInputPort( WirePortDataType.FLOAT, false, "  " );
@@ -62,8 +62,8 @@ namespace AmplifyShaderEditor
 		{
 			//base.SetupNodeCategories();
 			ContainerGraph.ResetNodesData();
-
-			if( ContainerGraph.ParentWindow.CurrentGraph.CurrentStandardSurface != null )
+			MasterNode masterNode = ContainerGraph.ParentWindow.CurrentGraph.CurrentMasterNode;
+			if( masterNode != null )
 			{
 				int count = m_inputPorts.Count;
 				for( int i = 0; i < count; i++ )
@@ -72,7 +72,7 @@ namespace AmplifyShaderEditor
 					{
 						NodeData nodeData = new NodeData( m_inputPorts[ i ].Category );
 						ParentNode node = m_inputPorts[ i ].GetOutputNode();
-						MasterNodeDataCollector temp = ContainerGraph.ParentWindow.CurrentGraph.CurrentStandardSurface.CurrentDataCollector;
+						MasterNodeDataCollector temp = masterNode.CurrentDataCollector;
 						node.PropagateNodeData( nodeData, ref temp );
 						temp = null;
 					}
@@ -270,7 +270,14 @@ namespace AmplifyShaderEditor
 		public AmplifyShaderFunction Function
 		{
 			get { return m_function; }
-			set { m_function = value; }
+			set
+			{
+				m_function = value;
+				if( m_isMainOutputNode && m_function != null )
+				{
+					m_function.UpdateDirectivesList();
+				}
+			}
 		}
 
 		public string OutputName

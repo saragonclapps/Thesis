@@ -60,27 +60,27 @@ namespace AmplifyShaderEditor
 
 			if( other.BlendOpHelper.IsDirty )
 			{
-				m_blendOpHelper.CopyFrom( other.BlendOpHelper );
+				m_blendOpHelper.CopyFrom( other.BlendOpHelper, true );
 			}
 
 			if( other.CullModeHelper.IsDirty )
 			{
-				m_cullModeHelper.CopyFrom( other.CullModeHelper );
+				m_cullModeHelper.CopyFrom( other.CullModeHelper , true );
 			}
 
 			if( other.ColorMaskHelper.IsDirty )
 			{
-				m_colorMaskHelper.CopyFrom( other.ColorMaskHelper );
+				m_colorMaskHelper.CopyFrom( other.ColorMaskHelper , true);
 			}
 
 			if( other.StencilBufferHelper.IsDirty )
 			{
-				m_stencilBufferHelper.CopyFrom( other.StencilBufferHelper );
+				m_stencilBufferHelper.CopyFrom( other.StencilBufferHelper,true );
 			}
 
 			if( other.DepthOphelper.IsDirty )
 			{
-				m_depthOphelper.CopyFrom( other.DepthOphelper );
+				m_depthOphelper.CopyFrom( other.DepthOphelper,true );
 			}
 
 			if( other.TagsHelper.IsDirty )
@@ -90,7 +90,41 @@ namespace AmplifyShaderEditor
 
 			if( other.ShaderModelHelper.IsDirty )
 			{
-				m_shaderModelHelper.CopyFrom( other.ShaderModelHelper );
+				m_shaderModelHelper.CopyFrom( other.ShaderModelHelper, true );
+			}
+		}
+
+		public void SyncWith( TemplateModulesHelper other )
+		{
+
+			if( m_blendOpHelper.ValidData && other.BlendOpHelper.ValidData )
+			{
+				m_blendOpHelper.CopyFrom( other.BlendOpHelper, false );
+			}
+
+			if( m_cullModeHelper.ValidData && other.CullModeHelper.ValidData )
+			{
+				m_cullModeHelper.CopyFrom( other.CullModeHelper, false );
+			}
+
+			if( m_colorMaskHelper.ValidData && other.ColorMaskHelper.ValidData )
+			{
+				m_colorMaskHelper.CopyFrom( other.ColorMaskHelper , false );
+			}
+
+			if( m_stencilBufferHelper.ValidData && other.StencilBufferHelper.ValidData )
+			{
+				m_stencilBufferHelper.CopyFrom( other.StencilBufferHelper, false );
+			}
+
+			if( m_depthOphelper.ValidData && other.DepthOphelper.ValidData )
+			{
+				m_depthOphelper.CopyFrom( other.DepthOphelper, false );
+			}
+			
+			if( m_shaderModelHelper.ValidData && other.ShaderModelHelper.ValidData )
+			{
+				m_shaderModelHelper.CopyFrom( other.ShaderModelHelper , false);
 			}
 		}
 
@@ -164,48 +198,62 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		public void Draw( ParentNode owner, TemplateModulesData module )
+		public void OnLogicUpdate( TemplateModulesData currentModule )
 		{
+			if( currentModule.TagData.DataCheck == TemplateDataCheck.Valid )
+				m_tagsHelper.OnLogicUpdate();
+		}
 
-			if( module.ShaderModel.DataCheck == TemplateDataCheck.Valid )
+		public void Draw( ParentNode owner, TemplateModulesData currentModule , TemplateModulesHelper parent = null )
+		{
+			if( currentModule.ShaderModel.DataCheck == TemplateDataCheck.Valid )
 				m_shaderModelHelper.Draw( owner );
 
 			m_isDirty = m_shaderModelHelper.IsDirty;
 
-			if( module.CullModeData.DataCheck == TemplateDataCheck.Valid )
+			if( currentModule.CullModeData.DataCheck == TemplateDataCheck.Valid )
 				m_cullModeHelper.Draw( owner );
 
 			m_isDirty = m_isDirty || m_cullModeHelper.IsDirty;
 
-			if( module.ColorMaskData.DataCheck == TemplateDataCheck.Valid )
+			if( currentModule.ColorMaskData.DataCheck == TemplateDataCheck.Valid )
 				m_colorMaskHelper.Draw( owner );
 
 			m_isDirty = m_isDirty || m_colorMaskHelper.IsDirty;
 
-			if( module.DepthData.DataCheck == TemplateDataCheck.Valid )
+			if( currentModule.DepthData.DataCheck == TemplateDataCheck.Valid )
 				m_depthOphelper.Draw( owner, false );
 
 			m_isDirty = m_isDirty || m_depthOphelper.IsDirty;
 
-			if( module.BlendData.DataCheck == TemplateDataCheck.Valid )
+			if( currentModule.BlendData.DataCheck == TemplateDataCheck.Valid )
 				m_blendOpHelper.Draw( owner, false );
 
 			m_isDirty = m_isDirty || m_blendOpHelper.IsDirty;
 
-			if( module.StencilData.DataCheck == TemplateDataCheck.Valid )
+
+			if( currentModule.StencilData.DataCheck == TemplateDataCheck.Valid )
 			{
-				CullMode cullMode = ( module.CullModeData.DataCheck == TemplateDataCheck.Valid ) ? m_cullModeHelper.CurrentCullMode : CullMode.Back;
+				CullMode cullMode = CullMode.Back;
+				if( currentModule.CullModeData.DataCheck == TemplateDataCheck.Valid )
+				{
+					cullMode = m_cullModeHelper.CurrentCullMode;
+				}
+				else if( parent != null && parent.CullModeHelper.ValidData )
+				{
+					cullMode = parent.CullModeHelper.CurrentCullMode;
+				}
 				m_stencilBufferHelper.Draw( owner, cullMode, false );
 			}
 
 			m_isDirty = m_isDirty || m_stencilBufferHelper.IsDirty;
 
-			if( module.TagData.DataCheck == TemplateDataCheck.Valid )
+			if( currentModule.TagData.DataCheck == TemplateDataCheck.Valid )
 				m_tagsHelper.Draw( owner, false );
 
 			m_isDirty = m_isDirty || m_tagsHelper.IsDirty;
 
-			if( module.PragmaTag.IsValid )
+			if( currentModule.PragmaTag.IsValid )
 			{
 				//m_additionalDefines.Draw( owner );
 				//m_additionalIncludes.Draw( owner );
@@ -244,7 +292,10 @@ namespace AmplifyShaderEditor
 		public string GenerateAllModulesString( bool isSubShader )
 		{
 			string moduleBody = string.Empty;
-			moduleBody += ShaderModelHelper.GenerateShaderData( isSubShader ) +"\n";
+			if( !ShaderModelHelper.IndependentModule )
+			{
+				moduleBody += ShaderModelHelper.GenerateShaderData( isSubShader ) + "\n";
+			}
 
 			if( !BlendOpHelper.IndependentModule )
 			{
@@ -253,6 +304,13 @@ namespace AmplifyShaderEditor
 
 				if( BlendOpHelper.BlendOpActive )
 					moduleBody += BlendOpHelper.CurrentBlendOp + "\n";
+
+			}
+
+			if( !BlendOpHelper.AlphaToMaskIndependent )
+			{
+				if( BlendOpHelper.ValidAlphaToMask && BlendOpHelper.AlphaToMaskValue )
+					moduleBody += BlendOpHelper.CurrentAlphaToMask + "\n";
 			}
 
 			if( !CullModeHelper.IndependentModule )

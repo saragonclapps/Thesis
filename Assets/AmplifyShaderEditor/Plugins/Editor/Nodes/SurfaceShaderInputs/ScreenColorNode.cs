@@ -12,12 +12,22 @@ namespace AmplifyShaderEditor
 	[NodeAttributes( "Grab Screen Color", "Camera And Screen", "Grabed pixel color value from screen" )]
 	public sealed class ScreenColorNode : PropertyNode
 	{
+#if UNITY_5_6_OR_NEWER
+		private readonly string[] ASEDeclareMacro =
+		{
+			"#if defined(UNITY_STEREO_INSTANCING_ENABLED) || defined(UNITY_STEREO_MULTIVIEW_ENABLED)",
+			"#define ASE_DECLARE_SCREENSPACE_TEXTURE(tex) UNITY_DECLARE_SCREENSPACE_TEXTURE(tex);",
+			"#else",
+			"#define ASE_DECLARE_SCREENSPACE_TEXTURE(tex) UNITY_DECLARE_SCREENSPACE_TEXTURE(tex)",
+			"#endif"
+		};
+#endif
 		private readonly Color ReferenceHeaderColor = new Color( 0.6f, 3.0f, 1.25f, 1.0f );
 
 		private const string SamplerType = "tex2D";
 		private const string GrabTextureDefault = "_GrabTexture";
 		private const string ScreenColorStr = "screenColor";
-		
+
 		[SerializeField]
 		private TexReferenceType m_referenceType = TexReferenceType.Object;
 
@@ -41,6 +51,43 @@ namespace AmplifyShaderEditor
 		[SerializeField]
 		private float m_referenceWidth = -1;
 
+		//SRP specific code
+		private const string OpaqueTextureDefine = "REQUIRE_OPAQUE_TEXTURE 1";
+		private const string FetchVarName = "fetchOpaqueVal";
+
+		//private string LWFetchOpaqueTexture = "SAMPLE_TEXTURE2D( _CameraOpaqueTexture, sampler_CameraOpaqueTexture, {0})";
+		private string LWFetchOpaqueTexture = "float4( SHADERGRAPH_SAMPLE_SCENE_COLOR( {0} ), 1.0 )";
+#if UNITY_2018_3_OR_NEWER
+		private const string HDSampleSceneColorHeader5 = "ASEHDSampleSceneColor({0}, {1}, {2})";
+		private readonly string[] HDSampleSceneColorFunc5 =
+		{
+			"float4 ASEHDSampleSceneColor(float2 uv, float lod, float exposureMultiplier)\n",
+			"{\n",
+			"\t#if defined(REQUIRE_OPAQUE_TEXTURE) && defined(_SURFACE_TYPE_TRANSPARENT) && defined(SHADERPASS) && (SHADERPASS != SHADERPASS_LIGHT_TRANSPORT)\n",
+			"\treturn float4( SampleCameraColor(uv, lod) * exposureMultiplier, 1.0 );\n",
+			"\t#endif\n",
+			"\treturn float4(0.0, 0.0, 0.0, 1.0);\n",
+			"}\n",
+		};
+
+		private const string HDSampleSceneColorHeader4 = "ASEHDSampleSceneColor({0})";
+		private readonly string[] HDSampleSceneColorFunc4 =
+		{
+			"float4 ASEHDSampleSceneColor( float2 uv )\n",
+			"{\n",
+			"\t#if defined(REQUIRE_OPAQUE_TEXTURE) && defined(_SURFACE_TYPE_TRANSPARENT) && defined(SHADERPASS) && (SHADERPASS != SHADERPASS_LIGHT_TRANSPORT)\n",
+			"\treturn float4( SampleCameraColor(uv), 1.0 );\n",
+			"\t#endif\n",
+			"\treturn float4(0.0, 0.0, 0.0, 1.0);\n",
+			"}\n",
+		};
+#endif
+
+#if !UNITY_2018_3_OR_NEWER
+		// Legacy SRP code
+		private const string DeclareOpaqueTextureObject = "TEXTURE2D( _CameraOpaqueTexture);";
+		private const string DeclareOpaqueTextureSampler = "SAMPLER( sampler_CameraOpaqueTexture);";
+#endif
 		public ScreenColorNode() : base() { }
 		public ScreenColorNode( int uniqueId, float x, float y, float width, float height ) : base( uniqueId, x, y, width, height ) { }
 
@@ -59,8 +106,9 @@ namespace AmplifyShaderEditor
 			m_drawAttributes = false;
 			m_showTitleWhenNotEditing = false;
 			m_textLabelWidth = 125;
-			m_showAutoRegisterUI = false;
+			m_showAutoRegisterUI = true;
 			m_globalDefaultBehavior = false;
+			m_showVariableMode = true;
 		}
 
 		protected override void OnUniqueIDAssigned()
@@ -68,11 +116,44 @@ namespace AmplifyShaderEditor
 			base.OnUniqueIDAssigned();
 			if( m_referenceType == TexReferenceType.Object )
 				UIUtils.RegisterScreenColorNode( this );
+
+			if( UniqueId > -1 )
+				ContainerGraph.ScreenColorNodes.OnReorderEventComplete += OnReorderEventComplete;
+
+		}
+
+		private void OnReorderEventComplete()
+		{
+			if( m_referenceType == TexReferenceType.Instance && m_referenceNode != null )
+			{
+				m_referenceArrayId = ContainerGraph.ScreenColorNodes.GetNodeRegisterIdx( m_referenceNode.UniqueId );
+			}
 		}
 
 		void UpdateHeaderColor()
 		{
 			m_headerColorModifier = ( m_referenceType == TexReferenceType.Object ) ? Color.white : ReferenceHeaderColor;
+		}
+
+		public override void OnNodeLogicUpdate( DrawInfo drawInfo )
+		{
+			base.OnNodeLogicUpdate( drawInfo );
+			if( m_referenceNodeId > -1 && m_referenceNode == null )
+			{
+				m_referenceNode = UIUtils.GetScreenColorNode( m_referenceNodeId ) as ScreenColorNode;
+				if( m_referenceNode == null )
+				{
+					m_referenceNodeId = -1;
+					m_referenceArrayId = -1;
+					m_sizeIsDirty = true;
+				}
+			}
+
+			if( m_showSubtitle == m_containerGraph.IsSRP )
+			{
+				m_showSubtitle = !m_containerGraph.IsSRP;
+				m_sizeIsDirty = true;
+			}
 		}
 
 		protected override void ChangeSizeFinished()
@@ -169,24 +250,28 @@ namespace AmplifyShaderEditor
 				}
 				UpdateHeaderColor();
 			}
-
+			
 			if( m_referenceType == TexReferenceType.Object )
 			{
-				EditorGUI.BeginChangeCheck();
-				m_useCustomGrab = EditorGUILayoutToggle( "Custom Grab Pass", m_useCustomGrab );
-				EditorGUI.BeginDisabledGroup( !m_useCustomGrab );
-				DrawMainPropertyBlockNoPrecision();
-				EditorGUI.EndDisabledGroup();
-
-				m_normalize = EditorGUILayoutToggle( "Normalize", m_normalize );
-				if( EditorGUI.EndChangeCheck() )
+				EditorGUI.BeginDisabledGroup( m_containerGraph.IsSRP );
 				{
-					UpdatePort();
-					if( m_useCustomGrab )
+					EditorGUI.BeginChangeCheck();
+					m_useCustomGrab = EditorGUILayoutToggle( "Custom Grab Pass", m_useCustomGrab );
+					EditorGUI.BeginDisabledGroup( !m_useCustomGrab );
+					DrawMainPropertyBlockNoPrecision();
+					EditorGUI.EndDisabledGroup();
+
+					m_normalize = EditorGUILayoutToggle( "Normalize", m_normalize );
+					if( EditorGUI.EndChangeCheck() )
 					{
-						BeginPropertyFromInspectorCheck();
+						UpdatePort();
+						if( m_useCustomGrab )
+						{
+							BeginPropertyFromInspectorCheck();
+						}
 					}
 				}
+				EditorGUI.EndDisabledGroup();
 			}
 			else
 			{
@@ -204,15 +289,20 @@ namespace AmplifyShaderEditor
 
 				m_referenceArrayId = EditorGUILayoutPopup( Constants.AvailableReferenceStr, m_referenceArrayId, arr );
 				GUI.enabled = guiEnabledBuffer;
-				EditorGUI.BeginChangeCheck();
-				m_normalize = EditorGUILayoutToggle( "Normalize", m_normalize );
-				if( EditorGUI.EndChangeCheck() )
+				EditorGUI.BeginDisabledGroup( m_containerGraph.IsSRP );
 				{
-					UpdatePort();
+					EditorGUI.BeginChangeCheck();
+					m_normalize = EditorGUILayoutToggle( "Normalize", m_normalize );
+					if( EditorGUI.EndChangeCheck() )
+					{
+						UpdatePort();
+					}
 				}
+				EditorGUI.EndDisabledGroup();
 			}
+			ShowVariableMode();
+			ShowAutoRegister();
 		}
-
 
 		private void UpdatePort()
 		{
@@ -244,24 +334,76 @@ namespace AmplifyShaderEditor
 
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalVar )
 		{
-			if( m_outputPorts[ 0 ].IsLocalValue( dataCollector.PortCategory ) )
+#if UNITY_5_6_OR_NEWER
+			if( !dataCollector.IsTemplate || dataCollector.CurrentSRPType == TemplateSRPType.BuiltIn )
+			{
+				for( int i = 0; i < ASEDeclareMacro.Length; i++ )
+				{
+					dataCollector.AddToDirectives( ASEDeclareMacro[ i ]);
+				}
+			}
+#endif
+
+#if !UNITY_2018_3_OR_NEWER
+			if( dataCollector.IsTemplate && dataCollector.CurrentSRPType == TemplateSRPType.HD )
+			{
+				UIUtils.ShowMessage( UniqueId, "GrabPasses are not supported on Unity HD Scriptable Rendering Pipeline old versions." );
+				return GetOutputColorItem( 0, outputId, "(0).xxxx" );
+			}
+#endif
+				if( m_outputPorts[ 0 ].IsLocalValue( dataCollector.PortCategory ) )
 				return GetOutputColorItem( 0, outputId, m_outputPorts[ 0 ].LocalValue( dataCollector.PortCategory ) );
 
-			base.GenerateShaderForOutput( outputId, ref dataCollector, ignoreLocalVar );
-
-
-			string propertyName = CurrentPropertyReference;
-
-			OnPropertyNameChanged();
-
-			bool emptyName = string.IsNullOrEmpty( m_propertyInspectorName ) || propertyName == GrabTextureDefault;
-
-			dataCollector.AddGrabPass( emptyName ? string.Empty : propertyName );
-
-			string valueName = SetFetchedData( ref dataCollector, ignoreLocalVar );
+			string valueName = string.Empty;
+			if( dataCollector.IsSRP )
+			{
+#if !UNITY_2018_3_OR_NEWER
+				dataCollector.AddToUniforms( UniqueId, DeclareOpaqueTextureObject );
+				dataCollector.AddToUniforms( UniqueId, DeclareOpaqueTextureSampler );
+#endif
+				valueName = FetchVarName + OutputId;
+				dataCollector.AddToDirectives( OpaqueTextureDefine, -1 , AdditionalLineType.Define);
+				string uvCoords = GetUVCoords( ref dataCollector, ignoreLocalVar, false );
+				if( dataCollector.TemplateDataCollectorInstance.IsLWRP )
+				{
+					dataCollector.AddLocalVariable( UniqueId, CurrentPrecisionType, WirePortDataType.FLOAT4, valueName, string.Format( LWFetchOpaqueTexture, uvCoords ) );
+				}
+				else
+				{
+#if UNITY_2018_3_OR_NEWER
+					if( ASEPackageManagerHelper.CurrentHDVersion >= ASESRPVersions.ASE_SRP_5_13_0 )
+					{
+						dataCollector.AddFunction( HDSampleSceneColorFunc5[ 0 ], HDSampleSceneColorFunc5, false );
+						dataCollector.AddLocalVariable( UniqueId, m_currentPrecisionType, WirePortDataType.FLOAT4, valueName, string.Format( HDSampleSceneColorHeader5, uvCoords, "0", "GetInverseCurrentExposureMultiplier()" ) );
+					}
+					else
+					{
+						dataCollector.AddFunction( HDSampleSceneColorFunc4[ 0 ], HDSampleSceneColorFunc4, false );
+						dataCollector.AddLocalVariable( UniqueId, m_currentPrecisionType, WirePortDataType.FLOAT4, valueName, string.Format( HDSampleSceneColorHeader4, uvCoords ) );
+					}
+#endif
+				}
+			}
+			else
+			{
+				base.GenerateShaderForOutput( outputId, ref dataCollector, ignoreLocalVar );
+				string propertyName = CurrentPropertyReference;
+				OnPropertyNameChanged();
+				//bool emptyName = string.IsNullOrEmpty( m_propertyInspectorName ) || propertyName == GrabTextureDefault;
+				bool emptyName = string.IsNullOrEmpty( m_propertyInspectorName ) || !m_useCustomGrab;
+				dataCollector.AddGrabPass( emptyName ? string.Empty : propertyName );
+				valueName = SetFetchedData( ref dataCollector, ignoreLocalVar );
+			}
 
 			m_outputPorts[ 0 ].SetLocalValue( valueName, dataCollector.PortCategory );
 			return GetOutputColorItem( 0, outputId, valueName );
+		}
+
+
+		public override void OnPropertyNameChanged()
+		{
+			base.OnPropertyNameChanged();
+			UIUtils.UpdateScreenColorDataNode( UniqueId, DataToArray );
 		}
 
 		public string SetFetchedData( ref MasterNodeDataCollector dataCollector, bool ignoreLocalVar )
@@ -279,16 +421,24 @@ namespace AmplifyShaderEditor
 				return samplerValue;
 			}
 
-			if( m_outputPorts[0].IsLocalValue( dataCollector.PortCategory ) )
+			if( m_outputPorts[ 0 ].IsLocalValue( dataCollector.PortCategory ) )
 				return m_outputPorts[ 0 ].LocalValue( dataCollector.PortCategory );
 
-			string samplerOp = SamplerType + ( isProjecting ? "proj" : "" ) + "( " + propertyName + ", " + GetUVCoords( ref dataCollector, ignoreLocalVar, isProjecting ) + " )";
-
-			dataCollector.AddLocalVariable( UniqueId, UIUtils.PrecisionWirePortToCgType( m_currentPrecisionType, m_outputPorts[ 0 ].DataType ) + " " + ScreenColorStr + OutputId + " = " + samplerOp + ";" );
+			string uvValue = GetUVCoords( ref dataCollector, ignoreLocalVar, isProjecting );
+#if UNITY_5_6_OR_NEWER
+			if( isProjecting )
+			{
+				uvValue = string.Format( "{0}.xy/{0}.w", uvValue );
+			}
+			string samplerOp = string.Format( "UNITY_SAMPLE_SCREENSPACE_TEXTURE({0},{1})", propertyName, uvValue );
+#else
+			string samplerOp = SamplerType + ( isProjecting ? "proj" : "" ) + "( " + propertyName + ", " + uvValue + " )";
+#endif
+			dataCollector.AddLocalVariable( UniqueId, UIUtils.PrecisionWirePortToCgType( CurrentPrecisionType, m_outputPorts[ 0 ].DataType ) + " " + ScreenColorStr + OutputId + " = " + samplerOp + ";" );
 			return ScreenColorStr + OutputId;
 		}
 
-		public string GetUVCoords( ref MasterNodeDataCollector dataCollector, bool ignoreLocalVar, bool isProjecting )
+		private string GetUVCoords( ref MasterNodeDataCollector dataCollector, bool ignoreLocalVar, bool isProjecting )
 		{
 			string result = string.Empty;
 
@@ -301,16 +451,20 @@ namespace AmplifyShaderEditor
 				string customScreenPos = null;
 
 				if( dataCollector.IsTemplate )
-					customScreenPos = dataCollector.TemplateDataCollectorInstance.GetScreenPos();
+					customScreenPos = dataCollector.TemplateDataCollectorInstance.GetScreenPos( CurrentPrecisionType );
 
 				if( isProjecting )
-					result = GeneratorUtils.GenerateGrabScreenPosition( ref dataCollector, UniqueId, m_currentPrecisionType, !dataCollector.UsingCustomScreenPos, customScreenPos );
+					result = GeneratorUtils.GenerateGrabScreenPosition( ref dataCollector, UniqueId, CurrentPrecisionType, !dataCollector.UsingCustomScreenPos, customScreenPos );
 				else
-					result = GeneratorUtils.GenerateGrabScreenPositionNormalized( ref dataCollector, UniqueId, m_currentPrecisionType, !dataCollector.UsingCustomScreenPos, customScreenPos );
+					result = GeneratorUtils.GenerateGrabScreenPositionNormalized( ref dataCollector, UniqueId, CurrentPrecisionType, !dataCollector.UsingCustomScreenPos, customScreenPos );
 			}
 
-			if( isProjecting && !dataCollector.IsLightweight )
-				return "UNITY_PROJ_COORD( " + result + " )";
+			if( isProjecting && !dataCollector.IsSRP )
+#if UNITY_5_6_OR_NEWER
+			return result;
+#else
+			return "UNITY_PROJ_COORD( " + result + " )";
+#endif
 			else
 				return result;
 		}
@@ -322,6 +476,8 @@ namespace AmplifyShaderEditor
 			{
 				UIUtils.UnregisterScreenColorNode( this );
 			}
+			if( UniqueId > -1 )
+				ContainerGraph.ScreenColorNodes.OnReorderEventComplete -= OnReorderEventComplete;
 		}
 
 		public bool SoftValidReference
@@ -406,6 +562,11 @@ namespace AmplifyShaderEditor
 			{
 				m_normalize = Convert.ToBoolean( GetCurrentParam( ref nodeParams ) );
 			}
+			
+			if( !m_isNodeBeingCopied && m_referenceType == TexReferenceType.Object )
+			{
+				ContainerGraph.ScreenColorNodes.UpdateDataOnNode( UniqueId, DataToArray );
+			}
 		}
 
 		public override void WriteToString( ref string nodeInfo, ref string connectionsInfo )
@@ -473,11 +634,14 @@ namespace AmplifyShaderEditor
 
 				return m_referenceNode.GetUniformValue();
 			}
-
+#if UNITY_5_6_OR_NEWER
+			return "ASE_DECLARE_SCREENSPACE_TEXTURE( " + PropertyName + " )";
+#else
 			return "uniform sampler2D " + PropertyName + ";";
+#endif
 		}
 
-		public override bool GetUniformData( out string dataType, out string dataName )
+		public override bool GetUniformData( out string dataType, out string dataName, ref bool fullValue )
 		{
 			if( SoftValidReference )
 			{
@@ -487,12 +651,28 @@ namespace AmplifyShaderEditor
 				//	dataName = string.Empty;
 				//}
 
-				return m_referenceNode.GetUniformData( out dataType, out dataName );
+				return m_referenceNode.GetUniformData( out dataType, out dataName, ref fullValue );
 			}
-
+#if UNITY_5_6_OR_NEWER
+			dataName = "ASE_DECLARE_SCREENSPACE_TEXTURE( " + PropertyName + " )";
+			dataType = string.Empty;
+			fullValue = true;
+#else
 			dataType = "sampler2D";
 			dataName = PropertyName;
+#endif
 			return true;
+		}
+
+		public override void CheckIfAutoRegister( ref MasterNodeDataCollector dataCollector )
+		{
+			if( m_autoRegister && m_connStatus != NodeConnectionStatus.Connected )
+			{
+				RegisterProperty( ref dataCollector );
+				string propertyName = CurrentPropertyReference;
+				bool emptyName = string.IsNullOrEmpty( m_propertyInspectorName ) || propertyName == GrabTextureDefault;
+				dataCollector.AddGrabPass( emptyName ? string.Empty : propertyName );
+			}
 		}
 	}
 }

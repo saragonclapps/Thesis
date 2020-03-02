@@ -1,15 +1,17 @@
-using UnityEngine;
+// Amplify Shader Editor - Visual Shader Editing Tool
+// Copyright (c) Amplify Creations, Lda <info@amplify.pt>
+
 using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
-using AmplifyShaderEditor;
-
-//Callback on asset creation to open window after finishing renaming the asset
-public class DoCreateFunction : EndNameEditAction
+namespace AmplifyShaderEditor
 {
-	public override void Action( int instanceId, string pathName, string resourceFile )
+	public class DoCreateFunction : EndNameEditAction
 	{
-		UnityEngine.Object obj = EditorUtility.InstanceIDToObject( instanceId );
-		AssetDatabase.CreateAsset( obj, AssetDatabase.GenerateUniqueAssetPath( pathName ) );
-		AmplifyShaderEditorWindow.LoadShaderFunctionToASE( ( AmplifyShaderFunction ) obj, false );
+		public override void Action( int instanceId, string pathName, string resourceFile )
+		{
+			UnityEngine.Object obj = EditorUtility.InstanceIDToObject( instanceId );
+			AssetDatabase.CreateAsset( obj, AssetDatabase.GenerateUniqueAssetPath( pathName ) );
+			AmplifyShaderEditorWindow.LoadShaderFunctionToASE( (AmplifyShaderFunction)obj, false );
+		}
 	}
 }

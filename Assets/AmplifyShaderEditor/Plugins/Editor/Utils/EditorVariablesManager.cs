@@ -1,4 +1,4 @@
-// Amplify Shader Editor - Advanced Bloom Post-Effect for Unity
+// Amplify Shader Editor - Visual Shader Editing Tool
 // Copyright (c) Amplify Creations, Lda <info@amplify.pt>
 
 using UnityEditor;
@@ -131,11 +131,13 @@ namespace AmplifyShaderEditor
 		public static EditorVariableBool ExpandedAdditionalDefines = new EditorVariableBool( "ASEExpandedAdditionalDefines", " ExpandedAdditionalDefines", false );
 		public static EditorVariableBool ExpandedAdditionalDirectives = new EditorVariableBool( "ASEExpandedAdditionalDirectives", " ExpandedAdditionalDirectives", false );
 		public static EditorVariableBool ExpandedCustomTags = new EditorVariableBool( "ASEExpandedCustomTags", " ExpandedCustomTags", false );
+		public static EditorVariableBool ExpandedAdditionalSurfaceOptions = new EditorVariableBool( "ASEExpandedAdditionalSurfaceOptions", " ExpandedAdditionalSurfaceOptions", false );
 		public static EditorVariableBool ExpandedAdditionalPragmas = new EditorVariableBool( "ASEExpandedAdditionalPragmas", " ExpandedAdditionalPragmas", false );
 		public static EditorVariableBool ExpandedDependencies = new EditorVariableBool( "ASEExpandedDependencies", " ExpandedDependencies", false );
 		public static EditorVariableBool ExpandedDepth = new EditorVariableBool( "ASEExpandedDepth", " ExpandedDepth", false );
 		public static EditorVariableBool ExpandedTesselation  = new EditorVariableBool( "ASEExpandedTesselation", " ExpandedTesselation", false );
 		public static EditorVariableBool ExpandedProperties = new EditorVariableBool( "ASEExpandedProperties", " ExpandedProperties", false );
+		public static EditorVariableBool ExpandedUsePass = new EditorVariableBool( "ASEUsePass", " UsePass", false );
 		//Templates
 		public static EditorVariableBool ExpandedBlendModeModule = new EditorVariableBool( "ASEExpandedBlendModeModule", " ExpandedBlendModeModule", false );
 	}
@@ -178,6 +180,8 @@ namespace AmplifyShaderEditor
 		[SerializeField]
 		private bool m_expandedCustomTags = false;
 		[SerializeField]
+		private bool m_expandedAdditionalSurfaceOptions = false;
+		[SerializeField]
 		private bool m_expandedAdditionalPragmas = false;
 		[SerializeField]
 		private bool m_expandedDependencies = false;
@@ -189,6 +193,8 @@ namespace AmplifyShaderEditor
 		private bool m_expandedTesselation = false;
 		[SerializeField]
 		private bool m_expandedProperties = false;
+		[SerializeField]
+		private bool m_expandedUsePass = false;
 
 		public void Initialize()
 		{
@@ -209,12 +215,14 @@ namespace AmplifyShaderEditor
 			m_expandedAdditionalDefines = EditorVariablesManager.ExpandedAdditionalDefines.Value;
 			m_expandedAdditionalDirectives = EditorVariablesManager.ExpandedAdditionalDirectives.Value;
 			m_expandedCustomTags = EditorVariablesManager.ExpandedCustomTags.Value;
+			m_expandedAdditionalSurfaceOptions = EditorVariablesManager.ExpandedAdditionalSurfaceOptions.Value;
 			m_expandedAdditionalPragmas = EditorVariablesManager.ExpandedAdditionalPragmas.Value;
 			m_expandedDependencies = EditorVariablesManager.ExpandedDependencies.Value;
 			m_expandedBlendModeModule = EditorVariablesManager.ExpandedBlendModeModule.Value;
 			m_expandedDepth = EditorVariablesManager.ExpandedDepth.Value;
 			m_expandedTesselation = EditorVariablesManager.ExpandedTesselation.Value;
 			m_expandedProperties = EditorVariablesManager.ExpandedProperties.Value;
+			m_expandedUsePass = EditorVariablesManager.ExpandedUsePass.Value;
 		}
 
 		public bool LiveMode{ get { return m_liveMode; } set { m_liveMode = value; EditorVariablesManager.LiveMode.Value = value; } }
@@ -234,11 +242,13 @@ namespace AmplifyShaderEditor
 		public bool ExpandedAdditionalDefines { get { return m_expandedAdditionalDefines; } set { m_expandedAdditionalDefines = value; EditorVariablesManager.ExpandedAdditionalDefines.Value = value; } }
 		public bool ExpandedAdditionalDirectives { get { return m_expandedAdditionalDirectives; } set { m_expandedAdditionalDirectives = value; EditorVariablesManager.ExpandedAdditionalDirectives.Value = value; } }
 		public bool ExpandedCustomTags { get { return m_expandedCustomTags; } set { m_expandedCustomTags = value; EditorVariablesManager.ExpandedCustomTags.Value = value; } }
+		public bool ExpandedAdditionalSurfaceOptions { get { return m_expandedAdditionalSurfaceOptions; } set { m_expandedAdditionalSurfaceOptions = value; EditorVariablesManager.ExpandedAdditionalSurfaceOptions.Value = value; } }
 		public bool ExpandedAdditionalPragmas { get { return m_expandedAdditionalPragmas; } set { m_expandedAdditionalPragmas = value; EditorVariablesManager.ExpandedAdditionalPragmas.Value = value; } }
 		public bool ExpandedDependencies { get { return m_expandedDependencies; } set { m_expandedDependencies = value; EditorVariablesManager.ExpandedDependencies.Value = value; } }
 		public bool ExpandedBlendModeModule { get { return m_expandedBlendModeModule; } set { m_expandedBlendModeModule = value; EditorVariablesManager.ExpandedBlendModeModule.Value = value; } }
 		public bool ExpandedDepth { get { return m_expandedDepth; } set { m_expandedDepth = value; EditorVariablesManager.ExpandedDepth.Value = value; } }
 		public bool ExpandedTesselation { get { return m_expandedTesselation; } set { m_expandedTesselation = value; EditorVariablesManager.ExpandedTesselation.Value = value; } }
 		public bool ExpandedProperties { get { return m_expandedProperties; } set { m_expandedProperties = value; EditorVariablesManager.ExpandedProperties.Value = value; } }
+		public bool ExpandedUsePass { get { return m_expandedUsePass; } set { m_expandedUsePass = value; EditorVariablesManager.ExpandedUsePass.Value = value; } }
 	}
 }

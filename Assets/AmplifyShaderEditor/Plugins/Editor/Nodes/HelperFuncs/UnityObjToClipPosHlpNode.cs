@@ -14,6 +14,7 @@ namespace AmplifyShaderEditor
 			m_funcType = "UnityObjectToClipPos";
 			//TODO: revisit this later
 			m_funcLWFormatOverride = "TransformWorldToHClip(TransformObjectToWorld({0}))";
+			m_funcHDFormatOverride = "TransformWorldToHClip(TransformObjectToWorld({0}))";
 			m_inputPorts[ 0 ].ChangeType( WirePortDataType.FLOAT3, false );
 			m_outputPorts[ 0 ].ChangeType( WirePortDataType.FLOAT4, false );
 			m_outputPorts[ 0 ].Name = "XYZW";
@@ -21,6 +22,7 @@ namespace AmplifyShaderEditor
 			AddOutputPort( WirePortDataType.FLOAT, "Y" );
 			AddOutputPort( WirePortDataType.FLOAT, "Z" );
 			AddOutputPort( WirePortDataType.FLOAT, "W" );
+			m_previewShaderGUID = "14ec765a147a53340877b489e73f1c9f";
 		}
 
 		protected override void OnUniqueIDAssigned()

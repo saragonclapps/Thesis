@@ -44,25 +44,27 @@ namespace AmplifyShaderEditor
 			Vector4 order = new Vector4(-1,-1,-1,-1);
 			int lastIndex = 0;
 			int singularId = -1;
-			if ( m_selection[ 0 ] )
+			var datatype = m_inputPorts[ 0 ].DataType;
+
+			if( m_selection[ 0 ] )
 			{
-				order.Set( lastIndex, order.y , order.z , order.w );
+				order.Set( lastIndex, order.y, order.z, order.w );
 				lastIndex++;
 				singularId = 0;
 			}
-			if ( m_selection[ 1 ] )
+			if( m_selection[ 1 ] && datatype >= WirePortDataType.FLOAT2 )
 			{
 				order.Set( order.x, lastIndex, order.z, order.w );
 				lastIndex++;
 				singularId = 1;
 			}
-			if ( m_selection[ 2 ] )
+			if( m_selection[ 2 ] && datatype >= WirePortDataType.FLOAT3 )
 			{
 				order.Set( order.x, order.y, lastIndex, order.w );
 				lastIndex++;
 				singularId = 2;
 			}
-			if ( m_selection[ 3 ] )
+			if( m_selection[ 3 ] && datatype == WirePortDataType.FLOAT4 )
 			{
 				order.Set( order.x, order.y, order.z, lastIndex );
 				lastIndex++;
@@ -315,11 +317,17 @@ namespace AmplifyShaderEditor
 
 			if ( count > 0 )
 			{
-				value = string.Format("({0}).",value);
+				bool firstElement = true;
+				value = string.Format("({0})",value);
 				for ( int i = 0; i < count; i++ )
 				{
 					if ( m_selection[ i ] )
 					{
+						if( firstElement )
+						{
+							firstElement = false;
+							value += ".";
+						}
 						value += UIUtils.GetComponentForPosition( i, m_inputPorts[ 0 ].DataType );
 					}
 				}

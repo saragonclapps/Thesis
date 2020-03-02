@@ -23,6 +23,9 @@ namespace AmplifyShaderEditor
 		[SerializeField]
 		private RegisterLocalVarNode m_currentSelected = null;
 
+		[SerializeField]
+		private string m_registerLocalVarName = string.Empty;
+
 		private int m_cachedPropertyId = -1;
 
 		private string m_previousLabel = string.Empty;
@@ -33,11 +36,32 @@ namespace AmplifyShaderEditor
 		{
 			base.CommonInit( uniqueId );
 			AddOutputPort( WirePortDataType.OBJECT, Constants.EmptyPortValue );
+
+			// This is needed for infinite loop detection
+			AddInputPort( WirePortDataType.OBJECT, false, Constants.EmptyPortValue );
+			m_inputPorts[ 0 ].Visible = false;
+
 			m_outputPorts[ 0 ].Locked = true;
 			m_textLabelWidth = 80;
 			m_autoWrapProperties = true;
 			m_hasLeftDropdown = true;
 			m_previewShaderGUID = "f21a6e44c7d7b8543afacd19751d24c6";
+		}
+
+		protected override void OnUniqueIDAssigned()
+		{
+			base.OnUniqueIDAssigned();
+
+			if( UniqueId > -1 )
+				m_containerGraph.LocalVarNodes.OnReorderEventComplete += OnReorderEventComplete;
+		}
+
+		private void OnReorderEventComplete()
+		{
+			if( m_currentSelected != null )
+			{
+				m_referenceId = m_containerGraph.LocalVarNodes.GetNodeRegisterIdx( m_currentSelected.UniqueId );
+			}
 		}
 
 		public override void SetPreviewInputs()
@@ -83,6 +107,8 @@ namespace AmplifyShaderEditor
 		{
 			base.Destroy();
 			CurrentSelected = null;
+			if( UniqueId > -1 )
+				m_containerGraph.LocalVarNodes.OnReorderEventComplete -= OnReorderEventComplete;
 		}
 
 		public override void Draw( DrawInfo drawInfo )
@@ -96,7 +122,7 @@ namespace AmplifyShaderEditor
 				if( EditorGUI.EndChangeCheck() )
 				{
 					UpdateFromSelected();
-					m_dropdownEditing = false;
+					DropdownEditing = false;
 				}
 			}
 		}
@@ -198,6 +224,7 @@ namespace AmplifyShaderEditor
 		{
 			m_outputPorts[ 0 ].Locked = true;
 			m_currentSelected = null;
+			m_inputPorts[ 0 ].DummyClear();
 			m_nodeId = -1;
 			m_referenceId = -1;
 			m_referenceWidth = -1;
@@ -212,19 +239,21 @@ namespace AmplifyShaderEditor
 			}
 			else
 			{
-				Debug.LogError( "Attempting to access inexistant local variable" );
-				return "0";
+				UIUtils.ShowMessage( UniqueId, "Get Local Var node without reference. Attempting to access inexistant local variable.", MessageSeverity.Error );
+
+				return m_outputPorts[ 0 ].ErrorValue;
 			}
 		}
 
-		public override void PropagateNodeData( NodeData nodeData, ref MasterNodeDataCollector dataCollector )
-		{
-			base.PropagateNodeData( nodeData, ref dataCollector );
-			if( m_currentSelected != null )
-			{
-				m_currentSelected.PropagateNodeData( nodeData, ref dataCollector );
-			}
-		}
+
+		//public override void PropagateNodeData( NodeData nodeData, ref MasterNodeDataCollector dataCollector )
+		//{
+		//	base.PropagateNodeData( nodeData, ref dataCollector );
+		//	if( m_currentSelected != null )
+		//	{
+		//		m_currentSelected.PropagateNodeData( nodeData, ref dataCollector );
+		//	}
+		//}
 
 		public override void ReadFromString( ref string[] nodeParams )
 		{
@@ -233,6 +262,10 @@ namespace AmplifyShaderEditor
 			{
 				m_nodeId = Convert.ToInt32( GetCurrentParam( ref nodeParams ) );
 				m_outputPorts[ 0 ].Locked = ( m_nodeId < 0 );
+				if( UIUtils.CurrentShaderVersion() > 15500 )
+				{
+					m_registerLocalVarName = GetCurrentParam( ref nodeParams );
+				}
 			}
 			else
 			{
@@ -244,7 +277,17 @@ namespace AmplifyShaderEditor
 		public override void WriteToString( ref string nodeInfo, ref string connectionsInfo )
 		{
 			base.WriteToString( ref nodeInfo, ref connectionsInfo );
-			IOUtils.AddFieldValueToString( ref nodeInfo, ( m_currentSelected != null ? m_currentSelected.UniqueId : -1 ) );
+			if( m_currentSelected != null )
+			{
+				IOUtils.AddFieldValueToString( ref nodeInfo, m_currentSelected.UniqueId );
+				IOUtils.AddFieldValueToString( ref nodeInfo, m_currentSelected.DataToArray );
+			}
+			else
+			{
+				IOUtils.AddFieldValueToString( ref nodeInfo, -1 );
+				IOUtils.AddFieldValueToString( ref nodeInfo, string.Empty );
+			}
+
 		}
 
 		public override void OnNodeDoubleClicked( Vector2 currentMousePos2D )
@@ -262,6 +305,15 @@ namespace AmplifyShaderEditor
 			{
 				CurrentSelected = UIUtils.GetNode( m_nodeId ) as RegisterLocalVarNode;
 				m_referenceId = UIUtils.GetLocalVarNodeRegisterId( m_nodeId );
+				if( CurrentSelected == null && UIUtils.CurrentShaderVersion() > 15500 && !string.IsNullOrEmpty( m_registerLocalVarName ) )
+				{
+					CurrentSelected = m_containerGraph.LocalVarNodes.GetNodeByDataToArray( m_registerLocalVarName );
+					if( CurrentSelected != null )
+					{
+						m_nodeId = CurrentSelected.UniqueId;
+						m_referenceId = UIUtils.GetLocalVarNodeRegisterId( m_nodeId );
+					}
+				}
 			}
 			else
 			{
@@ -319,6 +371,10 @@ namespace AmplifyShaderEditor
 			get { return m_currentSelected; }
 			set
 			{
+				// This is needed for infinite loop detection
+				if( m_inputPorts != null )
+					m_inputPorts[ 0 ].DummyClear();
+
 				if( m_currentSelected != null )
 				{
 					m_currentSelected.UnregisterGetLocalVar( this );
@@ -332,9 +388,13 @@ namespace AmplifyShaderEditor
 					value.RegisterGetLocalVar( this );
 					if( IsConnected && value != m_currentSelected )
 						value.ActivateNode( UniqueId, 0, m_activeType );
+
+					// This is needed for infinite loop detection
+					m_inputPorts[ 0 ].DummyAdd( value.UniqueId, 0 ); ;
 				}
 
 				m_currentSelected = value;
+
 			}
 		}
 	}

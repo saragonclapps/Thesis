@@ -21,7 +21,15 @@ namespace AmplifyShaderEditor
 
 		public override void RenderNodePreview()
 		{
+			//Runs at least one time
 			if( !m_initialized )
+			{
+				// nodes with no preview don't update at all
+				PreviewIsDirty = false;
+				return;
+			}
+
+			if( !PreviewIsDirty )
 				return;
 
 			int count = m_outputPorts.Count;
@@ -32,21 +40,33 @@ namespace AmplifyShaderEditor
 				Graphics.Blit( null, m_outputPorts[ i ].OutputPreviewTexture, PreviewMaterial, i );
 				RenderTexture.active = temp;
 			}
+
+			PreviewIsDirty = m_continuousPreviewRefresh;
 		}
 
 		public override string GenerateShaderForOutput( int outputId, ref MasterNodeDataCollector dataCollector, bool ignoreLocalvar )
 		{
-			if( dataCollector.IsTemplate && !dataCollector.IsLightweight )
+			if( dataCollector.IsTemplate && !dataCollector.IsSRP )
 				dataCollector.AddToIncludes( -1, Constants.UnityLightingLib );
 
 			base.GenerateShaderForOutput( outputId, ref dataCollector, ignoreLocalvar );
 
 			string finalVar = m_lightColorValue;
-			if( dataCollector.IsTemplate && dataCollector.IsLightweight )
-				finalVar = "_MainLightColor";
+			if( dataCollector.IsTemplate && dataCollector.IsSRP )
+			{
+				if( dataCollector.TemplateDataCollectorInstance.CurrentSRPType == TemplateSRPType.HD )
+				{
+					dataCollector.TemplateDataCollectorInstance.AddHDLightInfo();
+					finalVar = string.Format( TemplateHelperFunctions.HDLightInfoFormat, "0", "color" ); ;
+				}
+				else
+				{
+					finalVar = "_MainLightColor";
+				}
+			}
 			else
 			{
-				dataCollector.AddLocalVariable( UniqueId, "#if defined(LIGHTMAP_ON) && UNITY_VERSION < 560 //aselc" );
+				dataCollector.AddLocalVariable( UniqueId, "#if defined(LIGHTMAP_ON) && ( UNITY_VERSION < 560 || ( defined(LIGHTMAP_SHADOW_MIXING) && !defined(SHADOWS_SHADOWMASK) && defined(SHADOWS_SCREEN) ) )//aselc" );
 				dataCollector.AddLocalVariable( UniqueId, CurrentPrecisionType, WirePortDataType.FLOAT4, "ase_lightColor", "0" );
 				dataCollector.AddLocalVariable( UniqueId, "#else //aselc" );
 				dataCollector.AddLocalVariable( UniqueId, CurrentPrecisionType, WirePortDataType.FLOAT4, "ase_lightColor", finalVar );

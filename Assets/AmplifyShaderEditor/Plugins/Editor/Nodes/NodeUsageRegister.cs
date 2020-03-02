@@ -19,10 +19,18 @@ namespace AmplifyShaderEditor
 	[Serializable] public class UsageListFunctionSwitchCopyNodes : NodeUsageRegister<FunctionSwitch> { }
 	[Serializable] public class UsageListTemplateMultiPassMasterNodes : NodeUsageRegister<TemplateMultiPassMasterNode> { }
 	[Serializable] public class UsageListCustomExpressionsOnFunctionMode : NodeUsageRegister<CustomExpressionNode> { }
+	[Serializable] public class UsageListGlobalArrayNodes : NodeUsageRegister<GlobalArrayNode> { }
+	[Serializable] public class UsageListStaticSwitchNodes : NodeUsageRegister<StaticSwitch> { }
 
 	[Serializable]
 	public class NodeUsageRegister<T> where T : ParentNode
 	{
+		public delegate void ReorderEvent();
+		public event ReorderEvent OnReorderEventComplete;
+
+		[SerializeField]
+		public bool ReorderOnChange = false;
+
 		// Sampler Nodes registry
 		[SerializeField]
 		private List<T> m_nodes;
@@ -69,22 +77,21 @@ namespace AmplifyShaderEditor
 					Undo.RegisterCompleteObjectUndo( m_containerGraph, Constants.UndoRegisterNodeId );
 				}
 				m_nodes.Add( node );
+				ReorderNodes();
 				UpdateNodeArr();
 				return m_nodes.Count - 1;
 			}
+			else if( node.UniqueId > -1 )
+			{
+				UpdateNodeArr();
+			}
+			
 			return -1;
 		}
 
 		public bool HasNode( int uniqueId )
 		{
-			int count = m_nodes.Count;
-			for( int i = 0; i < count; i++ )
-			{
-				if( m_nodes[ i ].UniqueId == uniqueId )
-					return true;
-
-			}
-			return false;
+			return m_nodes.FindIndex( x => x.UniqueId == uniqueId ) > -1 ? true : false;
 		}
 
 		public void RemoveNode( T node )
@@ -101,16 +108,33 @@ namespace AmplifyShaderEditor
 				}
 
 				m_nodes.Remove( node );
+				ReorderNodes();
 				UpdateNodeArr();
+			}
+		}
+
+		public void ReorderNodes()
+		{
+			if( ReorderOnChange )
+			{
+				m_nodes.Sort( ( x, y ) => ( x.DataToArray.CompareTo( y.DataToArray ) ) );
+				if( OnReorderEventComplete != null )
+				{
+					OnReorderEventComplete();
+				}
 			}
 		}
 
 		public void UpdateNodeArr()
 		{
-			m_nodesArr = new string[ m_nodes.Count ];
-			m_nodeIDs = new int[ m_nodes.Count ];
-			int count = m_nodesArr.Length;
-			for( int i = 0; i < count; i++ )
+			int nodeCount = m_nodes.Count;
+			if( nodeCount != m_nodesArr.Length )
+			{
+				m_nodesArr = new string[ nodeCount ];
+				m_nodeIDs = new int[ nodeCount ];
+			}
+			
+			for( int i = 0; i < nodeCount; i++ )
 			{
 				m_nodesArr[ i ] = m_nodes[ i ].DataToArray;
 				m_nodeIDs[ i ] = m_nodes[ i ].UniqueId;
@@ -131,28 +155,30 @@ namespace AmplifyShaderEditor
 			return m_nodes.Find( x => x.UniqueId == uniqueId );
 		}
 
+		public T GetNodeByDataToArray( string data )
+		{
+			return m_nodes.Find( x => x.DataToArray.Equals( data ));
+		}
+
 		public int GetNodeRegisterIdx( int uniqueId )
 		{
-			int count = m_nodes.Count;
-			for( int i = 0; i < count; i++ )
-			{
-				if( m_nodes[ i ].UniqueId == uniqueId )
-				{
-					return i;
-				}
-			}
-			return -1;
+			return m_nodes.FindIndex( x => x.UniqueId == uniqueId );
 		}
 
 		public void UpdateDataOnNode( int uniqueId, string data )
 		{
-			int count = m_nodes.Count;
-			for( int i = 0; i < count; i++ )
+			if( ReorderOnChange )
 			{
-				if( m_nodes[ i ].UniqueId == uniqueId )
+				ReorderNodes();
+				UpdateNodeArr();
+			}
+			else
+			{
+				int index = m_nodes.FindIndex( x => x.UniqueId == uniqueId );
+				if( index > -1 )
 				{
-					m_nodesArr[ i ] = data;
-					m_nodeIDs[ i ] = uniqueId;
+					m_nodesArr[ index ] = data;
+					m_nodeIDs[ index ] = uniqueId;
 				}
 			}
 		}

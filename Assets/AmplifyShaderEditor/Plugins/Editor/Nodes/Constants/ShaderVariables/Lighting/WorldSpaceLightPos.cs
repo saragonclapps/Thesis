@@ -35,7 +35,7 @@ namespace AmplifyShaderEditor
 		{
 			base.GenerateShaderForOutput( outputId, ref dataCollector, ignoreLocalVar );
 			string finalVar = m_lightPosValue;
-			if( dataCollector.IsTemplate && dataCollector.TemplateDataCollectorInstance.CurrentSRPType == TemplateSRPType.Lightweight )
+			if( dataCollector.IsTemplate && dataCollector.TemplateDataCollectorInstance.IsSRP )
 				finalVar = "_MainLightPosition";
 			if( outputId == 1 )
 			{
@@ -63,7 +63,15 @@ namespace AmplifyShaderEditor
 
 		public override void RenderNodePreview()
 		{
-			if( !HasPreviewShader || !m_initialized )
+			//Runs at least one time
+			if( !m_initialized )
+			{
+				// nodes with no preview don't update at all
+				PreviewIsDirty = false;
+				return;
+			}
+
+			if( !PreviewIsDirty )
 				return;
 
 			SetPreviewInputs();
@@ -77,6 +85,8 @@ namespace AmplifyShaderEditor
 			RenderTexture.active = m_outputPorts[ 2 ].OutputPreviewTexture;
 			Graphics.Blit( null, m_outputPorts[ 2 ].OutputPreviewTexture, PreviewMaterial, 1 );
 			RenderTexture.active = temp;
+
+			PreviewIsDirty = m_continuousPreviewRefresh;
 		}
 	}
 }
