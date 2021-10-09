@@ -359,7 +359,7 @@ namespace Dreamteck.Splines
         void PaintHeightMap(Terrain terrain, SplineComputer computer, ref float[,] drawLayer, ref float[,] alphaLayer)
         {
             if (heights == null) GetBase();
-            SplineResult[] results = new SplineResult[computer.iterations];
+            SplineSample[] results = new SplineSample[computer.iterations];
             computer.Evaluate(ref results, clipFrom, clipTo);
             /*
             for(int i = 0; i < results.Length; i++) 
@@ -494,14 +494,14 @@ namespace Dreamteck.Splines
             return false;
         }
 
-        void Draw(SplineResult[] points, ref float[,] drawLayer, ref float[,] alphaLayer)
+        void Draw(SplineSample[] points, ref float[,] drawLayer, ref float[,] alphaLayer)
         {
-            List<SplineResult> selectedPoints = new List<SplineResult>();
+            List<SplineSample> selectedPoints = new List<SplineSample>();
             Point last = new Point();
             //Filter out points that are too close to each other
             for (int i = 0; i < points.Length; i++)
             {
-                Point current = ToHeightmapCoords(points[i].position + points[i].normal * offset);
+                Point current = ToHeightmapCoords(points[i].position + points[i].up * offset);
                 if (i == 0 || i == points.Length-1)
                 {
                     last = new Point(current.x, current.y);
@@ -525,7 +525,7 @@ namespace Dreamteck.Splines
                 PaintSegment(paintPoints[i], paintPoints[i + 1], ref drawLayer, ref alphaLayer);
             }
 
-            SplineResult exResult = selectedPoints[0];
+            SplineSample exResult = selectedPoints[0];
             exResult.position += exResult.position - selectedPoints[1].position;
             TerrainPaintPoint exPoint = null;
             ConvertToPaintPoint(exResult, ref exPoint);
@@ -538,13 +538,13 @@ namespace Dreamteck.Splines
             //Extrapolate the ending and the begining
         }
 
-        TerrainPaintPoint ConvertToPaintPoint(SplineResult result, ref TerrainPaintPoint paintPoint)
+        TerrainPaintPoint ConvertToPaintPoint(SplineSample result, ref TerrainPaintPoint paintPoint)
         {
             paintPoint = new TerrainPaintPoint();
-            Vector3 right = -Vector3.Cross(result.direction, result.normal).normalized * size * 0.5f * result.size;
-            Vector3 leftPoint = result.position - right + result.normal * offset;
-            Vector3 rightPoint = result.position + right + result.normal * offset;
-            paintPoint.center = ToHeightmapCoords(result.position + result.normal * offset);
+            Vector3 right = -Vector3.Cross(result.forward, result.up).normalized * size * 0.5f * result.size;
+            Vector3 leftPoint = result.position - right + result.up * offset;
+            Vector3 rightPoint = result.position + right + result.up * offset;
+            paintPoint.center = ToHeightmapCoords(result.position + result.up * offset);
             paintPoint.leftPoint = ToHeightmapCoords(leftPoint);
             paintPoint.rightPoint = ToHeightmapCoords(rightPoint);
             paintPoint.leftHeight = ToHeightmapValue(leftPoint.y);

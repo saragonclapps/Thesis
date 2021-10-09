@@ -5,7 +5,7 @@ namespace Dreamteck.Splines
 {
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]
-    [AddComponentMenu("Dreamteck/Splines/Surface Generator")]
+    [AddComponentMenu("Dreamteck/Splines/Users/Surface Generator")]
     public class SurfaceGenerator : MeshGenerator
     {
         public float expand
@@ -16,7 +16,7 @@ namespace Dreamteck.Splines
                 if (value != _expand)
                 {
                     _expand = value;
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
@@ -29,8 +29,8 @@ namespace Dreamteck.Splines
                 if (value != _extrude)
                 {
                     _extrude = value;
-                    Rebuild(false);
-                } 
+                    Rebuild();
+                }
             }
         }
 
@@ -42,7 +42,7 @@ namespace Dreamteck.Splines
                 if (value != _extrudeFrom)
                 {
                     _extrudeFrom = value;
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
@@ -55,7 +55,7 @@ namespace Dreamteck.Splines
                 if (value != _extrudeTo)
                 {
                     _extrudeTo = value;
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
@@ -68,7 +68,7 @@ namespace Dreamteck.Splines
                 if (value != _sideUvScale)
                 {
                     _sideUvScale = value;
-                    Rebuild(false);
+                    Rebuild();
                 }
                 else _sideUvScale = value;
             }
@@ -82,22 +82,23 @@ namespace Dreamteck.Splines
                 if (value != _sideUvOffset)
                 {
                     _sideUvOffset = value;
-                    Rebuild(false);
-                } else _sideUvOffset = value;
+                    Rebuild();
+                }
+                else _sideUvOffset = value;
             }
         }
 
-        public SplineComputer extrudeComputer
+        public SplineComputer extrudeSpline
         {
-            get { return _extrudeComputer; }
+            get { return _extrudeSpline; }
             set
             {
-                if (value != _extrudeComputer)
+                if (value != _extrudeSpline)
                 {
-                    if (_extrudeComputer != null) _extrudeComputer.Unsubscribe(this);
-                    _extrudeComputer = value;
-                    if(value != null)_extrudeComputer.Subscribe(this);
-                    Rebuild(false);
+                    if (_extrudeSpline != null) _extrudeSpline.Unsubscribe(this);
+                    _extrudeSpline = value;
+                    if (value != null) _extrudeSpline.Subscribe(this);
+                    Rebuild();
                 }
             }
         }
@@ -110,7 +111,7 @@ namespace Dreamteck.Splines
                 if (value != _uniformUvs)
                 {
                     _uniformUvs = value;
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
@@ -129,10 +130,10 @@ namespace Dreamteck.Splines
         private Vector2 _sideUvOffset = Vector2.zero;
         [SerializeField]
         [HideInInspector]
-        private SplineComputer _extrudeComputer;
+        private SplineComputer _extrudeSpline;
         [SerializeField]
         [HideInInspector]
-        private SplineResult[] extrudeResults = new SplineResult[0];
+        private SplineSample[] extrudeResults = new SplineSample[0];
         [SerializeField]
         [HideInInspector]
         private Vector3[] identityVertices = new Vector3[0];
@@ -144,7 +145,7 @@ namespace Dreamteck.Splines
         private Vector2[] projectedVerts = new Vector2[0];
         [SerializeField]
         [HideInInspector]
-        private int[] capTris = new int[0];
+        private int[] surfaceTris = new int[0];
         [SerializeField]
         [HideInInspector]
         private int[] wallTris = new int[0];
@@ -167,62 +168,41 @@ namespace Dreamteck.Splines
 
         protected override void BuildMesh()
         {
-            if (computer.pointCount == 0) return;
+            if (spline.pointCount == 0) return;
             base.BuildMesh();
             Generate();
         }
 
         public void Generate()
         {
-            if (_extrudeComputer != null) _extrudeComputer.Evaluate(ref extrudeResults, _extrudeFrom, _extrudeTo);
-            int capVertexCount = clippedSamples.Length;
-            int wallVertexCount = 0;
-            int totalVertexCount = 0;
-            if (computer.isClosed) capVertexCount--;
-            bool pathExtrude = _extrudeComputer != null && extrudeResults.Length > 0;
+            int surfaceVertexCount = sampleCount;
+            if (spline.isClosed) surfaceVertexCount--;
+            int vertexCount = surfaceVertexCount;
+
+            if (_extrudeSpline != null)
+            {
+                _extrudeSpline.Evaluate(ref extrudeResults, _extrudeFrom, _extrudeTo);
+            } else if(extrudeResults.Length > 0)
+            {
+                extrudeResults = new SplineSample[0];
+            }
+            bool pathExtrude = _extrudeSpline && extrudeResults.Length > 0;
             bool simpleExtrude = !pathExtrude && _extrude != 0f;
-            totalVertexCount = capVertexCount;
+
             if (pathExtrude)
             {
-                wallVertexCount = clippedSamples.Length * extrudeResults.Length;
-                totalVertexCount = capVertexCount*2 + wallVertexCount;
-            } else if (simpleExtrude)
-            {
-                wallVertexCount = clippedSamples.Length * 2;
-                totalVertexCount = capVertexCount * 2 + wallVertexCount;
+                vertexCount *= 2;
+                vertexCount += sampleCount * extrudeResults.Length;
             }
-
-            AllocateMesh(totalVertexCount, tsMesh.triangles.Length);
-            Vector3 avgPos = Vector3.zero;
-            Vector3 avgNormal = Vector3.zero;
-            Vector3 off = transform.right * offset.x + transform.up * offset.y + transform.forward * offset.z;
-            for (int i = 0; i < capVertexCount; i++)
+            else if (simpleExtrude)
             {
-                tsMesh.vertices[i] = clippedSamples[i].position + off;
-                tsMesh.normals[i] = clippedSamples[i].normal;
-                tsMesh.colors[i] = clippedSamples[i].color;
-                tsMesh.colors[i] *= color;
-                avgPos += tsMesh.vertices[i];
-                avgNormal += tsMesh.normals[i];
-            }
-            avgNormal.Normalize();
-            avgPos /= capVertexCount; 
-            GetProjectedVertices(tsMesh.vertices, avgNormal, avgPos, capVertexCount);
-            Vector2 min = projectedVerts[0];
-            Vector2 max = projectedVerts[0];
-            for (int i = 1; i < projectedVerts.Length; i++)
-            {
-                if (min.x < projectedVerts[i].x) min.x = projectedVerts[i].x;
-                if (min.y < projectedVerts[i].y) min.y = projectedVerts[i].y;
-                if (max.x > projectedVerts[i].x) max.x = projectedVerts[i].x;
-                if (max.y > projectedVerts[i].y) max.y = projectedVerts[i].y;
-            }
-            for (int i = 0; i < projectedVerts.Length; i++)
-            {
-                tsMesh.uv[i].x = Mathf.InverseLerp(max.x, min.x, projectedVerts[i].x) * uvScale.x - uvScale.x * 0.5f + uvOffset.x + 0.5f;
-                tsMesh.uv[i].y = Mathf.InverseLerp(min.y, max.y, projectedVerts[i].y) * uvScale.y - uvScale.y * 0.5f + uvOffset.y + 0.5f;
+                vertexCount *= 4;
+                vertexCount += 2;
             }
             
+            Vector3 center, normal;
+            GetProjectedVertices(surfaceVertexCount, out center, out normal);
+
             bool clockwise = IsClockwise(projectedVerts);
             bool flipCap = false;
             bool flipSide = false;
@@ -232,27 +212,77 @@ namespace Dreamteck.Splines
                 flipCap = !flipCap;
                 flipSide = !flipSide;
             }
-            GenerateCapTris(flipCap);
+
+            GenerateSurfaceTris(flipCap);
+            int totalTrisCount = surfaceTris.Length;
+            if (simpleExtrude)
+            {
+                totalTrisCount *= 2;
+                totalTrisCount += 2 * sampleCount * 2 * 3;
+            } else
+            {
+                totalTrisCount *= 2;
+                totalTrisCount += extrudeResults .Length * sampleCount * 2 * 3;
+            }
+            AllocateMesh(vertexCount, totalTrisCount);
+            Vector3 off = trs.right * offset.x + trs.up * offset.y + trs.forward * offset.z;
+            for (int i = 0; i < surfaceVertexCount; i++)
+            {
+                GetSample(i, evalResult);
+                tsMesh.vertices[i] = evalResult.position + off;
+                tsMesh.normals[i] = evalResult.up;
+                tsMesh.colors[i] = evalResult.color * color;
+            }
+
+            #region UVs
+            Vector2 min = projectedVerts[0];
+            Vector2 max = projectedVerts[0];
+            for (int i = 1; i < projectedVerts.Length; i++)
+            {
+                if (min.x < projectedVerts[i].x) min.x = projectedVerts[i].x;
+                if (min.y < projectedVerts[i].y) min.y = projectedVerts[i].y;
+                if (max.x > projectedVerts[i].x) max.x = projectedVerts[i].x;
+                if (max.y > projectedVerts[i].y) max.y = projectedVerts[i].y;
+            }
+
+            for (int i = 0; i < projectedVerts.Length; i++)
+            {
+                tsMesh.uv[i].x = Mathf.InverseLerp(max.x, min.x, projectedVerts[i].x) * uvScale.x - uvScale.x * 0.5f + uvOffset.x + 0.5f;
+                tsMesh.uv[i].y = Mathf.InverseLerp(min.y, max.y, projectedVerts[i].y) * uvScale.y - uvScale.y * 0.5f + uvOffset.y + 0.5f;
+            }
+            #endregion
+
+
             if (flipCap)
             {
-                for (int i = 0; i < capVertexCount; i++)
+                for (int i = 0; i < surfaceVertexCount; i++)
                 {
                     tsMesh.normals[i] *= -1f;
                 }
             }
+
+            if (_expand != 0f)
+            {
+                for (int i = 0; i < surfaceVertexCount; i++)
+                {
+                    GetSample(i, evalResult);
+                    tsMesh.vertices[i] += (clockwise ? -evalResult.right : evalResult.right) * _expand;
+                }
+            }
+
             if (pathExtrude)
             {
-                GetIdentityVerts(avgPos, avgNormal, clockwise);
+                GetIdentityVerts(center, normal, clockwise);
                 //Generate cap vertices with flipped normals
-                for (int i = 0; i < capVertexCount; i++)
+                for (int i = 0; i < surfaceVertexCount; i++)
                 {
-                    tsMesh.vertices[i + capVertexCount] = extrudeResults[0].position + extrudeResults[0].rotation * identityVertices[i] + off;
-                    tsMesh.normals[i + capVertexCount] = -extrudeResults[0].direction;
-                    tsMesh.colors[i + capVertexCount] = tsMesh.colors[i] * extrudeResults[0].color;
-                    tsMesh.uv[i + capVertexCount] = new Vector2(1f-tsMesh.uv[i].x, tsMesh.uv[i].y);
+                    tsMesh.vertices[i + surfaceVertexCount] = extrudeResults[0].position + extrudeResults[0].rotation * identityVertices[i] + off;
+                    tsMesh.normals[i + surfaceVertexCount] = -extrudeResults[0].forward;
+                    tsMesh.colors[i + surfaceVertexCount] = tsMesh.colors[i] * extrudeResults[0].color;
+                    tsMesh.uv[i + surfaceVertexCount] = new Vector2(1f - tsMesh.uv[i].x, tsMesh.uv[i].y);
 
-                    tsMesh.vertices[i] = extrudeResults[extrudeResults.Length - 1].position + extrudeResults[extrudeResults.Length-1].rotation * identityVertices[i] + off;
-                    tsMesh.normals[i] = extrudeResults[extrudeResults.Length - 1].direction;
+                    tsMesh.vertices[i] = extrudeResults[extrudeResults.Length - 1].position + extrudeResults[extrudeResults.Length - 1].rotation * identityVertices[i] + off;
+                    tsMesh.normals[i] = extrudeResults[extrudeResults.Length - 1].forward;
                     tsMesh.colors[i] *= extrudeResults[extrudeResults.Length - 1].color;
                 }
                 //Add wall vertices
@@ -260,8 +290,8 @@ namespace Dreamteck.Splines
                 for (int i = 0; i < extrudeResults.Length; i++)
                 {
                     if (_uniformUvs && i > 0) totalLength += Vector3.Distance(extrudeResults[i].position, extrudeResults[i - 1].position);
-                    int startIndex = capVertexCount * 2 + i * clippedSamples.Length;
-                    for(int n = 0; n < identityVertices.Length; n++)
+                    int startIndex = surfaceVertexCount * 2 + i * sampleCount;
+                    for (int n = 0; n < identityVertices.Length; n++)
                     {
                         tsMesh.vertices[startIndex + n] = extrudeResults[i].position + extrudeResults[i].rotation * identityVertices[n] + off;
                         tsMesh.normals[startIndex + n] = extrudeResults[i].rotation * identityNormals[n];
@@ -270,79 +300,77 @@ namespace Dreamteck.Splines
                         if (clockwise) tsMesh.uv[startIndex + n].x = 1f - tsMesh.uv[startIndex + n].x;
                     }
                 }
-                MeshUtility.GeneratePlaneTriangles(ref wallTris, clippedSamples.Length - 1, extrudeResults.Length, flipSide, 0, 0, true);
-                tsMesh.triangles = new int[capTris.Length * 2 + wallTris.Length];
-                int written = WriteTris(ref capTris, ref tsMesh.triangles, 0, 0, false);
-                written = WriteTris(ref capTris, ref tsMesh.triangles, capVertexCount, written, true);
-                written = WriteTris(ref wallTris, ref tsMesh.triangles, capVertexCount * 2, written, false);
-            } else if (simpleExtrude)
+                int written = WriteTris(ref surfaceTris, ref tsMesh.triangles, 0, 0, false);
+                written = WriteTris(ref surfaceTris, ref tsMesh.triangles, surfaceVertexCount, written, true);
+
+                MeshUtility.GeneratePlaneTriangles(ref wallTris, sampleCount - 1, extrudeResults.Length, flipSide, 0, 0, true);
+                WriteTris(ref wallTris, ref tsMesh.triangles, surfaceVertexCount * 2, written, false);
+            }
+            else if (simpleExtrude)
             {
                 //Duplicate cap vertices with flipped normals
-                for (int i = 0; i < capVertexCount; i++)
+                for (int i = 0; i < surfaceVertexCount; i++)
                 {
-                    tsMesh.vertices[i + capVertexCount] = tsMesh.vertices[i];
-                    if (_expand != 0f) tsMesh.vertices[i + capVertexCount] += (clockwise ? -clippedSamples[i].right : clippedSamples[i].right) * _expand;
-                    tsMesh.normals[i + capVertexCount] = -tsMesh.normals[i];
-                    tsMesh.colors[i + capVertexCount] = tsMesh.colors[i];
-                    tsMesh.uv[i + capVertexCount] = new Vector2(1f - tsMesh.uv[i].x, tsMesh.uv[i].y);
-
-                    tsMesh.vertices[i] += avgNormal * _extrude;
-                    if (_expand != 0f) tsMesh.vertices[i] += (clockwise ? -clippedSamples[i].right : clippedSamples[i].right) * _expand;
+                    tsMesh.vertices[i + surfaceVertexCount] = tsMesh.vertices[i];
+                    tsMesh.normals[i + surfaceVertexCount] = -tsMesh.normals[i];
+                    tsMesh.colors[i + surfaceVertexCount] = tsMesh.colors[i];
+                    tsMesh.uv[i + surfaceVertexCount] = new Vector2(1f - tsMesh.uv[i].x, tsMesh.uv[i].y);
+                    tsMesh.vertices[i] += normal * _extrude;
                 }
+
                 //Add wall vertices
-                for (int i = 0; i < clippedSamples.Length; i++)
-                {   
-                    tsMesh.vertices[i + capVertexCount * 2] = clippedSamples[i].position + off;
-                    if (_expand != 0f) tsMesh.vertices[i + capVertexCount * 2] += (clockwise ? -clippedSamples[i].right : clippedSamples[i].right) * _expand;
-                    tsMesh.normals[i + capVertexCount * 2] = clockwise ? -clippedSamples[i].right : clippedSamples[i].right;
-                    tsMesh.colors[i + capVertexCount * 2] = clippedSamples[i].color;
-                    tsMesh.uv[i + capVertexCount * 2] = new Vector2((float)i / (capVertexCount - 1) * _sideUvScale.x + _sideUvOffset.x, 0f + _sideUvOffset.y);
-                    if (clockwise) tsMesh.uv[i + capVertexCount * 2].x = 1f - tsMesh.uv[i + capVertexCount * 2].x;
+                for (int i = 0; i < surfaceVertexCount + 1; i++)
+                {
+                    int index = i;
+                    if (i >= surfaceVertexCount) index = i - surfaceVertexCount;
+                    GetSample(index, evalResult);
+                    tsMesh.vertices[i + surfaceVertexCount * 2] = tsMesh.vertices[index] - normal * _extrude;
+                    tsMesh.normals[i + surfaceVertexCount * 2] = clockwise ? -evalResult.right : evalResult.right;
+                    tsMesh.colors[i + surfaceVertexCount * 2] = tsMesh.colors[index];
+                    tsMesh.uv[i + surfaceVertexCount * 2] = new Vector2((float)i / (surfaceVertexCount - 1) * _sideUvScale.x + _sideUvOffset.x, 0f + _sideUvOffset.y);
+                    if (clockwise) tsMesh.uv[i + surfaceVertexCount * 2].x = 1f - tsMesh.uv[i + surfaceVertexCount * 2].x;
 
-                    tsMesh.vertices[i + capVertexCount * 2 + clippedSamples.Length] = tsMesh.vertices[i + capVertexCount * 2] + avgNormal * _extrude;
-                    tsMesh.normals[i + capVertexCount * 2 + clippedSamples.Length] = clockwise ? -clippedSamples[i].right : clippedSamples[i].right;
-                    tsMesh.colors[i + capVertexCount * 2 + clippedSamples.Length] = clippedSamples[i].color;
-                    if (_uniformUvs) tsMesh.uv[i + capVertexCount * 2 + clippedSamples.Length] = new Vector2((float)i / (capVertexCount - 1) * _sideUvScale.x + _sideUvOffset.x, _extrude * _sideUvScale.y + _sideUvOffset.y);
-                    else tsMesh.uv[i + capVertexCount * 2 + clippedSamples.Length] = new Vector2((float)i / (capVertexCount - 1) * _sideUvScale.x + _sideUvOffset.x, 1f * _sideUvScale.y + _sideUvOffset.y);
-                    if (clockwise) tsMesh.uv[i + capVertexCount * 2 + clippedSamples.Length].x = 1f - tsMesh.uv[i + capVertexCount * 2 + clippedSamples.Length].x;
+                    int offsetIndex = i + surfaceVertexCount * 3 + 1;
+                    tsMesh.vertices[offsetIndex] = tsMesh.vertices[index];
+                    tsMesh.normals[offsetIndex] = tsMesh.normals[i + surfaceVertexCount * 2];
+                    tsMesh.colors[offsetIndex] = tsMesh.colors[index];
+                    if (_uniformUvs) tsMesh.uv[offsetIndex] = new Vector2((float)i / surfaceVertexCount * _sideUvScale.x + _sideUvOffset.x, _extrude * _sideUvScale.y + _sideUvOffset.y);
+                    else tsMesh.uv[offsetIndex] = new Vector2((float)i / surfaceVertexCount * _sideUvScale.x + _sideUvOffset.x, 1f * _sideUvScale.y + _sideUvOffset.y);
+                    if (clockwise) tsMesh.uv[offsetIndex].x = 1f - tsMesh.uv[offsetIndex].x;
                 }
-                MeshUtility.GeneratePlaneTriangles(ref wallTris, clippedSamples.Length-1, 2, flipSide, 0, 0, true);
-                int trisCount = capTris.Length * 2 + wallTris.Length;
-                if (doubleSided) trisCount *= 2;
-                if (tsMesh.triangles.Length != trisCount) tsMesh.triangles = new int[trisCount];
-                int written = WriteTris(ref capTris, ref tsMesh.triangles, 0, 0, false);
-                written = WriteTris(ref capTris, ref tsMesh.triangles, capVertexCount, written, true);
-                written = WriteTris(ref wallTris, ref tsMesh.triangles, capVertexCount * 2, written, false);
-            } else {
-                //for (int i = 0; i < tsMesh.vertices.Length; i++) tsMesh.vertices[i] += clockwise ? -clippedSamples[i].right : clippedSamples[i].right;
-                int trisCount = capTris.Length;
-                if (doubleSided) trisCount *= 2;
-                if(tsMesh.triangles.Length != trisCount) tsMesh.triangles = new int[trisCount];
-                WriteTris(ref capTris, ref tsMesh.triangles, 0, 0, false);
+                int written = WriteTris(ref surfaceTris, ref tsMesh.triangles, 0, 0, false);
+                written = WriteTris(ref surfaceTris, ref tsMesh.triangles, surfaceVertexCount, written, true);
+
+                MeshUtility.GeneratePlaneTriangles(ref wallTris, sampleCount - 1, 2, flipSide, 0, 0, true);
+                WriteTris(ref wallTris, ref tsMesh.triangles, surfaceVertexCount * 2, written, false);
+            }
+            else
+            {
+                WriteTris(ref surfaceTris, ref tsMesh.triangles, 0, 0, false);
             }
         }
 
-        void GenerateCapTris(bool flip)
+        private void GenerateSurfaceTris(bool flip)
         {
-            MeshUtility.Triangulate(projectedVerts, ref capTris);
-            if (flip) MeshUtility.FlipTriangles(ref capTris);
+            MeshUtility.Triangulate(projectedVerts, ref surfaceTris);
+            if (flip) MeshUtility.FlipTriangles(ref surfaceTris);
         }
 
-        int WriteTris(ref int[] tris, ref int[] target, int vertexOffset, int trisOffset, bool flip)
+        private int WriteTris(ref int[] tris, ref int[] target, int vertexOffset, int trisOffset, bool flip)
         {
-            for (int i = trisOffset; i < trisOffset + tris.Length; i+=3)
+            for (int i = trisOffset; i < trisOffset + tris.Length; i += 3)
             {
                 if (flip)
                 {
-                    target[i] = tris[i+2 - trisOffset] + vertexOffset;
+                    target[i] = tris[i + 2 - trisOffset] + vertexOffset;
                     target[i + 1] = tris[i + 1 - trisOffset] + vertexOffset;
                     target[i + 2] = tris[i - trisOffset] + vertexOffset;
                 }
                 else
                 {
                     target[i] = tris[i - trisOffset] + vertexOffset;
-                    target[i+1] = tris[i+1 - trisOffset] + vertexOffset;
-                    target[i+2] = tris[i+2 - trisOffset] + vertexOffset;
+                    target[i + 1] = tris[i + 1 - trisOffset] + vertexOffset;
+                    target[i + 2] = tris[i + 2 - trisOffset] + vertexOffset;
                 }
             }
             return trisOffset + tris.Length;
@@ -364,28 +392,38 @@ namespace Dreamteck.Splines
         void GetIdentityVerts(Vector3 center, Vector3 normal, bool clockwise)
         {
             Quaternion vertsRotation = Quaternion.Inverse(Quaternion.LookRotation(normal));
-            if (identityVertices.Length != clippedSamples.Length)
+            if (identityVertices.Length != sampleCount)
             {
-                identityVertices = new Vector3[clippedSamples.Length];
-                identityNormals = new Vector3[clippedSamples.Length];
+                identityVertices = new Vector3[sampleCount];
+                identityNormals = new Vector3[sampleCount];
             }
-            for (int i = 0; i < clippedSamples.Length; i++)
+            for (int i = 0; i < sampleCount; i++)
             {
-                identityVertices[i] = vertsRotation * (clippedSamples[i].position - center + (clockwise ? -clippedSamples[i].right : clippedSamples[i].right) * _expand);
-                identityNormals[i] = vertsRotation * (clockwise ? -clippedSamples[i].right : clippedSamples[i].right);
+                identityVertices[i] = vertsRotation * (GetSampleRaw(i).position - center + (clockwise ? -GetSampleRaw(i).right : GetSampleRaw(i).right) * _expand);
+                identityNormals[i] = vertsRotation * (clockwise ? -GetSampleRaw(i).right : GetSampleRaw(i).right);
             }
         }
 
-        void GetProjectedVertices(Vector3[] points, Vector3 normal, Vector3 center, int count = 0)
+        void GetProjectedVertices(int count, out Vector3 center, out Vector3 normal)
         {
+            center = Vector3.zero;
+            normal = Vector3.zero;
+            Vector3 off = trs.right * offset.x + trs.up * offset.y + trs.forward * offset.z;
+            for (int i = 0; i < count; i++)
+            {
+                center += GetSampleRaw(i).position + off;
+                normal += GetSampleRaw(i).up;
+            }
+            normal.Normalize();
+            center /= count;
+
             Quaternion rot = Quaternion.LookRotation(normal, Vector3.up);
             Vector3 up = rot * Vector3.up;
             Vector3 right = rot * Vector3.right;
-            int length = count > 0 ? count : points.Length;
-            if (projectedVerts.Length != length) projectedVerts = new Vector2[length];
-            for (int i = 0; i < length; i++)
+            if (projectedVerts.Length != count) projectedVerts = new Vector2[count];
+            for (int i = 0; i < count; i++)
             {
-                Vector3 point = points[i] - center;
+                Vector3 point = GetSampleRaw(i).position + off - center;
                 float projectionPointX = Vector3.Project(point, right).magnitude;
                 if (Vector3.Dot(point, right) < 0.0f) projectionPointX *= -1f;
                 float projectionPointY = Vector3.Project(point, up).magnitude;

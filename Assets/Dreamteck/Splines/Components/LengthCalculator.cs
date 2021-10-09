@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Dreamteck.Splines
 {
-    [AddComponentMenu("Dreamteck/Splines/Length Calculator")]
+    [AddComponentMenu("Dreamteck/Splines/Users/Length Calculator")]
     public class LengthCalculator : SplineUser
     {
         [System.Serializable]
@@ -13,7 +13,7 @@ namespace Dreamteck.Splines
         {
             public bool enabled = true;
             public float targetLength = 0f;
-            public SplineAction action = new SplineAction();
+            public UnityEvent onChange = new UnityEvent();
             public enum Type { Growing, Shrinking, Both}
             public Type type = Type.Both;
 
@@ -27,12 +27,6 @@ namespace Dreamteck.Splines
                 type = t;
             }
 
-            public LengthEvent(Type t, SplineAction a)
-            {
-                type = t;
-                action = a;
-            }
-
             public void Check(float fromLength, float toLength)
             {
                 if (!enabled) return;
@@ -43,7 +37,7 @@ namespace Dreamteck.Splines
                     case Type.Shrinking: condition = toLength <= targetLength && fromLength > targetLength; break;
                     case Type.Both: condition = toLength >= targetLength && fromLength < targetLength || toLength <= targetLength && fromLength > targetLength; break;
                 }
-                if (condition) action.Invoke();
+                if (condition) onChange.Invoke();
             }
         }
         [HideInInspector]
@@ -62,18 +56,18 @@ namespace Dreamteck.Splines
         protected override void Awake()
         {
             base.Awake();
-            _length = _address.CalculateLength(clipFrom, clipTo);
+            _length = CalculateLength();
             lastLength = _length;
             for (int i = 0; i < lengthEvents.Length; i++)
             {
-                if (lengthEvents[i].targetLength == _length) lengthEvents[i].action.Invoke();
+                if (lengthEvents[i].targetLength == _length) lengthEvents[i].onChange.Invoke();
             }
         }
 
         protected override void Build()
         {
             base.Build();
-            _length = CalculateLength(clipFrom, clipTo);
+            _length = CalculateLength();
             if (lastLength != _length)
             {
                 for (int i = 0; i < lengthEvents.Length; i++)
@@ -84,76 +78,12 @@ namespace Dreamteck.Splines
             }
         }
 
-        private void AddEvent(LengthEvent lengthEvent)
+        public void AddEvent(LengthEvent lengthEvent)
         {
             LengthEvent[] newEvents = new LengthEvent[lengthEvents.Length + 1];
             lengthEvents.CopyTo(newEvents, 0);
             newEvents[newEvents.Length - 1] = lengthEvent;
             lengthEvents = newEvents;
-        }
-
-        public void AddEvent(LengthEvent.Type t, UnityAction call, float targetLength = 0f, LengthEvent.Type type = LengthEvent.Type.Both)
-        {
-            LengthEvent newEvent = new LengthEvent(t, new SplineAction(call));
-            newEvent.targetLength = targetLength;
-            newEvent.type = type;
-            AddEvent(newEvent);
-        }
-
-        public void AddEvent(LengthEvent.Type t, UnityAction<int> call, int value, float targetLength = 0f, LengthEvent.Type type = LengthEvent.Type.Both)
-        {
-            LengthEvent newEvent = new LengthEvent(t, new SplineAction(call, value));
-            newEvent.targetLength = targetLength;
-            newEvent.type = type;
-            AddEvent(newEvent);
-        }
-
-        public void AddEvent(LengthEvent.Type t, UnityAction<float> call, float value, float targetLength = 0f, LengthEvent.Type type = LengthEvent.Type.Both)
-        {
-            LengthEvent newEvent = new LengthEvent(t, new SplineAction(call, value));
-            newEvent.targetLength = targetLength;
-            newEvent.type = type;
-            AddEvent(newEvent);
-        }
-
-        public void AddEvent(LengthEvent.Type t, UnityAction<double> call, double value, float targetLength = 0f, LengthEvent.Type type = LengthEvent.Type.Both)
-        {
-            LengthEvent newEvent = new LengthEvent(t, new SplineAction(call, value));
-            newEvent.targetLength = targetLength;
-            newEvent.type = type;
-            AddEvent(newEvent);
-        }
-
-        public void AddTrigger(LengthEvent.Type t, UnityAction<string> call, string value, float targetLength = 0f, LengthEvent.Type type = LengthEvent.Type.Both)
-        {
-            LengthEvent newEvent = new LengthEvent(t, new SplineAction(call, value));
-            newEvent.targetLength = targetLength;
-            newEvent.type = type;
-            AddEvent(newEvent);
-        }
-
-        public void AddEvent(LengthEvent.Type t, UnityAction<bool> call, bool value, float targetLength = 0f, LengthEvent.Type type = LengthEvent.Type.Both)
-        {
-            LengthEvent newEvent = new LengthEvent(t, new SplineAction(call, value));
-            newEvent.targetLength = targetLength;
-            newEvent.type = type;
-            AddEvent(newEvent);
-        }
-
-        public void AddEvent(LengthEvent.Type t, UnityAction<GameObject> call, GameObject value, float targetLength = 0f, LengthEvent.Type type = LengthEvent.Type.Both)
-        {
-            LengthEvent newEvent = new LengthEvent(t, new SplineAction(call, value));
-            newEvent.targetLength = targetLength;
-            newEvent.type = type;
-            AddEvent(newEvent);
-        }
-
-        public void AddEvent(LengthEvent.Type t, UnityAction<Transform> call, Transform value, float targetLength = 0f, LengthEvent.Type type = LengthEvent.Type.Both)
-        {
-            LengthEvent newEvent = new LengthEvent(t, new SplineAction(call, value));
-            newEvent.targetLength = targetLength;
-            newEvent.type = type;
-            AddEvent(newEvent);
         }
     }
 }

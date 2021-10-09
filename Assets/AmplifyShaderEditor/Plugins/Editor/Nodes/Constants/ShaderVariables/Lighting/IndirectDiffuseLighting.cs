@@ -16,6 +16,23 @@ namespace AmplifyShaderEditor
 
 		private int m_cachedIntensityId = -1;
 
+		private const string FwdBasePragma = "#pragma multi_compile_fwdbase";
+
+		private readonly string LWIndirectDiffuseHeader = "ASEIndirectDiffuse( {0}, {1})";
+		private readonly string[] LWIndirectDiffuseBody =
+		{
+			"float3 ASEIndirectDiffuse( float2 uvStaticLightmap, float3 normalWS )\n",
+			"{\n",
+			"#ifdef LIGHTMAP_ON\n",
+			"\treturn SampleLightmap( uvStaticLightmap, normalWS );\n",
+			"#else\n",
+			"\treturn SampleSH(normalWS);\n",
+			"#endif\n",
+			"}\n"
+		};
+
+
+
 		protected override void CommonInit( int uniqueId )
 		{
 			base.CommonInit( uniqueId );
@@ -101,7 +118,7 @@ namespace AmplifyShaderEditor
 				if( !dataCollector.IsSRP )
 				{
 					dataCollector.AddToIncludes( UniqueId, Constants.UnityLightingLib );
-
+					dataCollector.AddToDirectives( FwdBasePragma );
 					string texcoord1 = string.Empty;
 					string texcoord2 = string.Empty;
 
@@ -177,7 +194,7 @@ namespace AmplifyShaderEditor
 					dataCollector.AddLocalVariable( UniqueId, "data" + OutputId + ".ambient = " + fInName + "." + shVarName + ";" );
 					dataCollector.AddLocalVariable( UniqueId, "#endif //fsh" + OutputId );
 
-					dataCollector.AddToLocalVariables( UniqueId, "UnityGI gi" + OutputId + " = UnityGI_Base(data" + OutputId + ", 1, " + fragWorldNormal + ");" );
+					dataCollector.AddToFragmentLocalVariables( UniqueId, "UnityGI gi" + OutputId + " = UnityGI_Base(data" + OutputId + ", 1, " + fragWorldNormal + ");" );
 
 					finalValue =  "gi" + OutputId + ".indirect.diffuse";
 					m_outputPorts[ 0 ].SetLocalValue( finalValue, dataCollector.PortCategory );
@@ -224,8 +241,14 @@ namespace AmplifyShaderEditor
 						}
 
 						//SAMPLE_GI
-						dataCollector.AddLocalVariable( UniqueId, "float3 bakedGI" + OutputId + " = SAMPLE_GI( " + fInName + ".lightmapUVOrVertexSH.xy, " + fInName + ".lightmapUVOrVertexSH.xyz, " + fragWorldNormal + " );" );
+
+						//This function may not do full pixel and does not behave correctly with given normal thus is commented out
+						//dataCollector.AddLocalVariable( UniqueId, "float3 bakedGI" + OutputId + " = SAMPLE_GI( " + fInName + ".lightmapUVOrVertexSH.xy, " + fInName + ".lightmapUVOrVertexSH.xyz, " + fragWorldNormal + " );" );
+						dataCollector.AddFunction( LWIndirectDiffuseBody[ 0 ], LWIndirectDiffuseBody, false );
 						finalValue = "bakedGI" + OutputId;
+						string result = string.Format( LWIndirectDiffuseHeader, fInName + ".lightmapUVOrVertexSH.xy", fragWorldNormal );
+						dataCollector.AddLocalVariable( UniqueId, CurrentPrecisionType, WirePortDataType.FLOAT3, finalValue, result );
+
 						m_outputPorts[ 0 ].SetLocalValue( finalValue, dataCollector.PortCategory );
 						return finalValue;
 					}

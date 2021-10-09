@@ -3,40 +3,16 @@ using System.Collections;
 
 namespace Dreamteck.Splines
 {
-    [AddComponentMenu("Dreamteck/Splines/Spline Positioner")]
+    [AddComponentMenu("Dreamteck/Splines/Users/Spline Positioner")]
     public class SplinePositioner : SplineTracer
     {
         public enum Mode { Percent, Distance }
         
-        [System.Obsolete("Deprecated in 1.0.8. Use targetObject instead")]
-        public Transform applyTransform
-        {
-            get
-            {
-                return targetObject.transform;
-            }
-
-            set
-            {
-                if (value != null) targetObject = value.gameObject;
-                else targetObject = null;
-            }
-        }
-
         public GameObject targetObject
         {
             get
             {
-                if (_targetObject == null)
-                {
-                    if (_applyTransform != null) //Temporary check to migrate SplinePositioners that use applyTransform
-                    {
-                        _targetObject = _applyTransform.gameObject;
-                        _applyTransform = null;
-                        return _targetObject;
-                    }
-                    return gameObject;
-                }
+                if (_targetObject == null) return gameObject;
                 return _targetObject;
             }
 
@@ -46,7 +22,7 @@ namespace Dreamteck.Splines
                 {
                     _targetObject = value;
                     RefreshTargets();
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
@@ -55,16 +31,21 @@ namespace Dreamteck.Splines
         {
             get
             {
-                return _position;
+                return _result.percent;
             }
             set
             {
                 if (value != _position)
                 {
-                    animPosition = (float)value;
-                    _position = value;
-                    if (mode == Mode.Distance) SetDistance((float)_position, true);
-                    else SetPercent(_position, true);
+                    _position = (float)value;
+                    if (mode == Mode.Distance)
+                    {
+                        SetDistance(_position, true);
+                    }
+                    else
+                    {
+                        SetPercent(value, true);
+                    }
                 }
             }
         }
@@ -77,51 +58,36 @@ namespace Dreamteck.Splines
                 if (value != _mode)
                 {
                     _mode = value;
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
 
-        /// <summary>
-        /// Returns the evaluation result at the current position
-        /// </summary>
-        [System.Obsolete("Deprecated in 1.0.8. Use result instead")]
-        public SplineResult positionResult
-        {
-            get { return _result; }
-        }
-
-        /// <summary>
-        /// Returns the offsetted evaluation result at the current position. 
-        /// </summary>
-        [System.Obsolete("Deprecated in 1.0.8. Use offsettedResult instead")]
-        public SplineResult offsettedPositionResult
-        {
-            get
-            {
-                return offsettedResult;
-            }
-        }
-
-        [SerializeField]
-        [HideInInspector]
-        private Transform _applyTransform;
         [SerializeField]
         [HideInInspector]
         private GameObject _targetObject;
         [SerializeField]
         [HideInInspector]
-        private double _position = 0.0;
-        [SerializeField]
-        [HideInInspector]
-        private float animPosition = 0f;
+        private float _position = 0f;
         [SerializeField]
         [HideInInspector]
         private Mode _mode = Mode.Percent;
+        private float _lastPosition = 0f;
 
         protected override void OnDidApplyAnimationProperties()
         {
-            if (animPosition != _position) position = animPosition;
+            if (_lastPosition != _position)
+            {
+                _lastPosition = _position;
+                if (mode == Mode.Distance)
+                {
+                    SetDistance(_position, true);
+                }
+                else
+                {
+                    SetPercent(_position, true);
+                }
+            }
             base.OnDidApplyAnimationProperties();
         }
 
@@ -147,15 +113,15 @@ namespace Dreamteck.Splines
             else SetPercent(_position, true);
         }
 
-        public override void SetPercent(double percent, bool checkTriggers = false)
+        public override void SetPercent(double percent, bool checkTriggers = false, bool handleJuncitons = false)
         {
-            base.SetPercent(percent, checkTriggers);
-            _position = percent;
+            base.SetPercent(percent, checkTriggers, handleJuncitons);
+            _position = (float)percent;
         }
 
-        public override void SetDistance(float distance, bool checkTriggers = false)
+        public override void SetDistance(float distance, bool checkTriggers = false, bool handleJuncitons = false)
         {
-            base.SetDistance(distance, checkTriggers);
+            base.SetDistance(distance, checkTriggers, handleJuncitons);
             _position = distance;
         }
     }

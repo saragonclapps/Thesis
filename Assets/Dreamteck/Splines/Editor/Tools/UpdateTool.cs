@@ -77,7 +77,7 @@ namespace Dreamteck.Splines
             {
                 EditorUtility.DisplayProgressBar("Updating users", "Updating user " + users[i].name, (float)i/(users.Length-1));
                 users[i].EditorAwake();
-                users[i].Rebuild(true);
+                users[i].Rebuild();
                 updated += i + " - " + users[i].name + System.Environment.NewLine;
             }
             EditorUtility.ClearProgressBar();
@@ -92,7 +92,7 @@ namespace Dreamteck.Splines
             {
                 EditorUtility.DisplayProgressBar("Updating mesh generators", "Updating generator " + users[i].name, (float)i / (users.Length - 1));
                 users[i].EditorAwake();
-                users[i].Rebuild(true);
+                users[i].Rebuild();
                 updated += i + " - " + users[i].name + System.Environment.NewLine;
             }
             EditorUtility.ClearProgressBar();

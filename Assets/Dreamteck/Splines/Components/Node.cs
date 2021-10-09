@@ -3,12 +3,14 @@ using System.Collections;
 
 namespace Dreamteck.Splines
 {
+    [ExecuteInEditMode]
+    [AddComponentMenu("Dreamteck/Splines/Node Connector")]
     public class Node : MonoBehaviour
     {
         [System.Serializable]
         public class Connection
         {
-            public SplineComputer computer
+            public SplineComputer spline
             {
                 get { return _computer; }
             }
@@ -46,6 +48,7 @@ namespace Dreamteck.Splines
             }
         }
         public enum Type { Smooth, Free }
+        [HideInInspector]
         public Type type = Type.Smooth;
 
         public bool transformNormals
@@ -88,20 +91,28 @@ namespace Dreamteck.Splines
         }
 
         [SerializeField]
+        [HideInInspector]
         protected Connection[] connections = new Connection[0];
         [SerializeField]
+        [HideInInspector]
         private bool _transformSize = true;
         [SerializeField]
+        [HideInInspector]
         private bool _transformNormals = true;
         [SerializeField]
+        [HideInInspector]
         private bool _transformTangents = true;
 
-        private TS_Transform tsTransform;
+        private Vector3 lastPosition, lastScale;
+        private Quaternion lastRotation;
+        Transform trs;
 
-        void Awake()
+        private void Awake()
         {
-            tsTransform = new TS_Transform(transform);
+            trs = transform;
+            SampleTransform();
         }
+
 
         void LateUpdate()
         {
@@ -113,12 +124,33 @@ namespace Dreamteck.Splines
             Run();
         }
 
+        bool TransformChanged()
+        {
+#if UNITY_EDITOR
+            if(trs == null) return lastPosition != transform.position || lastRotation != transform.rotation || lastScale != transform.lossyScale;
+#endif
+            return lastPosition != trs.position || lastRotation != trs.rotation || lastScale != trs.lossyScale;
+        }
+
+        void SampleTransform() {
+#if UNITY_EDITOR
+            lastPosition = transform.position;
+            lastScale = transform.lossyScale;
+            lastRotation = transform.rotation;
+            return;
+#else
+            lastPosition = trs.position;
+            lastScale = trs.lossyScale;
+            lastRotation = trs.rotation;
+#endif
+        }
+
         private void Run()
         {
-            if (tsTransform.HasChange())
+            if (TransformChanged())
             {
                 UpdateConnectedComputers();
-                tsTransform.Update();
+                SampleTransform();
             }
         }
 
@@ -178,9 +210,9 @@ namespace Dreamteck.Splines
 
         public void ClearConnections()
         {
-            for (int i = 0; i < connections.Length; i++)
+            for (int i = connections.Length-1; i >= 0; i--)
             {
-                if (connections[i].computer != null) connections[i].computer.RemoveNodeLink(connections[i].pointIndex);
+                if (connections[i].spline != null) connections[i].spline.DisconnectNode(connections[i].pointIndex);
             }
             connections = new Connection[0];
         }
@@ -194,45 +226,35 @@ namespace Dreamteck.Splines
                     RemoveConnection(i);
                     continue;
                 }
-                if (connections[i].computer == excludeComputer) continue;
+                if (connections[i].spline == excludeComputer) continue;
                 if (type == Type.Smooth && i != 0) SetPoint(i, GetPoint(0, false), false);
                 SplinePoint point = GetPoint(i, true);
-                if (!transformNormals) point.normal = connections[i].computer.GetPointNormal(connections[i].pointIndex);
+                if (!transformNormals) point.normal = connections[i].spline.GetPointNormal(connections[i].pointIndex);
                 if (!transformTangents)
                 {
-                    point.tangent = connections[i].computer.GetPointTangent(connections[i].pointIndex);
-                    point.tangent2 = connections[i].computer.GetPointTangent2(connections[i].pointIndex);
+                    point.tangent = connections[i].spline.GetPointTangent(connections[i].pointIndex);
+                    point.tangent2 = connections[i].spline.GetPointTangent2(connections[i].pointIndex);
                 }
-                if(!transformSize) point.size = connections[i].computer.GetPointSize(connections[i].pointIndex);
-                connections[i].computer.SetPoint(connections[i].pointIndex, point);
+                if(!transformSize) point.size = connections[i].spline.GetPointSize(connections[i].pointIndex);
+                connections[i].spline.SetPoint(connections[i].pointIndex, point);
             }
         }
 
         public void UpdatePoint(SplineComputer computer, int pointIndex, SplinePoint point, bool updatePosition = true)
         {
-    #if UNITY_EDITOR
-            if(transform == null)
-            {
-                    UpdateConnectedComputers();
-                    return;
-              }
+#if UNITY_EDITOR
             if (!Application.isPlaying) transform.position = point.position;
-            else
-            {
-                tsTransform.position = point.position;
-                tsTransform.Update();
-            }
-    #else
-                tsTransform.position = point.position;
-                tsTransform.Update();
-    #endif
+            else trs.position = point.position;
+#else
+            trs.position = point.position;
+#endif
             for (int i = 0; i < connections.Length; i++)
             {
-                if (connections[i].computer == computer && connections[i].pointIndex == pointIndex) SetPoint(i, point, true);
+                if (connections[i].spline == computer && connections[i].pointIndex == pointIndex) SetPoint(i, point, true);
             }
         }
 
-        private void UpdatePoints()
+        public void UpdatePoints()
         {
             for (int i = connections.Length - 1; i >= 0; i--)
             {
@@ -241,7 +263,7 @@ namespace Dreamteck.Splines
                     RemoveConnection(i);
                     continue;
                 }
-                SplinePoint point = connections[i].computer.GetPoint(connections[i].pointIndex);
+                SplinePoint point = connections[i].spline.GetPoint(connections[i].pointIndex);
                 point.SetPosition(transform.position);
                 SetPoint(i, point, true);
             }
@@ -252,19 +274,6 @@ namespace Dreamteck.Splines
         public void EditorMaintainConnections()
         {
             RemoveInvalidConnections();
-            for (int i = 0; i < connections.Length; i++)
-            {
-                bool found = false;
-                for (int n = 0; n < connections[i].computer.nodeLinks.Length; n++)
-                {
-                    if (connections[i].computer.nodeLinks[n].node == this && connections[i].computer.nodeLinks[n].pointIndex == connections[i].pointIndex)
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) connections[i].computer.AddNodeLink(this, connections[i].pointIndex);
-            }
         }
 #endif
         //Remove invalid connections
@@ -279,23 +288,16 @@ namespace Dreamteck.Splines
         public virtual void AddConnection(SplineComputer computer, int pointIndex)
         {
             RemoveInvalidConnections();
-            for (int i = 0; i < computer.nodeLinks.Length; i++)
+            Node connected = computer.GetNode(pointIndex);
+            if (connected != null)
             {
-                if (computer.nodeLinks[i].pointIndex == pointIndex)
-                {
-                    Debug.LogError("Connection has been already added in " + computer.nodeLinks[i].node);
-                    return;
-                }
+                Debug.LogError(computer.name + " is already connected to node " + connected.name + " at point " + pointIndex);
+                return;
             }
             SplinePoint point = computer.GetPoint(pointIndex);
             point.SetPosition(transform.position);
-            Connection newConnection = new Connection(computer, pointIndex, PointToLocal(point));
-            Connection[] newConnections = new Connection[connections.Length + 1];
-            connections.CopyTo(newConnections, 0);
-            newConnections[connections.Length] = newConnection;
-            connections = newConnections;
-            SetPoint(connections.Length - 1, point, true);
-            computer.AddNodeLink(this, pointIndex);
+            ArrayUtility.Add(ref connections, new Connection(computer, pointIndex, PointToLocal(point)));
+            if(connections.Length == 1) SetPoint(connections.Length - 1, point, true);
             UpdateConnectedComputers();
         }
 
@@ -324,24 +326,20 @@ namespace Dreamteck.Splines
             int index = -1;
             for (int i = 0; i < connections.Length; i++)
             {
-                if (connections[i].computer == computer && connections[i].pointIndex == pointIndex)
+                if (connections[i].pointIndex == pointIndex && connections[i].spline == computer)
                 {
                     index = i;
                     break;
                 }
             }
-            if (index < 0)
-            {
-                Debug.LogError("Connection not found in " + name);
-                return;
-            }
+            if (index < 0) return;
             RemoveConnection(index);
         }
 
         private void RemoveConnection(int index)
         {
             Connection[] newConnections = new Connection[connections.Length - 1];
-            SplineComputer computer = connections[index].computer;
+            SplineComputer spline = connections[index].spline;
             int pointIndex = connections[index].pointIndex;
             for (int i = 0; i < connections.Length; i++)
             {
@@ -350,7 +348,6 @@ namespace Dreamteck.Splines
                 else newConnections[i - 1] = connections[i];
             }
             connections = newConnections;
-            if (computer != null) computer.RemoveNodeLink(pointIndex);
         }
 
         public virtual bool HasConnection(SplineComputer computer, int pointIndex)
@@ -362,7 +359,7 @@ namespace Dreamteck.Splines
                     RemoveConnection(i);
                     continue;
                 }
-                if (connections[i].computer == computer && connections[i].pointIndex == pointIndex) return true;
+                if (connections[i].spline == computer && connections[i].pointIndex == pointIndex) return true;
             }
             return false;
         }

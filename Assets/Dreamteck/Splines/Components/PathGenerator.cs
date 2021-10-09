@@ -7,7 +7,7 @@ namespace Dreamteck.Splines
 {
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]
-    [AddComponentMenu("Dreamteck/Splines/Path Generator")]
+    [AddComponentMenu("Dreamteck/Splines/Users/Path Generator")]
     public class PathGenerator : MeshGenerator
     {
         public int slices
@@ -19,7 +19,7 @@ namespace Dreamteck.Splines
                 {
                     if (value < 1) value = 1;
                     _slices = value;
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
@@ -38,7 +38,7 @@ namespace Dreamteck.Splines
                         _shape.AddKey(new Keyframe(0, 0));
                         _shape.AddKey(new Keyframe(1, 0));
                     } else _shape = null;
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
@@ -48,10 +48,10 @@ namespace Dreamteck.Splines
             get { return _shapeExposure; }
             set
             {
-                if (computer != null && value != _shapeExposure)
+                if (spline != null && value != _shapeExposure)
                 {
                     _shapeExposure = value;
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace Dreamteck.Splines
                         }
                     }
                 }
-                if (keyChange) Rebuild(false);
+                if (keyChange) Rebuild();
                 _lastShape.keys = new Keyframe[value.keys.Length];
                 value.keys.CopyTo(_lastShape.keys, 0);
                 _lastShape.preWrapMode = value.preWrapMode;
@@ -119,41 +119,49 @@ namespace Dreamteck.Splines
 
         protected override void BuildMesh()
         {
-           if (clippedSamples.Length == 0) return;
            base.BuildMesh();
            GenerateVertices();
-           MeshUtility.GeneratePlaneTriangles(ref tsMesh.triangles, _slices, clippedSamples.Length, false);
+           MeshUtility.GeneratePlaneTriangles(ref tsMesh.triangles, _slices, sampleCount, false);
         }
 
 
         void GenerateVertices()
         {
-            int vertexCount = (_slices + 1) * clippedSamples.Length;
-            AllocateMesh(vertexCount, _slices * (clippedSamples.Length-1) * 6);
+            int vertexCount = (_slices + 1) * sampleCount;
+            AllocateMesh(vertexCount, _slices * (sampleCount-1) * 6);
             int vertexIndex = 0;
 
             ResetUVDistance();
-            for (int i = 0; i < clippedSamples.Length; i++)
+
+            bool hasOffset = offset != Vector3.zero;
+
+            for (int i = 0; i < sampleCount; i++)
             {
+                GetSample(i, evalResult);
                 Vector3 center = Vector3.zero;
                 try
                 {
-                   center = clippedSamples[i].position;
+                   center = evalResult.position;
                 } catch (System.Exception ex) { Debug.Log(ex.Message + " for i = " + i); return; }
-                Vector3 right = clippedSamples[i].right;
-                if (offset != Vector3.zero) center += offset.x * right + offset.y * clippedSamples[i].normal + offset.z * clippedSamples[i].direction;
-                float fullSize = size * clippedSamples[i].size;
+                Vector3 right = evalResult.right;
+                float resultSize = GetBaseSize(evalResult);
+                if (hasOffset)
+                {
+                    center += (offset.x * resultSize) * right + (offset.y * resultSize) * evalResult.up + (offset.z * resultSize) * evalResult.forward;
+                }
+                float fullSize = size * resultSize;
                 Vector3 lastVertPos = Vector3.zero;
-                Quaternion rot = Quaternion.AngleAxis(rotation, clippedSamples[i].direction);
+                Quaternion rot = Quaternion.AngleAxis(rotation, evalResult.forward);
                 if (uvMode == UVMode.UniformClamp || uvMode == UVMode.UniformClip) AddUVDistance(i);
+                Color vertexColor = GetBaseColor(evalResult) * color;
                 for (int n = 0; n < _slices + 1; n++)
                 {
                     float slicePercent = ((float)n / _slices);
                     float shapeEval = 0f;
                     if (_useShapeCurve) shapeEval = _shape.Evaluate(slicePercent);
-                    tsMesh.vertices[vertexIndex] = center + rot * right * fullSize * 0.5f - rot * right * fullSize * slicePercent + rot * clippedSamples[i].normal * shapeEval * _shapeExposure;
-                    CalculateUVs(clippedSamples[i].percent, 1f - slicePercent);
-                    tsMesh.uv[vertexIndex] = Vector2.one * 0.5f + (Vector2)(Quaternion.AngleAxis(uvRotation, Vector3.forward) * (Vector2.one * 0.5f - uvs));
+                    tsMesh.vertices[vertexIndex] = center + rot * right * (fullSize * 0.5f) - rot * right * (fullSize * slicePercent) + rot * evalResult.up * (shapeEval * _shapeExposure);
+                    CalculateUVs(evalResult.percent, 1f - slicePercent);
+                    tsMesh.uv[vertexIndex] = Vector2.one * 0.5f + (Vector2)(Quaternion.AngleAxis(uvRotation + 180f, Vector3.forward) * (Vector2.one * 0.5f - uvs));
                     if (_slices > 1)
                     {
                         if (n < _slices)
@@ -161,23 +169,23 @@ namespace Dreamteck.Splines
                             float forwardPercent = ((float)(n + 1) / _slices);
                             shapeEval = 0f;
                             if (_useShapeCurve) shapeEval = _shape.Evaluate(forwardPercent);
-                            Vector3 nextVertPos = center + rot * right * fullSize * 0.5f - rot * right * fullSize * forwardPercent + rot * clippedSamples[i].normal * shapeEval * _shapeExposure;
-                            Vector3 cross1 = -Vector3.Cross(clippedSamples[i].direction, nextVertPos - tsMesh.vertices[vertexIndex]).normalized;
+                            Vector3 nextVertPos = center + rot * right * fullSize * 0.5f - rot * right * fullSize * forwardPercent + rot * evalResult.up * shapeEval * _shapeExposure;
+                            Vector3 cross1 = -Vector3.Cross(evalResult.forward, nextVertPos - tsMesh.vertices[vertexIndex]).normalized;
 
                             if (n > 0)
                             {
-                                Vector3 cross2 = -Vector3.Cross(clippedSamples[i].direction, tsMesh.vertices[vertexIndex] - lastVertPos).normalized;
+                                Vector3 cross2 = -Vector3.Cross(evalResult.forward, tsMesh.vertices[vertexIndex] - lastVertPos).normalized;
                                 tsMesh.normals[vertexIndex] = Vector3.Slerp(cross1, cross2, 0.5f);
                             } else tsMesh.normals[vertexIndex] = cross1;
                         }
-                        else   tsMesh.normals[vertexIndex] = -Vector3.Cross(clippedSamples[i].direction, tsMesh.vertices[vertexIndex] - lastVertPos).normalized;
+                        else   tsMesh.normals[vertexIndex] = -Vector3.Cross(evalResult.forward, tsMesh.vertices[vertexIndex] - lastVertPos).normalized;
                     }
                     else
                     {
-                        tsMesh.normals[vertexIndex] = clippedSamples[i].normal;
+                        tsMesh.normals[vertexIndex] = evalResult.up;
                         if (rotation != 0f) tsMesh.normals[vertexIndex] = rot * tsMesh.normals[vertexIndex];
                     }
-                    tsMesh.colors[vertexIndex] = clippedSamples[i].color * color;
+                    tsMesh.colors[vertexIndex] = vertexColor;
                     lastVertPos = tsMesh.vertices[vertexIndex];
                     vertexIndex++;
                 }

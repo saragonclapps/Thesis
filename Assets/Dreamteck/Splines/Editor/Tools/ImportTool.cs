@@ -1,12 +1,12 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using System.IO;
-using Dreamteck.Splines.IO;
-
-namespace Dreamteck.Splines
+namespace Dreamteck.Splines.Editor
 {
+    using UnityEngine;
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEditor;
+    using System.IO;
+    using Dreamteck.Splines.IO;
+
     public class ImportExportTool : SplineTool
     {
         private float scaleFactor = 1f;
@@ -101,7 +101,13 @@ namespace Dreamteck.Splines
             SaveBool("flatCSV", flatCSV);
             SaveInt("importAxis", (int)importAxis);
             SaveInt("exportAxis", (int)exportAxis);
+
+#if UNITY_2019_1_OR_NEWER
+            SceneView.duringSceneGui -= OnScene;
+#else
             SceneView.onSceneGUIDelegate -= OnScene;
+#endif
+
         } 
 
         protected override void Save()
@@ -123,7 +129,12 @@ namespace Dreamteck.Splines
                 }
             }
             imported.Clear();
+#if UNITY_2019_1_OR_NEWER
+            SceneView.duringSceneGui -= OnScene;
+#else
             SceneView.onSceneGUIDelegate -= OnScene;
+#endif
+
             mode = Mode.None;
         }
 
@@ -134,7 +145,12 @@ namespace Dreamteck.Splines
             GameObject.DestroyImmediate(importedParent);
             imported.Clear();
             SceneView.RepaintAll();
+#if UNITY_2019_1_OR_NEWER
+            SceneView.duringSceneGui -= OnScene;
+#else
             SceneView.onSceneGUIDelegate -= OnScene;
+#endif
+
             mode = Mode.None;
         }
 
@@ -155,7 +171,7 @@ namespace Dreamteck.Splines
         {
             for (int i = 0; i < imported.Count; i++)
             {
-                SplineDrawer.DrawSplineComputer(imported[i]);
+                DSSplineDrawer.DrawSplineComputer(imported[i]);
             }
         }
 
@@ -288,8 +304,14 @@ namespace Dreamteck.Splines
                     transformed[j].normal = lookRot * transformed[j].normal;
                 }
                 imported[i].SetPoints(transformed);
-                if(alwaysDraw) SplineDrawer.RegisterComputer(imported[i]);
-                else SplineDrawer.UnregisterComputer(imported[i]);
+                if (alwaysDraw)
+                {
+                    DSSplineDrawer.RegisterComputer(imported[i]);
+                }
+                else
+                {
+                    DSSplineDrawer.UnregisterComputer(imported[i]);
+                }
             }
             SceneView.RepaintAll();
         }
@@ -314,7 +336,12 @@ namespace Dreamteck.Splines
             if (imported.Count == 0) return;
             importedParent = new GameObject(svg.name);
             foreach (SplineComputer comp in imported) comp.transform.parent = importedParent.transform;
+#if UNITY_2019_1_OR_NEWER
+            SceneView.duringSceneGui += OnScene;
+#else
             SceneView.onSceneGUIDelegate += OnScene;
+#endif
+
             GetImportedPoints();
             ApplyPoints();
             promptSave = true;
@@ -350,7 +377,12 @@ namespace Dreamteck.Splines
             imported.Clear();
             imported.Add(csv.CreateSplineComputer(Vector3.zero, Quaternion.identity));
             if (imported.Count == 0) return;
+#if UNITY_2019_1_OR_NEWER
+            SceneView.duringSceneGui += OnScene;
+#else
             SceneView.onSceneGUIDelegate += OnScene;
+#endif
+
             GetImportedPoints();
             ApplyPoints();
             promptSave = true;

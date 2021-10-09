@@ -1,24 +1,24 @@
-#if UNITY_EDITOR
+namespace Dreamteck.Splines.Editor
+{
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEditor;
+    using UnityEngine;
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-
-namespace Dreamteck.Splines {
     public class TransformModuleEditor : SplineUserSubEditor
     {
         private TransformModule motionApplier;
 
-        public TransformModuleEditor(SplineUserEditor parent, TransformModule input) : base(parent)
+        public TransformModuleEditor(SplineUser user, SplineUserEditor parent, TransformModule input) : base(user, parent)
         {
             title = "Motion";
             motionApplier = input;
         }
 
-        protected override void DrawInspectorLogic()
+        public override void DrawInspector()
         {
-            base.DrawInspectorLogic();
+            base.DrawInspector();
+            if (!isOpen) return;
             EditorGUI.indentLevel = 1;
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Position", GUILayout.Width(EditorGUIUtility.labelWidth));
@@ -74,4 +74,3 @@ namespace Dreamteck.Splines {
         }
     }
 }
-#endif

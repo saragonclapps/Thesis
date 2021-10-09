@@ -3,7 +3,7 @@ using System.Collections;
 using System.Threading;
 namespace Dreamteck.Splines
 {
-    [AddComponentMenu("Dreamteck/Splines/Polygon Collider Generator")]
+    [AddComponentMenu("Dreamteck/Splines/Users/Polygon Collider Generator")]
     [RequireComponent(typeof(PolygonCollider2D))]
     public class PolygonColliderGenerator : SplineUser
     {
@@ -19,7 +19,7 @@ namespace Dreamteck.Splines
                 if (value != _type)
                 {
                     _type = value;
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
@@ -32,7 +32,7 @@ namespace Dreamteck.Splines
                 if (value != _size)
                 {
                     _size = value;
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace Dreamteck.Splines
                 if (value != _offset)
                 {
                     _offset = value;
-                    Rebuild(false);
+                    Rebuild();
                 }
             }
         }
@@ -128,7 +128,6 @@ namespace Dreamteck.Splines
         protected override void Build()
         {
             base.Build();
-            if (clippedSamples.Length == 0) return;
             switch(type){
                 case Type.Path:
                 GeneratePath();
@@ -144,7 +143,7 @@ namespace Dreamteck.Splines
             if (polygonCollider == null) return;
             for(int i = 0; i < vertices.Length; i++)
             {
-                vertices[i] = this.transform.InverseTransformPoint(vertices[i]);
+                vertices[i] = transform.InverseTransformPoint(vertices[i]);
             }
 #if UNITY_EDITOR
             if (!Application.isPlaying || updateRate <= 0f) polygonCollider.SetPath(0, vertices);
@@ -157,25 +156,27 @@ namespace Dreamteck.Splines
 
         private void GeneratePath()
         {
-            int vertexCount = clippedSamples.Length * 2;
+            int vertexCount = sampleCount * 2;
             if (vertices.Length != vertexCount) vertices = new Vector2[vertexCount];
-            for (int i = 0; i < clippedSamples.Length; i++)
+            for (int i = 0; i < sampleCount; i++)
             {
-                Vector2 right = new Vector2(-clippedSamples[i].direction.y, clippedSamples[i].direction.x).normalized * clippedSamples[i].size;
-                vertices[i] = new Vector2(clippedSamples[i].position.x, clippedSamples[i].position.y) + right * size * 0.5f + right * offset;
-                vertices[clippedSamples.Length + (clippedSamples.Length - 1) - i] = new Vector2(clippedSamples[i].position.x, clippedSamples[i].position.y) - right * size * 0.5f + right * offset;
+                GetSample(i, evalResult);
+                Vector2 right = new Vector2(-evalResult.forward.y, evalResult.forward.x).normalized * evalResult.size;
+                vertices[i] = new Vector2(evalResult.position.x, evalResult.position.y) + right * size * 0.5f + right * offset;
+                vertices[sampleCount + (sampleCount - 1) - i] = new Vector2(evalResult.position.x, evalResult.position.y) - right * size * 0.5f + right * offset;
             }
         }
 
         private void GenerateShape()
         {
-            if (vertices.Length != clippedSamples.Length) vertices = new Vector2[clippedSamples.Length];
-            for (int i = 0; i < clippedSamples.Length; i++)
+            if (vertices.Length != sampleCount) vertices = new Vector2[sampleCount];
+            for (int i = 0; i < sampleCount; i++)
             {
-                vertices[i] = clippedSamples[i].position;
+                GetSample(i, evalResult);
+                vertices[i] = evalResult.position;
                 if (offset != 0f)
                 {
-                    Vector2 right = new Vector2(-clippedSamples[i].direction.y, clippedSamples[i].direction.x).normalized * clippedSamples[i].size;
+                    Vector2 right = new Vector2(-evalResult.forward.y, evalResult.forward.x).normalized * evalResult.size;
                     vertices[i] += right * offset;
                 }
             }

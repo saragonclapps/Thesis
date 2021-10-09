@@ -9,10 +9,14 @@ namespace Dreamteck.Splines.Primitives
         public float radius = 1f;
         public float height = 2f;
 
+        public override Spline.Type GetSplineType()
+        {
+            return Spline.Type.Bezier;
+        }
+
         protected override void Generate()
         {
             base.Generate();
-            type = Spline.Type.Bezier;
             closed = true;
             CreatePoints(7, SplinePoint.Type.SmoothMirrored);
             points[0].position = Vector3.right / 2f * radius + Vector3.up * height * 0.5f;

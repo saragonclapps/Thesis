@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +10,14 @@ namespace Dreamteck.Splines.Primitives
         public float xRadius = 0.25f;
         public float yRadius = 0.25f;
 
+        public override Spline.Type GetSplineType()
+        {
+            return Spline.Type.Bezier;
+        }
+
         protected override void Generate()
         {
             base.Generate();
-            type = Spline.Type.Bezier;
             closed = true;
             CreatePoints(9, SplinePoint.Type.Broken);
             Vector2 edgeSize = size - new Vector2(xRadius, yRadius) * 2f;

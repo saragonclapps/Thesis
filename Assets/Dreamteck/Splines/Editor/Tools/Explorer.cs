@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
 
-namespace Dreamteck.Splines
+namespace Dreamteck.Splines.Editor
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEditor;
+
     public class Explorer : SplineTool
     {
         GUIStyle normalRow;
@@ -34,13 +35,23 @@ namespace Dreamteck.Splines
             selectedRow.normal.background = SplineEditorGUI.white;
             selectedRow.normal.textColor = SplinePrefs.highlightContentColor;
             GetSceneSplines();
+#if UNITY_2019_1_OR_NEWER
+            SceneView.duringSceneGui += OnScene;
+#else
             SceneView.onSceneGUIDelegate += OnScene;
+#endif
+
         }
 
         public override void Close()
         {
             base.Close();
+#if UNITY_2019_1_OR_NEWER
+            SceneView.duringSceneGui -= OnScene;
+#else
             SceneView.onSceneGUIDelegate -= OnScene;
+#endif
+
         }
 
         void OnScene(SceneView current)
@@ -49,7 +60,10 @@ namespace Dreamteck.Splines
             {
                 for (int i = 0; i < selected.Count; i++)
                 {
-                    if (!sceneSplines[selected[i]].alwaysDraw) SplineDrawer.DrawSplineComputer(sceneSplines[selected[i]]);
+                    if (!sceneSplines[selected[i]].editorAlwaysDraw)
+                    {
+                        DSSplineDrawer.DrawSplineComputer(sceneSplines[selected[i]]);
+                    }
                 }
             }
         }
@@ -92,21 +106,27 @@ namespace Dreamteck.Splines
                 {
                     foreach (int index in selected) sceneSplines[index].editorPathColor = pathColor;
                 }
-                bool alwaysDraw = sceneSplines[i].alwaysDraw;
+                bool alwaysDraw = sceneSplines[i].editorAlwaysDraw;
                 alwaysDraw = EditorGUILayout.Toggle(alwaysDraw, GUILayout.Width(40));
-                if(alwaysDraw != sceneSplines[i].alwaysDraw)
+                if(alwaysDraw != sceneSplines[i].editorAlwaysDraw)
                 {
                     foreach (int index in selected)
                     {
-                        if (alwaysDraw) SplineDrawer.RegisterComputer(sceneSplines[index]);
-                        else SplineDrawer.UnregisterComputer(sceneSplines[index]);
+                        if (alwaysDraw)
+                        {
+                            DSSplineDrawer.RegisterComputer(sceneSplines[index]);
+                        }
+                        else
+                        {
+                            DSSplineDrawer.UnregisterComputer(sceneSplines[index]);
+                        }
                     }
                 }
-                bool thickness = sceneSplines[i].drawThinckness;
+                bool thickness = sceneSplines[i].editorDrawThickness;
                 thickness = EditorGUILayout.Toggle(thickness, GUILayout.Width(40));
-                if(thickness != sceneSplines[i].drawThinckness)
+                if(thickness != sceneSplines[i].editorDrawThickness)
                 {
-                    foreach (int index in selected) sceneSplines[index].drawThinckness = thickness;
+                    foreach (int index in selected) sceneSplines[index].editorDrawThickness = thickness;
                 }
                 EditorGUILayout.EndHorizontal();
                 lastRect = GUILayoutUtility.GetLastRect();

@@ -1,12 +1,10 @@
-﻿#if UNITY_EDITOR
-using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using System.Reflection;
-namespace Dreamteck.Splines
+namespace Dreamteck.Splines.Editor
 {
+    using UnityEngine;
+    using System;
+    using System.Collections.Generic;
+    using UnityEditor;
+
     public class SplineToolsWindow : EditorWindow
     {
         private static SplineTool[] tools;
@@ -22,11 +20,7 @@ namespace Dreamteck.Splines
 
         private void Awake()
         {
-#if UNITY_5_0
-            title = "Spline Tools";
-#else
             titleContent = new GUIContent("Spline Tools");
-#endif
             name = "Spline tools";
             autoRepaintOnSceneChange = true;
 
@@ -55,7 +49,8 @@ namespace Dreamteck.Splines
             GUILayout.BeginHorizontal();
             GUILayout.BeginScrollView(scroll, GUILayout.Width(menuWidth), GUILayout.Height(position.height-10));
             if (tools == null) Init();
-            for(int i = 0; i < tools.Length; i ++)
+            SplineEditorGUI.SetHighlightColors(SplinePrefs.highlightColor, SplinePrefs.highlightContentColor);
+            for (int i = 0; i < tools.Length; i ++)
             {
                 if (SplineEditorGUI.EditorLayoutSelectableButton(new GUIContent(tools[i].GetName()), true, toolIndex == i))
                 {
@@ -78,4 +73,3 @@ namespace Dreamteck.Splines
         
     }
 }
-#endif

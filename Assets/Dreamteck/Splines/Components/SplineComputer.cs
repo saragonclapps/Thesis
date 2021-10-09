@@ -1,40 +1,52 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
 namespace Dreamteck.Splines
 {
+    using UnityEngine;
+    using System.Collections;
+    using System.Collections.Generic;
+
     public delegate void EmptySplineHandler();
     //MonoBehaviour wrapper for the spline class. It transforms the spline using the object's transform and provides thread-safe methods for sampling
     [AddComponentMenu("Dreamteck/Splines/Spline Computer")]
+    [ExecuteInEditMode]
     public partial class SplineComputer : MonoBehaviour
     {
-        [System.Serializable]
-        public class NodeLink
-        {
-            public Node node = null;
-            public int pointIndex = 0;
-        }
 #if UNITY_EDITOR
+        public enum EditorUpdateMode { Default, OnMouseUp }
         [HideInInspector]
         public Color editorPathColor = Color.white;
         [HideInInspector]
-        public bool alwaysDraw = false;
+        public bool editorAlwaysDraw = false;
         [HideInInspector]
-        public bool drawThinckness = false;
+        public bool editorDrawThickness = false;
         [HideInInspector]
-        public bool billboardThickness = true;
+        public bool editorBillboardThickness = true;
+        private bool isPlaying = false;
         [HideInInspector]
-        public bool is2D = false;
+        public bool isNewlyCreated = true;
+        [HideInInspector]
+        public EditorUpdateMode editorUpdateMode = EditorUpdateMode.Default;
 #endif
         public enum Space { World, Local };
+        public enum EvaluateMode { Cached, Calculate }
+        public enum SampleMode { Default, Uniform, Optimized }
+        public enum UpdateMode { Update, FixedUpdate, LateUpdate, AllUpdate, None }
         public Space space
         {
             get { return _space; }
             set
             {
-                if (value != _space) Rebuild();
-                _space = value;
+                if (value != _space)
+                {
+                    SplinePoint[] worldPoints = GetPoints();
+                    _space = value;
+                    if (_space == Space.Local)
+                    {
+                        _transformedSamples = new SplineSample[_rawSamples.Length];
+                        for (int i = 0; i < _transformedSamples.Length; i++) _transformedSamples[i] = new SplineSample();
+                    }
+                    SetPoints(worldPoints);
+                    Rebuild(true);
+                }
             }
         }
         public Spline.Type type
@@ -49,29 +61,96 @@ namespace Dreamteck.Splines
                 if (value != spline.type)
                 {
                     spline.type = value;
-                    Rebuild();
+                    Rebuild(true);
                 }
-                else spline.type = value;
             }
         }
 
-        public double precision
+        public bool linearAverageDirection
         {
-            get { return spline.precision; }
+            get
+            {
+                return spline.linearAverageDirection;
+            }
+
             set
             {
-                if (value != spline.precision)
+                if (value != spline.linearAverageDirection)
                 {
-                    if (value >= 1f) value = 0.99999;
-                    spline.precision = value;
-                    Rebuild();
-                }
-                else
-                {
-                    spline.precision = value;
+                    spline.linearAverageDirection = value;
+                    Rebuild(true);
                 }
             }
         }
+
+        public bool is2D
+        {
+            get { return _is2D; }
+            set
+            {
+                if (value != _is2D)
+                {
+                    _is2D = value;
+                    SetPoints(GetPoints());
+                }
+            }
+        }
+
+        public int sampleRate
+        {
+            get { return spline.sampleRate; }
+            set
+            {
+                if (value != spline.sampleRate)
+                {
+                    if (value < 2) value = 2;
+                    spline.sampleRate = value;
+                    Rebuild(true);
+                }
+            }
+        }
+
+        public float optimizeAngleThreshold
+        {
+            get { return _optimizeAngleThreshold; }
+            set
+            {
+                if (value != _optimizeAngleThreshold)
+                {
+                    if (value < 0.001f) value = 0.001f;
+                    _optimizeAngleThreshold = value;
+                    if (_sampleMode == SampleMode.Optimized)
+                    {
+                        Rebuild(true);
+                    }
+                }
+            }
+        }
+
+        public SampleMode sampleMode
+        {
+            get { return _sampleMode; }
+            set
+            {
+                if(value != _sampleMode)
+                {
+                    _sampleMode = value;
+                    Rebuild(true);
+                }
+            }
+        }
+        [HideInInspector]
+        public bool multithreaded = false;
+        /// <summary>
+        /// Will Rebuild the Spline Computer and its users as soon as it becomes enabled. Called in Start, not actually in Awake
+        /// </summary>
+        [HideInInspector]
+        [Tooltip("Will Rebuild the Spline Computer and its users as soon as it becomes enabled")]
+        public bool rebuildOnAwake = false;
+        [HideInInspector]
+        public UpdateMode updateMode = UpdateMode.Update;
+        [HideInInspector]
+        public TriggerGroup[] triggerGroups = new TriggerGroup[0];
 
         public AnimationCurve customValueInterpolation
         {
@@ -125,28 +204,25 @@ namespace Dreamteck.Splines
             }
         }
 
-        public Morph morph
+        /// <summary>
+        /// The transformed spline samples in world coordinates
+        /// </summary>
+        public SplineSample[] samples
         {
-            get
-            {
-                if (_morph == null) _morph = new Morph(this);
-                else if (!_morph.initialized) _morph = new Morph(this);
-                return _morph;
-            }
+            get { return sampleCollection.samples; }
         }
 
-        public NodeLink[] nodeLinks
+        public int sampleCount
         {
-            get { return _nodeLinks; }
+            get { return _sampleCount; }
         }
 
-        public bool hasMorph
+        /// <summary>
+        /// The raw spline samples without transformation applied
+        /// </summary>
+        public SplineSample[] rawSamples
         {
-            get
-            {
-                if (_morph == null) return false;
-                return _morph.GetChannelCount() > 0;
-            }
+            get { return _rawSamples; }
         }
 
         /// <summary>
@@ -155,17 +231,22 @@ namespace Dreamteck.Splines
         public Vector3 position
         {
             get {
-                if (tsTransform == null) return this.transform.position;
-                return tsTransform.position; }
-               }
+#if UNITY_EDITOR
+                if (!isPlaying) return transform.position;
+#endif    
+                return lastPosition;
+            }
+        }
         /// <summary>
         /// Thread-safe transform's rotation
         /// </summary>
         public Quaternion rotation
         {
             get {
-                if (tsTransform == null) return this.transform.rotation;
-                return tsTransform.rotation; 
+#if UNITY_EDITOR
+                if (!isPlaying) return transform.rotation;
+#endif
+                return lastRotation;
             }
         }
         /// <summary>
@@ -174,8 +255,10 @@ namespace Dreamteck.Splines
         public Vector3 scale
         {
             get {
-                if (tsTransform == null) return this.transform.localScale;
-                return tsTransform.scale; 
+#if UNITY_EDITOR
+                if (!isPlaying) return transform.lossyScale;
+#endif
+                return lastScale;
             }
         }
 
@@ -186,40 +269,96 @@ namespace Dreamteck.Splines
         {
             get
             {
-                return subscribers.Length;
+                return _subscribers.Length;
             }
         }
 
         [HideInInspector]
         [SerializeField]
-        private Spline spline = new Spline(Spline.Type.Hermite);
+        private Spline spline = new Spline(Spline.Type.CatmullRom);
         [HideInInspector]
         [SerializeField]
-        private Morph _morph = null;
+        private SplineSample[] _rawSamples = new SplineSample[0];
+        [HideInInspector]
+        [SerializeField]
+        private SplineSample[] _transformedSamples = new SplineSample[0];
+        [HideInInspector]
+        [SerializeField]
+        private SampleCollection sampleCollection = new SampleCollection();
+        [HideInInspector]
+        [SerializeField]
+        private double[] originalSamplePercents = new double[0];
+        private bool[] sampleFlter = new bool[0];
+        [HideInInspector]
+        [SerializeField]
+        private int _sampleCount = 0;
+        [HideInInspector]
+        [SerializeField]
+        private bool _is2D = false;
+        [HideInInspector]
+        [SerializeField]
+        private bool hasSamples = false;
+        [HideInInspector]
+        [SerializeField]
+        private bool[] pointsDirty = new bool[0];
+        [HideInInspector]
+        [SerializeField]
+        [Range(0.001f, 45f)]
+        private float _optimizeAngleThreshold = 0.5f;
         [HideInInspector]
         [SerializeField]
         private Space _space = Space.Local;
         [HideInInspector]
         [SerializeField]
-        private SplineUser[] subscribers = new SplineUser[0];
+        private SampleMode _sampleMode = SampleMode.Default;
         [HideInInspector]
         [SerializeField]
-        private NodeLink[] _nodeLinks = new NodeLink[0];
+        private SplineUser[] _subscribers = new SplineUser[0];
+        [HideInInspector]
+        [SerializeField]
+        private NodeLink[] nodes = new NodeLink[0];
         private bool rebuildPending = false;
 
-        private TS_Transform tsTransform = null;
+        private bool _trsCheck = false;
+        private Transform _trs = null;
+        public Transform trs
+        {
+            get
+            {
+                if (!_trsCheck)
+                {
+                    _trs = transform;
+                }
+                return _trs;
+            }
+        }
 
-        private bool updateRebuild = false;
-        private bool lateUpdateRebuild = false;
-        private SplineUser.UpdateMethod method = SplineUser.UpdateMethod.Update;
+        private Matrix4x4 transformMatrix = new Matrix4x4();
+        private Matrix4x4 inverseTransformMatrix = new Matrix4x4();
+        private bool queueResample = false, queueRebuild = false;
+        private Vector3 lastPosition = Vector3.zero, lastScale = Vector3.zero;
+        private bool uniformScale = true;
+        private Quaternion lastRotation = Quaternion.identity;
 
         public event EmptySplineHandler onRebuild;
+
+        private bool useMultithreading
+        {
+            get
+            {
+                return multithreaded
+#if UNITY_EDITOR
+                && isPlaying
+#endif
+                ;
+            }
+        }
 
 #if UNITY_EDITOR
         public void EditorAwake()
         {
             UpdateConnectedNodes();
-            RebuildImmediate();
+            RebuildImmediate(true, true);
         }
 
         public void EditorUpdateConnectedNodes()
@@ -228,45 +367,138 @@ namespace Dreamteck.Splines
         }
 #endif
 
-        void Awake()
+        private void Awake()
         {
-            tsTransform = new TS_Transform(this.transform);
+#if UNITY_EDITOR
+            isPlaying = Application.isPlaying;
+            if (!isPlaying) return; //Do not call rebuild on awake in the  editor
+#endif
+        }
+
+        private void Start()
+        {
+            if (rebuildOnAwake)
+            {
+                RebuildImmediate(true, true);
+            }
+            else
+            {
+                ResampleTransform();
+            }
+        }
+
+        void FixedUpdate()
+        {
+            if(updateMode == UpdateMode.FixedUpdate || updateMode == UpdateMode.AllUpdate)
+            {
+                RunUpdate();
+            }
         }
 
         void LateUpdate()
         {
-            method = SplineUser.UpdateMethod.LateUpdate;
-            Run();
-            if (lateUpdateRebuild) RebuildOnUpdate();
-            lateUpdateRebuild = false;
+            if (updateMode == UpdateMode.LateUpdate || updateMode == UpdateMode.AllUpdate)
+            {
+                RunUpdate();
+            }
         }
 
         void Update()
         {
-            method = SplineUser.UpdateMethod.Update;
-            Run();
-            if (updateRebuild) RebuildOnUpdate();
-            updateRebuild = false;
+            if (updateMode == UpdateMode.Update || updateMode == UpdateMode.AllUpdate)
+            {
+                RunUpdate();
+            }
         }
 
-        private void Run()
+        private void RunUpdate(bool immediate = false)
         {
-            if (tsTransform.HasChange())
+            bool transformChanged = TransformHasChanged();
+            if (transformChanged)
             {
-                updateRebuild = true;
-                lateUpdateRebuild = true;
-                if (_nodeLinks.Length > 0) UpdateConnectedNodes();
                 ResampleTransform();
+                if (space == Space.Local && nodes.Length > 0)
+                {
+                    UpdateConnectedNodes();
+                }
             }
+            if (useMultithreading)
+            {
+                //Rebuild users at the beginning of the next cycle if multithreaded
+                if (queueRebuild)
+                {
+                    RebuildUsers(immediate);
+                }
+            }
+            if (queueResample)
+            {
+                if (useMultithreading)
+                {
+                    if (!transformChanged)
+                    {
+                        SplineThreading.Run(CalculateAndTransformSamples);
+                    }
+                    else
+                    {
+                        SplineThreading.Run(CalculateSamples);
+                    }
+                }
+                else
+                {
+                    CalculateSamples();
+                    if (!transformChanged)
+                    {
+                        TransformSamples();
+                    }
+                }
+            }
+
+            if (transformChanged)
+            {
+                SetPointsDirty();
+                if (useMultithreading)
+                {
+                    SplineThreading.Run(TransformSamplesThreaded);
+                }
+                else
+                {
+                    TransformSamples(true);
+                }
+            }
+            if (!useMultithreading)
+            {
+                //If not multithreaded, rebuild users here
+                if (queueRebuild)
+                {
+                    RebuildUsers(immediate);
+                }
+            }
+        }
+
+        void TransformSamplesThreaded()
+        {
+            TransformSamples(true);
+        }
+
+        void CalculateAndTransformSamples()
+        {
+            CalculateSamples();
+            TransformSamples();
+        }
+
+        bool TransformHasChanged()
+        {
+            return lastPosition != trs.position || lastRotation != trs.rotation || lastScale != trs.lossyScale;
         }
 
 #if UNITY_EDITOR
         private void Reset()
         {
             editorPathColor = SplinePrefs.defaultColor;
-            drawThinckness = SplinePrefs.defaultShowThickness;
+            editorDrawThickness = SplinePrefs.defaultShowThickness;
             is2D = SplinePrefs.default2D;
-            alwaysDraw = SplinePrefs.defaultAlwaysDraw;
+            editorAlwaysDraw = SplinePrefs.defaultAlwaysDraw;
+            editorUpdateMode = SplinePrefs.defaultEditorUpdateMode;
             space = SplinePrefs.defaultComputerSpace;
             type = SplinePrefs.defaultType;
         }
@@ -281,12 +513,24 @@ namespace Dreamteck.Splines
             }
         }
 
+        public void GetSamples(SampleCollection collection)
+        {
+            collection.samples = sampleCollection.samples;
+            collection.optimizedIndices = sampleCollection.optimizedIndices;
+            collection.sampleMode = _sampleMode;
+        }
+
         /// <summary>
         /// Immediately sample the computer's transform (thread-unsafe). Call this before SetPoint(s) if the transform has been modified in the same frame
         /// </summary>
         public void ResampleTransform()
         {
-            tsTransform.Update();
+            transformMatrix.SetTRS(trs.position, trs.rotation, trs.lossyScale);
+            inverseTransformMatrix = transformMatrix.inverse;
+            lastPosition = trs.position;
+            lastRotation = trs.rotation;
+            lastScale = trs.lossyScale;
+            uniformScale = lastScale.x == lastScale.y && lastScale.y == lastScale.z;
         }
 
         /// <summary>
@@ -295,19 +539,9 @@ namespace Dreamteck.Splines
         /// <param name="input">The SplineUser to subscribe</param>
         public void Subscribe(SplineUser input)
         {
-            int emptySlot = -1;
-            for (int i = 0; i < subscribers.Length; i++)
+            if (!IsSubscribed(input))
             {
-                if (subscribers[i] == input) return;
-                else if (subscribers[i] == null && emptySlot < 0) emptySlot = i;
-            }
-            if (emptySlot >= 0) subscribers[emptySlot] = input;
-            else
-            {
-                SplineUser[] newSubscribers = new SplineUser[subscribers.Length + 1];
-                subscribers.CopyTo(newSubscribers, 0);
-                newSubscribers[subscribers.Length] = input;
-                subscribers = newSubscribers;
+                ArrayUtility.Add(ref _subscribers, input);
             }
         }
 
@@ -317,18 +551,12 @@ namespace Dreamteck.Splines
         /// <param name="input">The SplineUser to unsubscribe</param>
         public void Unsubscribe(SplineUser input)
         {
-            for (int i = 0; i < subscribers.Length; i++)
+            for (int i = 0; i < _subscribers.Length; i++)
             {
-                if (subscribers[i] == input)
+                if (_subscribers[i] == input)
                 {
-                    SplineUser[] newSubscribers = new SplineUser[subscribers.Length - 1];
-                    for (int j = 0; j < subscribers.Length; j++)
-                    {
-                        if (j < i) newSubscribers[j] = subscribers[j];
-                        else if (j > i) newSubscribers[j - 1] = subscribers[j];
-                    }
-                    subscribers = newSubscribers;
-                    break;
+                    ArrayUtility.RemoveAt(ref _subscribers, i);
+                    return;
                 }
             }
         }
@@ -340,9 +568,9 @@ namespace Dreamteck.Splines
         /// <returns></returns>
         public bool IsSubscribed(SplineUser user)
         {
-            for (int i = 0; i < subscribers.Length; i++)
+            for (int i = 0; i < _subscribers.Length; i++)
             {
-                if (subscribers[i] == user)
+                if (_subscribers[i] == user)
                 {
                     return true;
                 }
@@ -351,70 +579,14 @@ namespace Dreamteck.Splines
         }
 
         /// <summary>
-        /// Returns an array of subscribed suers
+        /// Returns an array of subscribed users
         /// </summary>
         /// <returns></returns>
         public SplineUser[] GetSubscribers()
         {
-            return subscribers;
-        }
-
-        /// <summary>
-        /// Add a link to a Node for a point in this computer. This is called by the Node component.
-        /// </summary>
-        /// <param name="node">Node input</param>
-        /// <param name="pointIndex">Point index to link</param>
-        public void AddNodeLink(Node node, int pointIndex)
-        {
-            if (node == null) return;
-            if (pointIndex < 0 || pointIndex >= spline.points.Length) return;
-            for (int i = 0; i < nodeLinks.Length; i++)
-            {
-                if (nodeLinks[i].node == node && nodeLinks[i].pointIndex == pointIndex)
-                {
-                    Debug.LogError("Junction already exists, cannot add junction " + node.name + " at point " + pointIndex);
-                    return;
-                }
-            }
-            if (!node.HasConnection(this, pointIndex))
-            {
-                Debug.LogError("Junction " + node.name + " does not have a connection for point " + pointIndex + " Call AddConnection on the junction.");
-                return;
-            }
-            NodeLink newLink = new NodeLink();
-            newLink.node = node;
-            newLink.pointIndex = pointIndex;
-            NodeLink[] newLinks = new NodeLink[_nodeLinks.Length + 1];
-            _nodeLinks.CopyTo(newLinks, 0);
-            newLinks[_nodeLinks.Length] = newLink;
-            _nodeLinks = newLinks;
-        }
-
-        /// <summary>
-        /// Remove a link to a node from a point in this computer. This is called by the Node component.
-        /// </summary>
-        /// <param name="pointIndex">Point index to remove link from.</param>
-        public void RemoveNodeLink(int pointIndex)
-        {
-            int index = -1;
-            for (int i = 0; i < _nodeLinks.Length; i++)
-            {
-                if (_nodeLinks[i].pointIndex == pointIndex)
-                {
-                    if (_nodeLinks[i].node != null && _nodeLinks[i].node.HasConnection(this, pointIndex))
-                    {
-                        _nodeLinks[i].node.RemoveConnection(this, pointIndex);
-                        return;
-                    }
-                    else
-                    {
-                        index = i;
-                        break;
-                    }
-                }
-            }
-            if (index < 0) return;
-            RemoveNodeLinkAt(index);
+            SplineUser[] subs = new SplineUser[_subscribers.Length];
+            _subscribers.CopyTo(subs, 0);
+            return subs;
         }
 
         /// <summary>
@@ -491,6 +663,14 @@ namespace Dreamteck.Splines
             return spline.points[index].color;
         }
 
+        void Make2D(ref SplinePoint point)
+        {
+            point.normal = Vector3.back;
+            point.position.z = 0f;
+            point.tangent.z = 0f;
+            point.tangent2.z = 0f;
+        }
+
         /// <summary>
         /// Set the points of this computer's spline.
         /// </summary>
@@ -504,7 +684,9 @@ namespace Dreamteck.Splines
                 rebuild = true;
                 if (points.Length < 4) Break();
                 spline.points = new SplinePoint[points.Length];
+                SetPointsDirty();
             }
+            
             SplinePoint newPoint;
             for (int i = 0; i < points.Length; i++)
             {
@@ -516,18 +698,15 @@ namespace Dreamteck.Splines
                     newPoint.tangent2 = InverseTransformPoint(points[i].tangent2);
                     newPoint.normal = InverseTransformDirection(points[i].normal);
                 }
-                if (!rebuild)
+                if (_is2D) Make2D(ref newPoint);
+                if (SplinePoint.AreDifferent(ref newPoint, ref spline.points[i]))
                 {
-                    if (newPoint.position != spline.points[i].position) rebuild = true;
-                    else if (newPoint.tangent != spline.points[i].tangent) rebuild = true;
-                    else if (newPoint.tangent2 != spline.points[i].tangent2) rebuild = true;
-                    else if (newPoint.size != spline.points[i].size) rebuild = true;
-                    else if (newPoint.type != spline.points[i].type) rebuild = true;
-                    else if (newPoint.color != spline.points[i].color) rebuild = true;
-                    else if (newPoint.normal != spline.points[i].normal) rebuild = true;
+                    SetDirty(i);
+                    rebuild = true;
                 }
                 spline.points[i] = newPoint;
             }
+            if (isClosed) spline.points[spline.points.Length - 1] = spline.points[0];
             if (rebuild)
             {
                 Rebuild();
@@ -549,6 +728,7 @@ namespace Dreamteck.Splines
             if (_space == Space.Local && setSpace == Space.World) newPos = InverseTransformPoint(pos);
             if(newPos != spline.points[index].position)
             {
+                SetDirty(index);
                 spline.points[index].position = newPos;
                 Rebuild();
                 SetNodeForPoint(index, GetPoint(index));
@@ -584,8 +764,11 @@ namespace Dreamteck.Splines
                 rebuild = true;
                 spline.points[index].SetTangentPosition(newTan1);
             }
+            if (_is2D) Make2D(ref spline.points[index]);
+
             if (rebuild)
             {
+                SetDirty(index);
                 Rebuild();
                 SetNodeForPoint(index, GetPoint(index));
             }
@@ -605,7 +788,9 @@ namespace Dreamteck.Splines
             if (_space == Space.Local && setSpace == Space.World) newNrm = InverseTransformDirection(nrm);
             if (newNrm != spline.points[index].normal)
             {
+                SetDirty(index);
                 spline.points[index].normal = newNrm;
+                if (_is2D) Make2D(ref spline.points[index]);
                 Rebuild();
                 SetNodeForPoint(index, GetPoint(index));
             }
@@ -622,6 +807,7 @@ namespace Dreamteck.Splines
             if (index >= spline.points.Length) AppendPoints((index + 1) - spline.points.Length);
             if (size != spline.points[index].size)
             {
+                SetDirty(index);
                 spline.points[index].size = size;
                 Rebuild();
                 SetNodeForPoint(index, GetPoint(index));
@@ -639,6 +825,7 @@ namespace Dreamteck.Splines
             if (index >= spline.points.Length) AppendPoints((index + 1) - spline.points.Length);
             if (color != spline.points[index].color)
             {
+                SetDirty(index);
                 spline.points[index].color = color;
                 Rebuild();
                 SetNodeForPoint(index, GetPoint(index));
@@ -663,16 +850,13 @@ namespace Dreamteck.Splines
                 newPoint.tangent2 = InverseTransformPoint(point.tangent2);
                 newPoint.normal = InverseTransformDirection(point.normal);
             }
-            if (newPoint.position != spline.points[index].position) rebuild = true;
-            else if (newPoint.tangent != spline.points[index].tangent) rebuild = true;
-            else if (newPoint.tangent2 != spline.points[index].tangent2) rebuild = true;
-            else if (newPoint.size != spline.points[index].size) rebuild = true;
-            else if (newPoint.type != spline.points[index].type) rebuild = true;
-            else if (newPoint.color != spline.points[index].color) rebuild = true;
-            else if (newPoint.normal != spline.points[index].normal) rebuild = true;
-            spline.points[index] = newPoint;
+            if (_is2D) Make2D(ref newPoint);
+            if (SplinePoint.AreDifferent(ref newPoint, ref spline.points[index])) rebuild = true;
+            
             if (rebuild)
             {
+                SetDirty(index);
+                spline.points[index] = newPoint;
                 Rebuild();
                 SetNodeForPoint(index, point);
             }
@@ -683,7 +867,7 @@ namespace Dreamteck.Splines
             SplinePoint[] newPoints = new SplinePoint[spline.points.Length + count];
             spline.points.CopyTo(newPoints, 0);
             spline.points = newPoints;
-            Rebuild();
+            Rebuild(true);
         }
 
         /// <summary>
@@ -693,63 +877,121 @@ namespace Dreamteck.Splines
         /// <returns></returns>
         public double GetPointPercent(int pointIndex)
         {
-            return DMath.Clamp01((double)pointIndex / (pointCount - 1));
+            double percent = DMath.Clamp01((double)pointIndex / (pointCount - 1));
+            if (_sampleMode != SampleMode.Uniform) return percent;
+
+            if (originalSamplePercents.Length <= 1) return 0.0;
+            for (int i = originalSamplePercents.Length - 2; i >= 0; i--)
+            {
+                if (originalSamplePercents[i] < percent)
+                {
+                    double inverseLerp = DMath.InverseLerp(originalSamplePercents[i], originalSamplePercents[i + 1], percent);
+                    return DMath.Lerp(sampleCollection.samples[i].percent, sampleCollection.samples[i+1].percent, inverseLerp);
+                }
+            }
+            return 0.0;
+        }
+
+        public int PercentToPointIndex(double percent, Spline.Direction direction = Spline.Direction.Forward)
+        {
+            if(_sampleMode == SampleMode.Uniform)
+            {
+                int index;
+                double lerp;
+                GetSamplingValues(percent, out index, out lerp);
+                if(lerp > 0.0)
+                {
+                    lerp = DMath.Lerp(originalSamplePercents[index], originalSamplePercents[index + 1], lerp);
+                    if (direction == Spline.Direction.Forward) return DMath.FloorInt(lerp * (pointCount - 1));
+                    else return DMath.CeilInt(lerp * (pointCount - 1));
+                }
+                if (direction == Spline.Direction.Forward)
+                    return DMath.FloorInt(originalSamplePercents[index] * (pointCount - 1));
+                else return DMath.CeilInt(originalSamplePercents[index] * (pointCount - 1));
+            }
+            if(direction == Spline.Direction.Forward) return DMath.FloorInt(percent * (pointCount - 1));
+            else return DMath.CeilInt(percent * (pointCount - 1));
+        }
+
+        public Vector3 EvaluatePosition(double percent)
+        {
+            return EvaluatePosition(percent, EvaluateMode.Cached);
         }
 
         /// <summary>
         /// Same as Spline.EvaluatePosition but the result is transformed by the computer's transform
         /// </summary>
         /// <param name="percent">Evaluation percent</param>
-        /// <param name="address">Optional address if junctions should be used</param>
+        /// <param name="mode">Mode to use the method in. Cached uses the cached samples while Calculate is more accurate but heavier</param>
         /// <returns></returns>
-        public Vector3 EvaluatePosition(double percent)
+        public Vector3 EvaluatePosition(double percent, EvaluateMode mode = EvaluateMode.Cached)
         {
-            Vector3 result = spline.EvaluatePosition(percent);
-            if (_space == Space.Local) result = TransformPoint(result);
-            return result;
+            if (mode == EvaluateMode.Calculate) return TransformPoint(spline.EvaluatePosition(percent));
+            return sampleCollection.EvaluatePosition(percent);
+        }
+
+        public Vector3 EvaluatePosition(int pointIndex, EvaluateMode mode = EvaluateMode.Cached)
+        {
+            return EvaluatePosition(GetPointPercent(pointIndex), mode);
+        }
+
+        public SplineSample Evaluate(double percent)
+        {
+            return Evaluate(percent, EvaluateMode.Cached);
         }
 
         /// <summary>
         /// Same as Spline.Evaluate but the result is transformed by the computer's transform
         /// </summary>
         /// <param name="percent">Evaluation percent</param>
+        /// <param name="mode">Mode to use the method in. Cached uses the cached samples while Calculate is more accurate but heavier</param>
         /// <returns></returns>
-        public SplineResult Evaluate(double percent)
+        public SplineSample Evaluate(double percent, EvaluateMode mode = EvaluateMode.Cached)
         {
-            SplineResult result = new SplineResult();
-            Evaluate(result, percent);
+            SplineSample result = new SplineSample();
+            Evaluate(percent, result, mode);
             return result;
         }
 
         /// <summary>
-        /// Evaluate the spline at the position of a given point and return a SplineResult
+        /// Evaluate the spline at the position of a given point and return a SplineSample
         /// </summary>
         /// <param name="pointIndex">Point index</param>
-        public SplineResult Evaluate(int pointIndex)
+        /// <param name="mode">Mode to use the method in. Cached uses the cached samples while Calculate is more accurate but heavier</param>
+        public SplineSample Evaluate(int pointIndex)
         {
-            SplineResult result = new SplineResult();
-            Evaluate(result, GetPointPercent(pointIndex));
+            SplineSample result = new SplineSample();
+            Evaluate(pointIndex, result);
             return result;
         }
 
         /// <summary>
-        /// Evaluate the spline at the position of a given point and write in the SplineResult output
+        /// Evaluate the spline at the position of a given point and write in the SplineSample output
         /// </summary>
         /// <param name="pointIndex">Point index</param>
-        public void Evaluate(SplineResult result, int pointIndex)
+        public void Evaluate(int pointIndex, SplineSample result)
         {
-            Evaluate(result, GetPointPercent(pointIndex));
+            Evaluate(GetPointPercent(pointIndex), result);
         }
 
+        public void Evaluate(double percent, SplineSample result)
+        {
+            Evaluate(percent, result, EvaluateMode.Cached);
+        }
         /// <summary>
         /// Same as Spline.Evaluate but the result is transformed by the computer's transform
         /// </summary>
         /// <param name="result"></param>
         /// <param name="percent"></param>
-        public void Evaluate(SplineResult result, double percent)
+        public void Evaluate(double percent, SplineSample result, EvaluateMode mode = EvaluateMode.Cached)
         {
-            spline.Evaluate(result, percent);
-            if (_space == Space.Local) TransformResult(result);
+            if(mode == EvaluateMode.Calculate)
+            {
+                spline.Evaluate(result, percent);
+                TransformResult(result);
+                return;
+            }
+            sampleCollection.Evaluate(percent, result);
         }
 
         /// <summary>
@@ -758,16 +1000,9 @@ namespace Dreamteck.Splines
         /// <param name="from">Start position [0-1]</param>
         /// <param name="to">Target position [from-1]</param>
         /// <returns></returns>
-        public void Evaluate(ref SplineResult[] samples, double from = 0.0, double to = 1.0)
+        public void Evaluate(ref SplineSample[] results, double from = 0.0, double to = 1.0)
         {
-            spline.Evaluate(ref samples, from, to);
-            if (_space == Space.Local)
-            {
-                for (int i = 0; i < samples.Length; i++)
-                {
-                    TransformResult(samples[i]);
-                }
-            }
+            sampleCollection.Evaluate(ref results, from, to);
         }
 
         /// <summary>
@@ -778,14 +1013,7 @@ namespace Dreamteck.Splines
         /// <returns></returns>
         public void EvaluatePositions(ref Vector3[] positions, double from = 0.0, double to = 1.0)
         {
-            spline.EvaluatePositions(ref positions, from, to);
-            if (_space == Space.Local)
-            {
-                for (int i = 0; i < positions.Length; i++)
-                {
-                    positions[i] = TransformPoint(positions[i]);
-                }
-            }
+            sampleCollection.EvaluatePositions(ref positions, from, to);
         }
 
         /// <summary>
@@ -795,138 +1023,374 @@ namespace Dreamteck.Splines
         /// /// <param name="distance">The distance to travel</param>
         /// <param name="direction">The direction towards which to move</param>
         /// <returns></returns>
-        public double Travel(double start, float distance, Spline.Direction direction)
+        public double Travel(double start, float distance, out float moved, Spline.Direction direction = Spline.Direction.Forward)
         {
-            if(pointCount <= 1) return 0.0;
-            if (direction == Spline.Direction.Forward && start >= 1.0) return 1.0;
-            else if (direction == Spline.Direction.Backward && start <= 0.0) return 0.0;
-            if (distance == 0f) return DMath.Clamp01(start);
-            float moved = 0f;
-            Vector3 lastPosition = EvaluatePosition(start);
-            double lastPercent = start;
-            int i = iterations-1;
-            int nextSampleIndex = direction == Spline.Direction.Forward ? DMath.CeilInt(start * i) : DMath.FloorInt(start * i);
-            float lastDistance = 0f;
-            Vector3 pos = Vector3.zero;
-            double percent = start;
-            while (true)
-            {
-                percent = (double)nextSampleIndex / i;
-                pos = EvaluatePosition(percent);
-                lastDistance = Vector3.Distance(pos, lastPosition);
-                lastPosition = pos;
-                moved += lastDistance;
-                if (moved >= distance) break;
-                lastPercent = percent;
-                if (direction == Spline.Direction.Forward)
-                {
-                    if (nextSampleIndex == i) break;
-                    nextSampleIndex++;
-                }
-                else
-                {
-                    if (nextSampleIndex == 0) break;
-                    nextSampleIndex--;
-                }
-            }
-            return DMath.Lerp(lastPercent, percent, 1f - (moved - distance) / lastDistance);
+            return sampleCollection.Travel(start, distance, direction, out moved);
         }
 
-        private void TransformResult(SplineResult result)
+        public double Travel(double start, float distance, Spline.Direction direction = Spline.Direction.Forward)
         {
-            result.position = TransformPoint(result.position);
-            result.direction = TransformDirection(result.direction);
-            result.normal = TransformDirection(result.normal);
-        }
-
-        public void Rebuild()
-        {
-#if UNITY_EDITOR
-            //If it's the editor and it's not playing, then rebuild immediate
-            if (Application.isPlaying)
-            {
-                updateRebuild = true;
-                lateUpdateRebuild = true;
-            } else RebuildImmediate();
-#else
-            updateRebuild = true;
-            lateUpdateRebuild = true;
-#endif
-        }
-
-        public void RebuildImmediate()
-        {
-            if(Application.isPlaying) ResampleTransform();
-            for (int i = subscribers.Length-1; i >= 0; i--)
-            {
-                if (subscribers[i] != null)
-                {
-                    if (subscribers[i].computer != this) RemoveSubscriber(i);
-                    else subscribers[i].RebuildImmediate(true);
-                }
-                else RemoveSubscriber(i);
-            }
-            if (onRebuild != null) onRebuild();
-        }
-
-        private void RemoveSubscriber(int index)
-        {
-            SplineUser[] newSubscribers = new SplineUser[subscribers.Length - 1];
-            for(int i = 0; i < subscribers.Length; i++)
-            {
-                if (i == index) continue;
-                else if (i < index) newSubscribers[i] = subscribers[i];
-                else newSubscribers[i - 1] = subscribers[i];
-            }
-            subscribers = newSubscribers;
-        }
-
-        private void RebuildOnUpdate()
-        {
-            for (int i = subscribers.Length - 1; i >= 0; i--)
-            {
-                if (subscribers[i] != null)
-                {
-                    if (subscribers[i].computer != this) RemoveSubscriber(i);
-                    else subscribers[i].Rebuild(true);
-                } else RemoveSubscriber(i);
-            }
-            if (onRebuild != null) onRebuild();
-        }
-
-
-        /// <summary>
-        /// Rebuilds the users of connected via nodes computers
-        /// </summary>
-        public void RebuildConnectedUsers()
-        {
-
-        }
-
-        private void RebuildUser(int index)
-        {
-            if (index >= subscribers.Length) return;
-            if (subscribers[index] == null)
-            {
-                RemoveSubscriber(index);
-                return;
-            }
-            if (method == subscribers[index].updateMethod) subscribers[index].Rebuild(true);
-            else if (method == SplineUser.UpdateMethod.Update && subscribers[index].updateMethod == SplineUser.UpdateMethod.FixedUpdate) subscribers[index].Rebuild(true);
+            float moved;
+            return Travel(start, distance, out moved, direction);
         }
 
         /// <summary>
         /// Same as Spline.Project but the point is transformed by the computer's transform.
         /// </summary>
-        /// <param name="point">Point in space</param>
+        /// <param name="position">Point in space</param>
         /// <param name="subdivide">Subdivisions default: 4</param>
         /// <param name="from">Sample from [0-1] default: 0f</param>
         /// <param name="to">Sample to [0-1] default: 1f</param>
+        /// <param name="mode">Mode to use the method in. Cached uses the cached samples while Calculate is more accurate but heavier</param>
+        /// <param name="subdivisions">Subdivisions for the Calculate mode. Don't assign if not using Calculated mode.</param>
         /// <returns></returns>
-        public double Project(Vector3 point, int subdivide = 3, double from = 0.0, double to = 1.0)
+        public void Project(SplineSample result, Vector3 position, double from = 0.0, double to = 1.0, EvaluateMode mode = EvaluateMode.Cached, int subdivisions = 4)
         {
-            if (_space == Space.Local) point = InverseTransformPoint(point);
-            return spline.Project(point, subdivide, from, to);
+            if(mode == EvaluateMode.Calculate)
+            {
+                position = InverseTransformPoint(position);
+                double percent = spline.Project(position, subdivisions, from, to);
+                spline.Evaluate(result, percent);
+                TransformResult(result);
+                return;
+            }
+            sampleCollection.Project(position, pointCount, result, from, to);
+        }
+
+        public SplineSample Project(Vector3 point, double from = 0.0, double to = 1.0)
+        {
+            SplineSample result = new SplineSample();
+            Project(result, point, from, to);
+            return result;
+        }
+
+        /// <summary>
+        /// Same as Spline.CalculateLength but this takes the computer's transform into account when calculating the length.
+        /// </summary>
+        /// <param name="from">Calculate from [0-1] default: 0f</param>
+        /// <param name="to">Calculate to [0-1] default: 1f</param>
+        /// <param name="resolution">Resolution [0-1] default: 1f</param>
+        /// <param name="address">Node address of junctions</param>
+        /// <returns></returns>
+        public float CalculateLength(double from = 0.0, double to = 1.0)
+        {
+            if (!hasSamples) return 0f;
+            return sampleCollection.CalculateLength(from, to);
+        }
+
+        private void TransformResult(SplineSample result)
+        {
+            result.position = TransformPoint(result.position);
+            result.forward = TransformDirection(result.forward);
+            result.up = TransformDirection(result.up);
+            if (!uniformScale)
+            {
+                result.forward.Normalize();
+                result.up.Normalize();
+            }
+        }
+
+        public void Rebuild(bool forceUpdateAll = false)
+        {
+            if(forceUpdateAll) SetPointsDirty();
+#if UNITY_EDITOR
+            //If it's the editor and it's not playing, then rebuild immediate
+            if (Application.isPlaying) queueResample = true;
+            else
+            {
+                if (editorUpdateMode == EditorUpdateMode.Default)
+                {
+                    RebuildImmediate(true);
+                }
+            }
+#else
+            queueResample = true;
+#endif
+            if (updateMode == UpdateMode.None) queueResample = false;
+        }
+
+        public void RebuildImmediate()
+        {
+            RebuildImmediate(true, true);
+        }
+
+        public void RebuildImmediate(bool calculateSamples = true, bool forceUpdateAll = false)
+        {
+            if (calculateSamples)
+            {
+                queueResample = true;
+                if (forceUpdateAll)
+                {
+                    SetPointsDirty();
+                }
+            }
+            else
+            {
+                queueResample = false;
+            }
+            RunUpdate(true);
+        }
+
+        private void RebuildUsers(bool immediate = false)
+        {
+            for (int i = _subscribers.Length - 1; i >= 0; i--)
+            {
+                if (_subscribers[i] != null)
+                {
+                    if (_subscribers[i].spline != this)
+                    {
+                        ArrayUtility.RemoveAt(ref _subscribers, i);
+                    }
+                    else
+                    {
+                        if (immediate)
+                        {
+                            _subscribers[i].RebuildImmediate();
+                        } 
+                        else
+                        {
+                            _subscribers[i].Rebuild();
+                        }
+                    }
+                }
+                else
+                {
+                    ArrayUtility.RemoveAt(ref _subscribers, i);
+                }
+            }
+            if (onRebuild != null) onRebuild();
+            queueRebuild = false;
+        }
+
+        void UnsetPointsDirty()
+        {
+            if (pointsDirty.Length != spline.points.Length) pointsDirty = new bool[spline.points.Length];
+            for (int i = 0; i < pointsDirty.Length; i++) pointsDirty[i] = false;
+        }
+
+        void SetPointsDirty()
+        {
+            if (pointsDirty.Length != spline.points.Length) pointsDirty = new bool[spline.points.Length];
+            for (int i = 0; i < pointsDirty.Length; i++)
+            {
+                pointsDirty[i] = true;
+            }
+        }
+
+        void SetDirty(int index)
+        {
+            if (sampleMode == SampleMode.Uniform)
+            {
+                SetPointsDirty();
+                return;
+            }
+            if (pointsDirty.Length != spline.points.Length)
+            {
+                pointsDirty = new bool[spline.points.Length];
+            }
+            pointsDirty[index] = true;
+            if (index == 0 && isClosed)
+            {
+                pointsDirty[pointsDirty.Length - 1] = true;
+            }
+        }
+
+        private void CalculateSamples()
+        {
+            queueResample = false;
+            if (pointCount == 0)
+            {
+                if (_rawSamples.Length != 0)
+                {
+                    _rawSamples = new SplineSample[0];
+                    sampleCollection.samples = new SplineSample[0];
+                }
+                return;
+            }
+
+            if (pointCount == 1)
+            {
+                if (_rawSamples.Length != 1)
+                {
+                    _rawSamples = new SplineSample[1];
+                    _rawSamples[0] = new SplineSample();
+                    sampleCollection.samples = new SplineSample[1];
+                    sampleCollection.samples[0] = new SplineSample();
+                }
+                Evaluate(0.0, _rawSamples[0]);
+                return;
+            }
+
+            if (_sampleMode == SampleMode.Uniform) spline.EvaluateUniform(ref _rawSamples, ref originalSamplePercents);
+            else
+            {
+                if(originalSamplePercents.Length > 0) originalSamplePercents = new double[0];
+                if (_rawSamples.Length != spline.iterations)
+                {
+                    _rawSamples = new SplineSample[spline.iterations];
+                    for (int i = 0; i < _rawSamples.Length; i++) _rawSamples[i] = new SplineSample();
+                }
+                bool isHermite = true;
+                if (type == Spline.Type.Bezier || type == Spline.Type.Linear) isHermite = false;
+
+                for (int i = 0; i < _rawSamples.Length; i++)
+                {
+                    double samplePercent = (double)i / (_rawSamples.Length - 1);
+                    if (isHermite ? IsDirtyHermite(samplePercent) : IsDirtyBezier(samplePercent))
+                    {
+                        spline.Evaluate(_rawSamples[i], samplePercent);
+                    }
+                }
+            }
+
+            if (isClosed)
+            {
+                _rawSamples[_rawSamples.Length - 1].CopyFrom(_rawSamples[0]);
+                _rawSamples[_rawSamples.Length - 1].percent = 1.0;
+            }
+        }
+
+        private void TransformSamples(bool forceTransformAll = false)
+        {
+            if (_transformedSamples.Length != _rawSamples.Length)
+            {
+                _transformedSamples = new SplineSample[_rawSamples.Length];
+                for (int i = 0; i < _transformedSamples.Length; i++) _transformedSamples[i] = new SplineSample(_rawSamples[i]);
+            }
+
+            bool isHermite = true;
+            if (type == Spline.Type.Bezier || type == Spline.Type.Linear) isHermite = false;
+            if (space == Space.Local)
+            {
+                for (int i = 0; i < _rawSamples.Length; i++)
+                {
+                    if (!forceTransformAll && isHermite ? !IsDirtyHermite(_rawSamples[i].percent) : !IsDirtyBezier(_rawSamples[i].percent)) continue;
+                    _transformedSamples[i].CopyFrom(_rawSamples[i]);
+                    TransformResult(_transformedSamples[i]);
+                }
+            } else _transformedSamples = _rawSamples;
+            if (_sampleMode == SampleMode.Optimized) OptimizeSamples();
+            else
+            {
+                sampleCollection.samples = _transformedSamples;
+                if (sampleFlter.Length > 0) sampleFlter = new bool[0];
+                _sampleCount = sampleCollection.Count;
+            }
+            if (_sampleMode == SampleMode.Optimized)
+            {
+                if (sampleCollection.optimizedIndices.Length != _rawSamples.Length) sampleCollection.optimizedIndices = new int[_rawSamples.Length];
+                sampleCollection.optimizedIndices[0] = 0;
+                sampleCollection.optimizedIndices[sampleCollection.optimizedIndices.Length - 1] = sampleCollection.Count - 1;
+                for (int i = 1; i < _rawSamples.Length-1; i++)
+                {
+                    sampleCollection.optimizedIndices[i] = 0;
+                    double samplePercent = (double)i / (_rawSamples.Length - 1);
+                    for (int j = 0; j < sampleCollection.Count; j++)
+                    {
+                        if (sampleCollection.samples[j].percent > samplePercent) break;
+                        sampleCollection.optimizedIndices[i] = j;
+                    }
+                }
+                if(sampleCollection.optimizedIndices.Length > 1) sampleCollection.optimizedIndices[sampleCollection.optimizedIndices.Length - 1] = sampleCollection.Count - 1;
+            } else if (sampleCollection.Count > 0) sampleCollection.optimizedIndices = new int[0];
+            sampleCollection.sampleMode = _sampleMode;
+            queueRebuild = true;
+            hasSamples = _sampleCount > 0;
+            UnsetPointsDirty();
+        }
+
+        void OptimizeSamples()
+        {
+            if (_transformedSamples.Length <= 1) return;
+            if (sampleFlter.Length != _rawSamples.Length) sampleFlter = new bool[_rawSamples.Length];
+            _sampleCount = 2;
+            Vector3 lastSavedDirection = _transformedSamples[0].forward;
+            sampleFlter[0]  = true;
+            sampleFlter[sampleFlter.Length - 1] = true;//Always include the first and last samples
+            for (int i = 1; i < _transformedSamples.Length - 1; i++)
+            {
+                float angle = Vector3.Angle(lastSavedDirection, _transformedSamples[i].forward);
+                if (angle >= _optimizeAngleThreshold)
+                {
+                    sampleFlter[i] = true;
+                    _sampleCount++;
+                    lastSavedDirection = _transformedSamples[i].forward;
+                }
+                else sampleFlter[i] = false;
+            }
+
+            if (sampleCollection.Count != _sampleCount || sampleCollection.samples == _transformedSamples)
+            {
+                sampleCollection.samples = new SplineSample[_sampleCount];
+                for (int i = 0; i < sampleCollection.Count; i++) sampleCollection.samples[i] = new SplineSample();
+            }
+
+            int index = 0;
+            for (int i = 0; i < _transformedSamples.Length; i++)
+            {
+                if (sampleFlter[i])
+                { 
+                    sampleCollection.samples[index].CopyFrom(_transformedSamples[i]);
+                    index++;
+                }
+            }
+        }
+
+        bool IsDirtyBezier(double samplePercent)
+        {
+            float pointValue = ((float)samplePercent) * (pointCount - 1);
+            int pointIndex = Mathf.FloorToInt(pointValue);
+            if (pointsDirty[pointIndex]) return true;
+            int nextIndex = pointIndex + 1;
+            if (nextIndex > pointCount - 1)
+            {
+                if (isClosed) nextIndex = 0;
+                else nextIndex = pointCount - 1;
+            }
+            if (pointsDirty[nextIndex]) return true;
+            int previousIndex = pointIndex - 1;
+            if (previousIndex < 0)
+            {
+                if (isClosed) previousIndex = pointCount - 1;
+                else previousIndex = 0;
+            }
+            if (pointsDirty[previousIndex] && Mathf.Approximately(pointValue, pointIndex)) return true;
+            return false;
+        }
+
+        bool IsDirtyHermite(double samplePercent)
+        {
+            float pointValue = ((float)samplePercent) * (pointCount - 1);
+            int pointIndex = Mathf.FloorToInt(pointValue);
+            if (pointsDirty[pointIndex]) return true;
+            int nextIndex = pointIndex + 1;
+            if (nextIndex > pointCount - 1)
+            {
+                if (isClosed) nextIndex = 0;
+                else nextIndex = pointCount - 1;
+            }
+            int forwardIndex = nextIndex + 1;
+            if (forwardIndex > pointCount - 1)
+            {
+                if (isClosed) forwardIndex = 1;
+                else forwardIndex = pointCount - 1;
+            }
+            if (pointsDirty[nextIndex] || pointsDirty[forwardIndex]) return true;
+            int previousIndex = pointIndex - 1;
+            if (previousIndex < 0)
+            {
+                if (isClosed) previousIndex = pointCount - 2;
+                else previousIndex = 0;
+            }
+            int backwardIndex = previousIndex - 1;
+            if (backwardIndex < 0)
+            {
+                if(isClosed) backwardIndex = pointCount - 2;
+                else backwardIndex = 0;
+            }
+            if (pointsDirty[previousIndex]) return true;
+            if (pointsDirty[backwardIndex] && Mathf.Approximately(pointValue, pointIndex)) return true;
+            return false;
         }
 
         /// <summary>
@@ -946,6 +1410,12 @@ namespace Dreamteck.Splines
             if (spline.isClosed)
             {
                 spline.Break(at);
+                if (at != 0) SetPointsDirty();
+                else
+                {
+                    SetDirty(0);
+                    SetDirty(pointCount - 1);
+                }
                 Rebuild();
             }
         }
@@ -958,47 +1428,19 @@ namespace Dreamteck.Splines
             if (!spline.isClosed)
             {
                 spline.Close();
+                SetDirty(0);
+                SetDirty(pointCount-1);
                 Rebuild();
             }
         }
 
         /// <summary>
-        /// Same as Spline.ConvertToBezier() but it will update all subscribed users
+        /// Same as Spline.HermiteToBezierTangents() but it will update all subscribed users
         /// </summary>
-        public void ConvertToBezier()
+        public void CatToBezierTangents()
         {
-            spline.ConvertToBezier();
-        }
-
-
-        /// <summary>
-        /// Same as Spline.CalculateLength but this takes the computer's transform into account when calculating the length.
-        /// </summary>
-        /// <param name="from">Calculate from [0-1] default: 0f</param>
-        /// <param name="to">Calculate to [0-1] default: 1f</param>
-        /// <param name="resolution">Resolution [0-1] default: 1f</param>
-        /// <param name="address">Node address of junctions</param>
-        /// <returns></returns>
-        public float CalculateLength(double from = 0.0, double to = 1.0, double resolution = 1.0)
-        {
-            if (pointCount <= 1) return 0f;
-            resolution = DMath.Clamp01(resolution);
-            if (resolution == 0.0) return 0f;
-            from = DMath.Clamp01(from);
-            to = DMath.Clamp01(to);
-            if (to < from) to = from;
-            double percent = from;
-            Vector3 lastPos = EvaluatePosition(percent);
-            float sum = 0f;
-            while (true)
-            {
-                percent = DMath.Move(percent, to, moveStep / resolution);
-                Vector3 pos = EvaluatePosition(percent);
-                sum += (pos - lastPos).magnitude;
-                lastPos = pos;
-                if (percent == to) break;
-            }
-            return sum;
+            spline.CatToBezierTangents();
+            SetPoints(spline.points, Space.Local);
         }
 
         /// <summary>
@@ -1013,15 +1455,10 @@ namespace Dreamteck.Splines
         /// <param name="hitTriggers">Should hit triggers? (not supported in 5.1)</param>
         /// <param name="address">Node address of junctions</param>
         /// <returns></returns>
-        public bool Raycast(out RaycastHit hit, out double hitPercent, LayerMask layerMask, double resolution = 1.0, double from = 0.0, double to = 1.0
-#if UNITY_5_2 || UNITY_5_3 || UNITY_5_3_OR_NEWER
-, QueryTriggerInteraction hitTriggers = QueryTriggerInteraction.UseGlobal
-#endif
-)
+        public bool Raycast(out RaycastHit hit, out double hitPercent, LayerMask layerMask, double resolution = 1.0, double from = 0.0, double to = 1.0 , QueryTriggerInteraction hitTriggers = QueryTriggerInteraction.UseGlobal)
         {
             resolution = DMath.Clamp01(resolution);
-            from = DMath.Clamp01(from);
-            to = DMath.Clamp01(to);
+            Spline.FormatFromTo(ref from, ref to, false);
             double percent = from;
             Vector3 fromPos = EvaluatePosition(percent);
             hitPercent = 0f;
@@ -1030,11 +1467,7 @@ namespace Dreamteck.Splines
                 double prevPercent = percent;
                 percent = DMath.Move(percent, to, moveStep / resolution);
                 Vector3 toPos = EvaluatePosition(percent);
-#if UNITY_5_2 || UNITY_5_3 || UNITY_5_3_OR_NEWER
                 if (Physics.Linecast(fromPos, toPos, out hit, layerMask, hitTriggers))
-#else 
-                if (Physics.Linecast(fromPos, toPos, out hit, layerMask))
-#endif
                 {
                     double segmentPercent = (hit.point - fromPos).sqrMagnitude / (toPos - fromPos).sqrMagnitude;
                     hitPercent = DMath.Lerp(prevPercent, percent, segmentPercent);
@@ -1058,15 +1491,10 @@ namespace Dreamteck.Splines
         /// <param name="hitTriggers">Should hit triggers? (not supported in 5.1)</param>
         /// <param name="address">Node address of junctions</param>
         /// <returns></returns>
-        public bool RaycastAll(out RaycastHit[] hits, out double[] hitPercents, LayerMask layerMask, double resolution = 1.0, double from = 0.0, double to = 1.0
-#if UNITY_5_2 || UNITY_5_3 || UNITY_5_3_OR_NEWER
-, QueryTriggerInteraction hitTriggers = QueryTriggerInteraction.UseGlobal
-#endif
-            )
+        public bool RaycastAll(out RaycastHit[] hits, out double[] hitPercents, LayerMask layerMask, double resolution = 1.0, double from = 0.0, double to = 1.0, QueryTriggerInteraction hitTriggers = QueryTriggerInteraction.UseGlobal)
         {
             resolution = DMath.Clamp01(resolution);
-            from = DMath.Clamp01(from);
-            to = DMath.Clamp01(to);
+            Spline.FormatFromTo(ref from, ref to, false);
             double percent = from;
             Vector3 fromPos = EvaluatePosition(percent);
             List<RaycastHit> hitList = new List<RaycastHit>();
@@ -1077,11 +1505,7 @@ namespace Dreamteck.Splines
                 double prevPercent = percent;
                 percent = DMath.Move(percent, to, moveStep / resolution);
                 Vector3 toPos = EvaluatePosition(percent);
-#if UNITY_5_2 || UNITY_5_3 || UNITY_5_3_OR_NEWER
                 RaycastHit[] h = Physics.RaycastAll(fromPos, toPos - fromPos, Vector3.Distance(fromPos, toPos), layerMask, hitTriggers);
-#else
-                RaycastHit[] h = Physics.RaycastAll(fromPos, toPos - fromPos, Vector3.Distance(fromPos, toPos), layerMask);
-#endif
                 for (int i = 0; i < h.Length; i++)
                 {
                     hasHit = true;
@@ -1097,34 +1521,214 @@ namespace Dreamteck.Splines
             return hasHit;
         }
 
-        /// <summary>
-        /// Returns an array of junctions available from the current position towards the end of the spline.
-        /// </summary>
-        /// <param name="percent">Current position</param>
-        /// <param name="direction">Direction (forward or backward)</param>
-        /// <returns></returns>
-        public int[] GetAvailableNodeLinksAtPosition(double percent, Spline.Direction direction)
+
+        public void CheckTriggers(double start, double end, SplineUser user = null)
         {
-            List<int> available = new List<int>();
-            double pointValue = (pointCount-1)*percent;
-            for (int i = 0; i < _nodeLinks.Length; i++)
+            for (int i = 0; i < triggerGroups.Length; i++)
             {
-                if (direction == Spline.Direction.Forward)
+                triggerGroups[i].Check(start, end);
+            }
+        }
+
+        public void CheckTriggers(int group, double start, double end)
+        {
+            if (group < 0 || group >= triggerGroups.Length)
+            {
+                Debug.LogError("Trigger group " + group + " does not exist");
+                return;
+            }
+            triggerGroups[group].Check(start, end);
+        }
+
+        public void ResetTriggers()
+        {
+            for (int i = 0; i < triggerGroups.Length; i++) triggerGroups[i].Reset();
+        }
+
+        public void ResetTriggers(int group)
+        {
+            if (group < 0 || group >= triggerGroups.Length)
+            {
+                Debug.LogError("Trigger group " + group + " does not exist");
+                return;
+            }
+            for (int i = 0; i < triggerGroups[group].triggers.Length; i++)
+            {
+                triggerGroups[group].triggers[i].Reset();
+            }
+        }
+
+        /// <summary>
+        /// Get the available junctions for the given point
+        /// </summary>
+        /// <param name="pointIndex"></param>
+        /// <returns></returns>
+        public List<Node.Connection> GetJunctions(int pointIndex)
+        {
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                if(nodes[i].pointIndex == pointIndex) return nodes[i].GetConnections(this);
+            }
+            return new List<Node.Connection>();
+        }
+
+        /// <summary>
+        /// Get all junctions for all points in the given interval
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        public Dictionary<int, List<Node.Connection>> GetJunctions(double start = 0.0, double end = 1.0)
+        {
+            int index;
+            double lerp;
+            sampleCollection.GetSamplingValues(start, out index, out lerp);
+            Dictionary<int, List<Node.Connection>> junctions = new Dictionary<int, List<Node.Connection>>();
+            float startValue = (pointCount - 1) * (float)start;
+            float endValue = (pointCount - 1) * (float)end;
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                bool add = false;
+                if (end > start && nodes[i].pointIndex > startValue && nodes[i].pointIndex < endValue) add = true;
+                else if (nodes[i].pointIndex < startValue && nodes[i].pointIndex > endValue) add = true;
+                if (!add && Mathf.Abs(startValue - nodes[i].pointIndex) <= 0.0001f) add = true;
+                if (!add && Mathf.Abs(endValue - nodes[i].pointIndex) <= 0.0001f) add = true;
+                if (add) junctions.Add(nodes[i].pointIndex, nodes[i].GetConnections(this));
+            }
+            return junctions;
+        }
+
+        /// <summary>
+        /// Call this to connect a node to a spline's point
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="pointIndex"></param>
+        public void ConnectNode(Node node, int pointIndex)
+        {
+            if (node == null)
+            {
+                Debug.LogError("Missing Node");
+                return;
+            }
+            if (pointIndex < 0 || pointIndex >= spline.points.Length)
+            {
+                Debug.Log("Invalid point index " + pointIndex);
+                return;
+            }
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                if (nodes[i].node == null) continue;
+                if (nodes[i].pointIndex == pointIndex || nodes[i].node == node)
                 {
-                    if (_nodeLinks[i].pointIndex >= pointValue)
+                    Node.Connection[] connections = nodes[i].node.GetConnections();
+                    for (int j = 0; j < connections.Length; j++)
                     {
-                        available.Add(i);
+                        if (connections[j].spline == this)
+                        {
+                            Debug.LogError("Node " + node.name + " is already connected to spline " + name + " at point " + nodes[i].pointIndex);
+                            return;
+                        }
                     }
-                }
-                else
-                {
-                    if (_nodeLinks[i].pointIndex <= pointValue)
-                    {
-                        available.Add(i);
-                    }
+                    AddNodeLink(node, pointIndex);
+                    return;
                 }
             }
-            return available.ToArray();
+            node.AddConnection(this, pointIndex);
+            AddNodeLink(node, pointIndex);
+        }
+
+        public void DisconnectNode(int pointIndex)
+        {
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                if (nodes[i].pointIndex == pointIndex)
+                {
+                    nodes[i].node.RemoveConnection(this, pointIndex);
+                    ArrayUtility.RemoveAt(ref nodes, i);
+                    return;
+                }
+            }
+        }
+
+        private void AddNodeLink(Node node, int pointIndex)
+        {
+            NodeLink newLink = new NodeLink();
+            newLink.node = node;
+            newLink.pointIndex = pointIndex;
+            ArrayUtility.Add(ref nodes, newLink);
+            UpdateConnectedNodes();
+        }
+
+        public Dictionary<int, Node> GetNodes(double start = 0.0, double end = 1.0)
+        {
+            int index;
+            double lerp;
+            sampleCollection.GetSamplingValues(start, out index, out lerp);
+            Dictionary<int, Node> nodeList = new Dictionary<int, Node>();
+            float startValue = (pointCount - 1) * (float)start;
+            float endValue = (pointCount - 1) * (float)end;
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                bool add = false;
+                if (end > start && nodes[i].pointIndex > startValue && nodes[i].pointIndex < endValue) add = true;
+                else if (nodes[i].pointIndex < startValue && nodes[i].pointIndex > endValue) add = true;
+                if (!add && Mathf.Abs(startValue - nodes[i].pointIndex) <= 0.0001f) add = true;
+                if (!add && Mathf.Abs(endValue - nodes[i].pointIndex) <= 0.0001f) add = true;
+                if (add) nodeList.Add(nodes[i].pointIndex, nodes[i].node);
+            }
+            return nodeList;
+        }
+
+        public Node GetNode(int pointIndex)
+        {
+            if (pointIndex < 0 || pointIndex >= pointCount) return null;
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                if (nodes[i].pointIndex == pointIndex) return nodes[i].node;
+            }
+            return null;
+        }
+
+        public void TransferNode(int pointIndex, int newPointIndex)
+        {
+            if(newPointIndex < 0 || newPointIndex >= pointCount)
+            {
+                Debug.LogError("Invalid new point index " + newPointIndex);
+                return;
+            }
+            if (GetNode(newPointIndex) != null)
+            {
+                Debug.LogError("Cannot move node to point " + newPointIndex + ". Point already connected to a node");
+                return;
+            }
+            Node node = GetNode(pointIndex);
+            if(node == null)
+            {
+                Debug.LogError("No node connected to point " + pointIndex);
+                return;
+            }
+            DisconnectNode(pointIndex);
+            ConnectNode(node, newPointIndex);
+        }
+
+        public void ShiftNodes(int startIndex, int endIndex, int shift)
+        {
+            int from = endIndex;
+            int to = startIndex;
+            if(startIndex > endIndex)
+            {
+                from = startIndex;
+                to = endIndex;
+            }
+
+            for (int i = from; i >= to; i--)
+            {
+                Node node = GetNode(i);
+                if (node != null)
+                {
+                    TransferNode(i, i + shift);
+                }
+            }
         }
 
         /// <summary>
@@ -1145,126 +1749,29 @@ namespace Dreamteck.Splines
             connectionIndices.Clear();
             connectedIndices.Clear();
             int pointValue = Mathf.FloorToInt((pointCount - 1) * (float)percent);
-            for (int i = 0; i < _nodeLinks.Length; i++)
+            for (int i = 0; i < nodes.Length; i++)
             {
                 bool condition = false;
                 if (includeEqual)
                 {
-                    if (direction == Spline.Direction.Forward) condition = _nodeLinks[i].pointIndex >= pointValue;
-                    else condition = _nodeLinks[i].pointIndex <= pointValue;
+                    if (direction == Spline.Direction.Forward) condition = nodes[i].pointIndex >= pointValue;
+                    else condition = nodes[i].pointIndex <= pointValue;
                 } else
                 {
-                    if (direction == Spline.Direction.Forward) condition = _nodeLinks[i].pointIndex > pointValue;
-                    else condition = _nodeLinks[i].pointIndex < pointValue;
+
                 }
                 if (condition)
                 {
-                    Node.Connection[] connections = _nodeLinks[i].node.GetConnections();
+                    Node.Connection[] connections = nodes[i].node.GetConnections();
                     for (int j = 0; j < connections.Length; j++)
                     {
-                        if (connections[j].computer != this) {
-                            computers.Add(connections[j].computer);
-                            connectionIndices.Add(_nodeLinks[i].pointIndex);
+                        if (connections[j].spline != this) {
+                            computers.Add(connections[j].spline);
+                            connectionIndices.Add(nodes[i].pointIndex);
                             connectedIndices.Add(connections[j].pointIndex);
                         }
                     }
                 } 
-            }
-        }
-
-        /// <summary>
-        /// Set the morph's weight to 1 and all others to 0
-        /// </summary>
-        /// <param name="index">The index of the morph which should be set to 1</param>
-        public void SetMorphState(int index)
-        {
-            if (!hasMorph) return;
-            for (int i = 0; i < _morph.GetChannelCount(); i++)
-            {
-                if (i != index) _morph.SetWeight(i, 0f);
-                else _morph.SetWeight(i, 1f);
-            }
-        }
-
-        /// <summary>
-        /// Set the morph's weight to 1 and all others to 0
-        /// </summary>
-        /// <param name="morphName">The name of the morph which should be set to 1</param>
-        public void SetMorphState(string morphName)
-        {
-            if (!hasMorph) return;
-            string[] morphNames = _morph.GetChannelNames();
-            for (int i = 0; i < morphNames.Length; i++)
-            {
-                if (morphNames[i] == morphName)
-                {
-                    SetMorphState(i);
-                    return;
-                }
-            }
-            Debug.LogError("Morph state " + morphName + " not found");
-        }
-
-        /// <summary>
-        /// Set the morph's weight and reduce the weights of all other morphs automatically
-        /// </summary>
-        /// <param name="index">The index of the morph</param>
-        /// <param name="percent">percent (0-1) to set the morph's weight to</param>
-        public void SetMorphState(int index, float percent)
-        {
-            if (!hasMorph) return;
-            percent = Mathf.Clamp01(percent);
-            float inversePercent = 1f - percent;
-            for (int i = 0; i < _morph.GetChannelCount(); i++)
-            {
-                if (i != index)
-                {
-                    float weight = _morph.GetWeight(i);
-                    weight = Mathf.Clamp(weight, 0f, inversePercent);
-                    _morph.SetWeight(i, weight);
-                }
-                else _morph.SetWeight(i, percent);
-            }
-        }
-
-        /// <summary>
-        /// Set the morph's weight and reduce the weights of all other morphs automatically
-        /// </summary>
-        /// <param name="morphName">The name of the morph which should be set to 1</param>
-        /// <param name="percent">percent (0-1) to set the morph's weight to</param>
-        public void SetMorphState(string morphName, float percent)
-        {
-            if (!hasMorph) return;
-            string[] morphNames = _morph.GetChannelNames();
-            for (int i = 0; i < morphNames.Length; i++)
-            {
-                if (morphNames[i] == morphName)
-                {
-                    SetMorphState(i, percent);
-                    return;
-                }
-            }
-            Debug.LogError("Morph state " + morphName + " not found");
-        }
-
-        /// <summary>
-        /// Automatically blends through all morphs based on the given percent
-        /// </summary>
-        /// <param name="percent">Percent for blending</param>
-        public void SetMorphState(float percent)
-        {
-            if (!hasMorph) return;
-            int morphCount = _morph.GetChannelCount();
-            float morphValue = percent * (morphCount - 1);
-            for (int i = 0; i < morphCount; i++)
-            {
-                float delta = Mathf.Abs(i - morphValue);
-                if (delta > 1f) _morph.SetWeight(i, 0f);
-                else
-                {
-                    if (morphValue <= i) _morph.SetWeight(i, 1f - (i - morphValue));
-                    else _morph.SetWeight(i, 1f - (morphValue - i));
-                }
             }
         }
 
@@ -1276,26 +1783,31 @@ namespace Dreamteck.Splines
         {
             List<SplineComputer> computers = new List<SplineComputer>();
             computers.Add(this);
-            if (nodeLinks.Length == 0) return computers;
+            if (nodes.Length == 0) return computers;
             GetConnectedComputers(ref computers);
             return computers;
+        }
+
+        public void GetSamplingValues(double percent, out int index, out double lerp)
+        {
+            sampleCollection.GetSamplingValues(percent, out index, out lerp);
         }
 
         private void GetConnectedComputers(ref List<SplineComputer> computers)
         {
             SplineComputer comp = computers[computers.Count - 1];
             if (comp == null) return;
-            for (int i = 0; i < comp._nodeLinks.Length; i++)
+            for (int i = 0; i < comp.nodes.Length; i++)
             {
-                if (comp._nodeLinks[i].node == null) continue;
-                Node.Connection[] connections = comp._nodeLinks[i].node.GetConnections();
+                if (comp.nodes[i].node == null) continue;
+                Node.Connection[] connections = comp.nodes[i].node.GetConnections();
                 for (int n = 0; n < connections.Length; n++)
                 {
                     bool found = false;
-                    if (connections[n].computer == this) continue;
+                    if (connections[n].spline == this) continue;
                     for (int x = 0; x < computers.Count; x++)
                     {
-                        if (computers[x] == connections[n].computer)
+                        if (computers[x] == connections[n].spline)
                         {
                             found = true;
                             break;
@@ -1303,7 +1815,7 @@ namespace Dreamteck.Splines
                     }
                     if (!found)
                     {
-                        computers.Add(connections[n].computer);
+                        computers.Add(connections[n].spline);
                         GetConnectedComputers(ref computers);
                     }
                 }
@@ -1312,40 +1824,25 @@ namespace Dreamteck.Splines
 
         private void RemoveNodeLinkAt(int index)
         {
-            //First remove the address from the subscribers
-            for (int i = 0; i < subscribers.Length; i++)
-            {
-                for (int n = 0; n < subscribers[i].address.depth; n++)
-                {
-                    if (subscribers[i].address.elements[n].computer == this)
-                    {
-                        if (subscribers[i].address.elements[n].startPoint == nodeLinks[index].pointIndex || subscribers[i].address.elements[n].endPoint == nodeLinks[index].pointIndex)
-                        {
-                            subscribers[i].ExitAddress(subscribers[i].address.depth - n);
-                            break;
-                        }
-                    }
-                }
-            }
             //Then remove the node link
-            NodeLink[] newLinks = new NodeLink[_nodeLinks.Length - 1];
-            for (int i = 0; i < _nodeLinks.Length; i++)
+            NodeLink[] newLinks = new NodeLink[nodes.Length - 1];
+            for (int i = 0; i < nodes.Length; i++)
             {
                 if (i == index) continue;
-                else if (i < index) newLinks[i] = _nodeLinks[i];
-                else newLinks[i - 1] = _nodeLinks[i];
+                else if (i < index) newLinks[i] = nodes[i];
+                else newLinks[i - 1] = nodes[i];
             }
-            _nodeLinks = newLinks;
+            nodes = newLinks;
         }
 
         //This magically updates the Node's position and all other points, connected to it when a point, linked to a Node is edited.
         private void SetNodeForPoint(int index, SplinePoint worldPoint)
         {
-            for (int i = 0; i < _nodeLinks.Length; i++)
+            for (int i = 0; i < nodes.Length; i++)
             {
-                if (_nodeLinks[i].pointIndex == index)
+                if (nodes[i].pointIndex == index)
                 {
-                    _nodeLinks[i].node.UpdatePoint(this, _nodeLinks[i].pointIndex, worldPoint);
+                    nodes[i].node.UpdatePoint(this, nodes[i].pointIndex, worldPoint);
                     break;
                 }
             }
@@ -1353,9 +1850,9 @@ namespace Dreamteck.Splines
 
         private void UpdateConnectedNodes(SplinePoint[] worldPoints)
         {
-            for (int i = 0; i < _nodeLinks.Length; i++)
+            for (int i = 0; i < nodes.Length; i++)
             {
-                if (_nodeLinks[i].node == null)
+                if (nodes[i].node == null)
                 {
                     RemoveNodeLinkAt(i);
                     i--;
@@ -1363,9 +1860,9 @@ namespace Dreamteck.Splines
                     continue;
                 }
                 bool found = false;
-                foreach(Node.Connection connection in _nodeLinks[i].node.GetConnections())
+                foreach(Node.Connection connection in nodes[i].node.GetConnections())
                 {
-                    if(connection.computer == this)
+                    if(connection.spline == this)
                     {
                         found = true;
                         break;
@@ -1378,50 +1875,97 @@ namespace Dreamteck.Splines
                     Rebuild();
                     continue;
                 }
-                _nodeLinks[i].node.UpdatePoint(this, _nodeLinks[i].pointIndex, worldPoints[_nodeLinks[i].pointIndex]);
-                _nodeLinks[i].node.UpdateConnectedComputers(this);
+                nodes[i].node.UpdatePoint(this, nodes[i].pointIndex, worldPoints[nodes[i].pointIndex]);
+                nodes[i].node.UpdateConnectedComputers(this);
             }
         }
 
-
         private void UpdateConnectedNodes()
         {
-            for (int i = 0; i < _nodeLinks.Length; i++)
+            for (int i = 0; i < nodes.Length; i++)
             {
-                if (_nodeLinks[i].node == null)
+                if (nodes[i] == null || nodes[i].node == null)
                 {
                     RemoveNodeLinkAt(i);
                     Rebuild();
                     i--;
                     continue;
                 }
-                _nodeLinks[i].node.UpdatePoint(this, _nodeLinks[i].pointIndex, GetPoint(_nodeLinks[i].pointIndex));
-                _nodeLinks[i].node.UpdateConnectedComputers(this);
+                bool found = false;
+                Node.Connection[] connections = nodes[i].node.GetConnections();
+                for (int j = 0; j < connections.Length; j++)
+                {
+                    if(connections[j].spline == this && connections[j].pointIndex == nodes[i].pointIndex)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                {
+                    nodes[i].node.UpdatePoint(this, nodes[i].pointIndex, GetPoint(nodes[i].pointIndex));
+                    nodes[i].node.UpdateConnectedComputers(this);
+                } else
+                {
+                    RemoveNodeLinkAt(i);
+                    Rebuild();
+                    i--;
+                    continue;
+                }
             }
         }
 
         public Vector3 TransformPoint(Vector3 point)
         {
-            if (tsTransform != null && tsTransform.transform != null) return tsTransform.TransformPoint(point);
-            else return transform.TransformPoint(point);
+#if UNITY_EDITOR
+            if (!isPlaying) return transform.TransformPoint(point);
+#endif
+            return transformMatrix.MultiplyPoint3x4(point);
         }
 
         public Vector3 InverseTransformPoint(Vector3 point)
         {
-            if (tsTransform != null && tsTransform.transform != null) return tsTransform.InverseTransformPoint(point);
-            else return transform.InverseTransformPoint(point);
+#if UNITY_EDITOR
+            if (!isPlaying) return transform.InverseTransformPoint(point);
+#endif
+            return inverseTransformMatrix.MultiplyPoint3x4(point);
         }
 
         public Vector3 TransformDirection(Vector3 direction)
         {
-            if (tsTransform != null && tsTransform.transform != null) return tsTransform.TransformDirection(direction);
-            else return transform.TransformDirection(direction);
+#if UNITY_EDITOR
+            if (!isPlaying) return transform.TransformDirection(direction);
+#endif
+            return transformMatrix.MultiplyVector(direction);
         }
 
         public Vector3 InverseTransformDirection(Vector3 direction)
         {
-            if (tsTransform != null && tsTransform.transform != null) return tsTransform.InverseTransformDirection(direction);
-            else return transform.InverseTransformDirection(direction);
+#if UNITY_EDITOR
+            if (!isPlaying) return transform.InverseTransformDirection(direction);
+#endif
+            return inverseTransformMatrix.MultiplyVector(direction);
+        }
+
+        [System.Serializable]
+        internal class NodeLink
+        {
+            [SerializeField]
+            internal Node node = null;
+            [SerializeField]
+            internal int pointIndex = 0;
+
+            internal List<Node.Connection> GetConnections(SplineComputer exclude)
+            {
+                Node.Connection[] connections = node.GetConnections();
+                List<Node.Connection> connectionList = new List<Node.Connection>();
+                for (int i = 0; i < connections.Length; i++)
+                {
+                    if (connections[i].spline == exclude) continue;
+                    connectionList.Add(connections[i]);
+                }
+                return connectionList;
+            }
         }
     }
 }

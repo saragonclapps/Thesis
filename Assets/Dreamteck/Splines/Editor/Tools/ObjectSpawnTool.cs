@@ -1,11 +1,11 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using System.IO;
-
-namespace Dreamteck.Splines
+namespace Dreamteck.Splines.Editor
 {
+    using UnityEngine;
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEditor;
+    using System.IO;
+
     public class ObjectSpawnTool : SplineTool
     {
         internal class SpawnCollection
@@ -82,7 +82,7 @@ namespace Dreamteck.Splines
         private bool applyScale = false;
         bool uniform = false;
 
-        SplineResult result = new SplineResult();
+        SplineSample result = new SplineSample();
 
         System.Random orderRandom, offsetRandom, rotationRandom, scaleRandom;
 
@@ -107,7 +107,12 @@ namespace Dreamteck.Splines
             }
             else Cancel();
             promptSave = false;
+#if UNITY_2019_1_OR_NEWER
+            SceneView.duringSceneGui -= OnScene;
+#else
             SceneView.onSceneGUIDelegate -= OnScene;
+#endif
+
         }
 
         public override void Open(EditorWindow window)
@@ -121,14 +126,19 @@ namespace Dreamteck.Splines
                 splines[i].onRebuild += Rebuild;
             }
             Rebuild();
+#if UNITY_2019_1_OR_NEWER
+            SceneView.duringSceneGui += OnScene;
+#else
             SceneView.onSceneGUIDelegate += OnScene;
+#endif
+
         }
 
         void OnScene(SceneView current)
         {
             for (int i = 0; i < collections.Count; i++)
             {
-                if (collections[i].spline != null) SplineDrawer.DrawSplineComputer(collections[i].spline);
+                if (collections[i].spline != null) DSSplineDrawer.DrawSplineComputer(collections[i].spline);
             }
         }
 
@@ -365,7 +375,7 @@ namespace Dreamteck.Splines
                 evaluate += positionOffset;
                 if (evaluate > 1f) evaluate -= 1f;
                 else if (evaluate < 0f) evaluate += 1f;
-                collection.spline.Evaluate(result, evaluate);
+                collection.spline.Evaluate(evaluate, result);
                 HandleObject(collection.objects[i]);
             }
         }
@@ -376,7 +386,7 @@ namespace Dreamteck.Splines
             Transform sourceTransform = obj.source.transform;
             Vector3 right = result.right;
             instanceTransform.position = result.position;
-            instanceTransform.position += -right * offset.x + result.normal * offset.y;
+            instanceTransform.position += -right * offset.x + result.up * offset.y;
             Quaternion offsetRot = Quaternion.Euler(minRotationOffset);
 
             if (applyRotation)
@@ -392,8 +402,8 @@ namespace Dreamteck.Splines
                 Vector2 randomCircle = new Vector2(distance * Mathf.Cos(angleInRadians), distance * Mathf.Sin(angleInRadians));
                 if (shellOffset) randomCircle.Normalize();
                 else randomCircle = Vector2.ClampMagnitude(randomCircle, 1f);
-                instanceTransform.position += randomCircle.x * right * randomSize.x * result.size * 0.5f + randomCircle.y * result.normal * randomSize.y * result.size * 0.5f;
-                if (useRandomOffsetRotation) instanceTransform.rotation = Quaternion.LookRotation(result.direction, instanceTransform.position - result.position) * offsetRot;
+                instanceTransform.position += randomCircle.x * right * randomSize.x * result.size * 0.5f + randomCircle.y * result.up * randomSize.y * result.size * 0.5f;
+                if (useRandomOffsetRotation) instanceTransform.rotation = Quaternion.LookRotation(result.forward, instanceTransform.position - result.position) * offsetRot;
             }
 
             if (applyScale)

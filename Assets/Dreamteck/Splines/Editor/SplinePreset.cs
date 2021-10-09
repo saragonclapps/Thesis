@@ -1,12 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Collections.Generic;
-
-namespace Dreamteck.Splines
+namespace Dreamteck.Splines.Editor
 {
+    using UnityEngine;
+    using System.Collections;
+    using System.IO;
+    using System.Runtime.Serialization;
+    using System.Runtime.Serialization.Formatters.Binary;
+    using System.Collections.Generic;
+
     [System.Serializable]
     public struct S_Vector3
     {
@@ -58,12 +58,6 @@ namespace Dreamteck.Splines
         [System.NonSerialized]
         protected SplineComputer computer;
         [System.NonSerialized]
-        protected bool lastClosed = false;
-        [System.NonSerialized]
-        protected SplinePoint[] lastPoints = new SplinePoint[0];
-        [System.NonSerialized]
-        protected Spline.Type lastType = Spline.Type.Bezier;
-        [System.NonSerialized]
         public Vector3 origin = Vector3.zero;
 
         public bool isClosed = false;
@@ -90,22 +84,6 @@ namespace Dreamteck.Splines
                 }
                 return p;
             }
-        }
-
-        public virtual void Init(SplineComputer comp)
-        {
-            computer = comp;
-            lastClosed = comp.isClosed;
-            lastType = comp.type;
-            lastPoints = comp.GetPoints(SplineComputer.Space.Local);
-        }
-
-        public void Cancel()
-        {
-            if (lastClosed) computer.Close();
-            else computer.Break();
-            computer.SetPoints(lastPoints, SplineComputer.Space.Local);
-            computer.type = lastType;
         }
 
         public SplinePreset (SplinePoint[] p, bool closed, Spline.Type t)
@@ -165,12 +143,23 @@ namespace Dreamteck.Splines
             for(int i = 0; i < files.Length; i++)
             {
                 BinaryFormatter bf = new BinaryFormatter();
+                bf.Binder = new DSP2Binder();
                 FileStream file = File.Open(files[i], FileMode.Open);
                 presets[i] = (SplinePreset)bf.Deserialize(file);
                 presets[i].filename = new FileInfo(files[i]).Name;
                 file.Close();
             }
             return presets;
+        }
+    }
+
+    class DSP2Binder : SerializationBinder
+    {
+        public override System.Type BindToType(string assemblyName, string typeName)
+        {
+            typeName = typeName.Replace("Dreamteck.Splines", "Dreamteck.Splines.Editor");
+            assemblyName = assemblyName.Replace("Dreamteck.Splines", "Dreamteck.Splines.Editor");
+            return System.Type.GetType(string.Format("{0}, {1}", typeName, assemblyName));
         }
     }
 }

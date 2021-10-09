@@ -1,12 +1,13 @@
-using UnityEngine;
-using System.Collections;
-using UnityEditor;
+namespace Dreamteck.Splines.Editor
+{
+    using UnityEngine;
+    using System.Collections;
+    using UnityEditor;
 
-namespace Dreamteck.Splines {
     public class SplineEditorWindow : EditorWindow
     {
         protected Editor editor;
-        protected SplineEditor splineEditor;
+        protected SplineComputerEditor splineEditor;
 
         public void Init(Editor e, string inputTitle, Vector2 min, Vector2 max)
         {
@@ -37,7 +38,7 @@ namespace Dreamteck.Splines {
         public void Init(Editor e)
         {
             editor = e;
-            if (editor is SplineEditor) splineEditor = (SplineEditor)editor;
+            if (editor is SplineComputerEditor) splineEditor = (SplineComputerEditor)editor;
             else splineEditor = null;
             Title(GetTitle());
             OnInitialize();
@@ -55,11 +56,7 @@ namespace Dreamteck.Splines {
 
         private void Title(string inputTitle)
         {
-#if UNITY_5_0
-            title = inputTitle;
-#else
             titleContent = new GUIContent(inputTitle);
-#endif
         }
     }
 }

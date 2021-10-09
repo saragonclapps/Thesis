@@ -1,11 +1,11 @@
-using UnityEngine;
-using System.Collections;
-using UnityEditor;
-using System.Collections.Generic;
-using System.IO;
-
-namespace Dreamteck.Splines
+namespace Dreamteck.Splines.Editor
 {
+    using UnityEngine;
+    using System.Collections;
+    using UnityEditor;
+    using System.Collections.Generic;
+    using System.IO;
+
     public class BakeTool : SplineTool
     {
         public enum BakeGroup { All, Selected, AllExcluding }
@@ -149,11 +149,7 @@ namespace Dreamteck.Splines
             }
             if (copy)
             {
-#if UNITY_5_5_OR_NEWER
                 UnityEditor.MeshUtility.Optimize(filter.sharedMesh);
-#else
-               filter.sharedMesh.Optimize();
-#endif
                Unwrapping.GenerateSecondaryUVSet(filter.sharedMesh);
             }
             else gen.Bake(isStatic, true);
@@ -166,17 +162,13 @@ namespace Dreamteck.Splines
                 string meshName = filter.sharedMesh.name;
                 if (files.Length > 0) meshName += "_" + files.Length;
                 string path = savePath + "/" + meshName + ".obj";
-                string objString = MeshUtility.ToOBJString(filter.sharedMesh, renderer.sharedMaterials);
+                string objString = Dreamteck.MeshUtility.ToOBJString(filter.sharedMesh, renderer.sharedMaterials);
                 File.WriteAllText(path, objString);
                 if (copy)
                 {
                     string relativepath = "Assets" + path.Substring(Application.dataPath.Length);
                     AssetDatabase.ImportAsset(relativepath, ImportAssetOptions.ForceSynchronousImport);
-#if UNITY_5_0
-                    filter.sharedMesh = (Mesh)AssetDatabase.LoadAssetAtPath(relativepath, typeof(Mesh));
-#else
                     filter.sharedMesh = AssetDatabase.LoadAssetAtPath<Mesh>(relativepath);
-#endif
                 }
             }
 
@@ -190,14 +182,14 @@ namespace Dreamteck.Splines
                 string relativepath = "Assets" + path.Substring(Application.dataPath.Length);
                 if (copy)
                 {
-                    Mesh assetMesh = MeshUtility.Copy(filter.sharedMesh);
+                    Mesh assetMesh = Dreamteck.MeshUtility.Copy(filter.sharedMesh);
                     AssetDatabase.CreateAsset(assetMesh, relativepath);
                 } else AssetDatabase.CreateAsset(filter.sharedMesh, relativepath);
             }
 
             if (permanent && !copy)
             {
-                SplineComputer meshGenComputer = gen.computer;
+                SplineComputer meshGenComputer = gen.spline;
                 if (permanent)
                 {
                     meshGenComputer.Unsubscribe(gen);

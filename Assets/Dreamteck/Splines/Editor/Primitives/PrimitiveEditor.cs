@@ -1,47 +1,30 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System.Collections;
-
-namespace Dreamteck.Splines.Primitives
+﻿namespace Dreamteck.Splines.Primitives
 {
+    using UnityEngine;
+    using UnityEditor;
+    using System.Collections;
+    using Dreamteck.Splines.Editor;
+
     [System.Serializable]
     public class PrimitiveEditor
-    { 
+    {
         [System.NonSerialized]
-        protected SplineComputer computer;
-        [System.NonSerialized]
-        protected bool lastClosed = false;
-        [System.NonSerialized]
-        protected SplinePoint[] lastPoints = new SplinePoint[0];
-        [System.NonSerialized]
-        protected Spline.Type lastType = Spline.Type.Bezier;
+        protected DreamteckSplinesEditor editor;
         [System.NonSerialized]
         public Vector3 origin = Vector3.zero;
+
+        protected SplinePrimitive primitive = new SplinePrimitive();
 
         public virtual string GetName()
         {
             return "Primitive";
         }
 
-        public virtual void Init(SplineComputer comp)
+        public virtual void Open(DreamteckSplinesEditor editor)
         {
-            computer = comp;
-            lastClosed = comp.isClosed;
-            lastType = comp.type;
-            lastPoints = comp.GetPoints(SplineComputer.Space.Local);
-        }
-
-        public virtual void Open()
-        {
-            Update();
-        }
-
-        public virtual void Close()
-        {
-            if (lastClosed) computer.Close();
-            else computer.Break();
-            computer.SetPoints(lastPoints, SplineComputer.Space.Local);
-            computer.type = lastType;
+            this.editor = editor;
+            primitive.is2D = editor.is2D;
+            primitive.Calculate();
         }
 
         public void Draw()
@@ -51,33 +34,26 @@ namespace Dreamteck.Splines.Primitives
             if (EditorGUI.EndChangeCheck()) Update();
         }
 
+        public void Update()
+        {
+            primitive.is2D = editor.is2D;
+            primitive.Calculate();
+            editor.points = primitive.GetPoints();
+            editor.splineType = primitive.GetSplineType();
+            editor.isClosed = primitive.GetIsClosed();
+        }
+
         protected virtual void OnGUI()
         {
-
-        }
-
-        protected virtual void Update()
-        {
-            if (computer == null) return;
-            SplineUser[] users = computer.GetComponents<SplineUser>();
-            foreach (SplineUser user in users) user.Rebuild(true);
-            computer.Rebuild();
-            SceneView.RepaintAll();
-        }
-
-        protected void AxisGUI(SplinePrimitive primitive)
-        {
-            primitive.axis = (SplinePrimitive.Axis)EditorGUILayout.EnumPopup("Axis", primitive.axis);
-        }
-
-        protected void OffsetGUI(SplinePrimitive primitive)
-        {
+            primitive.is2D = editor.is2D;
             primitive.offset = EditorGUILayout.Vector3Field("Offset", primitive.offset);
-        }
-
-        protected void RotationGUI(SplinePrimitive primitive)
-        {
-            primitive.rotation = EditorGUILayout.Vector3Field("Rotation", primitive.rotation);
+            if (editor.is2D)
+            {
+                float rot = primitive.rotation.z;
+                rot = EditorGUILayout.FloatField("Rotation", rot);
+                primitive.rotation = new Vector3(0f, 0f, rot);
+            }
+             else primitive.rotation = EditorGUILayout.Vector3Field("Rotation", primitive.rotation);
         }
     }
 }

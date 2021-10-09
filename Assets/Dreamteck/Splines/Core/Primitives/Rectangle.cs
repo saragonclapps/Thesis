@@ -8,10 +8,14 @@ namespace Dreamteck.Splines.Primitives
     {
         public Vector2 size = Vector2.one;
 
+        public override Spline.Type GetSplineType()
+        {
+            return Spline.Type.Linear;
+        }
+
         protected override void Generate()
         {
             base.Generate();
-            type = Spline.Type.Linear;
             closed = true;
             CreatePoints(5, SplinePoint.Type.SmoothMirrored);
             points[0].position = points[0].tangent = Vector3.up / 2f * size.y + Vector3.left / 2f * size.x;

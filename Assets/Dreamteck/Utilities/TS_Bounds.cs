@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 namespace Dreamteck
@@ -14,13 +14,9 @@ namespace Dreamteck
 
         public TS_Bounds()
         {
-            center = Vector3.zero;
-            extents = Vector3.zero;
-            max = Vector3.zero;
-            min = Vector3.zero;
-            size = Vector3.zero;
+
         }
-    
+
         public TS_Bounds(Bounds bounds)
         {
             center = bounds.center;

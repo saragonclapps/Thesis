@@ -7,20 +7,19 @@ namespace Dreamteck.Splines
 {
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]
-    [AddComponentMenu("Dreamteck/Splines/Spline Mesh")]
+    [AddComponentMenu("Dreamteck/Splines/Users/Spline Mesh")]
     public class SplineMesh : MeshGenerator
     {
         //Mesh data
         [SerializeField]
         [HideInInspector]
         private List<Channel> channels = new List<Channel>();
-        private SplineResult lastResult = new SplineResult();
         private bool useLastResult = false;
         private List<TS_Mesh> combineMeshes = new List<TS_Mesh>();
-        private int meshCount = 0;
 
         Matrix4x4 vertexMatrix = new Matrix4x4();
         Matrix4x4 normalMatrix = new Matrix4x4();
+        SplineSample lastResult = new SplineSample(), modifiedResult = new SplineSample();
 
 #if UNITY_EDITOR
         public override void EditorAwake()
@@ -33,12 +32,6 @@ namespace Dreamteck.Splines
         }
 #endif
 
-        protected override void Awake()
-        {
-            base.Awake();
-            mesh.name = "Extruded Mesh";
-        }
-
         protected override void Reset()
         {
             base.Reset();
@@ -48,7 +41,7 @@ namespace Dreamteck.Splines
         public void RemoveChannel(int index)
         {
             channels.RemoveAt(index);
-            Rebuild(false);
+            Rebuild();
         }
 
         public void SwapChannels(int a, int b)
@@ -57,7 +50,7 @@ namespace Dreamteck.Splines
             Channel temp = channels[b];
             channels[b] = channels[a];
             channels[a] = temp;
-            Rebuild(false);
+            Rebuild();
         }
 
         public Channel AddChannel(Mesh inputMesh, string name)
@@ -87,27 +80,60 @@ namespace Dreamteck.Splines
 
         protected override void BuildMesh()
         {
-            if (clippedSamples.Length == 0) return;
             base.BuildMesh();
             Generate();
         }
 
-        void Generate()
+        private void Generate()
         {
-            meshCount = 0;
+            int meshCount = 0;
             for (int i = 0; i < channels.Count; i++)
             {
                 if (channels[i].GetMeshCount() == 0) continue;
+
+                if (channels[i].autoCount)
+                {
+                    float avgBounds = 0f;
+                    for (int j = 0; j < channels[i].GetMeshCount(); j++)
+                    {
+                        avgBounds += channels[i].GetMesh(j).bounds.size.z;
+                    }
+
+                    if (channels[i].GetMeshCount() > 1)
+                    {
+                        avgBounds /= channels[i].GetMeshCount();
+                    }
+
+                    if (avgBounds > 0f)
+                    {
+                        float length = CalculateLength(channels[i].clipFrom, channels[i].clipTo);
+                        int newCount = Mathf.RoundToInt(length / avgBounds);
+                        if (newCount < 1)
+                        {
+                            newCount = 1;
+                        }
+                        channels[i].count = newCount;
+                    }
+                }
+
                 meshCount += channels[i].count;
             }
+
             if(meshCount == 0)
             {
                 tsMesh.Clear();
                 return;
             }
-            
-            if (combineMeshes.Count < meshCount) combineMeshes.AddRange(new TS_Mesh[meshCount - combineMeshes.Count]);
-            else if (combineMeshes.Count > meshCount) combineMeshes.RemoveRange((combineMeshes.Count - 1) - (combineMeshes.Count - meshCount), combineMeshes.Count - meshCount);
+
+            if (combineMeshes.Count < meshCount)
+            {
+                combineMeshes.AddRange(new TS_Mesh[meshCount - combineMeshes.Count]);
+            }
+            else if (combineMeshes.Count > meshCount)
+            {
+                combineMeshes.RemoveRange((combineMeshes.Count - 1) - (combineMeshes.Count - meshCount), combineMeshes.Count - meshCount);
+            }
+
             int combineMeshIndex = 0;
             for (int i = 0; i < channels.Count; i++)
             {
@@ -124,8 +150,11 @@ namespace Dreamteck.Splines
                         {
                             double from = DMath.Lerp(channels[i].clipFrom, channels[i].clipTo, j * step + space);
                             double to = DMath.Lerp(channels[i].clipFrom, channels[i].clipTo, j * step + step - space);
-                            if (combineMeshes[combineMeshIndex] == null) combineMeshes[combineMeshIndex] = new TS_Mesh();
-                            Stretch(channels[i], combineMeshes[combineMeshIndex], from, to);
+                            if (combineMeshes[combineMeshIndex] == null)
+                            {
+                                combineMeshes[combineMeshIndex] = new TS_Mesh();
+                            }
+                            Extrude(channels[i], combineMeshes[combineMeshIndex], from, to);
                             combineMeshIndex++;
                         }
                         if (space == 0f) useLastResult = true;
@@ -133,7 +162,10 @@ namespace Dreamteck.Splines
                     case Channel.Type.Place:
                         for (int j = 0; j < channels[i].count; j++)
                         {
-                            if (combineMeshes[combineMeshIndex] == null) combineMeshes[combineMeshIndex] = new TS_Mesh();
+                            if (combineMeshes[combineMeshIndex] == null)
+                            {
+                                combineMeshes[combineMeshIndex] = new TS_Mesh();
+                            }
                             Place(channels[i], combineMeshes[combineMeshIndex], DMath.Lerp(channels[i].clipFrom, channels[i].clipTo, (double)j / Mathf.Max(channels[i].count - 1, 1)));
                             combineMeshIndex++;
                         }
@@ -151,54 +183,87 @@ namespace Dreamteck.Splines
             Channel.MeshDefinition definition = channel.NextMesh();
             if (target == null) target = new TS_Mesh();
             definition.Write(target, channel.overrideMaterialID ? channel.targetMaterialID : -1);
-            Vector2 channeloffset = channel.NextOffset(percent);
-            SplineResult result = Evaluate(UnclipPercent(percent));
-            Vector3 originalNormal = result.normal;
-            Vector3 originalRight = result.right;
-            Vector3 originalDirection = result.direction;
+            Vector2 channelOffset = channel.NextRandomOffset();
+            Quaternion channelRotation = channel.NextRandomQuaternion();
+
+            var customValues = channel.GetCustomPlaceValues(percent);
+
+            Vector2 finalOffset = channelOffset + customValues.Item1 + new Vector2(offset.x, offset.y);
+            Quaternion finalRotation = channelRotation * Quaternion.AngleAxis(rotation, Vector3.forward) * customValues.Item2;
+            Vector3 finalScale = channel.NextPlaceScale();
+
+            Evaluate(percent, evalResult);
+            ModifySample(evalResult);
+            Vector3 originalNormal = evalResult.up;
+            Vector3 originalRight = evalResult.right;
+            Vector3 originalDirection = evalResult.forward;
             if (channel.overrideNormal)
             {
-                result.direction = Vector3.Cross(result.right, channel.customNormal);
-                result.normal = channel.customNormal;
+                evalResult.forward = Vector3.Cross(evalResult.right, channel.customNormal);
+                evalResult.up = channel.customNormal;
             }
-            Quaternion axisRotation = Quaternion.identity;
-            vertexMatrix.SetTRS(result.position + originalRight * (offset.x + channeloffset.x) * result.size + originalNormal * (offset.y + channeloffset.y) * result.size + originalDirection * offset.z, result.rotation * channel.NextPlaceRotation(percent) * Quaternion.AngleAxis(rotation, Vector3.forward), channel.NextPlaceScale() * result.size);
+
+            Vector3 scaleMod = channel.scaleModifier.GetScale(evalResult);
+            finalScale.x *= customValues.Item3.x * scaleMod.x;
+            finalScale.y *= customValues.Item3.y * scaleMod.y;
+            finalScale.z *= customValues.Item3.z * scaleMod.z;
+
+            float resultSize = GetBaseSize(evalResult);
+            vertexMatrix.SetTRS(evalResult.position + originalRight * (finalOffset.x * resultSize) + originalNormal * (finalOffset.y * resultSize) + originalDirection * offset.z, //Position
+                evalResult.rotation * finalRotation, //Rotation
+                finalScale * resultSize ); //Scale
             normalMatrix = vertexMatrix.inverse.transpose;
+
             for (int i = 0; i < target.vertexCount; i++)
             {
                 target.vertices[i] = vertexMatrix.MultiplyPoint3x4(definition.vertices[i]);
                 target.normals[i] = normalMatrix.MultiplyVector(definition.normals[i]);
             }
-            for (int i = 0; i < Mathf.Min(target.colors.Length, definition.colors.Length); i++) target.colors[i] = definition.colors[i] * result.color;
+            for (int i = 0; i < Mathf.Min(target.colors.Length, definition.colors.Length); i++)
+            {
+                target.colors[i] = definition.colors[i] * evalResult.color * color;
+            }
         }
 
-        private void Stretch(Channel channel, TS_Mesh target, double from, double to)
+        private void Extrude(Channel channel, TS_Mesh target, double from, double to)
         {
             Channel.MeshDefinition definition = channel.NextMesh();
             if (target == null) target = new TS_Mesh();
             definition.Write(target, channel.overrideMaterialID ? channel.targetMaterialID : -1);
-            SplineResult result = new SplineResult();
             Vector2 uv = Vector2.zero;
             Vector3 trsVector = Vector3.zero;
 
+            Vector3 channelOffset = channel.NextRandomOffset();
+            Vector3 channelScale = channel.NextRandomScale();
+            float channelRotation = channel.NextRandomAngle();
+
             for (int i = 0; i < definition.vertexGroups.Count; i++)
             {
-                if (useLastResult && i == definition.vertexGroups.Count) result = lastResult;
-                else Evaluate(result, UnclipPercent(DMath.Lerp(from, to, definition.vertexGroups[i].percent)));
-                Vector3 originalNormal = result.normal;
-                Vector3 originalRight = result.right;
-                Vector3 originalDirection = result.direction;
+                if (useLastResult && i == definition.vertexGroups.Count) evalResult = lastResult;
+                else Evaluate(DMath.Lerp(from, to, definition.vertexGroups[i].percent), evalResult);
+                ModifySample(evalResult, modifiedResult);
+                Vector3 originalNormal = modifiedResult.up;
+                Vector3 originalRight = modifiedResult.right;
+                Vector3 originalDirection = modifiedResult.forward;
                 if (channel.overrideNormal)
                 {
-                    result.direction = Vector3.Cross(result.right, channel.customNormal);
-                    result.normal = channel.customNormal;
+                    modifiedResult.forward = Vector3.Cross(modifiedResult.right, channel.customNormal);
+                    modifiedResult.up = channel.customNormal;
                 }
-                Vector2 channelOffset = channel.NextOffset(result.percent);
-                Vector3 channelScale = channel.NextExtrudeScale(result.percent);
-                float channelRotation = channel.NextExtrudeRotation(result.percent);
-                vertexMatrix.SetTRS(result.position + originalRight * (offset.x + channelOffset.x) * result.size + originalNormal * (offset.y + channelOffset.y) * result.size + originalDirection * offset.z, result.rotation * Quaternion.AngleAxis(rotation + channelRotation, Vector3.forward), channelScale * result.size);
+                var customValues = channel.GetCustomExtrudeValues(modifiedResult.percent);
+                Vector3 finalOffset = offset + channelOffset + (Vector3)customValues.Item1;
+                float finalRotation = rotation + channelRotation + customValues.Item2;
+                Vector3 finalScale = channelScale;
+                Vector2 scaleMod = channel.scaleModifier.GetScale(modifiedResult);
+                finalScale.x *= customValues.Item3.x * scaleMod.x;
+                finalScale.y *= customValues.Item3.y * scaleMod.y;
+                finalScale.z = 1f;
+                float resultSize = modifiedResult.size;
+                vertexMatrix.SetTRS(modifiedResult.position + originalRight * (finalOffset.x * resultSize) + originalNormal * (finalOffset.y * resultSize) + originalDirection * offset.z, //Position
+                    modifiedResult.rotation * Quaternion.AngleAxis(finalRotation, Vector3.forward), //Rotation
+                    finalScale * resultSize); //Scale
                 normalMatrix = vertexMatrix.inverse.transpose;
-                if (i == 0) lastResult.CopyFrom(result);
+                if (i == 0) lastResult.CopyFrom(evalResult);
 
                 for (int n = 0; n < definition.vertexGroups[i].ids.Length; n++)
                 {
@@ -208,22 +273,28 @@ namespace Dreamteck.Splines
                     target.vertices[index] = vertexMatrix.MultiplyPoint3x4(trsVector);
                     trsVector = definition.normals[index];
                     target.normals[index] = normalMatrix.MultiplyVector(trsVector);
-                    target.colors[index] = target.colors[index] * result.color;
+                    target.colors[index] = target.colors[index] * modifiedResult.color * color;
                     if (target.uv.Length > index)
                     {
                         uv = target.uv[index];
                         switch (channel.overrideUVs)
                         {
-                            case Channel.UVOverride.ClampU: uv.x = (float)result.percent; break;
-                            case Channel.UVOverride.ClampV: uv.y = (float)result.percent; break;
-                            case Channel.UVOverride.UniformU: uv.x = CalculateLength(0.0, result.percent); break;
-                            case Channel.UVOverride.UniformV: uv.y = CalculateLength(0.0, result.percent); break;
+                            case Channel.UVOverride.ClampU: uv.x = (float)modifiedResult.percent; break;
+                            case Channel.UVOverride.ClampV: uv.y = (float)modifiedResult.percent; break;
+                            case Channel.UVOverride.UniformU: uv.x = CalculateLength(0.0, ClipPercent(modifiedResult.percent)); break;
+                            case Channel.UVOverride.UniformV: uv.y = CalculateLength(0.0, ClipPercent(modifiedResult.percent)); break;
                         }
                         target.uv[index] = new Vector2(uv.x * uvScale.x * channel.uvScale.x, uv.y * uvScale.y * channel.uvScale.y);
                         target.uv[index] += uvOffset + channel.uvOffset;
                     }
                 }
             }
+        }
+
+        protected override void CreateMesh()
+        {
+            base.CreateMesh();
+            mesh.name = "Spline Mesh";
         }
 
 
@@ -246,18 +317,18 @@ namespace Dreamteck.Splines
             [SerializeField]
             [HideInInspector]
             private int _offsetSeed = 0;
-            private System.Random offsetRandom;
+            private System.Random _offsetRandom;
             private Vector2Handler _offsetHandler = null;
             [SerializeField]
             [HideInInspector]
             private int _rotationSeed = 0;
-            private System.Random rotationRandom;
+            private System.Random _rotationRandom;
             private QuaternionHandler _placeRotationHandler = null;
             private FloatHandler _extrudeRotationHandler = null;
             [SerializeField]
             [HideInInspector]
             private int _scaleSeed = 0;
-            private System.Random scaleRandom;
+            private System.Random _scaleRandom;
             private Vector3Handler _scaleHandler = null;
 
             [SerializeField]
@@ -301,6 +372,9 @@ namespace Dreamteck.Splines
             private int _count = 1;
             [SerializeField]
             [HideInInspector]
+            private bool _autoCount = false;
+            [SerializeField]
+            [HideInInspector]
             private double _spacing = 0.0;
             [SerializeField]
             [HideInInspector]
@@ -339,6 +413,10 @@ namespace Dreamteck.Splines
             [SerializeField]
             [HideInInspector]
             private int _targetMaterialID = 0;
+
+            [SerializeField]
+            [HideInInspector]
+            protected MeshScaleModifier _scaleModifier = new MeshScaleModifier();
 
             public double clipFrom
             {
@@ -677,6 +755,19 @@ namespace Dreamteck.Splines
                 }
             }
 
+            public bool autoCount
+            {
+                get { return _autoCount; }
+                set
+                {
+                    if (value != _autoCount)
+                    {
+                        _autoCount = value;
+                        Rebuild();
+                    }
+                }
+            }
+
             public UVOverride overrideUVs
             {
                 get { return _overrideUVs; }
@@ -739,6 +830,14 @@ namespace Dreamteck.Splines
                         _customNormal = value;
                         Rebuild();
                     }
+                }
+            }
+
+            public MeshScaleModifier scaleModifier
+            {
+                get
+                {
+                    return _scaleModifier;
                 }
             }
 
@@ -840,40 +939,72 @@ namespace Dreamteck.Splines
             public void ResetIteration()
             {
                 if (_randomOrder) iterationRandom = new System.Random(_iterationSeed);
-                if (_randomOffset) offsetRandom = new System.Random(_offsetSeed);
-                if (_randomRotation) rotationRandom = new System.Random(_rotationSeed);
-                if (_randomScale) scaleRandom = new System.Random(_scaleSeed);
+                if (_randomOffset) _offsetRandom = new System.Random(_offsetSeed);
+                if (_randomRotation) _rotationRandom = new System.Random(_rotationSeed);
+                if (_randomScale) _scaleRandom = new System.Random(_scaleSeed);
                 iterator = 0;
             }
 
-            public Vector2 NextOffset(double percent)
+            public (Vector2, Quaternion, Vector3) GetCustomPlaceValues(double percent)
             {
-                if (_offsetHandler != null) return _offsetHandler(percent);
-                if (_randomOffset) return new Vector2(Mathf.Lerp(_minOffset.x, _maxOffset.x, (float)offsetRandom.NextDouble()), Mathf.Lerp(_minOffset.y, _maxOffset.y, (float)offsetRandom.NextDouble()));
+                (Vector2, Quaternion, Vector3) values = (Vector2.zero, Quaternion.identity, Vector3.one);
+                if (_offsetHandler != null)
+                {
+                    values.Item1 = _offsetHandler(percent);
+                }
+                if (_placeRotationHandler != null)
+                {
+                    values.Item2 = _placeRotationHandler(percent);
+                }
+                if (_scaleHandler != null)
+                {
+                    values.Item3 = _scaleHandler(percent);
+                }
+                return values;
+            }
+
+            public (Vector2, float, Vector3) GetCustomExtrudeValues(double percent)
+            {
+                (Vector2, float, Vector3) values = (Vector2.zero, 0f, Vector3.one);
+                if (_offsetHandler != null)
+                {
+                    values.Item1 = _offsetHandler(percent);
+                }
+                if (_extrudeRotationHandler != null)
+                {
+                    values.Item2 = _extrudeRotationHandler(percent);
+                }
+                if (_scaleHandler != null)
+                {
+                    values.Item3 = _scaleHandler(percent);
+                }
+                return values;
+            }
+
+            public Vector2 NextRandomOffset()
+            {
+                if (_randomOffset) return new Vector2(Mathf.Lerp(_minOffset.x, _maxOffset.x, (float)_offsetRandom.NextDouble()), Mathf.Lerp(_minOffset.y, _maxOffset.y, (float)_offsetRandom.NextDouble()));
                 return _minOffset;
             }
 
-            public Quaternion NextPlaceRotation(double percent)
+            public Quaternion NextRandomQuaternion()
             {
-                if (_placeRotationHandler != null) return _placeRotationHandler(percent);
-                if (_randomRotation) return Quaternion.Euler(new Vector3(Mathf.Lerp(_minRotation.x, _maxRotation.x, (float)rotationRandom.NextDouble()), Mathf.Lerp(_minRotation.y, _maxRotation.y, (float)rotationRandom.NextDouble()), Mathf.Lerp(_minRotation.z, _maxRotation.z, (float)rotationRandom.NextDouble())));
+                if (_randomRotation) return Quaternion.Euler(new Vector3(Mathf.Lerp(_minRotation.x, _maxRotation.x, (float)_rotationRandom.NextDouble()), Mathf.Lerp(_minRotation.y, _maxRotation.y, (float)_rotationRandom.NextDouble()), Mathf.Lerp(_minRotation.z, _maxRotation.z, (float)_rotationRandom.NextDouble())));
                 return Quaternion.Euler(_minRotation);
             }
 
-            public float NextExtrudeRotation(double percent)
+            public float NextRandomAngle()
             {
-                if (_extrudeRotationHandler != null) return _extrudeRotationHandler(percent);
-                if (_randomRotation) return Mathf.Lerp(_minRotation.z, _maxRotation.z, (float)rotationRandom.NextDouble());
+                if (_randomRotation) return Mathf.Lerp(_minRotation.z, _maxRotation.z, (float)_rotationRandom.NextDouble());
                 return _minRotation.z;
             }
 
-            public Vector3 NextExtrudeScale(double percent)
+            public Vector3 NextRandomScale()
             {
-                if (_scaleHandler != null) return _scaleHandler(percent);
                 if (_randomScale)
                 {
-                    if (_uniformRandomScale) return Vector3.Lerp(new Vector3(_minScale.x, _minScale.y, 1f), new Vector3(_maxScale.x, _maxScale.y, 1f), (float)scaleRandom.NextDouble());
-                    return new Vector3(Mathf.Lerp(_minScale.x, _maxScale.x, (float)scaleRandom.NextDouble()), Mathf.Lerp(_minScale.y, _maxScale.y, (float)scaleRandom.NextDouble()), 1f);
+                    if (_uniformRandomScale) return Vector3.Lerp(new Vector3(_minScale.x, _minScale.y, 1f), new Vector3(_maxScale.x, _maxScale.y, 1f), (float)_scaleRandom.NextDouble());
+                    return new Vector3(Mathf.Lerp(_minScale.x, _maxScale.x, (float)_scaleRandom.NextDouble()), Mathf.Lerp(_minScale.y, _maxScale.y, (float)_scaleRandom.NextDouble()), 1f);
                 }
                 return new Vector3(_minScale.x, _minScale.y, 1f);
             }
@@ -882,8 +1013,8 @@ namespace Dreamteck.Splines
             {
                 if (_randomScale)
                 {
-                    if (_uniformRandomScale) return Vector3.Lerp(_minScale, _maxScale, (float)scaleRandom.NextDouble());
-                    return new Vector3(Mathf.Lerp(_minScale.x, _maxScale.x, (float)scaleRandom.NextDouble()), Mathf.Lerp(_minScale.y, _maxScale.y, (float)scaleRandom.NextDouble()), Mathf.Lerp(_minScale.z, _maxScale.z, (float)scaleRandom.NextDouble()));
+                    if (_uniformRandomScale) return Vector3.Lerp(_minScale, _maxScale, (float)_scaleRandom.NextDouble());
+                    return new Vector3(Mathf.Lerp(_minScale.x, _maxScale.x, (float)_scaleRandom.NextDouble()), Mathf.Lerp(_minScale.y, _maxScale.y, (float)_scaleRandom.NextDouble()), Mathf.Lerp(_minScale.z, _maxScale.z, (float)_scaleRandom.NextDouble()));
                 }
                 return _minScale;
             }
@@ -900,7 +1031,7 @@ namespace Dreamteck.Splines
 
             internal void Rebuild()
             {
-                if (owner != null) owner.Rebuild(false);
+                if (owner != null) owner.Rebuild();
             }
 
             void Refresh()
@@ -915,40 +1046,40 @@ namespace Dreamteck.Splines
                 public enum MirrorMethod { None, X, Y, Z }
                 [SerializeField]
                 [HideInInspector]
-                internal Vector3[] vertices = new Vector3[0];
+                public Vector3[] vertices = new Vector3[0];
                 [SerializeField]
                 [HideInInspector]
-                internal Vector3[] normals = new Vector3[0];
+                public Vector3[] normals = new Vector3[0];
                 [SerializeField]
                 [HideInInspector]
-                internal Vector4[] tangents = new Vector4[0];
+                public Vector4[] tangents = new Vector4[0];
                 [SerializeField]
                 [HideInInspector]
-                internal Color[] colors = new Color[0];
+                public Color[] colors = new Color[0];
                 [SerializeField]
                 [HideInInspector]
-                internal Vector2[] uv = new Vector2[0];
+                public Vector2[] uv = new Vector2[0];
                 [SerializeField]
                 [HideInInspector]
-                internal Vector2[] uv2 = new Vector2[0];
+                public Vector2[] uv2 = new Vector2[0];
                 [SerializeField]
                 [HideInInspector]
-                internal Vector2[] uv3 = new Vector2[0];
+                public Vector2[] uv3 = new Vector2[0];
                 [SerializeField]
                 [HideInInspector]
-                internal Vector2[] uv4 = new Vector2[0];
+                public Vector2[] uv4 = new Vector2[0];
                 [SerializeField]
                 [HideInInspector]
-                internal int[] triangles = new int[0];
+                public int[] triangles = new int[0];
                 [SerializeField]
                 [HideInInspector]
-                internal List<Submesh> subMeshes = new List<Submesh>();
+                public List<Submesh> subMeshes = new List<Submesh>();
                 [SerializeField]
                 [HideInInspector]
-                internal TS_Bounds bounds = new TS_Bounds(Vector3.zero, Vector3.zero);
+                public TS_Bounds bounds = new TS_Bounds(Vector3.zero, Vector3.zero);
                 [SerializeField]
                 [HideInInspector]
-                internal List<VertexGroup> vertexGroups = new List<VertexGroup>();
+                public List<VertexGroup> vertexGroups = new List<VertexGroup>();
                 [SerializeField]
                 [HideInInspector]
                 private Mesh _mesh = null;
@@ -957,7 +1088,7 @@ namespace Dreamteck.Splines
                 private Vector3 _rotation = Vector3.zero;
                 [SerializeField]
                 [HideInInspector]
-                private Vector2 _offset = Vector2.zero;
+                private Vector3 _offset = Vector3.zero;
                 [SerializeField]
                 [HideInInspector]
                 private Vector3 _scale = Vector3.one;
@@ -974,6 +1105,13 @@ namespace Dreamteck.Splines
                 [HideInInspector]
                 private MirrorMethod _mirror = MirrorMethod.None;
 
+
+                [SerializeField]
+                [HideInInspector]
+                private float _vertexGroupingMargin = 0f;
+                [SerializeField]
+                [HideInInspector]
+                private bool _removeInnerFaces = false;
                 [SerializeField]
                 [HideInInspector]
                 private bool _flipFaces = false;
@@ -1013,7 +1151,7 @@ namespace Dreamteck.Splines
                     }
                 }
 
-                public Vector2 offset
+                public Vector3 offset
                 {
                     get
                     {
@@ -1093,6 +1231,22 @@ namespace Dreamteck.Splines
                     }
                 }
 
+                public float vertexGroupingMargin
+                {
+                    get
+                    {
+                        return _vertexGroupingMargin;
+                    }
+                    set
+                    {
+                        if (_vertexGroupingMargin != value)
+                        {
+                            _vertexGroupingMargin = value;
+                            Refresh();
+                        }
+                    }
+                }
+
                 public MirrorMethod mirror
                 {
                     get { return _mirror; }
@@ -1101,6 +1255,19 @@ namespace Dreamteck.Splines
                         if (_mirror != value)
                         {
                             _mirror = value;
+                            Refresh();
+                        }
+                    }
+                }
+
+                public bool removeInnerFaces
+                {
+                    get { return _removeInnerFaces; }
+                    set
+                    {
+                        if (_removeInnerFaces != value)
+                        {
+                            _removeInnerFaces = value;
                             Refresh();
                         }
                     }
@@ -1214,7 +1381,7 @@ namespace Dreamteck.Splines
                     uv = _mesh.uv;
                     uv2 = _mesh.uv2;
                     uv3 = _mesh.uv3;
-                    uv2 = _mesh.uv4;
+                    uv4 = _mesh.uv4;
                     tangents = _mesh.tangents;
                     triangles = _mesh.triangles;
                     colors = _mesh.colors;
@@ -1234,7 +1401,40 @@ namespace Dreamteck.Splines
                     else if (_flipFaces) FlipFaces();
                     TransformVertices();
                     CalculateBounds();
+                    if (_removeInnerFaces) RemoveInnerFaces();
                     GroupVertices();
+                }
+
+                void RemoveInnerFaces()
+                {
+                    float min = float.MaxValue, max = 0f;
+                    for (int i = 0; i < vertices.Length; i++)
+                    {
+                        if (vertices[i].z < min) min = vertices[i].z;
+                        if (vertices[i].z > max) max = vertices[i].z;
+                    }
+
+                    for (int i = 0; i < subMeshes.Count; i++)
+                    {
+                        List<int> newTris = new List<int>();
+                        for (int j = 0; j < subMeshes[i].triangles.Length; j+= 3)
+                        {
+                            bool innerMax = true, innerMin = true;
+                            for (int k = j; k < j+3; k++)
+                            {
+                                int index = subMeshes[i].triangles[k];
+                                if (!Mathf.Approximately(vertices[index].z, max)) innerMax = false;
+                                if (!Mathf.Approximately(vertices[index].z, min)) innerMin = false;
+                            } 
+                            if (!innerMax && !innerMin)
+                            {
+                                newTris.Add(subMeshes[i].triangles[j]);
+                                newTris.Add(subMeshes[i].triangles[j + 1]);
+                                newTris.Add(subMeshes[i].triangles[j + 2]);
+                            }
+                        }
+                        subMeshes[i].triangles = newTris.ToArray();
+                    }
                 }
 
                 void FlipFaces()
@@ -1245,7 +1445,6 @@ namespace Dreamteck.Splines
                     temp.triangles = triangles;
                     for (int i = 0; i < subMeshes.Count; i++) temp.subMeshes.Add(subMeshes[i].triangles);
                     MeshUtility.FlipFaces(temp);
-                    temp = null;
                 }
 
                 void DoubleSided()
@@ -1411,6 +1610,7 @@ namespace Dreamteck.Splines
                 void GroupVertices()
                 {
                     vertexGroups = new List<VertexGroup>();
+                    
                     for (int i = 0; i < vertices.Length; i++)
                     {
                         float value = vertices[i].z;
@@ -1419,7 +1619,8 @@ namespace Dreamteck.Splines
                         if (index >= vertexGroups.Count) vertexGroups.Add(new VertexGroup(value, percent, new int[] { i }));
                         else
                         {
-                            if (Mathf.Approximately(vertexGroups[index].value, value)) vertexGroups[index].AddId(i);
+                            float valueDelta = Mathf.Abs(vertexGroups[index].value - value);
+                            if (valueDelta < vertexGroupingMargin || Mathf.Approximately(valueDelta, vertexGroupingMargin)) vertexGroups[index].AddId(i);
                             else if (vertexGroups[index].value < value) vertexGroups.Insert(index, new VertexGroup(value, percent, new int[] { i }));
                             else
                             {

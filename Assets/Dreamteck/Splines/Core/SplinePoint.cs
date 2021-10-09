@@ -17,7 +17,9 @@ namespace Dreamteck.Splines{
             }
         }
         [FormerlySerializedAs("type")]
-        public Type _type;
+        [SerializeField]
+        [HideInInspector]
+        private Type _type;
         public Vector3 position;
         public Color color;
         public Vector3 normal;
@@ -50,6 +52,17 @@ namespace Dreamteck.Splines{
             t2 = P12_23;
         }
 
+        public static bool AreDifferent(ref SplinePoint a, ref SplinePoint b)
+        {
+            if (a.position != b.position) return true;
+            if (a.tangent != b.tangent) return true;
+            if (a.tangent2 != b.tangent2) return true;
+            if (a.normal != b.normal) return true;
+            if (a.color != b.color) return true;
+            if (a.size != b.size) return true;
+            if (a.type != b.type) return true;
+            return false;
+        }
 
         public void SetPosition(Vector3 pos)
         {

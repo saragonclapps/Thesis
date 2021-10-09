@@ -1,32 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using Dreamteck.Splines.Editor;
 
 namespace Dreamteck.Splines.Primitives
 {
     public class NgonEditor : PrimitiveEditor
     {
-        Ngon ngon = new Ngon();
-
         public override string GetName()
         {
             return "Ngon";
         }
 
+        public override void Open(DreamteckSplinesEditor editor)
+        {
+            base.Open(editor);
+            primitive = new Ngon();
+        }
+
         protected override void OnGUI()
         {
             base.OnGUI();
-            AxisGUI(ngon);
-            OffsetGUI(ngon);
-            RotationGUI(ngon);
+            Ngon ngon = (Ngon)primitive;
             ngon.radius = EditorGUILayout.FloatField("Radius", ngon.radius);
             ngon.sides = EditorGUILayout.IntField("Sides", ngon.sides);
-        }
-
-        protected override void Update()
-        {
-            ngon.UpdateSplineComputer(computer);
-            base.Update();
+            if (ngon.sides < 3) ngon.sides = 3;
         }
     }
 }

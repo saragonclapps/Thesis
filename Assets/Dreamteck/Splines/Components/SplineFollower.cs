@@ -1,12 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Dreamteck.Splines
 {
     public delegate void SplineReachHandler();
-    [AddComponentMenu("Dreamteck/Splines/Spline Follower")]
+    [AddComponentMenu("Dreamteck/Splines/Users/Spline Follower")]
     public class SplineFollower : SplineTracer
     {
         public enum FollowMode { Uniform, Time }
@@ -20,7 +18,14 @@ namespace Dreamteck.Splines
         public bool autoStartPosition = false;
 
         [HideInInspector]
-        public bool autoFollow = true;
+        public bool follow = true;
+
+        /// <summary>
+        /// If the follow mode is set to Uniform and there is an added offset in the motion panel, this will presserve the uniformity of the follow speed
+        /// </summary>
+        [HideInInspector]
+        public bool preserveUniformSpeedWithOffset = false;
+
         /// <summary>
         /// Used when follow mode is set to Uniform. Defines the speed of the follower
         /// </summary>
@@ -33,6 +38,19 @@ namespace Dreamteck.Splines
                 {
                     if (value < 0f) value = 0f;
                     _followSpeed = value;
+                }
+            }
+        }
+
+        public double startPosition
+        {
+            get { return _startPosition; }
+            set
+            {
+                if (value != _startPosition)
+                {
+                    _startPosition = DMath.Clamp01(value);
+                    if (!followStarted) SetPercent(_startPosition);
                 }
             }
         }
@@ -53,20 +71,16 @@ namespace Dreamteck.Splines
             }
         }
 
-        [System.Obsolete("Deprecated in 1.0.8. Use result instead")]
-        public SplineResult followResult
-        {
-            get { return _result; }
-        }
+        public event System.Action<double> onEndReached;
+        public event System.Action<double> onBeginningReached;
 
-        [System.Obsolete("Deprecated in 1.0.8. Use offsettedResult instead")]
-        public SplineResult offsettedFollowResult
+        public FollowerSpeedModifier speedModifier
         {
-            get { return offsettedResult;  }
+            get
+            {
+                return _speedModifier;
+            }
         }
-
-        public event SplineReachHandler onEndReached;
-        public event SplineReachHandler onBeginningReached;
 
         [SerializeField]
         [HideInInspector]
@@ -74,11 +88,23 @@ namespace Dreamteck.Splines
         [SerializeField]
         [HideInInspector]
         private float _followDuration = 1f;
+        [SerializeField]
+        [HideInInspector]
+        [Range(0f, 1f)]
+        private double _startPosition = 0.0;
+
+        [SerializeField]
+        [HideInInspector]
+        private FollowerSpeedModifier _speedModifier = new FollowerSpeedModifier();
+
+        [SerializeField]
+        [HideInInspector]
+        private FloatEvent _unityOnEndReached = null;
+        [SerializeField]
+        [HideInInspector]
+        private FloatEvent _unityOnBeginningReached = null;
 
         private double lastClippedPercent = -1.0;
-
-        private SplineResult from = new SplineResult();
-        private SplineResult to = new SplineResult();
         private bool followStarted = false;
 
 #if UNITY_EDITOR
@@ -88,32 +114,45 @@ namespace Dreamteck.Splines
         protected override void Start()
         {
             base.Start();
-            if (autoFollow && autoStartPosition) SetPercent(Project(GetTransform().position).percent);
+            if (follow && autoStartPosition) SetPercent(spline.Project(GetTransform().position).percent);
         }
 
         protected override void LateRun()
         {
             base.LateRun();
-            if (autoFollow) AutoFollow();
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
+            if (follow) Follow();
         }
 
         protected override void PostBuild()
         {
             base.PostBuild();
-            if (samples.Length == 0) return;
-            EvaluateClipped(_result, ClipPercent(_result.percent));
-            if (autoFollow && !autoStartPosition) ApplyMotion();
+            Evaluate(_result.percent, _result);
+            if (follow && !autoStartPosition) ApplyMotion();
         }
 
-        void AutoFollow()
+        void Follow()
         {
-            if (!followStarted && autoStartPosition) SetPercent(Project(GetTransform().position).percent);
+            if (!followStarted)
+            {
+                if (autoStartPosition)
+                {
+                    Project(GetTransform().position, evalResult);
+                    SetPercent(evalResult.percent);
+                }
+                else SetPercent(_startPosition);
+            }
+
             followStarted = true;
             switch (followMode)
             {
-                case FollowMode.Uniform: Move(Time.deltaTime * _followSpeed); break;
-                case FollowMode.Time: 
-                    if(_followDuration == 0.0) Move(0.0);
+                case FollowMode.Uniform:
+                    float speed = _followSpeed + _speedModifier.GetSpeed(result);
+                    Move(Time.deltaTime * speed); break;
+                case FollowMode.Time:
+                    if (_followDuration == 0.0) Move(0.0);
                     else Move((double)Time.deltaTime / _followDuration);
                     break;
             }
@@ -121,73 +160,79 @@ namespace Dreamteck.Splines
 
         public void Restart(double startPosition = 0.0)
         {
-            ResetTriggers();
             followStarted = false;
             SetPercent(startPosition);
         }
 
-        public override void SetPercent(double percent, bool checkTriggers = false)
+        public override void SetPercent(double percent, bool checkTriggers = false, bool handleJuncitons = false)
         {
-            if (clippedSamples.Length == 0) GetClippedSamplesImmediate();
-            base.SetPercent(percent, checkTriggers);
+            base.SetPercent(percent, checkTriggers, handleJuncitons);
             lastClippedPercent = percent;
         }
 
-        public override void SetDistance(float distance, bool checkTriggers = false)
+        public override void SetDistance(float distance, bool checkTriggers = false, bool handleJuncitons = false)
         {
-            base.SetDistance(distance, checkTriggers);
+            base.SetDistance(distance, checkTriggers, handleJuncitons);
             lastClippedPercent = ClipPercent(_result.percent);
-            if (samplesAreLooped && clipFrom == clipTo && distance > 0f && lastClippedPercent == 0.0) lastClippedPercent = 1.0; 
+            if (samplesAreLooped && clipFrom == clipTo && distance > 0f && lastClippedPercent == 0.0) lastClippedPercent = 1.0;
         }
 
         public void Move(double percent)
         {
-			if(percent == 0.0) return;
-            if (clippedSamples.Length <= 1)
+            if (percent == 0.0) return;
+            if (sampleCount <= 1)
             {
-                if (clippedSamples.Length == 1)
+                if (sampleCount == 1)
                 {
-                    _result.CopyFrom(clippedSamples[0]);
+                    _result.CopyFrom(GetSampleRaw(0));
                     ApplyMotion();
                 }
                 return;
             }
-            
-            EvaluateClipped(_result, ClipPercent(_result.percent));
-            double startPercent = ClipPercent(_result.percent);
+            Evaluate(_result.percent, _result);
+            double startPercent = _result.percent;
             if (wrapMode == Wrap.Default && lastClippedPercent >= 1.0 && startPercent == 0.0) startPercent = 1.0;
             double p = startPercent + (_direction == Spline.Direction.Forward ? percent : -percent);
             bool callOnEndReached = false, callOnBeginningReached = false;
             lastClippedPercent = p;
-            if(_direction == Spline.Direction.Forward && p >= 1.0)
+            if (_direction == Spline.Direction.Forward && p >= 1.0)
             {
-                if (onEndReached != null && startPercent < 1.0) callOnEndReached = true;
+                if (startPercent < 1.0)
+                {
+                    callOnEndReached = true;
+                }
                 switch (wrapMode)
                 {
                     case Wrap.Default:
                         p = 1.0;
                         break;
                     case Wrap.Loop:
-                        CheckTriggersClipped(UnclipPercent(startPercent), UnclipPercent(1.0));
+                        CheckTriggers(startPercent, 1.0);
+                        CheckNodes(startPercent, 1.0);
                         while (p > 1.0) p -= 1.0;
                         startPercent = 0.0;
                         break;
                     case Wrap.PingPong:
-                        p = DMath.Clamp01(1.0-(p-1.0));
+                        p = DMath.Clamp01(1.0 - (p - 1.0));
                         startPercent = 1.0;
                         _direction = Spline.Direction.Backward;
                         break;
                 }
-            } else if(_direction == Spline.Direction.Backward && p <= 0.0)
+            }
+            else if (_direction == Spline.Direction.Backward && p <= 0.0)
             {
-                if (onBeginningReached != null && startPercent > 0.0) callOnBeginningReached = true;
+                if (startPercent > 0.0)
+                {
+                    callOnBeginningReached = true;
+                }
                 switch (wrapMode)
                 {
                     case Wrap.Default:
-                        p = 0.0; 
+                        p = 0.0;
                         break;
                     case Wrap.Loop:
-                        CheckTriggersClipped(UnclipPercent(startPercent), UnclipPercent(0.0));
+                        CheckTriggers(startPercent, 0.0);
+                        CheckNodes(startPercent, 0.0);
                         while (p < 0.0) p += 1.0;
                         startPercent = 1.0;
                         break;
@@ -198,142 +243,127 @@ namespace Dreamteck.Splines
                         break;
                 }
             }
-            CheckTriggersClipped(UnclipPercent(startPercent), UnclipPercent(p));
-            Evaluate(_result, UnclipPercent(p));
+            CheckTriggers(startPercent, p);
+            CheckNodes(startPercent, p);
+            Evaluate(p, _result);
             ApplyMotion();
-            if (callOnEndReached) onEndReached();
-            else if (callOnBeginningReached) onBeginningReached();
+            if (callOnEndReached)
+            {
+                if (onEndReached != null)
+                {
+                    onEndReached(startPercent);
+                }
+                _unityOnEndReached.Invoke((float)startPercent);
+            }
+            else if (callOnBeginningReached)
+            {
+                if (onBeginningReached != null)
+                {
+                    onBeginningReached(startPercent);
+                }
+                _unityOnBeginningReached.Invoke((float)startPercent);
+            }
             InvokeTriggers();
+            InvokeNodes();
         }
 
         public void Move(float distance)
         {
-            if (distance < 0f) distance = 0f;
-            if (distance == 0f) return;
-            if (samples.Length <= 1)
-            {
-                if (samples.Length == 1)
-                {
-                    _result.CopyFrom(samples[0]);
-                    ApplyMotion();
-                }
-                return;
-            }
-            bool callOnEndReached = false, callOnBeginningReached = false;
-
+            bool endReached = false, beginningReached = false;
             float moved = 0f;
-            int nextIndex = 0;
-            double clippedPercent = ClipPercent(_result.percent);
-            if (clippedPercent == 0.0 && lastClippedPercent == 1.0 && clipFrom == clipTo) clippedPercent = 1.0;
-            from.CopyFrom(_result);
-            to.CopyFrom(_result);
-
-            if (_direction == Spline.Direction.Forward)
+            double startPercent = _result.percent;
+            _result.percent = DoTravel(_result.percent, distance, out moved);
+            if (startPercent != _result.percent)
             {
-
-                nextIndex = DMath.FloorInt(clippedPercent * (clippedSamples.Length - 1))-1;
-                if (nextIndex < 0) nextIndex = 0;
-                for (int i = nextIndex; i < clippedSamples.Length-1; i++)
-                {
-                    if (ClipPercent(clippedSamples[i].percent) > clippedPercent) break;
-                    nextIndex = i;
-                }
+                CheckTriggers(startPercent, _result.percent);
+                CheckNodes(startPercent, _result.percent);
             }
-            else
+
+            if (direction == Spline.Direction.Forward)
             {
-                nextIndex = DMath.CeilInt(clippedPercent * (clippedSamples.Length - 1)) + 1;
-                if (nextIndex >= clippedSamples.Length) nextIndex = clippedSamples.Length - 1;
-                for (int i = nextIndex; i >= 1; i--)
+                if (_result.percent >= 1.0)
                 {
-                    double percent = ClipPercent(clippedSamples[i].percent);
-                    if (i == clippedSamples.Length - 1) percent = 1.0;
-                    if (percent < clippedPercent) break;
-                    nextIndex = i;
-                }
-            }
-            while (moved < distance)
-            {
-                from.CopyFrom(to); //Get the current sample
-                if (_direction == Spline.Direction.Forward)
-                {
-                    nextIndex++;
-                    if ((samplesAreLooped && _result.percent >= clippedSamples[clippedSamples.Length - 1].percent && _result.percent < clippedSamples[0].percent) || (!samplesAreLooped && _result.percent >= clippedSamples[clippedSamples.Length - 1].percent) || nextIndex >= clippedSamples.Length)
+                    if (startPercent < 1.0)
                     {
-                        if (onEndReached != null && lastClippedPercent < 1.0) callOnEndReached = true;
-                        if (wrapMode == Wrap.Default)
-                        {
-                            lastClippedPercent = 1.0;
-                            _result.CopyFrom(clippedSamples[clippedSamples.Length - 1]);
-                            CheckTriggersClipped(from.percent, _result.percent);
+                        endReached = true;
+                    }
+                    switch (wrapMode)
+                    {
+                        case Wrap.Loop:
+                            _result.percent = DoTravel(0.0, distance - moved, out moved);
+                            CheckTriggers(0.0, _result.percent);
+                            CheckNodes(0.0, _result.percent);
                             break;
-                        }
-                        else if (wrapMode == Wrap.Loop)
-                        {
-                            CheckTriggersClipped(from.percent, clippedSamples[clippedSamples.Length-1].percent);
-                            from.CopyFrom(clippedSamples[0]);
-                            nextIndex = 1;
-                        }
-                        else if (wrapMode == Wrap.PingPong)
-                        {
+                        case Wrap.PingPong:
                             _direction = Spline.Direction.Backward;
-                            CheckTriggersClipped(from.percent, clippedSamples[clippedSamples.Length - 1].percent);
-                            from.CopyFrom(clippedSamples[clippedSamples.Length - 1]);
-                            nextIndex = clippedSamples.Length - 2;
-                        }
-                    }
-                }
-                else
-                {
-                    nextIndex--;
-                    if ((samplesAreLooped && _result.percent <= clippedSamples[0].percent && _result.percent > clippedSamples[clippedSamples.Length - 1].percent) || (!samplesAreLooped && _result.percent <= clippedSamples[0].percent) || nextIndex < 0)
-                    {
-                        if (onBeginningReached != null && lastClippedPercent > 0.0) callOnBeginningReached = true;
-                        if (wrapMode == Wrap.Default)
-                        {
-                            lastClippedPercent = 0.0;
-                            _result.CopyFrom(clippedSamples[0]);
-                            CheckTriggersClipped(from.percent, _result.percent);
+                            _result.percent = DoTravel(1.0, distance - moved, out moved);
+                            CheckTriggers(1.0, _result.percent);
+                            CheckNodes(1.0, _result.percent);
                             break;
-                        }
-                        else if (wrapMode == Wrap.Loop)
-                        {
-                            CheckTriggersClipped(from.percent, clippedSamples[0].percent);
-                            from.CopyFrom(clippedSamples[clippedSamples.Length - 1]);
-                            nextIndex = clippedSamples.Length - 2;
-                        }
-                        else if (wrapMode == Wrap.PingPong)
-                        {
-                            _direction = Spline.Direction.Forward;
-                            CheckTriggersClipped(from.percent, clippedSamples[0].percent);
-                            from.CopyFrom(clippedSamples[0]);
-                            nextIndex = 1;
-                        }
                     }
                 }
-                lastClippedPercent = ClipPercent(_result.percent);
-                to.CopyFrom(clippedSamples[nextIndex]); //Get the next sample
-                float traveled = Vector3.Distance(to.position, from.position);
-                moved += traveled;
-                if (moved >= distance)
+            } else
+            {
+                if (_result.percent <= 0.0)
                 {
-                    float excess = moved - distance;
-                    double lerpPercent = 1.0 - excess / traveled;
-                    SplineResult.Lerp(from, to, lerpPercent, _result);
-                    if (samplesAreLooped)
+                    if (startPercent > 0.0)
                     {
-                        if (_direction == Spline.Direction.Forward && from.percent > to.percent) _result.percent = DMath.Lerp(from.percent, 1.0, lerpPercent);  
-                        else if (_direction == Spline.Direction.Backward && from.percent < to.percent) _result.percent = DMath.Lerp(1.0, to.percent, lerpPercent);
+                        beginningReached = true;
                     }
-                    CheckTriggersClipped(from.percent, _result.percent);
-                    break; 
+                    switch (wrapMode)
+                    {
+                        case Wrap.Loop:
+                            _result.percent = DoTravel(1.0, distance - moved, out moved);
+                            CheckTriggers(1.0, _result.percent);
+                            CheckNodes(1.0, _result.percent);
+                            break;
+                        case Wrap.PingPong:
+                            _direction = Spline.Direction.Forward;
+                            _result.percent = DoTravel(0.0, distance - moved, out moved);
+                            CheckTriggers(0.0, _result.percent);
+                            CheckNodes(0.0, _result.percent);
+                            break;
+                    }
                 }
-                CheckTriggersClipped(from.percent, to.percent);
             }
 
+            Evaluate(_result.percent, _result);
             ApplyMotion();
-            if (callOnEndReached) onEndReached();
-            else if (callOnBeginningReached) onBeginningReached();
+            if (endReached)
+            {
+                if (onEndReached != null)
+                {
+                    onEndReached(startPercent);
+                }
+                _unityOnEndReached.Invoke((float)startPercent);
+            }
+            else if (beginningReached)
+            {
+                if (onBeginningReached != null)
+                {
+                    onBeginningReached(startPercent);
+                }
+                _unityOnBeginningReached.Invoke((float)startPercent);
+            }
             InvokeTriggers();
+            InvokeNodes();
         }
+
+        protected virtual double DoTravel(double start, float distance, out float moved)
+        {
+            moved = 0f;
+            double result = 0.0;
+            if (preserveUniformSpeedWithOffset && _motion.hasOffset)
+            {
+                result = TravelWithOffset(start, distance, _direction, _motion.offset, out moved);
+            } else
+            {
+                result = Travel(start, distance, _direction, out moved);
+            }
+            return result;
+        }
+
+        [System.Serializable]
+        public class FloatEvent : UnityEvent<float> { }
     }
 }
