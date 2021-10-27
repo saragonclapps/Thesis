@@ -92,6 +92,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Activate_Target: 0
+    - _Activate_Target_2: 0
+    - _Activate_Target_3: 0
+    - _Activate_Target_4: 1
     - _Animation_speed: 0.14
     - _BackFace_Intensity: 1
     - _BumpScale: 1
@@ -140,3 +144,7 @@ Material:
     - _Outline_Color: {r: 0.072160326, g: 0.81960785, b: 0, a: 1}
     - _PannerAxis: {r: 0, g: 0, b: 0, a: 0}
     - _target: {r: 0, g: 0, b: 0, a: 0}
+    - _target2: {r: 0, g: 0, b: 0, a: 0}
+    - _target3: {r: 0, g: 0, b: 0, a: 0}
+    - _target4: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

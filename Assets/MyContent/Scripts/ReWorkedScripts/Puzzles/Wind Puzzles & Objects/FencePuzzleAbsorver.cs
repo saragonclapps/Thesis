@@ -1,33 +1,23 @@
 ﻿
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FencePuzzleAbsorver : MediumSizeObject, IVacuumObject
 {
-    BoxCollider _bc;
+    Collider _collider;
 
-    new void Start()
+    private new void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _bc = GetComponent<BoxCollider>();
+        _collider = GetComponent<Collider>();
 
-        _bc.material.dynamicFriction = 0.6f;
+        _collider.material.dynamicFriction = 0.6f;
         base.Start();
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
     }
 
-    void Execute()
+    private void Execute()
     {
-        if (_isBeeingAbsorved)
-        {
-            _bc.material.dynamicFriction = 0.0f;
-        }
-        else
-        {
-            _bc.material.dynamicFriction = 0.6f;
-        }
+        _collider.material.dynamicFriction = _isBeeingAbsorved ? 0.0f : 0.6f;
     }
 
     public new void BlowUp(Transform origin, float atractForce, Vector3 direction)

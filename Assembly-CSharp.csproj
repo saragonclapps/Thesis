@@ -55,6 +55,7 @@
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Managers\LoadScreenManager.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Vacuum\Skills\WaterLauncher.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Animation\MainCharacter\AnimatorEventsBehaviour.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\LoopLight.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Camera\CameraFMS.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\FireSwitch.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
@@ -86,6 +87,7 @@
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Vacuum\PathCalculate.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Managers\LevelZeroMasterManager.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\HaloLight.cs" />
      <Compile Include="Assets\MyContent\Scripts\PlayAnimation.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Ice Puzzles &amp; Objects\IFrozenObject.cs" />
      <Compile Include="Assets\shaders 103 asset\Scripts\QuickGlow.cs" />
@@ -93,6 +95,7 @@
      <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Enum.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Camera\States\StoryState.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Companion\CompanionController.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\SquareLight.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\VFX\Particles\Electricity\ElectricParticle.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Objects\Mobile Wall\WallMobile.cs" />
      <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
@@ -143,10 +146,11 @@
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Camera\CutScenes\CutSceneTrigger.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Platforms\ElevatorPlatform.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Managers\DialogueManager.cs" />
-     <Compile Include="Assets\MyContent\Shaders\Pending\Pending\randomMove.cs" />
+     <Compile Include="Assets\MyContent\Shaders\Pending\Pending\RandomMove.cs" />
      <Compile Include="Assets\Glitch\Kino\Glitch\AnalogGlitch.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\FSM\IState.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\BeaconLight.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Camera\CutScenes\StumpCutScene.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\EndPanel.cs" />
@@ -160,16 +164,19 @@
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Camera\CutScenes\DeathFallCutScene.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Platforms\WayPointPlatform.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\PlanarLight.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Player\Controller\Inputs.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Platforms\Extras\Waypoint.cs" />
      <Compile Include="Assets\Glitch\Kino\Glitch\DigitalGlitch.cs" />
      <Compile Include="Assets\MyContent\Shaders\Pending\Shared\PostProcess.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Platforms\WayPointActivablePlatform.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\ColumnLight.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
      <Compile Include="Assets\MyContent\Scripts\Rotation.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Wind Puzzles &amp; Objects\DiskAbsorver.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\SlimLight.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Weight\ObjectToWeight.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Objects\Crane\CraneBehaviour.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Vacuum\Skills\Electricity.cs" />
@@ -181,7 +188,9 @@
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Audio\AudioManager.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Vacuum\Skills\Attractor.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+     <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\ObjectKey.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Camera\CameraController.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\PlateLight.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Platforms\Extras\Platform.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Platforms\PlatformWindEngine.cs" />
@@ -207,6 +216,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Utilities\DebugConsole.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleCollision.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\ApexLight.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Stump\StumpBase.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\GunShoot.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Dialogue\Dialogue.cs" />
@@ -228,6 +238,7 @@
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Platforms\OscilatingMobilePlatform.cs" />
      <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IconUtility.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Puzzles\Fire Puzzles &amp; Objects\FireWall.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\StoneLight.cs" />
      <Compile Include="Assets\CrystalGlass\Glass1\Demo.cs" />
      <Compile Include="Assets\MyContent\Shaders\Poss Process\DeathTransition.cs" />
      <Compile Include="Assets\CrystalGlass\Common\Script\FreeCamera.cs" />
@@ -316,6 +327,7 @@
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\MyContent\Shaders\Surface\BreathingScenario.shader" />
      <None Include="Assets\MyContent\Shaders\Burn2.shader" />
+     <None Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Documentation\ReadMe.txt" />
      <None Include="Assets\CrystalGlass\Shader\Blur.shader" />
      <None Include="Assets\MyContent\Shaders\Surface\Toon\Custom Lighting Rim.shader" />
      <None Include="Assets\MyContent\Shaders\Poss Process\DeathTransition.shader" />
@@ -560,17 +572,8 @@
  <Reference Include="UnityEditor.UnityConnectModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
  </Reference>
- <Reference Include="Unity.Analytics.StandardEvents">
- <HintPath>E:/Workspace/Thesis/Library/PackageCache/com.unity.analytics@3.6.11/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.Editor">
- <HintPath>E:/Workspace/Thesis/Library/PackageCache/com.unity.analytics@3.6.11/Unity.Analytics.Editor.dll</HintPath>
- </Reference>
  <Reference Include="LitJson">
- <HintPath>E:/Workspace/Thesis/Assets/MyContent/Scripts/Imports/LitJson/LitJson.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.Tracker">
- <HintPath>E:/Workspace/Thesis/Library/PackageCache/com.unity.analytics@3.6.11/Unity.Analytics.Tracker.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Assets/MyContent/Scripts/Imports/LitJson/LitJson.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -921,115 +924,109 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XPath.XDocument.dll</HintPath>
  </Reference>
  <Reference Include="Purchasing.Common">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Purchasing.Common.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Purchasing.Common.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Tilemap.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
  </Reference>
  <Reference Include="com.unity.multiplayer-hlapi.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Purchasing">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder.AddOns.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Purchasing.SecurityStub">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityStub.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityStub.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Advertisements">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Postprocessing.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="com.unity.multiplayer-weaver.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PlasticSCM.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Analytics">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Analytics.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SpatialTracking">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
- <Reference Include="Unity.Analytics.DataPrivacy">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+ <Reference Include="UnityEngine.SpatialTracking">
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="com.unity.multiplayer-hlapi.Runtime">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Purchasing.SecurityCore">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityCore.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityCore.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Postprocessing.Runtime">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Purchasing.Codeless">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Codeless.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Codeless.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.XR.LegacyInputHelpers">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Purchasing.Stores">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Stores.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Stores.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.XR.LegacyInputHelpers">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Monetization">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Monetization.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Monetization.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Purchasing">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEditor.Purchasing.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEditor.Purchasing.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.SpatialTracking">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Advertisements.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.Editor.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

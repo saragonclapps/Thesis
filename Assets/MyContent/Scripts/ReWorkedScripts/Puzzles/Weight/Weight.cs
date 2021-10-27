@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using System.Linq;
 
-public class Weight : MonoBehaviour {
-
-    List<ObjectToWeight> _total;
-    /// <summary>
-    /// Executes when weight is reached
-    /// </summary>
-    public UnityEvent onWeight;
-
+public class Weight : MonoBehaviour
+{
+    private ObjectToWeight _objectKey;
+    private bool _isMovingObjectKey;
+    private Vector3 _objectKeyInitialPosition;
+    private Vector3 _objectKeyDestinationPosition;
+    
     /// <summary>
     /// Executes when new object enters the weight
     /// </summary>
@@ -22,100 +22,89 @@ public class Weight : MonoBehaviour {
     /// </summary>
     public UnityEvent onWeightExit;
 
+    /// <summary>
+    /// Get the current state of Weight
+    /// </summary>
+    public bool IsActiveWeight { get; private set; }
 
-    public float actionWeight;
-    float _totalWeight;
+    #region MonoBehabior
 
-    private bool wasOnWeight;
-
-    public float totalWeight{ set { _totalWeight = value; } }
-
-    void Awake()
+    private void Awake()
     {
-        if (onWeight == null)
-            onWeight = new UnityEvent();
-        if (onWeightEnter == null)
-            onWeightEnter = new UnityEvent();
-        if (onWeightExit == null)
-            onWeightExit = new UnityEvent();
+        onWeightEnter ??= new UnityEvent();
+        onWeightExit ??= new UnityEvent();
     }
-
+    
     private void Start()
     {
-        _total = new List<ObjectToWeight>();
+        _objectKeyDestinationPosition = transform.position + (Vector3.up * 1.2f);
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
-        wasOnWeight = false;
+        IsActiveWeight = false;
     }
-
-    void Execute()
-    {
-        _totalWeight = 0;
-        foreach (var otw in _total)
-        {
-            _totalWeight += otw.mass;
-        }
-        if(_totalWeight >= actionWeight && onWeight != null)
-        {
-            onWeight.Invoke();
-        }
-	}
-
-    public void AddToWeight(ObjectToWeight otw)
-    {
-        if (!_total.Contains(otw))
-        {
-            _total.Add(otw);
-        }
-
-        //EnterCallbacks
-        float total = 0;
-        foreach (var o in _total)
-        {
-            total += o.mass;
-        }
-        if(total >= actionWeight && onWeightEnter != null && !wasOnWeight)
-        {
-            onWeightEnter.Invoke();
-            wasOnWeight = true;
-        }
-
-    }
-
-    public void RemoveFromWeight(ObjectToWeight otw)
-    {
-        _total.Remove(otw);
-        
-
-        //ExitCallbacks
-        float total = 0;
-        foreach (var o in _total)
-        {
-            total += o.mass;
-        }
-        if (total <= actionWeight && onWeightExit != null && wasOnWeight)
-        {
-            DeactivateWeight();
-        }
-    }
-
-    public void RemoveAllObjectsToWeight()
-    {
-        for (int i = _total.Count - 1; i >= 0; i--)
-        {
-            RemoveFromWeight(_total[i]);
-        }
-    }
-
-    public void DeactivateWeight()
-    {
-        onWeightExit.Invoke();
-        wasOnWeight = false;
-    }
-
-
 
     private void OnDestroy()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
+
+    #endregion MonoBehavior
+
+    #region Custom
+    
+    /// <summary>
+    /// Is a subscription to UpdatesManager and this execute MonoBehaviour (Update)
+    /// </summary>
+    private void Execute()
+    {
+        if (!_isMovingObjectKey || !_objectKey) return;
+
+        _objectKey.transform.position = Vector3.Lerp(_objectKeyInitialPosition, _objectKeyDestinationPosition , 0.1f );
+    }
+    
+
+    /// <summary>
+    /// Set the Weight object to activate
+    /// </summary>
+    /// <param name="objectToWeight">object to add</param>
+    public void AddToWeight(ObjectToWeight objectToWeight) {
+        // Only exist one object to activate mechanism
+        if (_objectKey) return;
+
+        _isMovingObjectKey = true; 
+        _objectKeyInitialPosition = objectToWeight.transform.position;
+        _objectKey = objectToWeight;
+        IsActiveWeight = true;
+        var objectToWeightRenderer =objectToWeight.GetComponent<Renderer>();
+        objectToWeightRenderer.material.SetFloat("_NormalPush", 4f);
+        var rotation = objectToWeight.GetComponent<Rotation>();
+        rotation.enabled = true;
+        var objectToWeightRigidbody = objectToWeight.GetComponent<Rigidbody>();
+        objectToWeightRigidbody.useGravity = false;
+        objectToWeightRigidbody.isKinematic = true;
+        onWeightEnter.Invoke();
+    }
+
+    /// <summary>
+    /// Remove the Weight object to disable
+    /// </summary>
+    /// <param name="objectToWeight">object to remove</param>
+    public void RemoveFromWeight(ObjectToWeight objectToWeight) {
+        _objectKey = null;
+        IsActiveWeight = false;
+        var objectToWeightRenderer =objectToWeight.GetComponent<Renderer>();
+        objectToWeightRenderer.material.SetFloat("_NormalPush", -0.5f);
+        var rotation = objectToWeight.GetComponent<Rotation>();
+        rotation.enabled = false;
+        var objectToWeightRigidbody = objectToWeight.GetComponent<Rigidbody>();
+        objectToWeightRigidbody.useGravity = true;
+        objectToWeightRigidbody.isKinematic = false;
+        onWeightExit.Invoke();
+    }
+    
+    private void OnDrawGizmos() {
+        Gizmos.color = new Color(0, 255, 0, 0.7f); ;
+        Gizmos.DrawWireSphere(_objectKeyDestinationPosition, 0.1f);
+    }
+
+    #endregion Custom
 }

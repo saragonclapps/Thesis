@@ -4,37 +4,33 @@ using UnityEngine;
 
 public class PesimeterCheck : MonoBehaviour {
 
-    bool isEmpty;
-    public Weight w;
+    public bool isEmpty;
+    public Weight weight;
 
-   	void Start ()
-    {
+    #region MonoBehavior
+
+    private void Start () {
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
-	}
-
-    void Execute()
-    {
-        if(!isEmpty)
-        {
-            isEmpty = true;
-        }
-        else
-        {
-            w.totalWeight = 0;
-            w.RemoveAllObjectsToWeight();
-        }
     }
 
-    private void OnDestroy()
-    {
+    private void Execute() {
+    }
+
+    private void OnDestroy() {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
-
-    void OnTriggerStay(Collider other)
-    {
-        if (other.GetComponent<ObjectToWeight>())
-        {
-            isEmpty = false;
-        }
+    
+    private void OnTriggerEnter(Collider other) {
+        var objectToWeight = other.GetComponent<ObjectToWeight>();
+        if (!objectToWeight) return;
+        weight.AddToWeight(objectToWeight);
+        isEmpty = false;
     }
+
+    private void OnTriggerExit(Collider other) {
+        var objectToWeight = other.GetComponent<ObjectToWeight>();
+        if (!objectToWeight || !weight.IsActiveWeight) return;
+        weight.RemoveFromWeight(objectToWeight);
+    }
+    #endregion
 }

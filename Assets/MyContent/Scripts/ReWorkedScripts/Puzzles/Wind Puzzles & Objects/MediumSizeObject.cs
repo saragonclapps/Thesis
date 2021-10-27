@@ -13,29 +13,29 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
 
     [HideInInspector]
     public Material material;//Edit for shoot vfx.
-    private BoxCollider _bC;
+    private Collider _bC;
 
-    float _alphaCut;
+    private float _alphaCut;
 
-    Vector3 _initialPosition;
+    private Vector3 _initialPosition;
     public float respawnDistance;
     public float respawnTime;
 
-    float _respawnTick;
+    private float _respawnTick;
 
-    float _disolveTimmer = 1;
-    float _disolveTick;
-    bool _disolve;
+    private float _disolveTimmer = 1;
+    private float _disolveTick;
+    private bool _disolve;
 
     protected bool _isAbsorved;
     protected bool _isAbsorvable;
     protected bool _isBeeingAbsorved;
     protected Rigidbody _rb;
 
-    public bool isAbsorved { get { return _isAbsorved; } set { _isAbsorved = value; } }
-    public bool isAbsorvable { get { return _isAbsorvable; } }
-    public bool isBeeingAbsorved { get { return _isBeeingAbsorved; } set { _isBeeingAbsorved = value; } }
-    public Rigidbody rb { get { return _rb; } set { _rb = value; } }
+    public bool isAbsorved { get => _isAbsorved;set => _isAbsorved = value; }
+    public bool isAbsorvable => _isAbsorvable;
+    public bool isBeeingAbsorved { get => _isBeeingAbsorved; set => _isBeeingAbsorved = value; }
+    public Rigidbody rb { get => _rb; set => _rb = value; }
 
     public bool respawnable;
 
@@ -45,20 +45,18 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         _isAbsorvable = false;
         _rb = GetComponent<Rigidbody>();
         material = GetComponent<Renderer>().material;
-        _bC = GetComponent<BoxCollider>();
+        _bC = GetComponent<Collider>();
         SpawnVFXActivate(true);
 
     }
 
-    void Execute()
+    private void Execute()
     {
         var d = Mathf.Abs((transform.position - _initialPosition).magnitude);
-        if (d > respawnDistance)
-        {
-            wasShooted = false;
-            _disolve = false;
-            SpawnVFXActivate(false);
-        }
+        if (!(d > respawnDistance)) return;
+        wasShooted = false;
+        _disolve = false;
+        SpawnVFXActivate(false);
     }
 
     public void SpawnVFXActivate(bool dir)
@@ -79,7 +77,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         }
     }
 
-    void SpawnVFX()
+    private void SpawnVFX()
     {
         if(_respawnTick >= respawnTime)
         {
@@ -87,12 +85,10 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
             _alphaCut -= Time.deltaTime;
             _rb.useGravity = true;
             _bC.isTrigger = false;
-            if (_alphaCut <= 0)
-            {
-                UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, SpawnVFX);
-                wasShooted = false;
-                _respawnTick = 0;
-            }
+            if (!(_alphaCut <= 0)) return;
+            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, SpawnVFX);
+            wasShooted = false;
+            _respawnTick = 0;
         }
         else
         {
@@ -103,13 +99,11 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
 
     void DespawnVFX()
     {
-        material.SetFloat("_DisolveAmount", _alphaCut);
+        // material.SetFloat("_DisolveAmount", _alphaCut);
         _alphaCut += Time.deltaTime;
-        if (_alphaCut >= 1)
-        {
-            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, DespawnVFX);
-            RepositionOnSpawn();
-        }
+        if (!(_alphaCut >= 1)) return;
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, DespawnVFX);
+        RepositionOnSpawn();
     }
 
     public void RepositionOnSpawn()
@@ -130,54 +124,49 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         }
     }
 
-    public void SuckIn(Transform origin, float atractForce)
+    public void SuckIn(Transform origin, float attractForce)
     {
-        if (!wasShooted)
+        if (wasShooted) return;
+        var direction = origin.position - transform.position;
+        var distance = direction.magnitude;
+
+        if (distance <= 0.7f)
         {
-            var direction = origin.position - transform.position;
-            var distance = direction.magnitude;
+            _bC.isTrigger = true;
+            rb.isKinematic = true;
+            transform.position = origin.position;
+            isAbsorved = true;
+            transform.SetParent(origin);
 
-            if (distance <= 0.7f)
-            {
-                _bC.isTrigger = true;
-                rb.isKinematic = true;
-                transform.position = origin.position;
-                isAbsorved = true;
-                transform.SetParent(origin);
+        }
+        else if (distance < 1f)
+        {
+            rb.isKinematic = true;
+            var dir = (origin.position - transform.position).normalized;
+            transform.position += dir * attractForce / 10 * Time.deltaTime;
+        }
+        else
+        {
+            rb.isKinematic = false;
+            var forceMagnitude = (10) * attractForce / Mathf.Pow(distance, 2);
+            var force = direction.normalized * forceMagnitude;
+            rb.AddForce(force);
 
-            }
-            else if (distance < 1f)
-            {
-                rb.isKinematic = true;
-
-                var dir = (origin.position - transform.position).normalized;
-                transform.position += dir * atractForce / 10 * Time.deltaTime;
-            }
-            else
-            {
-                rb.isKinematic = false;
-                var forceMagnitude = (10) * atractForce / Mathf.Pow(distance, 2);
-                var force = direction.normalized * forceMagnitude;
-                rb.AddForce(force);
-
-            }
         }
     }
 
     public void BlowUp(Transform origin, float atractForce, Vector3 direction)
     {
-        if (!wasShooted)
-        {
-            rb.isKinematic = false;
-            isAbsorved = false;
-            transform.SetParent(null);
-            var distanceRaw = transform.position - origin.position;
-            var distance = distanceRaw.magnitude;
-            var forceMagnitude = 10 * atractForce * 10 / Mathf.Pow(distance, 2);
-            forceMagnitude = Mathf.Clamp(forceMagnitude, 0, 2000);
-            var force = direction.normalized * forceMagnitude;
-            rb.AddForce(force);
-        }
+        if (wasShooted) return;
+        rb.isKinematic = false;
+        isAbsorved = false;
+        transform.SetParent(null);
+        var distanceRaw = transform.position - origin.position;
+        var distance = distanceRaw.magnitude;
+        var forceMagnitude = 10 * atractForce * 10 / Mathf.Pow(distance, 2);
+        forceMagnitude = Mathf.Clamp(forceMagnitude, 0, 2000);
+        var force = direction.normalized * forceMagnitude;
+        rb.AddForce(force);
     }
 
     public void ReachedVacuum()
@@ -198,17 +187,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
 
     public void ViewFX(bool activate)
     {
-        if (activate)
-        {
-            //View VFX
-
-            material.SetFloat("_Alpha", 0.3f);
-        }
-        else
-        {
-            //Reset view VFX
-            material.SetFloat("_Alpha", 1f);
-        }
+        material.SetFloat("_Alpha", activate ? 0.3f : 1f);
     }
 
     public void Exit()
@@ -248,8 +227,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(200, 200, 200, 0.6f); ;
-        Gizmos.matrix = transform.localToWorldMatrix;
-        Gizmos.DrawCube(Vector3.zero, Vector3.one);
+        Gizmos.color = new Color(255,255,255,0.5f);
+        Gizmos.DrawSphere(transform.position, 0.3f);
     }
 }

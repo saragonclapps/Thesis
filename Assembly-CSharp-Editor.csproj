@@ -59,9 +59,13 @@
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\PlaceOnSurfaceWindow.cs" />
      <Compile Include="Assets\ShapesFX_Pack\Editor\ShapeFxPackUI.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\RandomizeToolWindow.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\ColumnLightEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\RandomUtils.cs" />
      <Compile Include="Assets\MyContent\Scripts\ReWorkedScripts\Utilities\Editor\ZFightFinder.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\HaloLightEditor.cs" />
      <Compile Include="Assets\ProCore\ProGrids\Editor\pg_ToggleContent.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\SlimLightEditor.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\PlanarLightEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\BaseToolWindow.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\BoundsUtils.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\EditorGUIUtils.cs" />
@@ -69,22 +73,28 @@
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\UnoverlapToolWindow.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\PlaceOnSurfaceUtils.cs" />
      <Compile Include="Assets\ProCore\ProGrids\Editor\pg_Preferences.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\SquareLightEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\GridArrangementToolWindow.cs" />
      <Compile Include="Assets\ProCore\ProGrids\Editor\pg_ParameterWindow.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\AxesUtils.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\RaycastMesh.cs" />
      <Compile Include="Assets\ShapesFX_Pack\Editor\AssetPostImportProcess_Shapes.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\GravityUtils.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Steve\Editor\ReplaceWithPrefab.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\LoopLightEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\HomogenizeToolWindow.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\SimulateGravityWindow.cs" />
      <Compile Include="Assets\ProCore\ProGrids\About\Editor\pg_AboutWindow.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\Shortcuts.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\RadialArrangeToolWindow.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\BeaconLightEditor.cs" />
      <Compile Include="Assets\ProCore\ProGrids\Editor\pg_GridRenderer.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\TransformTools.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\PlateLightEditor.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\ApexLightEditor.cs" />
+     <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\StoneLightEditor.cs" />
      <Compile Include="Assets\Glitch\Kino\Glitch\Editor\DigitalGlitchEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\ProgressionWindow.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Steve\Editor\ReplaceWithPrefab.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -310,35 +320,29 @@
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.Android.Extensions">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="log4netPlastic">
- <HintPath>E:/Workspace/Thesis/Library/PackageCache/com.unity.collab-proxy@1.9.0/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/PackageCache/com.unity.collab-proxy@1.9.0/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Plastic.Newtonsoft.Json">
- <HintPath>E:/Workspace/Thesis/Library/PackageCache/com.unity.collab-proxy@1.9.0/Lib/Editor/PlasticSCM/Unity.Plastic.Newtonsoft.Json.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.StandardEvents">
- <HintPath>E:/Workspace/Thesis/Library/PackageCache/com.unity.analytics@3.6.11/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.Editor">
- <HintPath>E:/Workspace/Thesis/Library/PackageCache/com.unity.analytics@3.6.11/Unity.Analytics.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/PackageCache/com.unity.collab-proxy@1.9.0/Lib/Editor/PlasticSCM/Unity.Plastic.Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Plastic.Antlr3.Runtime">
- <HintPath>E:/Workspace/Thesis/Library/PackageCache/com.unity.collab-proxy@1.9.0/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/PackageCache/com.unity.collab-proxy@1.9.0/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="LitJson">
- <HintPath>E:/Workspace/Thesis/Assets/MyContent/Scripts/Imports/LitJson/LitJson.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.Tracker">
- <HintPath>E:/Workspace/Thesis/Library/PackageCache/com.unity.analytics@3.6.11/Unity.Analytics.Tracker.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Assets/MyContent/Scripts/Imports/LitJson/LitJson.dll</HintPath>
  </Reference>
  <Reference Include="unityplastic">
- <HintPath>E:/Workspace/Thesis/Library/PackageCache/com.unity.collab-proxy@1.9.0/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/PackageCache/com.unity.collab-proxy@1.9.0/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>E:/Workspace/Thesis/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -689,121 +693,115 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XPath.XDocument.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.TestRunner">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.TestRunner">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="Purchasing.Common">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Purchasing.Common.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Purchasing.Common.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Tilemap.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
  </Reference>
  <Reference Include="com.unity.multiplayer-hlapi.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Purchasing">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder.AddOns.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Purchasing.SecurityStub">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityStub.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityStub.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Advertisements">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.dll</HintPath>
  </Reference>
  <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Postprocessing.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="com.unity.multiplayer-weaver.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PlasticSCM.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Analytics">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Analytics.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SpatialTracking">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
- <Reference Include="Unity.Analytics.DataPrivacy">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+ <Reference Include="UnityEngine.SpatialTracking">
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="com.unity.multiplayer-hlapi.Runtime">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Purchasing.SecurityCore">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityCore.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityCore.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Postprocessing.Runtime">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Purchasing.Codeless">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Codeless.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Codeless.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.XR.LegacyInputHelpers">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Purchasing.Stores">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Stores.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Stores.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.XR.LegacyInputHelpers">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Monetization">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Monetization.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Monetization.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Purchasing">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEditor.Purchasing.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEditor.Purchasing.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.SpatialTracking">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Advertisements.Editor">
- <HintPath>E:/Workspace/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.Editor.dll</HintPath>
+ <HintPath>C:/Users/steve/Documents/Workspace/Personal/Davinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.Editor.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
