@@ -7,7 +7,7 @@ public class SaveDisk : MonoBehaviour {
     public Vector3 rotation;
     public ParticleSystem aura;
     Material mat;
-    bool isDisolving;
+    public bool isDisolving;
     float disolveLerp = 0;
 
 

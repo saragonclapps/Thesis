@@ -121,7 +121,7 @@ Material:
     - _IOROffset: 0.0035
     - _IndexG: 0.9
     - _IndexR: 0.8
-    - _IndexofRefraction: 0.97
+    - _IndexofRefraction: 1.001
     - _Lod: 0
     - _Metallic: 0
     - _Mode: 0
@@ -129,9 +129,9 @@ Material:
     - _Parallax: 0.02
     - _RainbowInten: 1
     - _Reflection: 0.5
-    - _RimPower: 2.59
+    - _RimPower: 10
     - _RimPower1: 0.62
-    - _Smoothness: 0.8
+    - _Smoothness: 0.18
     - _SmoothnessTextureChannel: 0
     - _SparkleAnimSpeed: 0
     - _SparklePower: 1024
@@ -143,7 +143,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0.101960786}
+    - _Color: {r: 0, g: 0.711586, b: 1, a: 0.101960786}
     - _Color1: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor1: {r: 0.7980104, g: 0.80754983, b: 0.9044118, a: 0.19607843}

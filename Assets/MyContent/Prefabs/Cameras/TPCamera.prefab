@@ -44,8 +44,7 @@ GameObject:
   - component: {fileID: 81149907740884354}
   - component: {fileID: 114196380920071300}
   - component: {fileID: 1488161712388900642}
-  - component: {fileID: 4060250307537152609}
-  - component: {fileID: 1735083114414964196}
+  - component: {fileID: 7588138730186846412}
   m_Layer: 11
   m_Name: TPCamera
   m_TagString: MainCamera
@@ -76,7 +75,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1731270734992774}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -140,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5cce522e4a6a044bf24466af6de64a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lookAt: {fileID: 0}
+  lookAt: {fileID: 0}
   positionSmoothness: 1
   speed: 1
   unadjustedDistance: 2
@@ -154,14 +153,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1731270734992774}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a3a070408aa941ab83ae10be1708848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _intensity: 0.001
   _shader: {fileID: 4800000, guid: ba40dc630e1d9417cb9ea22586ece1e1, type: 3}
---- !u!114 &4060250307537152609
+--- !u!114 &7588138730186846412
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,22 +169,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1731270734992774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f43b972fb187c14facaf7f57108ab91, type: 3}
+  m_Script: {fileID: 11500000, guid: 96ca5b6571d42d344bbec8048112c514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1735083114414964196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731270734992774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66a4f4be88b2d694a9a4cd78e3ffbf0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  postprocessEffect: {fileID: 2100000, guid: 8d379b59f755a4843a9398f27e32455d, type: 2}
+  distanceOfGlitch: 30
 --- !u!1001 &3715071355483578849
 PrefabInstance:
   m_ObjectHideFlags: 0
