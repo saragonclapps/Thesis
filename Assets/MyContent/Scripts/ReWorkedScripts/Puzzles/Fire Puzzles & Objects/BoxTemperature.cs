@@ -35,6 +35,18 @@ public class BoxTemperature : MonoBehaviour, IHeat, IFlamableObjects
         _temperature += Time.deltaTime * heatTransferMultiplier;
     }
 
+    public void SubscribeStartFire(Action observer)
+    {
+        //TODO: Pending implementation
+
+    }
+
+    public void UnSubscribeStartFire(Action observer)
+    {
+        //TODO: Pending implementation
+
+    }
+
     void Start ()
     {
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);

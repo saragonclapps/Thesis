@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,6 +59,13 @@ public class FireSwitch : MonoBehaviour, IFlamableObjects {
         }
     }
 
+    public void SubscribeStartFire(Action observer)
+    {
+        //TODO: Pending implementation
+    }
 
-
+    public void UnSubscribeStartFire(Action observer)
+    {
+        //TODO: Pending implementation
+    }
 }

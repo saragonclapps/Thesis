@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class PesimeterCheck : MonoBehaviour {
 
     public bool isEmpty;
     public Weight weight;
+    public Action ObservableRemoveWeight;
 
     #region MonoBehavior
 
@@ -24,12 +26,19 @@ public class PesimeterCheck : MonoBehaviour {
         var objectToWeight = other.GetComponent<ObjectToWeight>();
         if (!objectToWeight) return;
         weight.AddToWeight(objectToWeight);
+        var flammable = other.GetComponent<IFlamableObjects>();
+        if (flammable != null) {
+            ObservableRemoveWeight = () => weight.RemoveFromWeight(objectToWeight);
+            flammable.SubscribeStartFire(ObservableRemoveWeight);
+        }
         isEmpty = false;
     }
 
     private void OnTriggerExit(Collider other) {
         var objectToWeight = other.GetComponent<ObjectToWeight>();
         if (!objectToWeight || !weight.IsActiveWeight) return;
+        var flammable = other.GetComponent<IFlamableObjects>();
+        flammable?.UnSubscribeStartFire(ObservableRemoveWeight);
         weight.RemoveFromWeight(objectToWeight);
     }
     #endregion

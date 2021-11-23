@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 4752445166826820510}
   - component: {fileID: 7354629958002337620}
   - component: {fileID: 3272325364178702117}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Grate_1_LOW_Clean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8528630386387000379
 Transform:
@@ -57,6 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -81,6 +82,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &3272325364178702117
 MeshCollider:
   m_ObjectHideFlags: 0
