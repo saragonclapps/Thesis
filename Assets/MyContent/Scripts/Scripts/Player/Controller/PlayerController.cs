@@ -72,7 +72,7 @@ namespace Player
 
         bool isActive;
 
-        void Awake()
+        private void Awake()
         {
             _anim = GetComponentInChildren<Animator>();
             _lC = GetComponentInChildren<LandChecker>();
@@ -134,12 +134,13 @@ namespace Player
             fallCount = 0;
         }
 
-        void Start ()
+        private void Start ()
         {
+            
             _fsm = new FSM<Inputs>(idleState);
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
             EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS, ToFixedCamera);
-            EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS_END, onFixCameraTransitionEnd);
+            EventManager.AddEventListener(GameEvent.CAMERA_FIXPOS_END, OnFixCameraTransitionEnd);
             EventManager.AddEventListener(GameEvent.CAMERA_NORMAL, ToNormalCamera);
             EventManager.AddEventListener(GameEvent.CAMERA_STORY, ToDemoCamera);
             isActive = true;
@@ -151,33 +152,32 @@ namespace Player
             //_fsm.ProcessInput(Inputs.Idle);
         }
 
-        void ToFixedCamera(object[] parameterContainer)
+        private void ToFixedCamera(object[] parameterContainer)
         {
             fixedCamera = true;
             isActive = cam2.Fsm.Last.ToString() == "TPCamera.FixedState";
 
         }
 
-        void ToNormalCamera(object[] parameterContainer)
+        private void ToNormalCamera(object[] parameterContainer)
         {
             fixedCamera = false;
             isActive = true;
         }
 
-        void onFixCameraTransitionEnd(object[] parameterContainer)
+        private void OnFixCameraTransitionEnd(object[] parameterContainer)
         {
             isActive = true;
         }
 
-        void Execute ()
+        private void Execute ()
         {    
             CheckInputs();
             _fsm.Execute();
         }
 
-        void CheckInputs()
+        private void CheckInputs()
         {
-            
             if (GameInput.instance.initialJumpButton && !land && CheckJump() && isActive) _fsm.ProcessInput(Inputs.Jump);
 
             if (CheckMove())

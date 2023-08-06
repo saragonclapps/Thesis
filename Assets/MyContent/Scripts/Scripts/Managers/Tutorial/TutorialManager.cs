@@ -12,28 +12,63 @@ public class TutorialManager : MonoBehaviour {
     public Image buttonHowToPlay;
     public TextMeshProUGUI tutorialTextField;
 
+    private Dictionary<TutorialSetupEntryDataType, Action<string, TutorialSetupEntryData>> _tutoriasPlay =
+        new Dictionary<TutorialSetupEntryDataType, Action<string, TutorialSetupEntryData>>();
+    
+    private Dictionary<TutorialSetupEntryDataType, Action<string, TutorialSetupEntryData>> _tutorialsStop =
+        new Dictionary<TutorialSetupEntryDataType, Action<string, TutorialSetupEntryData>>();
+
     private void Start() {
         tutorialSetup.Clean();
-        EventManager.AddEventListener(GameEvent.TRIGGER_TUTORIAL, OnTutorial);
+        
+        EventManager.AddEventListener(GameEvent.TRIGGER_TUTORIAL, OnTutorialPlay);
         EventManager.AddEventListener(GameEvent.TRIGGER_TUTORIAL_STOP, OnTutorialStop);
+        
+        _tutoriasPlay[TutorialSetupEntryDataType.BUTTON] = OnButtonTutorial;
+        _tutorialsStop[TutorialSetupEntryDataType.BUTTON] = ExitButtonTutorial;
+        
+        _tutoriasPlay[TutorialSetupEntryDataType.CAMERA_ANIMATION] = OnAnimationTutorial;
+        _tutorialsStop[TutorialSetupEntryDataType.CAMERA_ANIMATION] = ExitAnimationTutorial;
     }
-    
 
-    private void OnTutorial(object[] p) {
+
+    private void OnTutorialPlay(object[] p) {
         var tutorialKey = (string)p[0];
 #if UNITY_EDITOR
-        Debug.Log(this, "tutorialKey: " + tutorialKey);
+        Debug.Log(this, "PLAY tutorialKey: " + tutorialKey);
 #endif
-        container.StartTransition(true, tutorialKey);
         var tutorialEntry = tutorialSetup.Get(tutorialKey);
-        tutorialTextField.text = tutorialEntry.text;
-        buttonHowToPlay.sprite = tutorialEntry.button;
+        _tutoriasPlay[tutorialEntry.type](tutorialKey, tutorialEntry);
     }
-
     private void OnTutorialStop(object[] p) {
         var tutorialKey = (string)p[0];
+#if UNITY_EDITOR
+        Debug.Log(this, "STOP tutorialKey: " + tutorialKey);
+#endif
+        var tutorialEntry = tutorialSetup.Get(tutorialKey);
+        _tutorialsStop[tutorialEntry.type](tutorialKey, tutorialEntry);
+    }
+
+    #region Tutorials
+
+    private void OnButtonTutorial(string tutorialKey, TutorialSetupEntryData data) {
+        container.StartTransition(true, tutorialKey);
+        tutorialTextField.text = data.text;
+        buttonHowToPlay.sprite = data.button;
+    }
+    
+    private void ExitButtonTutorial(string tutorialKey, TutorialSetupEntryData data) {
         container.StartTransition(false, tutorialKey);
     }
+    
+    private void OnAnimationTutorial(string tutorialKey, TutorialSetupEntryData data) {
+        var tutorialAnimation = data.animationTarget;
+        tutorialAnimation.GetComponent<TutorialCameraAnimation>().StartAnimation(data);
+    }
+    
+    private void ExitAnimationTutorial(string tutorialKey, TutorialSetupEntryData data) {
+    }
+    #endregion
 
     private void TurnOffGraphics() {
     }

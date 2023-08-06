@@ -64,7 +64,7 @@ public class CameraController : MonoBehaviour {
 
     #endregion
 
-    void Start()
+    private void Start()
     {
         if (instance == null)
         {

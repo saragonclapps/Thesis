@@ -27,12 +27,6 @@ public class TutorialTrigger : MonoBehaviour {
         EventManager.DispatchEvent(GameEvent.TRIGGER_TUTORIAL_STOP, tutorialName);
     }
 
-    private void OnDisable() {
-        EventManager.DispatchEvent(GameEvent.TRIGGER_TUTORIAL_STOP, tutorialName);
-        GetComponent<Collider>().enabled = false;
-    }
-
-
     private void OnDrawGizmos() {
         var collider = GetComponent<BoxCollider>();
         Gizmos.color = new Color(255, 240, 0, 0.7f);

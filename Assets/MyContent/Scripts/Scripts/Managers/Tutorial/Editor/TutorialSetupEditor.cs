@@ -33,9 +33,11 @@ public class TutorialSetupEditor : Editor
                 value.FindPropertyRelative("button").objectReferenceValue = EditorGUILayout.ObjectField("Button", value.FindPropertyRelative("button").objectReferenceValue, typeof(Sprite), false);
             }
             else if (value.FindPropertyRelative("type").enumValueIndex == (int)TutorialSetupEntryDataType.CAMERA_ANIMATION) {
-                value.FindPropertyRelative("animator").objectReferenceValue = EditorGUILayout.ObjectField("animator", value.FindPropertyRelative("animator").objectReferenceValue, typeof(Animator), true);
+                value.FindPropertyRelative("animation").objectReferenceValue = EditorGUILayout.ObjectField("animation", value.FindPropertyRelative("animation").objectReferenceValue, typeof(AnimationClip), false);
+                var currentValue = (Transform)EditorGUILayout.ObjectField("animationTarget", value.FindPropertyRelative("animationTarget").objectReferenceValue, typeof(Transform), true);
+                value.FindPropertyRelative("blockMovement").boolValue = EditorGUILayout.Toggle("blockMovement", value.FindPropertyRelative("blockMovement").boolValue);
+                tutorialSetup.tutorials[i].value.animationTarget = currentValue;
             }
-           
             EditorGUILayout.EndVertical();
             EditorGUILayout.Separator();
             EditorGUILayout.Space();

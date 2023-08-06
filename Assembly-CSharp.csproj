@@ -192,7 +192,6 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Platforms\PlatformFirePropulsor.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\CutScenes\ElevatorCutScene.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\LargeSizeObject.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialCameraAnimation.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Vacuum\Skills\Attractor.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\ObjectKey.cs" />
@@ -252,9 +251,9 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\PlayerController.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\States\LandState.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\FencePuzzleAbsorver.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Player\PlayerTemperature.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\FencePuzzleAbsorver.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\MasterManager.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
@@ -268,6 +267,7 @@
      <Compile Include="Assets\shaders 103 asset\Scripts\ReplacementShaderEffect.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\GunAim.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialCameraAnimation.cs" />
      <None Include="Assets\MyContent\Shaders\Surface\Toon\Eyes Unshadow.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\MyContent\Shaders\Surface\Toon\SoftToon.shader" />
@@ -993,6 +993,12 @@
  <Reference Include="com.unity.multiplayer-hlapi.Runtime">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
  </Reference>
+ <Reference Include="Cinemachine">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+ </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.Purchasing.SecurityCore">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityCore.dll</HintPath>
  </Reference>
@@ -1002,11 +1008,11 @@
  <Reference Include="UnityEngine.Purchasing.Codeless">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Codeless.dll</HintPath>
  </Reference>
- <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
- <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.XR.LegacyInputHelpers">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
@@ -1028,12 +1034,6 @@
  </Reference>
  <Reference Include="UnityEngine.Advertisements.Editor">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.Editor.dll</HintPath>
- </Reference>
- <Reference Include="com.unity.cinemachine.editor">
- <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
- </Reference>
- <Reference Include="Cinemachine">
- <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -44,7 +44,10 @@ public class GameInput : MonoBehaviour
     public float verticalMove;
     [HideInInspector]
     public bool chatButton;
-
+    [HideInInspector]
+    public bool helpButton;
+    [HideInInspector]
+    public bool pauseButton;
 
     [HideInInspector]
     public bool onDirectionChange;
@@ -91,7 +94,7 @@ public class GameInput : MonoBehaviour
     public GameObject debugConsole;
     public DebugConsole console;
     bool consoleToggle;
-
+    private bool _blockPlayerController;
 
 	void Awake ()
     {
@@ -110,12 +113,25 @@ public class GameInput : MonoBehaviour
         _featuresDic.Add(Features.STEALTH, false);*/
 
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
+        EventManager.AddEventListener(GameEvent.TUTORIAL_ANIMATION, OnBlockPlayerController);
+        
         consoleToggle = false;
         ToggleConsole();
+    }
+    private void OnBlockPlayerController(object[] p) {
+        var state = (bool)p[0];
+        _blockPlayerController = state;
     }
 
     void Execute()
     {
+        if (_blockPlayerController) {
+            horizontalMove = 0;
+            verticalMove = 0;
+            
+            return;
+        }
+        
         //CheckIfJoystickConnected();
         //UpdateCameraValues();//Camera update (Change observer)
         /*if (joystick)
@@ -190,6 +206,8 @@ public class GameInput : MonoBehaviour
         //}
 
 
+        pauseButton = Input.GetKeyDown(KeyCode.Escape);
+        helpButton = Input.GetKeyDown(KeyCode.F1);
         consoleButton = Input.GetKeyDown(KeyCode.F11);
         if (consoleButton)
         {

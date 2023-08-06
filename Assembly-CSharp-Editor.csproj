@@ -759,6 +759,12 @@
  <Reference Include="com.unity.multiplayer-hlapi.Runtime">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
  </Reference>
+ <Reference Include="Cinemachine">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+ </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.Purchasing.SecurityCore">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityCore.dll</HintPath>
  </Reference>
@@ -768,11 +774,11 @@
  <Reference Include="UnityEngine.Purchasing.Codeless">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Codeless.dll</HintPath>
  </Reference>
- <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
- <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.XR.LegacyInputHelpers">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
@@ -794,12 +800,6 @@
  </Reference>
  <Reference Include="UnityEngine.Advertisements.Editor">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.Editor.dll</HintPath>
- </Reference>
- <Reference Include="com.unity.cinemachine.editor">
- <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
- </Reference>
- <Reference Include="Cinemachine">
- <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
