@@ -1,6 +1,6 @@
 ﻿using UnityEngine.SceneManagement;
 
-public class MasterManager
+public static class MasterManager
 {
     public static int nextScene = 1;
 

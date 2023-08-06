@@ -1,23 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Skills;
-using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.SceneManagement;
 using Player;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Debug = Logger.Debug;
 
 public class LevelManager : MonoBehaviour {
     public float levelTime;
     public bool isWithPowers;
+    private bool _hasDiskette;
 
     public Animator blackOutAnimator;
     public Animator whiteOutAnimator;
-
-
-    bool _hasDiskette;
-
+    
     public bool hasDiskette {
         get { return _hasDiskette; }
         set { _hasDiskette = value; }
@@ -25,15 +20,12 @@ public class LevelManager : MonoBehaviour {
 
     public List<Material> breathingScenarioMaterials;
 
-    static LevelManager _instance;
-
-    public static LevelManager instance {
-        get { return _instance; }
-    }
+    private static LevelManager _instance;
+    public static LevelManager instance => _instance;
 
     public List<CheckPoint> checkPoints;
 
-    PlayerController _PC;
+    private PlayerController _pc;
 
     private void Awake() {
         _instance = this;
@@ -42,13 +34,12 @@ public class LevelManager : MonoBehaviour {
     }
 
     private void Start() {
-        _PC = FindObjectOfType<PlayerController>();
+        _pc = FindObjectOfType<PlayerController>();
 
         foreach (var cp in checkPoints) {
-            if (cp.checkPointName == MasterManager.checkPointName) {
-                _PC.transform.position = cp.transform.position;
-                _PC.transform.rotation = cp.transform.rotation;
-            }
+            if (cp.checkPointName != MasterManager.checkPointName) continue;
+            _pc.transform.position = cp.transform.position;
+            _pc.transform.rotation = cp.transform.rotation;
         }
 
         if (isWithPowers) {
@@ -68,17 +59,15 @@ public class LevelManager : MonoBehaviour {
         EventManager.RemoveEventListener(GameEvent.TRANSITION_FADEOUT_WIN_FINISH, NextLevel);
         var current = SceneManager.GetActiveScene();
         MasterManager.GetNextScene(current);
-        //MasterManager.nextScene = next;
-
         SceneManager.LoadScene("LoadingScreen");
     }
 
     public void RestartLevel(object[] parameterContainer) {
         foreach (var t in checkPoints.Where(t => t.checkPointName == MasterManager.checkPointName)) {
-            _PC.RespawnOnCheckPoint(t.transform);
+            _pc.RespawnOnCheckPoint(t.transform);
             EventManager.DispatchEvent(GameEvent.CAMERA_NORMAL);
             CutScenesManager.instance.DeActivateCutSceneCamera("DeathFall");
-            _PC.cam2.normalState.SetInitialPosition(t.transform);
+            _pc.cam2.normalState.SetInitialPosition(t.transform);
         }
 
         blackOutAnimator.SetTrigger("FadeInWithoutReset");
@@ -98,7 +87,7 @@ public class LevelManager : MonoBehaviour {
             return;
         }
 #if UNITY_EDITOR
-        Debug.LogWarning("El checkpoint no se encuentra en la lista");
+        Debug.LogWarning("The checkpoint " + cpName + " is not included in the list of checkpoints");
 #endif
     }
 

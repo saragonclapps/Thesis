@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Debug = Logger.Debug;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/LoggerSetup", order = 1)]
+[CreateAssetMenu(fileName = "LoggerConfig", menuName = "ScriptableObjects/LoggerSetup", order = 1)]
 public class LoggerSetup : ScriptableObject {
     public List<string> keys = new List<string>();
     public List<bool> values = new List<bool>();

@@ -52,7 +52,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\ProCore\ProGrids\Editor\pg_Editor.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Audio\Editor\AudioLibraryEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\SelectionManager.cs" />
      <Compile Include="Assets\ShapesFX_Pack\Editor\Welcome.cs" />
      <Compile Include="Assets\Glitch\Kino\Glitch\Editor\AnalogGlitchEditor.cs" />
@@ -60,10 +60,10 @@
      <Compile Include="Assets\ShapesFX_Pack\Editor\ShapeFxPackUI.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\RandomizeToolWindow.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\ColumnLightEditor.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Level\Editor\SceneLoaderWindow.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\RandomUtils.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Utilities\Editor\ZFightFinder.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\HaloLightEditor.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\Editor\pg_ToggleContent.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\SlimLightEditor.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\PlanarLightEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\BaseToolWindow.cs" />
@@ -72,10 +72,9 @@
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\TransformToolsWindow.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\UnoverlapToolWindow.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\PlaceOnSurfaceUtils.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\Editor\pg_Preferences.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\SquareLightEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\GridArrangementToolWindow.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\Editor\pg_ParameterWindow.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\Editor\TutorialSetupEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\AxesUtils.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\RaycastMesh.cs" />
      <Compile Include="Assets\ShapesFX_Pack\Editor\AssetPostImportProcess_Shapes.cs" />
@@ -84,20 +83,16 @@
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\LoopLightEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\HomogenizeToolWindow.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\SimulateGravityWindow.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\About\Editor\pg_AboutWindow.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Logger\Editor\LoggerSetupEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\Shortcuts.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\RadialArrangeToolWindow.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\BeaconLightEditor.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\Editor\pg_GridRenderer.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\TransformTools.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\PlateLightEditor.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\ApexLightEditor.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\StoneLightEditor.cs" />
      <Compile Include="Assets\Glitch\Kino\Glitch\Editor\DigitalGlitchEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\ProgressionWindow.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Editor\LoggerSetupEditor.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Editor\AudioLibraryEditor.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Editor\SceneLoaderWindow.cs" />
  <Reference Include="UnityEngine">
  <HintPath>/Applications/Unity/Hub/Editor/2020.3.18f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -716,9 +711,6 @@
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
- <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
- </Reference>
  <Reference Include="Unity.ProBuilder.AddOns.Editor">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
  </Reference>
@@ -802,6 +794,12 @@
  </Reference>
  <Reference Include="UnityEngine.Advertisements.Editor">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Cinemachine">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

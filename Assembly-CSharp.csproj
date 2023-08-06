@@ -68,9 +68,9 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\VFX\Particles\Electricity\ElectricParticleEmitter.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\CameraFSM.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Fire Puzzles &amp; Objects\IFlamableObjects.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IgnoreSnapAttribute.cs" />
      <Compile Include="Assets\MyContent\Scripts\PointLaser.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\DeathFallTrigger.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialTrigger.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Fire Puzzles &amp; Objects\BoxTemperature.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Companion\CompanionFanRotator.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\FSM\FSM.cs" />
@@ -88,23 +88,25 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\LevelZeroMasterManager.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\HaloLight.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Logger\LoggerManager.cs" />
      <Compile Include="Assets\MyContent\Scripts\PlayAnimation.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Ice Puzzles &amp; Objects\IFrozenObject.cs" />
      <Compile Include="Assets\shaders 103 asset\Scripts\QuickGlow.cs" />
      <Compile Include="Assets\CrystalGlass\Glass3\ScreenCapture3.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Enum.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\States\StoryState.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Companion\CompanionController.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\SquareLight.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\VFX\Particles\Electricity\ElectricParticle.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Objects\Mobile Wall\WallMobile.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Audio\AudioManager.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Vacuum\Skills\Freezer.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialManager.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\Elevator.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Electric Puzzles &amp; Objects\IElectricObject.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\CutScenes\LevelZeroCutScene.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\UITransparentTransition.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Vacuum\Skills\FlameThrower.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Stump\StumpMobile.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\Inputs.cs" />
@@ -123,12 +125,14 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\VFX\AlphaCutOutEqualizer.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
      <Compile Include="Assets\MyContent\Shaders\Pending\Final - Postprocessing\FrameManager.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialSetupEntry.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\CameraNormalTrigger.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Vacuum\Collider\VacuumConeCollider.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\States\JumpState.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
      <Compile Include="Assets\MyContent\Shaders\Pending\KinoGlitchDistance\GlitchDistanceManager.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\ShaderControl\BreathingScenarioMaterials.cs" />
      <Compile Include="Assets\shaders 103 asset\ReplacementManagerCamera.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Utilities\Sampler.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Level\LevelManager.cs" />
@@ -137,7 +141,6 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\MediumSizeObject.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Electric Puzzles &amp; Objects\ElectricTestObject.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\States\IdleState.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Fire Puzzles &amp; Objects\LaserTower.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Animation\SaveDisk\SaveDiskEnd.cs" />
@@ -155,6 +158,7 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\CutScenes\StumpCutScene.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\EndPanel.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Logger\Logger.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\ForwardChecker.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\CheckPoint.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Animation\Dilating Door\DilatingDoor.cs" />
@@ -169,6 +173,7 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\Inputs.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Platforms\Extras\Waypoint.cs" />
      <Compile Include="Assets\Glitch\Kino\Glitch\DigitalGlitch.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialSetup.cs" />
      <Compile Include="Assets\MyContent\Shaders\Pending\Shared\PostProcess.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Platforms\WayPointActivablePlatform.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
@@ -176,6 +181,7 @@
      <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
      <Compile Include="Assets\MyContent\Scripts\Rotation.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialSetupEntryData.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\DiskAbsorver.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\SlimLight.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Weight\ObjectToWeight.cs" />
@@ -186,6 +192,7 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Platforms\PlatformFirePropulsor.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\CutScenes\ElevatorCutScene.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\LargeSizeObject.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialCameraAnimation.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Vacuum\Skills\Attractor.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\ObjectKey.cs" />
@@ -197,7 +204,6 @@
      <Compile Include="Assets\CrystalGlass\Glass3\Glass3Setup.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Vacuum\SkillController.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\VFX\VacuumVFX.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Water Puzzles &amp; Objects\IWaterObject.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
      <Compile Include="Assets\shaders 103 asset\Scripts\SimpleBlur.cs" />
@@ -224,10 +230,10 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\CameraFixTrigger.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\EventManager.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Logger\LoggerSetup.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\IVacuumObject.cs" />
      <Compile Include="Assets\ShapesFX_Pack\Script\ShowCase.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Weight\Weight.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Constant.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\BoxZone.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Platforms\Fade\FadePlatform.cs" />
@@ -235,11 +241,11 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\HUDManager.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Audio\Audio.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Platforms\OscilatingMobilePlatform.cs" />
-     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IconUtility.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Fire Puzzles &amp; Objects\FireWall.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\StoneLight.cs" />
      <Compile Include="Assets\CrystalGlass\Glass1\Demo.cs" />
      <Compile Include="Assets\MyContent\Shaders\Poss Process\DeathTransition.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Audio\AudioLibrary.cs" />
      <Compile Include="Assets\CrystalGlass\Common\Script\FreeCamera.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\VFX\FPSDisplay.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Vacuum\Collider\IceConeCollider.cs" />
@@ -262,11 +268,6 @@
      <Compile Include="Assets\shaders 103 asset\Scripts\ReplacementShaderEffect.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\GunAim.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Audio\AudioManager.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Audio\AudioLibrary.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Logger\LoggerManager.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Logger\LoggerSetup.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Logger\Logger.cs" />
      <None Include="Assets\MyContent\Shaders\Surface\Toon\Eyes Unshadow.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\MyContent\Shaders\Surface\Toon\SoftToon.shader" />
@@ -278,6 +279,7 @@
      <None Include="Assets\CrystalGlass\Shader\Refraction\CGR Skybox.shader" />
      <None Include="Assets\MyContent\Shaders\Surface\Transparent\AlphaSymmetric.shader" />
      <None Include="Assets\MyContent\Shaders\Surface\Things\ArmsScreens.shader" />
+     <None Include="Assets\MyContent\Shaders\Surface\BreathingScenario 1.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\ShapesFX_Pack\Shader\Shapes_Shader_ST.shader" />
      <None Include="Assets\MyContent\Shaders\Surface\Toon\CelShalding Billboard.shader" />
@@ -319,18 +321,16 @@
      <None Include="Assets\CrystalGlass\Glass1\CrystalGlassSinglePassTransparency.shader" />
      <None Include="Assets\MyContent\Shaders\TerrainSciFi.shader" />
      <None Include="Assets\MyContent\Shaders\Pending\Pending\Panel.shader" />
-     <None Include="Assets\ProCore\ProGrids\About\pc_AboutEntry_ProGrids.txt" />
      <None Include="Assets\shaders 103 asset\Shaders\QuickBlur.shader" />
      <None Include="Assets\Glitch\Kino\Glitch\Shader\DigitalGlitch.shader" />
      <None Include="Assets\Glitch\Kino\Glitch\Shader\AnalogGlitch.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <None Include="Assets\MyContent\Shaders\Pending\Pending\Cable.shader" />
-     <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />
      <None Include="Assets\CrystalGlass\Shader\CrystalGlass.cginc" />
      <None Include="Assets\MyContent\Shaders\Surface\Lambert\Basic.shader" />
      <None Include="Assets\MyContent\Shaders\Surface\ParallaxMapping\ParallaxMappingIterations.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
-     <None Include="Assets\MyContent\Shaders\Surface\BreathingScenario.shader" />
+     <None Include="Assets\MyContent\Shaders\Surface\BreathingScenarioRoot.shader" />
      <None Include="Assets\MyContent\Shaders\Burn2.shader" />
      <None Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Documentation\ReadMe.txt" />
      <None Include="Assets\CrystalGlass\Shader\Blur.shader" />
@@ -340,7 +340,6 @@
      <None Include="Assets\MyContent\Shaders\Pending\Final - Postprocessing\Framecolor.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
      <None Include="Assets\MyContent\Shaders\Surface\Forest\Trees.shader" />
-     <None Include="Assets\ProCore\ProGrids\About\changelog.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
      <None Include="Assets\CrystalGlass\Shader\ScreenSpace\Transparent.shader" />
      <None Include="Assets\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
@@ -946,9 +945,6 @@
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
- <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
- </Reference>
  <Reference Include="Unity.ProBuilder.AddOns.Editor">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
  </Reference>
@@ -1032,6 +1028,12 @@
  </Reference>
  <Reference Include="UnityEngine.Advertisements.Editor">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Cinemachine">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
