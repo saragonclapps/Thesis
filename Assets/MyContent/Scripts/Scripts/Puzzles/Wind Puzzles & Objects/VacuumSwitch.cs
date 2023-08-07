@@ -39,6 +39,8 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
             else
             {
                 currentAmountOfAir = maxAmountOfAir;
+                var soundVolume = maxAmountOfAir / currentAmountOfAir;
+                _audioSource.volume = soundVolume;
                 if(callbacks != null)
                 {
                     callbacks();
@@ -117,10 +119,12 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
 
     public float maxAmountOfAir;
     public float currentAmountOfAir;
+    AudioSource _audioSource;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _audioSource = GetComponent<AudioSource>();
         currentAmountOfAir = 0;
         isActive = true;
         _isAbsorvable = false;

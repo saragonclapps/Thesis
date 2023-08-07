@@ -63,6 +63,7 @@ public class TutorialManager : MonoBehaviour {
     
     private void OnAnimationTutorial(string tutorialKey, TutorialSetupEntryData data) {
         var tutorialAnimation = data.animationTarget;
+        
         tutorialAnimation.GetComponent<TutorialCameraAnimation>().StartAnimation(data);
     }
     

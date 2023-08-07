@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TPCamera;
 using Skills;
+using Random = UnityEngine.Random;
 
 namespace Player
 {

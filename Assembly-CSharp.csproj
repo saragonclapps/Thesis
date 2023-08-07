@@ -114,6 +114,7 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Platforms\PlatformFire.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Platforms\Fade\FadeAwayPlatform.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialCameraAnimation.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Level\LoadingScreen.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Objects\Crane\CraneCollder.cs" />
@@ -244,7 +245,6 @@
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\StoneLight.cs" />
      <Compile Include="Assets\CrystalGlass\Glass1\Demo.cs" />
      <Compile Include="Assets\MyContent\Shaders\Poss Process\DeathTransition.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Audio\AudioLibrary.cs" />
      <Compile Include="Assets\CrystalGlass\Common\Script\FreeCamera.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\VFX\FPSDisplay.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Vacuum\Collider\IceConeCollider.cs" />
@@ -267,7 +267,7 @@
      <Compile Include="Assets\shaders 103 asset\Scripts\ReplacementShaderEffect.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\GunAim.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialCameraAnimation.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\AudioPlayer.cs" />
      <None Include="Assets\MyContent\Shaders\Surface\Toon\Eyes Unshadow.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\MyContent\Shaders\Surface\Toon\SoftToon.shader" />
