@@ -1,46 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SaveDisk : MonoBehaviour {
-
     public Vector3 rotation;
     public ParticleSystem aura;
-    Material mat;
-    public bool isDisolving;
-    float disolveLerp = 0;
+    private Material _material;
+    public bool isDissolving;
+    private float _dissolveLerp;
 
 
-	void Start () {
+    private void Start() {
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
-        mat = GetComponent<MeshRenderer>().material;
-	}
-	
-	void Execute () {
-        transform.Rotate(rotation* Time.deltaTime);
-        if (isDisolving)
-        {
-            disolveLerp += Time.deltaTime;
-            mat.SetFloat("_Cutoff", disolveLerp);
-            if(disolveLerp >= 1)
-            {
-                Destroy(gameObject);
-                aura.Stop();
-                HUDManager.instance.saveDisk.enabled = true;
-            }
-        }
-	}
+        _material = GetComponent<MeshRenderer>().material;
+    }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.layer == 9)
-        {
-            isDisolving = true;
+    private void Execute() {
+        transform.Rotate(rotation * Time.deltaTime);
+        if (!isDissolving) return;
+        _dissolveLerp += Time.deltaTime;
+        _material.SetFloat("_Cutoff", _dissolveLerp);
+        if (!(_dissolveLerp >= 1)) return;
+        EventManager.DispatchEvent(GameEvent.SAVE_DISK_COLLECTED);
+        AudioManager.instance.PlayAudio("GetKey");
+        Destroy(gameObject);
+        aura.Stop();
+        HUDManager.instance.saveDisk.enabled = true;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.layer == 9) {
+            isDissolving = true;
         }
     }
 
-    private void OnDestroy()
-    {
+    private void OnDestroy() {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
 }

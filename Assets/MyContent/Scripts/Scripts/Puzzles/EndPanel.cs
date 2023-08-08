@@ -20,7 +20,7 @@ public class EndPanel : MonoBehaviour {
 
     void Start()
     {
-        EventManager.AddEventListener(GameEvent.SAVEDISK_ENTER, SaveDiskEnter);
+        EventManager.AddEventListener(GameEvent.SAVE_DISK_ENTER, SaveDiskEnter);
         saveDisk.SetActive(false);
     }
 
@@ -47,7 +47,7 @@ public class EndPanel : MonoBehaviour {
     {
         panelAnimator.SetTrigger("Win");
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
-        EventManager.RemoveEventListener(GameEvent.SAVEDISK_ENTER, SaveDiskEnter);
+        EventManager.RemoveEventListener(GameEvent.SAVE_DISK_ENTER, SaveDiskEnter);
     }
 
     private void OnTriggerExit(Collider other)
@@ -84,7 +84,7 @@ public class EndPanel : MonoBehaviour {
     private void OnDestroy()
     {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
-        EventManager.RemoveEventListener(GameEvent.SAVEDISK_ENTER, SaveDiskEnter);
+        EventManager.RemoveEventListener(GameEvent.SAVE_DISK_ENTER, SaveDiskEnter);
     }
 
 }

@@ -39,9 +39,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120790978825855589}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 9
   m_Type: 2
-  m_Shape: 0
   m_Color: {r: 0.99999994, g: 0.57068056, b: 0, a: 1}
   m_Intensity: 1
   m_Range: 5
@@ -50,7 +49,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: 1
+    m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.02
@@ -77,12 +76,12 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -90,7 +89,6 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &5100182598939266691
@@ -157,16 +155,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8160932259207960135, guid: d6469a10851528d4ba3ed8181bbe06f8,
         type: 3}
-      propertyPath: m_DirtyAABB
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8160932259207960135, guid: d6469a10851528d4ba3ed8181bbe06f8,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8160932259207960135, guid: d6469a10851528d4ba3ed8181bbe06f8,
-        type: 3}
       propertyPath: m_AABB.m_Center.y
       value: -0.35322115
       objectReference: {fileID: 0}
@@ -187,14 +175,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8160932259207960135, guid: d6469a10851528d4ba3ed8181bbe06f8,
         type: 3}
+      propertyPath: m_DirtyAABB
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8160932259207960135, guid: d6469a10851528d4ba3ed8181bbe06f8,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8160932259207960135, guid: d6469a10851528d4ba3ed8181bbe06f8,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7c58b639905ac054083adce9eb08ebc1, type: 2}
-    - target: {fileID: -4216859302048453862, guid: d6469a10851528d4ba3ed8181bbe06f8,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: d6469a10851528d4ba3ed8181bbe06f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -212,11 +205,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: d6469a10851528d4ba3ed8181bbe06f8,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: d6469a10851528d4ba3ed8181bbe06f8,
-        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -229,6 +217,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: d6469a10851528d4ba3ed8181bbe06f8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: d6469a10851528d4ba3ed8181bbe06f8,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: d6469a10851528d4ba3ed8181bbe06f8,
         type: 3}

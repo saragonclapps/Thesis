@@ -11,6 +11,7 @@ public class TutorialManager : MonoBehaviour {
     public UITransparentTransition container;
     public Image buttonHowToPlay;
     public TextMeshProUGUI tutorialTextField;
+    public TutorialCameraAnimation cameraAnimation;
 
     private Dictionary<TutorialSetupEntryDataType, Action<string, TutorialSetupEntryData>> _tutoriasPlay =
         new Dictionary<TutorialSetupEntryDataType, Action<string, TutorialSetupEntryData>>();
@@ -62,9 +63,7 @@ public class TutorialManager : MonoBehaviour {
     }
     
     private void OnAnimationTutorial(string tutorialKey, TutorialSetupEntryData data) {
-        var tutorialAnimation = data.animationTarget;
-        
-        tutorialAnimation.GetComponent<TutorialCameraAnimation>().StartAnimation(data);
+        cameraAnimation.StartAnimation(data);
     }
     
     private void ExitAnimationTutorial(string tutorialKey, TutorialSetupEntryData data) {

@@ -37,7 +37,8 @@ public class TutorialCameraAnimation : MonoBehaviour {
         foreach (var cg in toHide) {
             cg.alpha = 1f;
         }
-        _currentData.animationTarget.GetComponent<Camera>().enabled = false;
+        
+        _camera.enabled = false;
         EventManager.DispatchEvent(GameEvent.TUTORIAL_ANIMATION, false);
     }
 }

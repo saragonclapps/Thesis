@@ -17,6 +17,5 @@ public class TutorialSetupEntryData {
     public string soundKey;
     // Camera Animation
     public AnimationClip animation;
-    public Transform animationTarget;
     public bool blockMovement;
 }

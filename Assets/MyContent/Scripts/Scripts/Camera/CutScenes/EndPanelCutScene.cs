@@ -14,13 +14,13 @@ public class EndPanelCutScene : MonoBehaviour, CutScene
     {
         _cam = GetComponent<Camera>();
         _cam.enabled = false;
-        EventManager.AddEventListener(GameEvent.SAVEDISK_ENTER, SaveDiskEnter);
+        EventManager.AddEventListener(GameEvent.SAVE_DISK_ENTER, SaveDiskEnter);
     }
 
     private void SaveDiskEnter(object[] parameterContainer)
     {
         cameraPositionCount++;
-        EventManager.RemoveEventListener(GameEvent.SAVEDISK_ENTER, SaveDiskEnter);
+        EventManager.RemoveEventListener(GameEvent.SAVE_DISK_ENTER, SaveDiskEnter);
     }
 
     public void Enter()
@@ -36,7 +36,7 @@ public class EndPanelCutScene : MonoBehaviour, CutScene
         transform.rotation = Quaternion.Lerp(transform.rotation, cameraPositions[cameraPositionCount].rotation, Time.deltaTime);
         if (Vector3.Distance(transform.position, cameraPositions[cameraPositionCount].position) < 0.5f)
         {
-            EventManager.DispatchEvent(GameEvent.SAVEDISK_END);
+            EventManager.DispatchEvent(GameEvent.SAVE_DISK_END);
         }
     }
 
@@ -47,6 +47,6 @@ public class EndPanelCutScene : MonoBehaviour, CutScene
 
     void OnDestroy()
     {
-        EventManager.RemoveEventListener(GameEvent.SAVEDISK_ENTER, SaveDiskEnter);
+        EventManager.RemoveEventListener(GameEvent.SAVE_DISK_ENTER, SaveDiskEnter);
     }
 }
