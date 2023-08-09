@@ -3,16 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Material))]
+[RequireComponent(typeof(AudioObjectEmitter))]
 [RequireComponent(typeof(Rigidbody))]
-public class MediumSizeObject : MonoBehaviour, IVacuumObject
-{
+public class MediumSizeObject : MonoBehaviour, IVacuumObject {
+    [HideInInspector] public bool wasShooted;
 
-    [HideInInspector]
-    public bool wasShooted;
-
-    [HideInInspector]
-    public Material material;//Edit for shoot vfx.
+    public MeshRenderer refRenderer;
     private Collider _bC;
 
     private float _alphaCut;
@@ -32,26 +28,38 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
     protected bool _isBeeingAbsorved;
     protected Rigidbody _rb;
 
-    public bool isAbsorved { get => _isAbsorved;set => _isAbsorved = value; }
+    public bool isAbsorved {
+        get => _isAbsorved;
+        set => _isAbsorved = value;
+    }
+
     public bool isAbsorvable => _isAbsorvable;
-    public bool isBeeingAbsorved { get => _isBeeingAbsorved; set => _isBeeingAbsorved = value; }
-    public Rigidbody rb { get => _rb; set => _rb = value; }
+
+    public bool isBeeingAbsorved {
+        get => _isBeeingAbsorved;
+        set => _isBeeingAbsorved = value;
+    }
+
+    public Rigidbody rb {
+        get => _rb;
+        set => _rb = value;
+    }
+
+    private AudioObjectEmitter _audioObjectEmitter;
 
     public bool respawnable;
 
-    protected void Start()
-    {
+    protected void Start() {
         _initialPosition = transform.position;
         _isAbsorvable = false;
         _rb = GetComponent<Rigidbody>();
-        material = GetComponent<Renderer>().material;
+        _audioObjectEmitter = GetComponent<AudioObjectEmitter>();
+        // material = GetComponent<Renderer>().material;
         _bC = GetComponent<Collider>();
         SpawnVFXActivate(true);
-
     }
 
-    private void Execute()
-    {
+    private void Execute() {
         var d = Mathf.Abs((transform.position - _initialPosition).magnitude);
         if (!(d > respawnDistance)) return;
         wasShooted = false;
@@ -59,17 +67,14 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         SpawnVFXActivate(false);
     }
 
-    public void SpawnVFXActivate(bool dir)
-    {
-        if (dir)
-        {
+    public void SpawnVFXActivate(bool dir) {
+        if (dir) {
             _alphaCut = 1;
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, SpawnVFX);
             if (respawnable)
                 UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
         }
-        else
-        {
+        else {
             _alphaCut = 0;
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, DespawnVFX);
             if (respawnable)
@@ -77,11 +82,9 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         }
     }
 
-    private void SpawnVFX()
-    {
-        if(_respawnTick >= respawnTime)
-        {
-            material.SetFloat("_DisolveAmount", _alphaCut);
+    private void SpawnVFX() {
+        if (_respawnTick >= respawnTime) {
+            // material.SetFloat("_DisolveAmount", _alphaCut);
             _alphaCut -= Time.deltaTime;
             _rb.useGravity = true;
             _bC.isTrigger = false;
@@ -90,15 +93,12 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
             wasShooted = false;
             _respawnTick = 0;
         }
-        else
-        {
+        else {
             _respawnTick += Time.deltaTime;
         }
-        
     }
 
-    void DespawnVFX()
-    {
+    void DespawnVFX() {
         // material.SetFloat("_DisolveAmount", _alphaCut);
         _alphaCut += Time.deltaTime;
         if (!(_alphaCut >= 1)) return;
@@ -106,8 +106,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         RepositionOnSpawn();
     }
 
-    public void RepositionOnSpawn()
-    {
+    public void RepositionOnSpawn() {
         transform.position = _initialPosition;
         transform.rotation = Quaternion.identity;
         rb.velocity = Vector3.zero;
@@ -118,45 +117,39 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
 
         //for box temperature
         var bt = GetComponent<BoxTemperature>();
-        if (bt)
-        {
+        if (bt) {
             bt.ResetBox();
         }
     }
 
-    public void SuckIn(Transform origin, float attractForce)
-    {
+    public void SuckIn(Transform origin, float attractForce) {
         if (wasShooted) return;
         var direction = origin.position - transform.position;
         var distance = direction.magnitude;
 
-        if (distance <= 0.7f)
-        {
+        if (distance <= 0.7f) {
             _bC.isTrigger = true;
             rb.isKinematic = true;
             transform.position = origin.position;
             isAbsorved = true;
+            
+            //TODO: Pending change implementation from set parent to set position
             transform.SetParent(origin);
-
         }
-        else if (distance < 1f)
-        {
+        else if (distance < 1f) {
             rb.isKinematic = true;
             var dir = (origin.position - transform.position).normalized;
             transform.position += dir * attractForce / 10 * Time.deltaTime;
         }
-        else
-        {
+        else {
             rb.isKinematic = false;
             var forceMagnitude = (10) * attractForce / Mathf.Pow(distance, 2);
             var force = direction.normalized * forceMagnitude;
             rb.AddForce(force);
-
         }
     }
 
-    public void BlowUp(Transform origin, float atractForce, Vector3 direction)
-    {
+    public void BlowUp(Transform origin, float atractForce, Vector3 direction) {
         if (wasShooted) return;
         rb.isKinematic = false;
         isAbsorved = false;
@@ -169,13 +162,10 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         rb.AddForce(force);
     }
 
-    public void ReachedVacuum()
-    {
-
+    public void ReachedVacuum() {
     }
 
-    public void Shoot(float shootForce, Vector3 direction)
-    {
+    public void Shoot(float shootForce, Vector3 direction) {
         _bC.isTrigger = false;
         wasShooted = true;
         isAbsorved = false;
@@ -185,13 +175,11 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         _disolveTick = 0;
     }
 
-    public void ViewFX(bool activate)
-    {
-        material.SetFloat("_Alpha", activate ? 0.3f : 1f);
+    public void ViewFX(bool activate) {
+        // material.SetFloat("_Alpha", activate ? 0.3f : 1f);
     }
 
-    public void Exit()
-    {
+    public void Exit() {
         _bC.isTrigger = false;
         ViewFX(false);
         transform.SetParent(null);
@@ -199,35 +187,31 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject
         isAbsorved = false;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
+    private void OnCollisionEnter(Collision collision) {
+        Vector3 relativeVelocity = collision.relativeVelocity;
+        float collisionForce = relativeVelocity.magnitude;
+        if (collisionForce > 5f) {
+            Debug.Log(collisionForce);
+            _audioObjectEmitter.PlaySoundHit(0.3f);
+        }
         //TODO: Find a better way to exclude "Player" collision
-        if(collision.gameObject.name != "Player")
-        {
+        if (collision.gameObject.name != "Player") {
             wasShooted = false;
         }
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-
-    }
-
-    private void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmosSelected() {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, respawnDistance);
     }
 
-    protected void OnDestroy()
-    {
+    protected void OnDestroy() {
         if (respawnable)
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(255,255,255,0.5f);
+    private void OnDrawGizmos() {
+        Gizmos.color = new Color(255, 255, 255, 0.5f);
         Gizmos.DrawSphere(transform.position, 0.3f);
     }
 }

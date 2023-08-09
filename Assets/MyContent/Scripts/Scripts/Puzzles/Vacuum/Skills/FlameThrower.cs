@@ -4,7 +4,7 @@ namespace Skills {
     public class FlameThrower : ISkill {
         private IHandEffect _flameVFX;
         private List<IFlamableObjects> _flamableObjectsToInteract;
-        private AudioPlayer _audioPlayer;
+        private AudioPlayerEmitter _audioPlayer;
 
         public FlameThrower SetFlameVFX(IHandEffect flameVFX) {
             _flameVFX = flameVFX;
@@ -18,7 +18,7 @@ namespace Skills {
             return this;
         }
         
-        public FlameThrower SetAudioPlayer(AudioPlayer audioPlayer) {
+        public FlameThrower SetAudioPlayer(AudioPlayerEmitter audioPlayer) {
             _audioPlayer = audioPlayer;
             return this;
         }

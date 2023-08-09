@@ -8,23 +8,20 @@ public class ObjectToWeight : MonoBehaviour {
     public Weight weight;
 
     private readonly float _timmer = 2;
-    [SerializeField]
+    [SerializeField] 
     private float _tick;
 
-    private void Start ()
-    {
+    private void Start() {
         _rb = GetComponent<Rigidbody>();
         mass = _rb.mass;
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
     }
 
-    private void Execute()
-    {
+    private void Execute() {
         if (weight == null) return;
-        _tick += Time.deltaTime;
-        if(_tick>_timmer)
-        {
-            // weight.AddToWeight(this);
-        }
+    }
+    
+    private void OnDestroy() {
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
 }

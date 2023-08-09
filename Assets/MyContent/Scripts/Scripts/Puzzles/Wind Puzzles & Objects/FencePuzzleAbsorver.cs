@@ -17,7 +17,7 @@ public class FencePuzzleAbsorver : MediumSizeObject, IVacuumObject
 
     private void Execute()
     {
-        _collider.material.dynamicFriction = _isBeeingAbsorved ? 0.0f : 0.6f;
+        // _collider.material.dynamicFriction = _isBeeingAbsorved ? 0.0f : 0.6f;
     }
 
     public new void BlowUp(Transform origin, float atractForce, Vector3 direction)

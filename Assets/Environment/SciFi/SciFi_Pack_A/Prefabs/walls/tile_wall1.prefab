@@ -43,7 +43,8 @@ GameObject:
   - component: {fileID: 4942875357872172}
   - component: {fileID: 33409671858100360}
   - component: {fileID: 23439837998017092}
-  m_Layer: 0
+  - component: {fileID: 2690278702878686781}
+  m_Layer: 8
   m_Name: tile_wall1_Glass_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,6 +114,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2690278702878686781
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616766004041190}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4350457, y: 1.2625239, z: 0.004333824}
+  m_Center: {x: -0.99257386, y: 0.96174324, z: -0.48096305}
 --- !u!1 &1834844284010630
 GameObject:
   m_ObjectHideFlags: 0

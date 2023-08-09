@@ -74,7 +74,7 @@ public class Weight : MonoBehaviour
         _objectKeyInitialPosition = objectToWeight.transform.position;
         _objectKey = objectToWeight;
         IsActiveWeight = true;
-        var objectToWeightRenderer =objectToWeight.GetComponent<Renderer>();
+        var objectToWeightRenderer =objectToWeight.GetComponent<MediumSizeObject>().refRenderer;
         objectToWeightRenderer.material.SetFloat("_NormalPush", 4f);
         var rotation = objectToWeight.GetComponent<Rotation>();
         rotation.enabled = true;
@@ -91,7 +91,7 @@ public class Weight : MonoBehaviour
     public void RemoveFromWeight(ObjectToWeight objectToWeight) {
         _objectKey = null;
         IsActiveWeight = false;
-        var objectToWeightRenderer =objectToWeight.GetComponent<Renderer>();
+        var objectToWeightRenderer = objectToWeight.GetComponent<MediumSizeObject>().refRenderer;
         objectToWeightRenderer.material.SetFloat("_NormalPush", -0.5f);
         var rotation = objectToWeight.GetComponent<Rotation>();
         rotation.enabled = false;

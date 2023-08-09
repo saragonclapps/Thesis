@@ -6,9 +6,9 @@ using UnityEngine;
 public class AnimatorEventsBehaviour : MonoBehaviour {
     private Animator _anim;
     public bool landEnd;
-    [SerializeField] private AudioPlayer audioPlayer;
+    [SerializeField] private AudioPlayerEmitter audioPlayer;
 
-    void Start() {
+    private void Start() {
         landEnd = true;
         _anim = GetComponent<Animator>();
     }

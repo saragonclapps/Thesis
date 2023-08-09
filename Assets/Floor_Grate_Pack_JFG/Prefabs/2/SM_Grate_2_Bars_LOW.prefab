@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4856821293308359062}
   - component: {fileID: 7242371432659961180}
   - component: {fileID: 1515111289755873008}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM_Grate_2_Bars_LOW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,6 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -81,6 +82,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &1515111289755873008
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -92,6 +94,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5540672282380142056, guid: 2688aaca40fd1334f8444677678b0945, type: 3}

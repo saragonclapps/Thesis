@@ -16,13 +16,6 @@ public class TutorialCameraAnimation : MonoBehaviour {
         _camera.enabled = false;
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.O)) {
-            Debug.Log("Space pressed");
-            StopAnimation();
-        }
-    }
-
     public void StartAnimation(TutorialSetupEntryData data) {
         _currentData = data;
         foreach (var cg in toHide) {

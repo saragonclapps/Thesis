@@ -116,7 +116,7 @@ namespace Skills {
         #region SoundVariables
 
         [Header("Sound References")] 
-        public AudioPlayer audioPlayer;
+        public AudioPlayerEmitter audioPlayer;
 
         #endregion SoundVariables
 

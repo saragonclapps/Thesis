@@ -18,7 +18,7 @@ public class Attractor : ISkill {
     public bool isStuck => _isStuck;
 
     private PathCalculate _pathCalculate;
-    private AudioPlayer _audioPlayer;
+    private AudioPlayerEmitter _audioPlayer;
     private bool _inputBefore;
 
     public Attractor SetAttractForce(float attractForce) {
@@ -53,7 +53,7 @@ public class Attractor : ISkill {
         return this;
     }
 
-    public Attractor SetAudioPlayer(AudioPlayer audioPlayer) {
+    public Attractor SetAudioPlayer(AudioPlayerEmitter audioPlayer) {
         _audioPlayer = audioPlayer;
         return this;
     }
