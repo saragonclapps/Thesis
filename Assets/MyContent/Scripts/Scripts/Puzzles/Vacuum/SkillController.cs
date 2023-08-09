@@ -4,15 +4,14 @@ using UnityEngine;
 using System;
 using Player;
 
-namespace Skills
-{
-    public class SkillController : MonoBehaviour
-    {
-
+namespace Skills {
+    public class SkillController : MonoBehaviour {
         #region Strategy
+
         ISkill actualAction;
         Dictionary<Skills, ISkill> _skills;
-        [Header("Set this for initial skill")]
+        
+        [Header("Set this for initial skill")] 
         public Skills skillAction;
 
         // BulletShoot _bulletShoot;
@@ -22,15 +21,18 @@ namespace Skills
         Electricity _electricity;
         Freezer _freezer;
 
-        public Attractor attractor { get { return _attractor; } }
+        public Attractor attractor {
+            get { return _attractor; }
+        }
 
         #endregion
 
         #region Atractor Variables
+
         //Atractor Variables
         public List<IVacuumObject> objectsToInteract;
 
-        [Header("Attractor Variables")]
+        [Header("Attractor Variables")] 
         public float atractForce;
         public float shootSpeed;
         public Vector3 aspireOffset;
@@ -42,31 +44,41 @@ namespace Skills
         #endregion
 
         #region FireVariables
+
         IHandEffect fireVFX;
         public List<IFlamableObjects> flamableObjectsToInteract;
+
         #endregion
 
         #region IceVariables
+
         IHandEffect iceVFX;
         public List<IFrozenObject> frozenObjectsToInteract;
+
         #endregion
 
         #region WaterVariables
+
         IHandEffect waterVFX;
         public List<IWaterObject> wetObjectsToInteract;
+
         #endregion
 
         #region ElectricityVariables
+
         IHandEffect electricityVFX;
-        [HideInInspector]
-        public List<Transform> electricObjectsToInteract;
+        [HideInInspector] public List<Transform> electricObjectsToInteract;
+
         #endregion
 
         #region HudVariables
+
         //Dictionary<Skills, typeSkill> hudSkill;
+
         #endregion
 
         #region HandVFXRegion
+
         public Mesh attractorMesh;
         public Mesh electricMesh;
         public Mesh waterMesh;
@@ -84,10 +96,12 @@ namespace Skills
 
         Dictionary<Skills, Mesh> _meshDic;
         Dictionary<Skills, GameObject> _gODic;
+
         #endregion
 
-        #region  Visual Effect
-        [Header("VFX References")]
+        #region Visual Effect
+
+        [Header("VFX References")] 
         public ParticleSystem aspireParticle;
         public ParticleSystem blowParticle;
         public ParticleSystem fireParticle;
@@ -96,14 +110,21 @@ namespace Skills
 
         public Transform vacuumHoleTransform;
         public Transform particleParent;
+
         #endregion
+
+        #region SoundVariables
+
+        [Header("Sound References")] 
+        public AudioPlayer audioPlayer;
+
+        #endregion SoundVariables
 
         public Skills currentSkill;
         PlayerController _pC;
         LandChecker _lC;
 
-        void Awake()
-        {
+        void Awake() {
             //-0.032 , 0.998
             //hudSkill = new Dictionary<Skills, typeSkill>();
             //hudSkill.Add(Skills.VACCUM, typeSkill.BlowAndAspire);
@@ -131,8 +152,20 @@ namespace Skills
             aux.Initialize(electricObjectsToInteract);
 
             //Strategy Initializing
-            _attractor = new Attractor(atractForce, shootSpeed, vacuumHoleTransform, aspireVFX, blowVFX, objectsToInteract);
-            _flameThrower= new FlameThrower(fireVFX, flamableObjectsToInteract);
+            _attractor = new Attractor()
+                .SetAttractForce(atractForce)
+                .SetShootSpeed(shootSpeed)
+                .SetVacuumHole(vacuumHoleTransform)
+                .SetAspireParticle(aspireVFX)
+                .SetBlowParticle(blowVFX)
+                .SetObjectsToInteract(objectsToInteract)
+                .SetAudioPlayer(audioPlayer);
+            
+            _flameThrower = new FlameThrower()
+                .SetFlameVFX(fireVFX)
+                .SetFlamableObjectsToInteract(flamableObjectsToInteract)
+                .SetAudioPlayer(audioPlayer);
+            
             _waterLauncher = new WaterLauncher(waterVFX, wetObjectsToInteract);
             _electricity = new Electricity(electricityVFX, electricObjectsToInteract);
             _freezer = new Freezer(iceVFX, frozenObjectsToInteract);
@@ -163,18 +196,14 @@ namespace Skills
             SkillSet();
         }
 
-        void Start()
-        {
+        void Start() {
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
             EventManager.DispatchEvent(GameEvent.ON_SKILL_CHANGE, currentSkill);
         }
 
-        void Execute()
-        {
-            if (GameInput.instance.skillUp)
-            {
-                if (skillAction + 1 != Skills.LAST)
-                {
+        void Execute() {
+            if (GameInput.instance.skillUp) {
+                if (skillAction + 1 != Skills.LAST) {
                     skillAction++;
                     RecuCheckAmount(skillAction, true);
                     if (skillAction == Skills.LAST) skillAction = Skills.VACCUM;
@@ -182,86 +211,67 @@ namespace Skills
                 else skillAction = Skills.VACCUM;
 
                 SkillSet();
-
             }
-            else if (GameInput.instance.skillDown)
-            {
-                if (skillAction > 0)
-                {
+            else if (GameInput.instance.skillDown) {
+                if (skillAction > 0) {
                     skillAction--;
                     RecuCheckAmount(skillAction, false);
                 }
-                else
-                {
+                else {
                     skillAction = Skills.LAST;
                     skillAction--;
                     RecuCheckAmount(skillAction, false);
                 }
 
                 SkillSet();
-
             }
 
-            if (!(GameInput.instance.crouchButton || GameInput.instance.sprintButton) && !_pC.isSkillLocked && _lC.land)
-            {
+            if (!(GameInput.instance.crouchButton || GameInput.instance.sprintButton) && !_pC.isSkillLocked &&
+                _lC.land) {
                 actualAction.Execute();
             }
-            else
-            {
+            else {
                 actualAction.Exit();
             }
         }
 
-        private void SkillSet()
-        {
+        private void SkillSet() {
             _gODic[currentSkill].SetActive(false);
             _gODic[skillAction].SetActive(true);
             currentSkill = skillAction;
             actualAction.Exit();
             actualAction = _skills[skillAction];
             actualAction.Enter();
-            
+
             EventManager.DispatchEvent(GameEvent.ON_SKILL_CHANGE, currentSkill);
             //ChangeHandMesh();
-
         }
 
-        private void ChangeHandMesh()
-        {
+        private void ChangeHandMesh() {
             hand.sharedMesh = _meshDic[skillAction];
-            if(skillAction == Skills.VACCUM)
-            {
-                for (int i = 0; i < lefthandFingers.Length; i++)
-                {
+            if (skillAction == Skills.VACCUM) {
+                for (int i = 0; i < lefthandFingers.Length; i++) {
                     lefthandFingers[i].SetActive(true);
                 }
             }
-            else
-            {
-                for (int i = 0; i < lefthandFingers.Length; i++)
-                {
+            else {
+                for (int i = 0; i < lefthandFingers.Length; i++) {
                     lefthandFingers[i].SetActive(false);
                 }
             }
         }
 
-        void RecuCheckAmount(Skills skill, bool sign)
-        {
-            if (skill != Skills.VACCUM && skill != Skills.LAST)
-            {
-                if (SkillManager.instance.CheckSkillAmount(skill))
-                {
+        void RecuCheckAmount(Skills skill, bool sign) {
+            if (skill != Skills.VACCUM && skill != Skills.LAST) {
+                if (SkillManager.instance.CheckSkillAmount(skill)) {
                     skillAction = skill;
                 }
-                else
-                {
-                    if (sign)
-                    {
+                else {
+                    if (sign) {
                         skillAction++;
                         RecuCheckAmount(skillAction, true);
                     }
-                    else
-                    {
+                    else {
                         skillAction--;
                         RecuCheckAmount(skillAction, false);
                     }
@@ -269,20 +279,17 @@ namespace Skills
             }
         }
 
-        public void NoMoreSkillAmount()
-        {
+        public void NoMoreSkillAmount() {
             skillAction = Skills.VACCUM;
             SkillSet();
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() {
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
         }
     }
 
-    public enum Skills
-    {
+    public enum Skills {
         VACCUM,
         FIRE,
         WATER,
@@ -291,4 +298,3 @@ namespace Skills
         LAST
     }
 }
-

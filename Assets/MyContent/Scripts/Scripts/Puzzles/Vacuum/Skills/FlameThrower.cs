@@ -1,51 +1,52 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-namespace Skills
-{
-    public class FlameThrower : ISkill
-    {
+namespace Skills {
+    public class FlameThrower : ISkill {
+        private IHandEffect _flameVFX;
+        private List<IFlamableObjects> _flamableObjectsToInteract;
+        private AudioPlayer _audioPlayer;
 
-        IHandEffect _flameVFX;
-        List<IFlamableObjects> _flamableObjectsToInteract;
-
-        public FlameThrower(IHandEffect flameVFX, List<IFlamableObjects> flamableObjectsToInteract)
-        {
+        public FlameThrower SetFlameVFX(IHandEffect flameVFX) {
             _flameVFX = flameVFX;
-            _flamableObjectsToInteract = flamableObjectsToInteract;
-
             _flameVFX.StopEffect();
             _flameVFX.TerminateEffect();
-    }
-
-        public void Enter()
-        {
-            //_flameVFX.StartEffect();
+            return this;
+        }
+        
+        public FlameThrower SetFlamableObjectsToInteract(List<IFlamableObjects> flamableObjectsToInteract) {
+            _flamableObjectsToInteract = flamableObjectsToInteract;
+            return this;
+        }
+        
+        public FlameThrower SetAudioPlayer(AudioPlayer audioPlayer) {
+            _audioPlayer = audioPlayer;
+            return this;
         }
 
-        public void Execute()
-        {
-            if (GameInput.instance.blowUpButton)
-            {
+
+        public void Enter() {
+            //_flameVFX.StartEffect();
+            _audioPlayer.PlayFireAudio();
+        }
+
+        public void Execute() {
+            if (GameInput.instance.blowUpButton) {
                 _flameVFX.StartEffect();
-                foreach (var fo in _flamableObjectsToInteract)
-                {
+                foreach (var fo in _flamableObjectsToInteract) {
                     fo.SetOnFire();
                 }
+
                 SkillManager.instance.RemoveAmountToSkill(0.2f, Skills.FIRE);
             }
-            else
-            {
+            else {
                 _flameVFX.StopEffect();
             }
         }
 
-        public void Exit()
-        {
+        public void Exit() {
             _flameVFX.StopEffect();
             _flameVFX.TerminateEffect();
+            _audioPlayer.StopPowerAudio();
         }
     }
-
 }

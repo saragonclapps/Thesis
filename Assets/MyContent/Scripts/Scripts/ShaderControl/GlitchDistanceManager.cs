@@ -19,7 +19,7 @@ public class GlitchDistanceManager : MonoBehaviour {
         UpdatesManager.instance.AddUpdate(UpdateType.LATE, Execute);
         EventManager.AddEventListener(GameEvent.SAVE_DISK_COLLECTED, OnSaveDiskCollected);
         _digitalGlitch.intensity = 0;
-        AudioManager.instance.PlayAudio("Glitch", AudioMode.Loop);
+        AudioManager.instance.PlayAudio("Glitch", AudioMode.Loop, AudioGroup.SFX_AMBIENT);
         AudioManager.instance.SetVolume("Glitch", 0);
     }
 

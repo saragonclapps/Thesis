@@ -78,6 +78,7 @@
      <Compile Include="Assets\Dreamteck\Splines\Core\SplineSample.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Components\ObjectController.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Components\WaveformGenerator.cs" />
+     <Compile Include="Assets\Dreamteck\Splines\Components\ObjectController CustomRules\Classes\ObjectControllerSineRule.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Components\SurfaceGenerator.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Core\Primitives\RoundedRectangle.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Components\ParticleController.cs" />
@@ -89,15 +90,19 @@
      <Compile Include="Assets\Dreamteck\Splines\Components\SplineMorph.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Core\Primitives\Rectangle.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Core\SampleCollection.cs" />
+     <Compile Include="Assets\Dreamteck\Splines\Components\ObjectController CustomRules\Classes\ObjectControllerCustomRuleBase.cs" />
+     <Compile Include="Assets\Dreamteck\Splines\Core\SplineUtility.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Components\PolygonColliderGenerator.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Components\MeshGenerator.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Components\Sample Modifiers\ColorModifier.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Core\SplinePoint.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Core\SplinePrefs.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Components\Sample Modifiers\SplineSampleModifier.cs" />
+     <Compile Include="Assets\Dreamteck\Splines\Components\SplineMeshChannel.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Core\Primitives\SplinePrimitive.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Core\IO\SplineParser.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Components\BlankUser.cs" />
+     <Compile Include="Assets\Dreamteck\Splines\Components\ObjectController CustomRules\Classes\ObjectControllerSpiralRule.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Components\SplineFollower.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Core\TransformModule.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Core\IO\SVG.cs" />

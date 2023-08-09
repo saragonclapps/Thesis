@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: Data
   m_EditorClassIdentifier: 
   keys:
-  - UITransparentTransition
-  - TutorialManager
-  - UITransparentTransition
-  - TutorialManager
   - AudioManager
-  - UITransparentTransition
   - TutorialManager
-  values: 0000000001000000
+  - UITransparentTransition
+  - AudioPlayer
+  - MixerGroup
+  values: 0000000001

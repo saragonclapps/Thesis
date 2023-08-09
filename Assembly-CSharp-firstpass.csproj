@@ -810,10 +810,6 @@
       <Project>{56441557-66cc-709a-07b9-0bc8383fc5de}</Project>
       <Name>AmplifyShaderEditor</Name>
     </ProjectReference>
-    <ProjectReference Include="NewAssembly.csproj">
-      <Project>{e8ede88b-0a26-0fca-d10b-c8288fc75489}</Project>
-      <Name>NewAssembly</Name>
-    </ProjectReference>
     <ProjectReference Include="Dreamteck.Utilities.csproj">
       <Project>{7271f092-d16b-0429-adde-22f7f4aac658}</Project>
       <Name>Dreamteck.Utilities</Name>
@@ -821,6 +817,10 @@
     <ProjectReference Include="Dreamteck.Splines.Editor.csproj">
       <Project>{bb0b2b49-c9d1-e4f8-aa09-9864591d88a3}</Project>
       <Name>Dreamteck.Splines.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Dreamteck.Utilities.Editor.csproj">
+      <Project>{7685b1b4-7304-7754-6bad-b58ae902396d}</Project>
+      <Name>Dreamteck.Utilities.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Dreamteck.Splines.csproj">
       <Project>{7fd13737-3e8a-0e85-7acc-cb8c7529fb6f}</Project>

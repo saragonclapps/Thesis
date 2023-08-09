@@ -23,7 +23,7 @@ public class SaveDisk : MonoBehaviour {
         _material.SetFloat("_Cutoff", _dissolveLerp);
         if (!(_dissolveLerp >= 1)) return;
         EventManager.DispatchEvent(GameEvent.SAVE_DISK_COLLECTED);
-        AudioManager.instance.PlayAudio("GetKey");
+        AudioManager.instance.PlayAudio("GetKey", AudioMode.OneShot, AudioGroup.SFX_COLLECTABLES);
         Destroy(gameObject);
         aura.Stop();
         HUDManager.instance.saveDisk.enabled = true;

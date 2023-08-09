@@ -467,6 +467,7 @@ MonoBehaviour:
   iceParticle: {fileID: 0}
   vacuumHoleTransform: {fileID: 4433817524331514}
   particleParent: {fileID: 0}
+  audioPlayer: {fileID: 5520835771279695238}
   currentSkill: 0
 --- !u!114 &114737084419095166
 MonoBehaviour:
@@ -847,6 +848,7 @@ GameObject:
   - component: {fileID: 95430321961396962}
   - component: {fileID: 114623374833365170}
   - component: {fileID: 114736816502951152}
+  - component: {fileID: 5520835771279695238}
   m_Layer: 13
   m_Name: Model
   m_TagString: Untagged
@@ -1012,6 +1014,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6224e9d7cdbdb4c8ed990c190bf5cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5520835771279695238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111878356280164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a59ecf454d8b4442884472c35f6e270b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _footsFepSounds:
+  - {fileID: 8300000, guid: df8005f72b1d7447bb1e1b0f0b6fa6d5, type: 3}
+  - {fileID: 8300000, guid: 0b5dc76c34bca46fd936aba60f9f1f36, type: 3}
+  - {fileID: 8300000, guid: ccd4a5ee644ae40d7a0f9aa380ccc8a8, type: 3}
+  - {fileID: 8300000, guid: a67bb108c5eeb40a785ac9d0d5dff94e, type: 3}
+  - {fileID: 8300000, guid: ad63fc26c93e74f77867c250d1fa0e3d, type: 3}
+  - {fileID: 8300000, guid: 884d87d7b292b4c07880a27b69e71373, type: 3}
+  _vacuumSounds:
+  - {fileID: 8300000, guid: c0b7c2bf1d3c24803aee1cc18ecba994, type: 3}
+  _fireSounds:
+  - {fileID: 8300000, guid: 6e8657a72b4cc4af39dcfb83c91433a7, type: 3}
+  _waterSounds: []
+  _lC: {fileID: 114892594035677424}
 --- !u!1 &1114506937909120
 GameObject:
   m_ObjectHideFlags: 0

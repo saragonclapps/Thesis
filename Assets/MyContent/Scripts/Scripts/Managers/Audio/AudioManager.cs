@@ -9,22 +9,25 @@ public enum AudioMode {
     Loop
 }
 public enum AudioGroup {
-    Music = 0,
-    SFX = 1,
+    MUSIC,
+    SFX,
+    SFX_AMBIENT,
+    SFX_POWERS,
+    SFX_PUZZLES,
+    SFX_COLLECTABLES,
+    SFX_STEPS,
 }
+
 
 public class AudioManager : MonoBehaviour {
     public AudioClip[] audioClips;
     [SerializeField]
     private AudioListener _audioListener;
     [SerializeField]
-    private AudioMixerGroup _audioMixerMasterGroup;
-    [SerializeField]
-    private AudioMixerGroup _audioMixerSfxMixerGroup;
-    [SerializeField]
-    private AudioMixerGroup _audioMixerMusicMixerGroup;
+    private AudioMixer _audioMixer;
     private Transform _soundsContainer;
     private Dictionary<string, AudioSource> _audioSources = new Dictionary<string, AudioSource>();
+    private Dictionary<AudioGroup, Func<AudioMixerGroup>> _audioGroups = new Dictionary<AudioGroup, Func<AudioMixerGroup>>();
     public static AudioManager instance;
 
     private void Awake() {
@@ -35,6 +38,13 @@ public class AudioManager : MonoBehaviour {
             Destroy(instance.gameObject);
             instance = this;
         }
+        _audioGroups[AudioGroup.MUSIC] = () => _audioMixer.FindMatchingGroups("Master/Music")[0];
+        _audioGroups[AudioGroup.SFX] = () => _audioMixer.FindMatchingGroups("Master/SFX")[0];
+        _audioGroups[AudioGroup.SFX_AMBIENT] = () => _audioMixer.FindMatchingGroups("Master/SFX/Ambient")[0];
+        _audioGroups[AudioGroup.SFX_POWERS] = () => _audioMixer.FindMatchingGroups("Master/SFX/Powers")[0];
+        _audioGroups[AudioGroup.SFX_PUZZLES] = () => _audioMixer.FindMatchingGroups("Master/SFX/Puzzles")[0];
+        _audioGroups[AudioGroup.SFX_COLLECTABLES] = () => _audioMixer.FindMatchingGroups("Master/SFX/Collectables")[0];
+        _audioGroups[AudioGroup.SFX_STEPS] = () => _audioMixer.FindMatchingGroups("Master/SFX/Steps")[0];
     }
 
     private void Start() {
@@ -42,16 +52,24 @@ public class AudioManager : MonoBehaviour {
         _soundsContainer.transform.parent = _audioListener.transform;
         _soundsContainer.transform.localPosition = Vector3.zero;
         _soundsContainer.transform.localRotation = Quaternion.identity;
-        
+
         foreach (var clip in audioClips) {
 #if UNITY_EDITOR
             Debug.Log(this, "Adding clip: " + clip.name);
 #endif
             if (_audioSources.ContainsKey(clip.name)) continue;
-            _audioSources.Add(clip.name, gameObject.AddComponent<AudioSource>());
+            var go = new GameObject();
+            go.name = clip.name;
+            go.transform.parent = _soundsContainer;
+            go.transform.localPosition = Vector3.zero;
+            go.transform.localRotation = Quaternion.identity;
+            var audioSource = go.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.volume = 0f;
+            _audioSources.Add(clip.name, audioSource);
         }
 
-        PlayAudio("background-02", AudioMode.Loop, AudioGroup.Music);
+        PlayAudio("background-02", AudioMode.Loop, AudioGroup.MUSIC);
     }
 
 
@@ -64,10 +82,12 @@ public class AudioManager : MonoBehaviour {
         throw new Exception("Clip not found: (" + key + ")");
     }
 
-    public void PlayAudio(string key, AudioMode mode = AudioMode.OneShot, AudioGroup group = AudioGroup.SFX) {
+    public void PlayAudio(string key, AudioMode mode, AudioGroup group, float volume = 1f) {
         var clip = GetClip(key);
         if (clip == null) return;
-        Debug.Log("Playing audio: " + key);
+#if UNITY_EDITOR
+        Debug.Log(this, "Playing audio: " + key);
+#endif
         AudioSource source;
         if (!_audioSources.ContainsKey(key)) {
             var newGameObject = new GameObject();
@@ -83,11 +103,21 @@ public class AudioManager : MonoBehaviour {
         }
         source.clip = clip;
         source.loop = mode == AudioMode.Loop;
-        source.outputAudioMixerGroup = group == AudioGroup.SFX ? _audioMixerSfxMixerGroup : _audioMixerMusicMixerGroup;
+        source.volume = volume;
+        var groupMixer = _audioGroups[group]();
+        if (groupMixer != null) {
+#if UNITY_EDITOR
+            Debug.Log("MixerGroup", "clip: " + clip.name + " group: " + groupMixer.name + "key: " + group);
+#endif
+            source.outputAudioMixerGroup = groupMixer;
+        }else {
+            throw new Exception("Group not found: (" + group + ")");
+        }
+
         source.Play();
     }
     
-    public void PlayAudio(AudioClip clip, AudioMode mode = AudioMode.OneShot, AudioGroup group = AudioGroup.SFX) {
+    public void PlayAudio(AudioClip clip, AudioMode mode, AudioGroup group, float volume = 1f) {
         AudioSource source;
         if (!_audioSources.ContainsKey(clip.name)) {
             var newGameObject = new GameObject();
@@ -106,7 +136,16 @@ public class AudioManager : MonoBehaviour {
         }
         source.clip = clip;
         source.loop = mode == AudioMode.Loop;
-        source.outputAudioMixerGroup = group == AudioGroup.SFX ? _audioMixerSfxMixerGroup : _audioMixerMusicMixerGroup;
+        var groupMixer = _audioGroups[group]();
+        if (groupMixer != null) {
+#if UNITY_EDITOR
+            Debug.Log("MixerGroup", "clip: " + clip.name + " group: " + groupMixer.name + "key: " + group);
+#endif
+            source.outputAudioMixerGroup = groupMixer;
+        }else {
+            throw new Exception("Group not found: (" + group + ")");
+        }
+        source.volume = volume;
         source.Play();
     }
     
@@ -128,6 +167,10 @@ public class AudioManager : MonoBehaviour {
 #if UNITY_EDITOR
         Debug.Log(this, "Volume clip: " + key + " volume: " + volume);
 #endif
+        if (_audioSources[key] == null) {
+            Debug.LogWarning("AudioSource is null: (" + key + ")");
+            return;
+        }
         _audioSources[key].volume = volume;
     }
     
@@ -142,6 +185,10 @@ public class AudioManager : MonoBehaviour {
 #if UNITY_EDITOR
         Debug.Log(this, "Stop clip: " + key);
 #endif
+        if (_audioSources[key] == null) {
+            Debug.LogWarning("AudioSource is null: (" + key + ")");
+            return;
+        }
         _audioSources[key].volume = 0;
         _audioSources[key].Stop();
     }

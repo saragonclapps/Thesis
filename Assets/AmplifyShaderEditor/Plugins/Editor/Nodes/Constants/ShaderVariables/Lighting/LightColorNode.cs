@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AmplifyShaderEditor
 {
 	[System.Serializable]
-	[NodeAttributes( "Light Color", "Light", "Light Color, RGB value already contains light intensity while A only contains light intensity" )]
+	[NodeAttributes( "Light Color", "Lighting", "Light Color, RGB value already contains light intensity while A only contains light intensity" )]
 	public sealed class LightColorNode : ShaderVariablesNode
 	{
 		private const string m_lightColorValue = "_LightColor0";
@@ -56,7 +56,7 @@ namespace AmplifyShaderEditor
 			string finalVar = m_lightColorValue;
 			if( dataCollector.IsTemplate && dataCollector.IsSRP )
 			{
-				if( dataCollector.TemplateDataCollectorInstance.CurrentSRPType == TemplateSRPType.HD )
+				if( dataCollector.TemplateDataCollectorInstance.CurrentSRPType == TemplateSRPType.HDRP )
 				{
 					dataCollector.TemplateDataCollectorInstance.AddHDLightInfo();
 					finalVar = string.Format( TemplateHelperFunctions.HDLightInfoFormat, "0", "color" ); ;

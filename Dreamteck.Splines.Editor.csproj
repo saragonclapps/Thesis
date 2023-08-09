@@ -55,12 +55,13 @@
      <Compile Include="Assets\Dreamteck\Splines\Editor\SplineEditor\DS Editor\SplineTriggersEditor.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\Components\SplinePositionerEditor.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\Components\SetClipRangeWindow.cs" />
-     <Compile Include="Assets\Dreamteck\Splines\Editor\SplineEditor\DS Editor\SplineDebugEditor.cs" />
+     <Compile Include="Assets\Dreamteck\Splines\Editor\SplineEditor\DS Editor\SplineComputerDebugEditor.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\SplineEditor\Point Modules\PointNormalModule.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\Components\SplineMeshEditor.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\Primitives\SpiralEditor.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\Components\WaveformGeneratorEditor.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\SplineEditor\Point Modules\PointMirrorModule.cs" />
+     <Compile Include="Assets\Dreamteck\Splines\Editor\SerializedSplinePoint.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\WelcomeScreen.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\SplineEditor\DS Editor\DSCreatePointModule.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\SplineEditor\DS Editor\ComputerEditor.cs" />
@@ -120,6 +121,8 @@
      <Compile Include="Assets\Dreamteck\Splines\Editor\Sample Modifiers\SizeModifierEditor.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\Sample Modifiers\RotationModifierEditor.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\DSSplineDrawer.cs" />
+     <Compile Include="Assets\Dreamteck\Splines\Editor\Components\EdgeColliderGeneratorEditor.cs" />
+     <Compile Include="Assets\Dreamteck\Splines\Editor\Tools\CatenaryTool.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\Tools\ImportTool.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\Primitives\NgonEditor.cs" />
      <Compile Include="Assets\Dreamteck\Splines\Editor\Components\ObjectBenderEditor.cs" />
@@ -375,6 +378,9 @@
  </Reference>
  <Reference Include="unityplastic">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.collab-proxy@1.9.0/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
+ </Reference>
+ <Reference Include="nunit.framework">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>/Applications/Unity/Hub/Editor/2020.3.18f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -730,19 +736,25 @@
  <Reference Include="UnityEngine.UI">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEngine.TestRunner">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.TestRunner">
+ <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Dreamteck.Splines.csproj">
       <Project>{7fd13737-3e8a-0e85-7acc-cb8c7529fb6f}</Project>
       <Name>Dreamteck.Splines</Name>
     </ProjectReference>
+    <ProjectReference Include="Dreamteck.Utilities.Editor.csproj">
+      <Project>{7685b1b4-7304-7754-6bad-b58ae902396d}</Project>
+      <Name>Dreamteck.Utilities.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Dreamteck.Utilities.csproj">
       <Project>{7271f092-d16b-0429-adde-22f7f4aac658}</Project>
       <Name>Dreamteck.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="NewAssembly.csproj">
-      <Project>{e8ede88b-0a26-0fca-d10b-c8288fc75489}</Project>
-      <Name>NewAssembly</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
