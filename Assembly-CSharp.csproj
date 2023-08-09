@@ -89,7 +89,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\HaloLight.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Logger\LoggerManager.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\AudioPlayer.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\AudioPlayerEmitter.cs" />
      <Compile Include="Assets\MyContent\Scripts\PlayAnimation.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Ice Puzzles &amp; Objects\IFrozenObject.cs" />
      <Compile Include="Assets\shaders 103 asset\Scripts\QuickGlow.cs" />
@@ -126,6 +126,7 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Weight\WeightActionTest.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\VFX\AlphaCutOutEqualizer.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Audio\AudioClipData.cs" />
      <Compile Include="Assets\MyContent\Shaders\Pending\Final - Postprocessing\FrameManager.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialSetupEntry.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\CameraNormalTrigger.cs" />
@@ -200,10 +201,12 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\CameraController.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\PlateLight.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Audio\AudioBaseEmiter.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Platforms\Extras\Platform.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Platforms\PlatformWindEngine.cs" />
      <Compile Include="Assets\CrystalGlass\Glass3\Glass3Setup.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Vacuum\SkillController.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\AudioObjectEmitter.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\VFX\VacuumVFX.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Water Puzzles &amp; Objects\IWaterObject.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
@@ -230,6 +233,7 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\VFX\Particles\Electricity\Gizmo.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\CameraFixTrigger.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\EventManager.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\TrackerModel.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Logger\LoggerSetup.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\IVacuumObject.cs" />

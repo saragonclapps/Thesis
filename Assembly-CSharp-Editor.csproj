@@ -64,6 +64,7 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Utilities\Editor\ZFightFinder.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\HaloLightEditor.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\SlimLightEditor.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Editor\AudioObjectEmitterEditor.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Editor\PlanarLightEditor.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\TransformTools\Editor\Scripts\BaseToolWindow.cs" />
      <Compile Include="Assets\PluginMaster\DesignTools\Common\Editor\Scripts\BoundsUtils.cs" />
@@ -319,6 +320,9 @@
  </Reference>
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>/Applications/Unity/Hub/Editor/2020.3.18f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>/Applications/Unity/Hub/Editor/2020.3.18f1/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="log4netPlastic">
  <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.collab-proxy@1.9.0/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
