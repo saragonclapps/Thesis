@@ -1002,6 +1002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   landEnd: 0
+  audioPlayer: {fileID: 0}
 --- !u!114 &114736816502951152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,6 +1034,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a67bb108c5eeb40a785ac9d0d5dff94e, type: 3}
   - {fileID: 8300000, guid: ad63fc26c93e74f77867c250d1fa0e3d, type: 3}
   - {fileID: 8300000, guid: 884d87d7b292b4c07880a27b69e71373, type: 3}
+  _jumpAndOnLandSounds:
+  - {fileID: 8300000, guid: c748731efbec149e5bc2ee264b405f46, type: 3}
+  - {fileID: 8300000, guid: 211da724d8aaf4b97893c8591579da85, type: 3}
+  - {fileID: 8300000, guid: a51909dd7d856496bb348d74a5684d9a, type: 3}
+  - {fileID: 8300000, guid: 2463e81bb00c646c6aab259aa89ab098, type: 3}
+  - {fileID: 8300000, guid: 60b0d50f6bce64661be9503fc6c47522, type: 3}
   _vacuumSounds:
   - {fileID: 8300000, guid: c0b7c2bf1d3c24803aee1cc18ecba994, type: 3}
   _fireSounds:
