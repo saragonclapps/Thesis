@@ -31,21 +31,28 @@ namespace Skills {
         }
 
         public void Execute() {
-            if (GameInput.instance.blowUpButton) {
-                _flameVFX.StartEffect();
-                foreach (var fo in _flamableObjectsToInteract) {
-                    fo.SetOnFire();
+            if (!GameInput.instance.blowUpButton) {
+                if (_inputBefore) {
+                    _inputBefore = false;
+                    _audioPlayer.StopPowerAudio();
                 }
-
-                SkillManager.instance.RemoveAmountToSkill(0.2f, Skills.FIRE);
-            }
-            else {
                 _flameVFX.StopEffect();
+                return;
             }
+            if (!_inputBefore) {
+                _audioPlayer.PlayFireAudio();
+            }
+            _inputBefore = true;
+            _flameVFX.StartEffect();
+            foreach (var fo in _flamableObjectsToInteract) {
+                fo.SetOnFire();
+            }
+
+            SkillManager.instance.RemoveAmountToSkill(0.2f, Skills.FIRE);
         }
 
         public void Exit() {
-            _flameVFX.StopEffect();
+            // _flameVFX.StopEffect();
             _flameVFX.TerminateEffect();
             _audioPlayer.StopPowerAudio();
         }
