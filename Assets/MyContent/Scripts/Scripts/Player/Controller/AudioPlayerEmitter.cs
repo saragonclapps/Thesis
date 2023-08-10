@@ -61,12 +61,12 @@ public class AudioPlayerEmitter : AudioBaseEmiter {
         Debug.Log(this, "Stopping POWER audio");
 #endif
         if (AudioManager.instance == null) {
-            Debug.LogWarning("AudioManager.instance is null");
+            // Debug.LogWarning("AudioManager.instance is null");
             return;
         }
 
         if (audioOnPower == null) {
-            Debug.LogWarning("No audio on power");
+            // Debug.LogWarning("No audio on power");
             return;
         }
 
