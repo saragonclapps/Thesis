@@ -57,7 +57,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         _isAbsorvable = false;
         _rb = GetComponent<Rigidbody>();
         _audioObjectEmitter = GetComponent<AudioObjectEmitter>();
-        _bC = GetComponent<Collider>();
+        // _bC = GetComponent<Collider>();
         SpawnVFXActivate(true);
         StartCoroutine(EnableSounds());
     }
@@ -95,7 +95,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
             // material.SetFloat("_DisolveAmount", _alphaCut);
             _alphaCut -= Time.deltaTime;
             _rb.useGravity = true;
-            _bC.isTrigger = false;
+            // _bC.isTrigger = false;
             if (!(_alphaCut <= 0)) return;
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, SpawnVFX);
             wasShooted = false;
@@ -118,7 +118,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         transform.rotation = Quaternion.identity;
         rb.velocity = Vector3.zero;
         _rb.useGravity = false;
-        _bC.isTrigger = true;
+        // _bC.isTrigger = true;
         SpawnVFXActivate(true);
         wasShooted = true;
 
