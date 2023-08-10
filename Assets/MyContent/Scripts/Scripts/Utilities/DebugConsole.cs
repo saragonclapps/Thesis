@@ -35,32 +35,27 @@ public class DebugConsole : MonoBehaviour
         _descriptions = new Dictionary<string, string>();
     }
 
-    void Start ()
+    void Start()
     {
         //agrego los comandos
-        AddCommands("!help", ShowHelp, "EL BOTON ROJO");
+        AddCommands("!help", ShowHelp,
+            "commands for testing...\n" +
+            "!p           load a specific scene\n" +
+            "!next        load a next scene\n" +
+            "!restart     reload scene\n" +
+            "!last        load previous level\n" +
+            "!test        load testing scene");
         AddCommands("cls", ClearConsole, "Clears past actions from log");
         AddCommands("!next", LoadNextLevel, "Load next Level");
         AddCommands("!restart", RestartLevel, "Restart Level");
         AddCommands("!last", LoadPreviousLevel, "Load previous Level");
         AddCommands("!test", LoadTestLevel, "Load Test Level");
 
-        AddCommands("!prototype " + 1, () => LoadPrototype(1), "Load prototype Level " + 1);
-        AddCommands("!prototype " + 2, () => LoadPrototype(2), "Load prototype Level " + 2);
-        AddCommands("!prototype " + 3, () => LoadPrototype(3), "Load prototype Level " + 3);
-        AddCommands("!prototype " + 4, () => LoadPrototype(4), "Load prototype Level " + 4);
-        AddCommands("!prototype " + 5, () => LoadPrototype(5), "Load prototype Level " + 5);
-        AddCommands("!p " + 0, () => SceneManager.LoadScene("Level-01"), "Load prototype Level " + 0);
-        AddCommands("!p " + 1, () => LoadPrototype(1), "Load prototype Level " + 1);
-        AddCommands("!p " + 2, () => LoadPrototype(2), "Load prototype Level " + 2);
-        AddCommands("!p " + 3, () => LoadPrototype(3), "Load prototype Level " + 3);
-        AddCommands("!p " + 4, () => LoadPrototype(4), "Load prototype Level " + 4);
-        AddCommands("!p " + 5, () => LoadPrototype(5), "Load prototype Level " + 5);
-        //for (int i = 1; i < 4; i++){
-        //    AddCommands("!prototype " + i, () => LoadPrototype(i), "Load prototype Level " + i);
-        //    AddCommands("!p " + i, () => LoadPrototype(i), "Load prototype Level " + i);
-        //}
-
+        AddCommands("!p " + 1, () => SceneManager.LoadScene("Level-01"), "Load prototype Level " + 1);
+        AddCommands("!p " + 2, () => SceneManager.LoadScene("Level-02"), "Load prototype Level " + 2);
+        AddCommands("!p " + 3, () => SceneManager.LoadScene("Level-03"), "Load prototype Level " + 3);
+        AddCommands("!p " + 4, () => SceneManager.LoadScene("Level-04"), "Load prototype Level " + 4);
+        AddCommands("!p " + 5, () => SceneManager.LoadScene("Level-05"), "Load prototype Level " + 5);
     }
 
     private void LoadTestLevel()

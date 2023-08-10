@@ -5,6 +5,7 @@ namespace Skills {
         private IHandEffect _flameVFX;
         private List<IFlamableObjects> _flamableObjectsToInteract;
         private AudioPlayerEmitter _audioPlayer;
+        private bool _inputBefore;
 
         public FlameThrower SetFlameVFX(IHandEffect flameVFX) {
             _flameVFX = flameVFX;
@@ -26,7 +27,7 @@ namespace Skills {
 
         public void Enter() {
             //_flameVFX.StartEffect();
-            _audioPlayer.PlayFireAudio();
+            // _audioPlayer.PlayFireAudio();
         }
 
         public void Execute() {

@@ -20,8 +20,6 @@ public class TutorialManager : MonoBehaviour {
         new Dictionary<TutorialSetupEntryDataType, Action<string, TutorialSetupEntryData>>();
 
     private void Start() {
-        tutorialSetup.Clean();
-        
         EventManager.AddEventListener(GameEvent.TRIGGER_TUTORIAL, OnTutorialPlay);
         EventManager.AddEventListener(GameEvent.TRIGGER_TUTORIAL_STOP, OnTutorialStop);
         
