@@ -5,7 +5,7 @@ public class AudioObjectEmitter: AudioBaseEmiter {
     public AudioClipData audioClipDataHits;
 
     public void PlaySoundHit(float volume) {
-        if (AudioManager.instance == null) {
+        if (AudioManager.instance == null || _mute) {
             return;
         }
         switch (audioClipDataHits.clips.Length) {
@@ -23,5 +23,9 @@ public class AudioObjectEmitter: AudioBaseEmiter {
                 break;
             }
         }
+    }
+
+    public override void SetMute(bool mute) {
+        this._mute = mute;
     }
 }

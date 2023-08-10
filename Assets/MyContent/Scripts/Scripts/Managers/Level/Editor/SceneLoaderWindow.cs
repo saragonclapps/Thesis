@@ -19,7 +19,7 @@ public class SceneLoaderWindow : EditorWindow {
 
     private string[] _scenePaths;
 
-    [MenuItem("Window/Scene Loader")]
+    [MenuItem("Window/Custom/Scene Loader")]
     public static void ShowWindow() {
         GetWindow(typeof(SceneLoaderWindow), false, "Scene Loader");
     }
@@ -30,7 +30,6 @@ public class SceneLoaderWindow : EditorWindow {
 
     private void OnGUI() {
         EditorGUILayout.LabelField("Scenes in folder: " + FOLDER_PATH, EditorStyles.boldLabel);
-        var originalColor = GUI.backgroundColor;
         if (_scenePaths != null) {
             EditorGUILayout.BeginHorizontal();
             for (var index = 0; index < _scenePaths.Length; index++) {
@@ -56,6 +55,7 @@ public class SceneLoaderWindow : EditorWindow {
         }
 
         EditorGUILayout.Space();
+        GUI.backgroundColor = Color.white;
 
         if (GUILayout.Button("Refresh Scene List")) {
             RefreshSceneList();

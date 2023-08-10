@@ -4,71 +4,57 @@ using UnityEngine;
 using Skills;
 using Player;
 
-public class PlayerTemperature : MonoBehaviour,IHeat
-{
-    [SerializeField]
-    float _temperature;
+public class PlayerTemperature : MonoBehaviour, IHeat {
+    [SerializeField] 
+    private float _temperature;
+    public float temperature => _temperature;
 
-
-    public float temperature { get { return _temperature; } }
-    public Transform Transform { get { return transform; } }
+    public Transform Transform => transform;
 
     public float life;
-    float _life;
+    private float _currentLife;
 
-    bool _setToDieByLaser;
-    PlayerController player;
-    SkillController skills;
+    private bool _setToDieByLaser;
+    private PlayerController _player;
+    private SkillController _skills;
 
-    Animator blackOut;
+    private Animator _blackOut;
 
-    void Start()
-    {
+    private void Start() {
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
-        player = GetComponentInParent<PlayerController>();
-        skills = GetComponentInParent<SkillController>();
-        blackOut = GameObject.Find("BlackIn").GetComponent<Animator>();
-        _life = life;
+        _player = GetComponentInParent<PlayerController>();
+        _skills = GetComponentInParent<SkillController>();
+        _blackOut = GameObject.Find("BlackIn").GetComponent<Animator>();
+        _currentLife = life;
     }
 
-    public void Restart()
-    {
+    public void Restart() {
         _setToDieByLaser = false;
-        _life = life;
+        _currentLife = life;
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
     }
 
-    void Execute()
-    {
-        if (_setToDieByLaser)
-        {
-            Die();
-            UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+    void Execute() {
+        if (!_setToDieByLaser) return;
+        Die();
+        UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
+    }
+
+    private void Die() {
+        _player.enabled = false;
+        _skills.enabled = false;
+        _blackOut.SetTrigger("FadeOutLose");
+    }
+
+    public void Hit(float damage) {
+        if (_setToDieByLaser) return;
+        _currentLife -= damage * Time.deltaTime;
+        if (_currentLife < 0) {
+            _setToDieByLaser = true;
         }
     }
 
-    private void Die()
-    {
-        player.enabled = false;
-        skills.enabled = false;
-        blackOut.SetTrigger("FadeOutLose");
-
-    }
-
-    public void Hit(float damage)
-    {
-        if (!_setToDieByLaser)
-        {
-            _life -= damage * Time.deltaTime;
-            if (_life < 0)
-            {
-                _setToDieByLaser = true;
-            }
-        }
-    }
-
-    private void OnDestroy()
-    {
+    private void OnDestroy() {
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
 }

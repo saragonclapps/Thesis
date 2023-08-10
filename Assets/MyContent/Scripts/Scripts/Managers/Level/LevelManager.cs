@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Player;
 using UnityEngine;
@@ -18,8 +19,6 @@ public class LevelManager : MonoBehaviour {
         set { _hasDiskette = value; }
     }
 
-    public List<Material> breathingScenarioMaterials;
-
     private static LevelManager _instance;
     public static LevelManager instance => _instance;
 
@@ -30,14 +29,14 @@ public class LevelManager : MonoBehaviour {
     private void Awake() {
         _instance = this;
         checkPoints = new List<CheckPoint>();
-        breathingScenarioMaterials = new List<Material>();
     }
 
     private void Start() {
         _pc = FindObjectOfType<PlayerController>();
 
-        foreach (var cp in checkPoints) {
-            if (cp.checkPointName != MasterManager.checkPointName) continue;
+        var checkPointsFiltered = checkPoints
+            .Where(cp => cp.checkPointName == MasterManager.checkPointName);
+        foreach (var cp in checkPointsFiltered) {
             _pc.transform.position = cp.transform.position;
             _pc.transform.rotation = cp.transform.rotation;
         }
@@ -63,20 +62,23 @@ public class LevelManager : MonoBehaviour {
     }
 
     public void RestartLevel(object[] parameterContainer) {
-        foreach (var t in checkPoints.Where(t => t.checkPointName == MasterManager.checkPointName)) {
-            _pc.RespawnOnCheckPoint(t.transform);
+        var checkpointsFiltered = checkPoints
+            .Where(t => t.checkPointName == MasterManager.checkPointName);
+        foreach (var checkPoint in checkpointsFiltered) {
+            _pc.RespawnOnCheckPoint(checkPoint.transform);
             EventManager.DispatchEvent(GameEvent.CAMERA_NORMAL);
+            AudioPlayerEmitter.instance.SetMute(false);
+            AudioManager.instance.PlayAudio("Respawn", AudioMode.OneShot, AudioGroup.SFX_POWERS);
             CutScenesManager.instance.DeActivateCutSceneCamera("DeathFall");
-            _pc.cam2.normalState.SetInitialPosition(t.transform);
+            _pc.cam2.normalState.SetInitialPosition(checkPoint.transform);
         }
 
         blackOutAnimator.SetTrigger("FadeInWithoutReset");
     }
 
     public void AddCheckPointToList(CheckPoint cp) {
-        if (!checkPoints.Contains(cp)) {
-            checkPoints.Add(cp);
-        }
+        if (checkPoints.Contains(cp)) return;
+        checkPoints.Add(cp);
     }
 
     public void SetActiveCheckPoint(string cpName) {
@@ -89,10 +91,6 @@ public class LevelManager : MonoBehaviour {
 #if UNITY_EDITOR
         Debug.LogWarning("The checkpoint " + cpName + " is not included in the list of checkpoints");
 #endif
-    }
-
-    public void AddBreathingMaterial(Material mat) {
-        breathingScenarioMaterials.Add(mat);
     }
 
     private void OnDestroy() {

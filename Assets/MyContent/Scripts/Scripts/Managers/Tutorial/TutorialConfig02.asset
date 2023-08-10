@@ -13,51 +13,19 @@ MonoBehaviour:
   m_Name: TutorialConfig02
   m_EditorClassIdentifier: 
   tutorials:
-  - key: move
+  - key: blowAndAspire
     value:
       type: 1
-      text: move with A S D W
-      button: {fileID: 21300000, guid: 95aa1f3514bd247e0adefd190208463b, type: 3}
+      text: 'Suck: Left Click, Throw: Right Click'
+      button: {fileID: 21300000, guid: e870526c6436149d387cc8ccfe57cdbb, type: 3}
       soundKey: 
       animation: {fileID: 0}
       blockMovement: 0
-  - key: jump
-    value:
-      type: 1
-      text: SPACEBAR for jump
-      button: {fileID: 21300000, guid: 2b0166f6a0a2d4ecf8f359fcaa80482f, type: 3}
-      soundKey: 
-      animation: {fileID: 0}
-      blockMovement: 0
-  - key: camera
-    value:
-      type: 1
-      text: Move camera with mouse movement
-      button: {fileID: 21300000, guid: bfd37f3d66876475ba25261c3f5ebb96, type: 3}
-      soundKey: 
-      animation: {fileID: 0}
-      blockMovement: 0
-  - key: blow
-    value:
-      type: 1
-      text: Lefth click for blow
-      button: {fileID: 21300000, guid: b9f85652705904a8b81723a39dbd2969, type: 3}
-      soundKey: 
-      animation: {fileID: 0}
-      blockMovement: 0
-  - key: tutorial01
+  - key: blowAndAspireCamera
     value:
       type: 2
       text: 
       button: {fileID: 0}
       soundKey: 
-      animation: {fileID: 7400000, guid: bc54fda8eb7a8445d9a1c9d66832a9db, type: 2}
-      blockMovement: 1
-  - key: tutorial02
-    value:
-      type: 2
-      text: 
-      button: {fileID: 0}
-      soundKey: 
-      animation: {fileID: 7400000, guid: 40e5bda1a798448119725b9d429fef70, type: 2}
+      animation: {fileID: 7400000, guid: e07047f99ed7740468a849c806cc5e1d, type: 2}
       blockMovement: 1

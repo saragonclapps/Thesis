@@ -17,9 +17,21 @@ public class AudioPlayerEmitter : AudioBaseEmiter {
     public string audioOnPower { get; set; }
 
     AudioSource _stepsSources;
+    public static AudioPlayerEmitter instance;
+
+    private void Awake() {
+        //singleton
+        if (instance == null) {
+            instance = this;
+        }
+        else {
+            Destroy(instance.gameObject);
+            instance = this;
+        }
+    }
 
     public void PlayFootStepAudio(float volume) {
-        if (AudioManager.instance == null) {
+        if (AudioManager.instance == null || _mute) {
             return;
         }
 
@@ -32,7 +44,7 @@ public class AudioPlayerEmitter : AudioBaseEmiter {
     }
     
     public void PlayJumpAndOnLandAudio(float volume) {
-        if (AudioManager.instance == null) {
+        if (AudioManager.instance == null || _mute) {
             return;
         }
 
@@ -66,7 +78,7 @@ public class AudioPlayerEmitter : AudioBaseEmiter {
 #if UNITY_EDITOR
         Debug.Log(this, "Playing POWER vacuum audio");
 #endif
-        if (AudioManager.instance == null) {
+        if (AudioManager.instance == null || _mute) {
             return;
         }
 
@@ -92,7 +104,7 @@ public class AudioPlayerEmitter : AudioBaseEmiter {
 #if UNITY_EDITOR
         Debug.Log(this, "Playing POWER fire audio");
 #endif
-        if (AudioManager.instance == null) {
+        if (AudioManager.instance == null || _mute) {
             return;
         }
 
@@ -118,7 +130,7 @@ public class AudioPlayerEmitter : AudioBaseEmiter {
 #if UNITY_EDITOR
         Debug.Log(this, "Playing POWER water audio");
 #endif
-        if (AudioManager.instance == null) {
+        if (AudioManager.instance == null || _mute) {
             return;
         }
         
@@ -138,5 +150,12 @@ public class AudioPlayerEmitter : AudioBaseEmiter {
                 break;
             }
         }
+    }
+
+    public override void SetMute(bool mute) {
+#if UNITY_EDITOR
+        Debug.LogColor(this, "Mute: " + mute, "red");
+#endif
+        this._mute = mute;
     }
 }

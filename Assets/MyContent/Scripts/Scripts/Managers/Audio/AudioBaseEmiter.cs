@@ -1,6 +1,9 @@
 using UnityEngine;
 
 public abstract class AudioBaseEmiter : MonoBehaviour {
+    protected bool _mute;
+
+    public abstract void SetMute(bool mute);
     protected static AudioClip RandomSoundFromArray(AudioClip[] array) {
         // pick & play a random footstep sound from the array,
         // excluding sound at index 0

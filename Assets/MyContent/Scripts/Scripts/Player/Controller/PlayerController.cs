@@ -230,16 +230,16 @@ namespace Player
             return fallCount >= 2 && !Physics.Raycast(transform.position, -transform.up, fallDistance, fallLayer,QueryTriggerInteraction.Ignore);
         }
 
-        bool CheckJump()
+        private bool CheckJump()
         {
             Debug.DrawLine(transform.position + transform.up * 1.6f, transform.position + transform.up * 1.6f + transform.up * jumpTolerance);
             return !Physics.Raycast(transform.position + transform.up * 1.6f, transform.up, jumpTolerance);
         }
 
-        public void RespawnOnCheckPoint(Transform tr)
+        public void RespawnOnCheckPoint(Transform toGoTransform)
         {
-            transform.position = tr.position;
-            transform.rotation = tr.rotation;
+            transform.position = toGoTransform.position;
+            transform.rotation = toGoTransform.rotation;
             _rB.velocity = Vector3.zero;
             _temp.Restart();
             isActive = true;

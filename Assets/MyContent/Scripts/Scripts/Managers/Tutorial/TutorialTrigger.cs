@@ -7,7 +7,8 @@ public class TutorialTrigger : MonoBehaviour {
     public bool onStart;
     public bool isOneShot;
     private bool _isTriggered;
-
+    public static bool drawGizmos = true;
+    
     private void Start() {
         if (onStart) {
             EventManager.DispatchEvent(GameEvent.TRIGGER_TUTORIAL, tutorialName);
@@ -28,6 +29,7 @@ public class TutorialTrigger : MonoBehaviour {
     }
 
     private void OnDrawGizmos() {
+        if (!drawGizmos) return;
         var collider = GetComponent<BoxCollider>();
         Gizmos.color = new Color(255, 240, 0, 0.7f);
         

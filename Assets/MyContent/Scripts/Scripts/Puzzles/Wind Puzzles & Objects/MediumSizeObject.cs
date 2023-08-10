@@ -22,11 +22,14 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     private float _disolveTimmer = 1;
     private float _disolveTick;
     private bool _disolve;
+    private bool _enableSounds;
+
 
     protected bool _isAbsorved;
     protected bool _isAbsorvable;
     protected bool _isBeeingAbsorved;
     protected Rigidbody _rb;
+    public static bool drawGizmos = true;
 
     public bool isAbsorved {
         get => _isAbsorved;
@@ -54,9 +57,14 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         _isAbsorvable = false;
         _rb = GetComponent<Rigidbody>();
         _audioObjectEmitter = GetComponent<AudioObjectEmitter>();
-        // material = GetComponent<Renderer>().material;
         _bC = GetComponent<Collider>();
         SpawnVFXActivate(true);
+        StartCoroutine(EnableSounds());
+    }
+
+    private IEnumerator EnableSounds() {
+        yield return new WaitForSeconds(3f);
+        _enableSounds = true;
     }
 
     private void Execute() {
@@ -99,7 +107,6 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     }
 
     void DespawnVFX() {
-        // material.SetFloat("_DisolveAmount", _alphaCut);
         _alphaCut += Time.deltaTime;
         if (!(_alphaCut >= 1)) return;
         UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, DespawnVFX);
@@ -186,18 +193,18 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         rb.isKinematic = false;
         isAbsorved = false;
     }
-
+    
     private void OnCollisionEnter(Collision collision) {
-        Vector3 relativeVelocity = collision.relativeVelocity;
-        float collisionForce = relativeVelocity.magnitude;
-        if (collisionForce > 5f) {
-            Debug.Log(collisionForce);
-            _audioObjectEmitter.PlaySoundHit(0.3f);
-        }
         //TODO: Find a better way to exclude "Player" collision
         if (collision.gameObject.name != "Player") {
             wasShooted = false;
         }
+        
+        var relativeVelocity = collision.relativeVelocity;
+        var collisionForce = relativeVelocity.magnitude;
+        if (!(collisionForce > 5f)) return;
+        if (!_enableSounds) return;
+        _audioObjectEmitter.PlaySoundHit(0.3f);
     }
 
     private void OnDrawGizmosSelected() {
@@ -211,6 +218,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     }
 
     private void OnDrawGizmos() {
+        if(!drawGizmos) return;
         Gizmos.color = new Color(255, 255, 255, 0.5f);
         Gizmos.DrawSphere(transform.position, 0.3f);
     }

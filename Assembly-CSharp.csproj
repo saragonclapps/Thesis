@@ -68,7 +68,7 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\VFX\Particles\Electricity\ElectricParticleEmitter.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Camera\CameraFSM.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Fire Puzzles &amp; Objects\IFlamableObjects.cs" />
-     <Compile Include="Assets\MyContent\Scripts\PointLaser.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\PointLaser.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\DeathFallTrigger.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialTrigger.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Fire Puzzles &amp; Objects\BoxTemperature.cs" />
@@ -90,7 +90,7 @@
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\HaloLight.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Logger\LoggerManager.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\AudioPlayerEmitter.cs" />
-     <Compile Include="Assets\MyContent\Scripts\PlayAnimation.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\PlayAnimation.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Ice Puzzles &amp; Objects\IFrozenObject.cs" />
      <Compile Include="Assets\shaders 103 asset\Scripts\QuickGlow.cs" />
      <Compile Include="Assets\CrystalGlass\Glass3\ScreenCapture3.cs" />
@@ -183,7 +183,7 @@
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\ColumnLight.cs" />
      <Compile Include="Assets\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Rotation.cs" />
+     <Compile Include="Assets\MyContent\Scripts\Scripts\Rotation.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\Tutorial\TutorialSetupEntryData.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Puzzles\Wind Puzzles &amp; Objects\DiskAbsorver.cs" />
      <Compile Include="Assets\New Axis Studio\Sci Fi Lighting Pack\Scripts\SlimLight.cs" />
@@ -263,7 +263,6 @@
      <Compile Include="Assets\MyContent\Scripts\Scripts\Managers\MasterManager.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Fades\SceneTransitions.cs" />
-     <Compile Include="Assets\MyContent\Scripts\Scripts\VFX\BreathingScenario.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\States\AimingState.cs" />
      <Compile Include="Assets\MyContent\Scripts\Scripts\Player\Controller\States\FallState.cs" />
      <Compile Include="Assets\CrystalGlass\Glass2\ScreenSnapshot.cs" />

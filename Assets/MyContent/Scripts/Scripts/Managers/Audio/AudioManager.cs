@@ -27,7 +27,8 @@ public class AudioManager : MonoBehaviour {
     private AudioMixer _audioMixer;
     private Transform _soundsContainer;
     private Dictionary<string, AudioSource> _audioSources = new Dictionary<string, AudioSource>();
-    private Dictionary<AudioGroup, Func<AudioMixerGroup>> _audioGroups = new Dictionary<AudioGroup, Func<AudioMixerGroup>>();
+    private Dictionary<AudioGroup, Tuple<bool, Func<AudioMixerGroup>>> _audioGroups =
+        new Dictionary<AudioGroup, Tuple<bool, Func<AudioMixerGroup>>>();
     public static AudioManager instance;
 
     private void Awake() {
@@ -38,13 +39,20 @@ public class AudioManager : MonoBehaviour {
             Destroy(instance.gameObject);
             instance = this;
         }
-        _audioGroups[AudioGroup.MUSIC] = () => _audioMixer.FindMatchingGroups("Master/Music")[0];
-        _audioGroups[AudioGroup.SFX] = () => _audioMixer.FindMatchingGroups("Master/SFX")[0];
-        _audioGroups[AudioGroup.SFX_AMBIENT] = () => _audioMixer.FindMatchingGroups("Master/SFX/Ambient")[0];
-        _audioGroups[AudioGroup.SFX_POWERS] = () => _audioMixer.FindMatchingGroups("Master/SFX/Powers")[0];
-        _audioGroups[AudioGroup.SFX_PUZZLES] = () => _audioMixer.FindMatchingGroups("Master/SFX/Puzzles")[0];
-        _audioGroups[AudioGroup.SFX_COLLECTABLES] = () => _audioMixer.FindMatchingGroups("Master/SFX/Collectables")[0];
-        _audioGroups[AudioGroup.SFX_STEPS] = () => _audioMixer.FindMatchingGroups("Master/SFX/Steps")[0];
+        _audioGroups[AudioGroup.MUSIC] = Tuple.Create<bool, Func<AudioMixerGroup>>
+            (true, () => _audioMixer.FindMatchingGroups("Master/Music")[0]);
+        _audioGroups[AudioGroup.SFX] = Tuple.Create<bool, Func<AudioMixerGroup>>
+            (true, () => _audioMixer.FindMatchingGroups("Master/SFX")[0]);
+        _audioGroups[AudioGroup.SFX_AMBIENT] = Tuple.Create<bool, Func<AudioMixerGroup>>
+            (true, () => _audioMixer.FindMatchingGroups("Master/SFX/Ambient")[0]);
+        _audioGroups[AudioGroup.SFX_POWERS] = Tuple.Create<bool, Func<AudioMixerGroup>> 
+            (true, () => _audioMixer.FindMatchingGroups("Master/SFX/Powers")[0]);
+        _audioGroups[AudioGroup.SFX_PUZZLES] = Tuple.Create<bool, Func<AudioMixerGroup>> 
+            (true, () => _audioMixer.FindMatchingGroups("Master/SFX/Puzzles")[0]);
+        _audioGroups[AudioGroup.SFX_COLLECTABLES] = Tuple.Create<bool, Func<AudioMixerGroup>>
+            (true, () => _audioMixer.FindMatchingGroups("Master/SFX/Collectables")[0]);
+        _audioGroups[AudioGroup.SFX_STEPS] = Tuple.Create<bool, Func<AudioMixerGroup>>
+            (true, () => _audioMixer.FindMatchingGroups("Master/SFX/Steps")[0]);
     }
 
     private void Start() {
@@ -71,8 +79,15 @@ public class AudioManager : MonoBehaviour {
 
         PlayAudio("background-02", AudioMode.Loop, AudioGroup.MUSIC);
     }
-
-
+    
+    public void SetMuteGroup(AudioGroup group, bool status) {
+        var groupMixer = _audioGroups[group].Item2();
+        if (groupMixer != null) {
+            _audioMixer.SetFloat(groupMixer.name, !status ? -80f : 0f);
+        }
+        _audioGroups[group] = Tuple.Create(!status, _audioGroups[group].Item2);
+    }
+    
     public AudioClip GetClip(string key) {
         foreach (var clip in audioClips) {
             if (clip.name == key) {
@@ -85,9 +100,12 @@ public class AudioManager : MonoBehaviour {
     public void PlayAudio(string key, AudioMode mode, AudioGroup group, float volume = 1f) {
         var clip = GetClip(key);
         if (clip == null) return;
+        var isEnable = _audioGroups[group].Item1;
+        if (!isEnable) return;
 #if UNITY_EDITOR
         Debug.Log(this, "Playing audio: " + key);
 #endif
+
         AudioSource source;
         if (!_audioSources.ContainsKey(key)) {
             var newGameObject = new GameObject();
@@ -104,7 +122,7 @@ public class AudioManager : MonoBehaviour {
         source.clip = clip;
         source.loop = mode == AudioMode.Loop;
         source.volume = volume;
-        var groupMixer = _audioGroups[group]();
+        var groupMixer = _audioGroups[group].Item2();
         if (groupMixer != null) {
 #if UNITY_EDITOR
             Debug.Log("MixerGroup", "clip: " + clip.name + " group: " + groupMixer.name + "key: " + group);
@@ -119,6 +137,9 @@ public class AudioManager : MonoBehaviour {
     
     public void PlayAudio(AudioClip clip, AudioMode mode, AudioGroup group, float volume = 1f) {
         AudioSource source;
+        var isEnable = _audioGroups[group].Item1;
+        if (!isEnable) return;
+        
         if (!_audioSources.ContainsKey(clip.name)) {
             var newGameObject = new GameObject();
             newGameObject.name = clip.name;
@@ -136,7 +157,7 @@ public class AudioManager : MonoBehaviour {
         }
         source.clip = clip;
         source.loop = mode == AudioMode.Loop;
-        var groupMixer = _audioGroups[group]();
+        var groupMixer = _audioGroups[group].Item2();
         if (groupMixer != null) {
 #if UNITY_EDITOR
             Debug.Log("MixerGroup", "clip: " + clip.name + " group: " + groupMixer.name + "key: " + group);
