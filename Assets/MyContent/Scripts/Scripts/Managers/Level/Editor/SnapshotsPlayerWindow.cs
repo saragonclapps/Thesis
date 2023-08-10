@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using Debug = Logger.Debug;
 
 public class SnapshotsPlayerWindow : EditorWindow {
@@ -63,6 +64,9 @@ public class SnapshotsPlayerWindow : EditorWindow {
     private static void MovePlayerToSnapshot(Transform player, Transform snapshot) {
         player.position = snapshot.position;
         player.rotation = snapshot.rotation;
+        
+        // Mark the scene as dirty
+        EditorSceneManager.MarkSceneDirty(player.gameObject.scene);
 
         // Calculate desired position for the scene camera
         if (SceneView.lastActiveSceneView != null) {
