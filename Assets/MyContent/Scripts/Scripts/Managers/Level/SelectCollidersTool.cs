@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class SelectCollidersTool
 {
+#if UNITY_EDITOR
     [MenuItem("Tools/Select Colliders")]
     public static void SelectColliders()
     {
@@ -38,4 +39,5 @@ public class SelectCollidersTool
             FindMatchingObjects(child.gameObject, matchingObjects);
         }
     }
+#endif
 }
