@@ -19267,13 +19267,13 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &786975506
+--- !u!114 &5488019974012103167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 253698407758088015}
+  m_GameObject: {fileID: 2139157308753027773}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bcab2e85647313479b391759a3c25d0, type: 3}
@@ -19290,6 +19290,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2937874687987004872, guid: beb249d19b926dd4796b11113c31e7b9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5de23e621434f4a91abeeee576903665, type: 2}
     - target: {fileID: 5858048499769925671, guid: beb249d19b926dd4796b11113c31e7b9,
         type: 3}
       propertyPath: m_RootOrder
@@ -19345,6 +19350,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6682241287158033074, guid: beb249d19b926dd4796b11113c31e7b9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7426613675267264970, guid: beb249d19b926dd4796b11113c31e7b9,
         type: 3}
       propertyPath: respawnDistance
@@ -19353,19 +19363,24 @@ PrefabInstance:
     - target: {fileID: 7426613675267265076, guid: beb249d19b926dd4796b11113c31e7b9,
         type: 3}
       propertyPath: m_Name
-      value: Geo_Key (in-grid and flameable)
+      value: Geo_Key (in-grid and flameable) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7490214557606358913, guid: beb249d19b926dd4796b11113c31e7b9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: beb249d19b926dd4796b11113c31e7b9, type: 3}
---- !u!1 &253698407758088015 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7426613675267265076, guid: beb249d19b926dd4796b11113c31e7b9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7247963684052260219}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3881549289672291676 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5858048499769925671, guid: beb249d19b926dd4796b11113c31e7b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7247963684052260219}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2139157308753027773 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8735330353268029382, guid: beb249d19b926dd4796b11113c31e7b9,
     type: 3}
   m_PrefabInstance: {fileID: 7247963684052260219}
   m_PrefabAsset: {fileID: 0}

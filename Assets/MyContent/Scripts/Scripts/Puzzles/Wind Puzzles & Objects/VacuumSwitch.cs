@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class VacuumSwitch : MonoBehaviour, IVacuumObject
 {
-    bool isActive;
+    private bool _isActive;
 
     #region VacuumObject Implementation
-    bool _isAbsorved;
-    bool _isAbsorvable;
-    bool _isBeeingAbsorved;
-    Rigidbody _rb;
+
+    private bool _isAbsorved;
+    private bool _isAbsorvable;
+    private bool _isBeeingAbsorved;
 
     public bool isAbsorved {
         get { return _isAbsorved; }
@@ -24,15 +24,14 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
         set { _isBeeingAbsorved = value; }
     }
 
-    public Rigidbody rb {
-        get { return _rb; }
-        set { _rb = value; }
-    }
+    public Rigidbody rb { get; set; }
+
+    public Collider collider { get; set; }
 
 
     public void BlowUp(Transform origin, float atractForce, Vector3 direction)
     {
-        if (isActive)
+        if (_isActive)
         {
             if (currentAmountOfAir < maxAmountOfAir)
                 currentAmountOfAir += 60*Time.deltaTime;
@@ -44,7 +43,7 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
                 if(callbacks != null)
                 {
                     callbacks();
-                    isActive = false;
+                    _isActive = false;
                     UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
                 }
             }
@@ -53,14 +52,13 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
         }
     }
 
-    public void SuckIn(Transform origin, float atractForce)
-    {
-        if (isActive)
-        {
-            if(currentAmountOfAir > 0)
-                currentAmountOfAir -= 1;
-            if(decreaseCallbacks != null)
-                decreaseCallbacks();
+    public void SuckIn(Transform origin, float atractForce) {
+        if (!_isActive) return;
+        if(currentAmountOfAir > 0) {
+            currentAmountOfAir -= 1;
+        }
+        if(decreaseCallbacks != null) {
+            decreaseCallbacks();
         }
     }
 
@@ -123,10 +121,10 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
 
     void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         _audioSource = GetComponent<AudioSource>();
         currentAmountOfAir = 0;
-        isActive = true;
+        _isActive = true;
         _isAbsorvable = false;
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
         UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, RemainKinematic);
@@ -146,14 +144,14 @@ public class VacuumSwitch : MonoBehaviour, IVacuumObject
     //TODO: Select if you want kinematic to return to false when you stop blowing up IVacuumObjects
     void RemainKinematic()
     {
-        _rb.isKinematic = true;
+        rb.isKinematic = true;
     }
 
     #endregion
 
     public float GetCurrentProgressPercent()
     {
-        return isActive ? currentAmountOfAir / maxAmountOfAir: 1;
+        return _isActive ? currentAmountOfAir / maxAmountOfAir: 1;
     }
 
     private void OnDestroy()

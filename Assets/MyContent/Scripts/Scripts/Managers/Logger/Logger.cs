@@ -27,6 +27,15 @@ namespace Logger {
     using System.Collections.Generic;
     using UnityEngine;
 
+    public enum LogColor {
+        RED,
+        GREEN,
+        YELLOW,
+        BLUE,
+        WHITE,
+        BLACK,
+    }
+
     public static class Debug {
         private static readonly int DEFAULT_SIZE = 12;
 
@@ -98,6 +107,10 @@ namespace Logger {
                 Log(ApplyStyle("[" + name + "]: " + "<color=" + color + ">" + message + "</color>"));
             }
         }
+        
+        public static void LogColor(string key, object message, LogColor color) { 
+            LogColor(key, message, color.ToString());
+        }
         #endregion
         
         #region byObj
@@ -160,6 +173,10 @@ namespace Logger {
                 Log(ApplyStyle("[" + name + "]: " + "<color=" + color + ">" + message + "</color>"));
             }
         }
+        
+        public static void LogColor(object obj, object message, LogColor color) {
+            LogColor(obj, message, color.ToString());
+        }
         #endregion
 
         #endregion
@@ -176,6 +193,9 @@ namespace Logger {
 
         public static void LogColor(object message, string color) {
             Log(ApplyStyle("<color=" + color + ">" + message + "</color>"));
+        }
+        public static void LogColor(object message, LogColor color) {
+            LogColor(message, color.ToString());
         }
 
         #endregion

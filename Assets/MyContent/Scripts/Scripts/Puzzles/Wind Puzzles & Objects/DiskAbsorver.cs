@@ -9,6 +9,7 @@ public class DiskAbsorver : MonoBehaviour, IVacuumObject {
     public bool isBeeingAbsorved { get; set; }
 
     public Rigidbody rb { get; set; }
+    public Collider collider { get; set; }
 
     private Vector3 _initialPosition;
 

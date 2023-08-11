@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Logger;
 using UnityEngine;
+using Debug = Logger.Debug;
 
-[RequireComponent(typeof(AudioObjectEmitter))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioObjectEmitter))]
+[RequireComponent(typeof(Collider))]
 public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     [HideInInspector] public bool wasShooted;
 
     public MeshRenderer refRenderer;
-    private Collider _bC;
+    public TrackerModel trackerModel;
 
     private float _alphaCut;
 
@@ -28,7 +31,6 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     protected bool _isAbsorved;
     protected bool _isAbsorvable;
     protected bool _isBeeingAbsorved;
-    protected Rigidbody _rb;
     public static bool drawGizmos = true;
 
     public bool isAbsorved {
@@ -42,10 +44,42 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         get => _isBeeingAbsorved;
         set => _isBeeingAbsorved = value;
     }
+    
+    protected Rigidbody _rb;
 
     public Rigidbody rb {
-        get => _rb;
+        get {
+            if (_rb != null) return _rb;
+            
+            if (GetComponent<Rigidbody>() != null) {
+                _rb = GetComponent<Rigidbody>();
+            }
+
+            if (_rb == null) {
+                Debug.LogError(this, "No Rigidbody assign component: " + gameObject.name);
+            }
+            
+            return _rb;
+        }
         set => _rb = value;
+    }
+    
+    private Collider _collider;
+    public Collider collider {
+        get {
+            if (_collider != null) return _collider;
+            
+            if (GetComponent<Collider>() != null) {
+                _collider = GetComponent<Collider>();
+            }
+
+            if (_collider == null) {
+                Debug.LogError(this, "No Rigidbody assign component: " + gameObject.name);
+            }
+            
+            return _collider;
+        }
+        set => _collider = value;
     }
 
     private AudioObjectEmitter _audioObjectEmitter;
@@ -57,7 +91,18 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         _isAbsorvable = false;
         _rb = GetComponent<Rigidbody>();
         _audioObjectEmitter = GetComponent<AudioObjectEmitter>();
-        // _bC = GetComponent<Collider>();
+        _collider = GetComponent<Collider>();
+#if UNITY_EDITOR
+        if (_collider == null) {
+            Debug.LogError(this, "No Collider found: " + gameObject.name);
+        }
+#endif
+#if UNITY_EDITOR
+        if (_rb == null) {
+            Debug.LogError(this, "No Rigidbody found: " + gameObject.name);
+        }
+#endif
+
         SpawnVFXActivate(true);
         StartCoroutine(EnableSounds());
     }
@@ -95,7 +140,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
             // material.SetFloat("_DisolveAmount", _alphaCut);
             _alphaCut -= Time.deltaTime;
             _rb.useGravity = true;
-            // _bC.isTrigger = false;
+            _collider.isTrigger = false;
             if (!(_alphaCut <= 0)) return;
             UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, SpawnVFX);
             wasShooted = false;
@@ -114,11 +159,12 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     }
 
     public void RepositionOnSpawn() {
+        Debug.LogColor(this,"Respawn: " + gameObject.name, LogColor.RED);
         transform.position = _initialPosition;
         transform.rotation = Quaternion.identity;
         rb.velocity = Vector3.zero;
-        _rb.useGravity = false;
-        // _bC.isTrigger = true;
+        rb.useGravity = false;
+        collider.isTrigger = true;
         SpawnVFXActivate(true);
         wasShooted = true;
 
@@ -135,11 +181,11 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
         var distance = direction.magnitude;
 
         if (distance <= 0.7f) {
-            _bC.isTrigger = true;
+            _collider.isTrigger = true;
             rb.isKinematic = true;
             transform.position = origin.position;
             isAbsorved = true;
-            
+
             //TODO: Pending change implementation from set parent to set position
             transform.SetParent(origin);
         }
@@ -173,7 +219,7 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     }
 
     public void Shoot(float shootForce, Vector3 direction) {
-        _bC.isTrigger = false;
+        _collider.isTrigger = false;
         wasShooted = true;
         isAbsorved = false;
         rb.isKinematic = false;
@@ -187,19 +233,19 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     }
 
     public void Exit() {
-        _bC.isTrigger = false;
+        _collider.isTrigger = false;
         ViewFX(false);
         transform.SetParent(null);
         rb.isKinematic = false;
         isAbsorved = false;
     }
-    
+
     private void OnCollisionEnter(Collision collision) {
         //TODO: Find a better way to exclude "Player" collision
         if (collision.gameObject.name != "Player") {
             wasShooted = false;
         }
-        
+
         var relativeVelocity = collision.relativeVelocity;
         var collisionForce = relativeVelocity.magnitude;
         if (!(collisionForce > 5f)) return;
@@ -218,7 +264,8 @@ public class MediumSizeObject : MonoBehaviour, IVacuumObject {
     }
 
     private void OnDrawGizmos() {
-        if(!drawGizmos) return;
+        return;
+        if (!drawGizmos) return;
         Gizmos.color = new Color(255, 255, 255, 0.5f);
         Gizmos.DrawSphere(transform.position, 0.3f);
     }

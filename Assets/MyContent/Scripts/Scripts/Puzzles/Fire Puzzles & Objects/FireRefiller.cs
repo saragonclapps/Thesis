@@ -39,6 +39,8 @@ public class FireRefiller : MonoBehaviour, IVacuumObject
         set { _rb = value; }
     }
 
+    public Collider collider { get; set; }
+
     public void BlowUp(Transform origin, float atractForce, Vector3 direction)
     {
 

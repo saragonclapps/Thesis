@@ -1,9 +1,11 @@
 ﻿
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
 public class FencePuzzleAbsorver : MediumSizeObject, IVacuumObject
 {
-    Collider _collider;
+    private Collider _collider;
 
     private new void Start()
     {

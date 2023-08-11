@@ -8,6 +8,9 @@ public class AudioObjectEmitter: AudioBaseEmiter {
         if (AudioManager.instance == null || _mute) {
             return;
         }
+        if (audioClipDataHits == null) {
+            throw new Exception("No vacuum sounds");
+        }
         switch (audioClipDataHits.clips.Length) {
             case 0: {
                 throw new Exception("No vacuum sounds");

@@ -21,8 +21,9 @@ public class LargeSizeObject : MonoBehaviour, IVacuumObject
     public bool isAbsorvable { get { return _isAbsorvable; } }
     public bool isBeeingAbsorved { get { return _isBeeingAbsorved; } set { _isBeeingAbsorved = value; } }
     public Rigidbody rb { get { return _rb; } set { _rb = value; } }
+    public Collider collider { get; set; }
 
-    void Start ()
+    private void Start ()
     {
         _rb = GetComponent<Rigidbody>();
         _isAbsorvable = false;

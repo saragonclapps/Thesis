@@ -2,86 +2,76 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CatchOnFireForObjects : MonoBehaviour, IFlamableObjects
-{
-    bool _isOnFire;
+[RequireComponent(typeof(MediumSizeObject))]
+[RequireComponent(typeof(ObjectToWeight))]
+public class CatchOnFireForObjects : MonoBehaviour, IFlamableObjects {
+    private bool _isOnFire;
+    private float _currentLife;
+    private ObjectToWeight _objectToWeight;
     public float maxLife;
     public float fireSensitivity;
-    float currentLife;
-    ObjectToWeight otw;
-    private event Action OnStartFireEvents = delegate { }; 
+    private event Action OnStartFireEvents = delegate { };
 
     public ParticleSystem fireParticle;
-    MediumSizeObject m;
-    Renderer rend;
+    private MediumSizeObject _mediumSizeObject;
+    private Renderer _renderer;
 
     public bool consumable;
 
-    public bool isOnFire
-    {
-        get { return _isOnFire; }
-        set { _isOnFire = value; }
+    public bool isOnFire {
+        get => _isOnFire;
+        set => _isOnFire = value;
     }
 
-    public void SetOnFire()
-    {
+    public void SetOnFire() {
         isOnFire = true;
         fireParticle.Play();
     }
 
-    public void SubscribeStartFire(Action observer)
-    {
+    public void SubscribeStartFire(Action observer) {
         OnStartFireEvents += observer;
     }
 
-    public void UnSubscribeStartFire(Action observer)
-    {
+    public void UnSubscribeStartFire(Action observer) {
         OnStartFireEvents -= observer;
     }
 
-    void Start()
-    {
+    private void Start() {
         isOnFire = false;
-        currentLife = maxLife;
+        _currentLife = maxLife;
         fireParticle.Stop();
-        rend = GetComponent<Renderer>();
+        _renderer = GetComponent<Renderer>();
         // rend.material.SetColor("_BorderColor", Color.red);
         // rend.material.SetFloat("_DisolveAmount", 0);
-        otw = GetComponent<ObjectToWeight>();
-        m = GetComponent<MediumSizeObject>();
-        if (consumable)
+        _objectToWeight = GetComponent<ObjectToWeight>();
+        _mediumSizeObject = GetComponent<MediumSizeObject>();
+        if (consumable) {
             UpdatesManager.instance.AddUpdate(UpdateType.UPDATE, Execute);
-    }
-
-    void Execute()
-    {
-        if (isOnFire)
-        {
-            if (currentLife > 0)
-            {
-                currentLife -= Time.deltaTime * fireSensitivity;
-                FireEffect();
-            }
-            else
-            {
-                fireParticle.Stop();
-                if (m.respawnable)
-                {
-                    m.RepositionOnSpawn();
-                    currentLife = maxLife;
-                    isOnFire = false;
-                    // rend.material.SetColor("_AlbedoColor", Color.white);
-                }
-                else
-                {
-                    Die();
-                }
-            }
         }
     }
 
-    void FireEffect()
-    {
+    private void Execute() {
+        if (!isOnFire) return;
+        if (!(_currentLife > 0)) {
+            fireParticle.Stop();
+            if (_mediumSizeObject.respawnable) {
+                _mediumSizeObject.RepositionOnSpawn();
+                _currentLife = maxLife;
+                isOnFire = false;
+                // rend.material.SetColor("_AlbedoColor", Color.white);
+            }
+            else {
+                Die();
+            }
+
+            return;
+        }
+
+        _currentLife -= Time.deltaTime * fireSensitivity;
+        FireEffect();
+    }
+
+    private void FireEffect() {
         OnStartFireEvents();
         //Just for burn effect
         // var scale = currentLife / maxLife;
@@ -90,24 +80,20 @@ public class CatchOnFireForObjects : MonoBehaviour, IFlamableObjects
         // rend.material.SetFloat("_DisolveAmount", 1 - scale);
     }
 
-    void Die()
-    {
-        if (fireParticle.transform.parent != null)
-        {
+    private void Die() {
+        if (fireParticle.transform.parent != null) {
             OnStartFireEvents();
             fireParticle.transform.SetParent(null);
             transform.position += Vector3.up * 500000;
         }
-        else
-        {
-            OnStartFireEvents = delegate {};
+        else {
+            OnStartFireEvents = delegate { };
             Destroy(gameObject);
             Destroy(fireParticle);
         }
     }
 
-    private void OnDestroy()
-    {
+    private void OnDestroy() {
         if (consumable) UpdatesManager.instance.RemoveUpdate(UpdateType.UPDATE, Execute);
     }
 }

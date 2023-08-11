@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wasShooted: 0
   refRenderer: {fileID: 6561126744771538903}
+  trackerModel: {fileID: 4986119140795177394}
   respawnDistance: 10
   respawnTime: 5
   respawnable: 1
@@ -186,7 +187,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e2010edc828bae14a9322f227a20d230, type: 2}
+  - {fileID: 2100000, guid: dbf89f7119dd34b61ac654f8e11737d6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

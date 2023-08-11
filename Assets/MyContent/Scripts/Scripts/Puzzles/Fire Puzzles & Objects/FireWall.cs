@@ -10,6 +10,7 @@ public class FireWall : MonoBehaviour, IVacuumObject
     public bool isAbsorvable { get { return _isAbsorvable; } }
     public bool isBeeingAbsorved { get { return _isBeeingAbsorved; } set { _isBeeingAbsorved = value; } }
     public Rigidbody rb { get { return _rb; } set { _rb = value; } }
+    public Collider collider { get; set; }
 
     bool _isAbsorved;
     bool _isAbsorvable;
@@ -29,7 +30,6 @@ public class FireWall : MonoBehaviour, IVacuumObject
     float initialFireAmount;
     public float fireAmount;
     public float fireRefillSpeed;
-    BoxCollider _box;
 
     [Header("Cycle Variables")]
     public bool isCyclic;
@@ -50,7 +50,7 @@ public class FireWall : MonoBehaviour, IVacuumObject
     {
         _ps = GetComponentsInChildren<ParticleSystem>();
         _rb = GetComponent<Rigidbody>();
-        _box = GetComponent<BoxCollider>();
+        collider = GetComponent<Collider>();
         initialFireAmount = fireAmount;
         _activeTime = period * dutyCycle;
         _inactiveTime = period * (1-dutyCycle);

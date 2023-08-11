@@ -6,6 +6,7 @@ public interface IVacuumObject
     bool isAbsorvable { get; }
     bool isBeeingAbsorved { get; set; }
     Rigidbody rb { get; set; }
+    Collider collider { get; set; }
 
     void SuckIn(Transform origin, float atractForce);
     void BlowUp(Transform origin, float atractForce, Vector3 direction);
