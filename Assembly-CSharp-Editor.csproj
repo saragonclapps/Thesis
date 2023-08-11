@@ -56,6 +56,7 @@
      <Compile Include="Assets/MyContent/Scripts/Scripts/Utilities/Editor/ZFightFinder.cs" />
      <Compile Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Editor/HaloLightEditor.cs" />
      <Compile Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Editor/SlimLightEditor.cs" />
+     <Compile Include="Assets/MyContent/Scripts/Scripts/Managers/Level/Editor/SelectObjectsByMaterial.cs" />
      <Compile Include="Assets/MyContent/Scripts/Editor/AudioObjectEmitterEditor.cs" />
      <Compile Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Editor/PlanarLightEditor.cs" />
      <Compile Include="Assets/PluginMaster/DesignTools/Editor/TransformTools/Scripts/BaseToolWindow.cs" />
@@ -78,8 +79,10 @@
      <Compile Include="Assets/PluginMaster/DesignTools/Editor/TransformTools/Scripts/HomogenizeToolWindow.cs" />
      <Compile Include="Assets/PluginMaster/DesignTools/Editor/TransformTools/Scripts/SimulateGravityWindow.cs" />
      <Compile Include="Assets/MyContent/Scripts/Scripts/Managers/Logger/Editor/LoggerSetupEditor.cs" />
+     <Compile Include="Assets/MyContent/Scripts/Scripts/Managers/Level/Editor/DeselectRandom.cs" />
      <Compile Include="Assets/PluginMaster/DesignTools/Editor/Common/Scripts/Shortcuts.cs" />
      <Compile Include="Assets/PluginMaster/DesignTools/Editor/TransformTools/Scripts/RadialArrangeToolWindow.cs" />
+     <Compile Include="Assets/MyContent/Scripts/Scripts/Managers/Level/Editor/SelectCollidersTool.cs" />
      <Compile Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Editor/BeaconLightEditor.cs" />
      <Compile Include="Assets/PluginMaster/DesignTools/Editor/TransformTools/Scripts/TransformTools.cs" />
      <Compile Include="Assets/MyContent/Scripts/Scripts/Managers/Level/Editor/AutoSaveTool.cs" />

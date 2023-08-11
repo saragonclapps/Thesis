@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(ObjectToWeight))]
 public class CatchOnFireForObjects : MonoBehaviour, IFlamableObjects {
     private bool _isOnFire;
-    private float _currentLife;
+    public float _currentLife;
     private ObjectToWeight _objectToWeight;
     public float maxLife;
     public float fireSensitivity;
