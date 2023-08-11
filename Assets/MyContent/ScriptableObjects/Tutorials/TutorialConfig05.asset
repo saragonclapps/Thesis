@@ -13,35 +13,11 @@ MonoBehaviour:
   m_Name: TutorialConfig05
   m_EditorClassIdentifier: 
   tutorials:
-  - key: blowAndAspire
+  - key: fire
     value:
       type: 1
-      text: 'Suck: Left Click, Throw: Right Click'
-      button: {fileID: 21300000, guid: e870526c6436149d387cc8ccfe57cdbb, type: 3}
+      text: Move platforms with fire (use engine)
+      button: {fileID: 21300000, guid: b9f85652705904a8b81723a39dbd2969, type: 3}
       soundKey: 
       animation: {fileID: 0}
       blockMovement: 0
-  - key: blowAndAspireCamera
-    value:
-      type: 2
-      text: 
-      button: {fileID: 0}
-      soundKey: 
-      animation: {fileID: 7400000, guid: bc54fda8eb7a8445d9a1c9d66832a9db, type: 2}
-      blockMovement: 1
-  - key: GetDisk
-    value:
-      type: 2
-      text: 
-      button: {fileID: 0}
-      soundKey: 
-      animation: {fileID: 7400000, guid: ad1e1713f77374abd9cfd9c3be1d06fd, type: 2}
-      blockMovement: 1
-  - key: GetPanel
-    value:
-      type: 2
-      text: 
-      button: {fileID: 0}
-      soundKey: 
-      animation: {fileID: 7400000, guid: 785e7701d8cb6427c9183de36741a1c1, type: 2}
-      blockMovement: 1
