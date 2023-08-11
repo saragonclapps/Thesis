@@ -10,7 +10,14 @@ public class PlayAnimation : MonoBehaviour {
 
     void OnEnable() {
         _animator = GetComponent<Animator>();
-        _animator.SetFloat("speed", (initalPlay ? 1 : 0));
+        // verify if the animator is playing and set the speed accordingly
+        if (_animator.runtimeAnimatorController != null) {
+            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+            if (stateInfo.normalizedTime < 1) {
+                _animator.SetFloat("speed", (initalPlay ? 1 : 0));
+            }
+        }
+
     }
 
     public void toggleAnim(bool b)

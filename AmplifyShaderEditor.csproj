@@ -104,15 +104,15 @@
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Misc/FresnelNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/HelperFuncs/DecodeFloatRGBAHlpNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/CustomAddNode.cs" />
+     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Utils/ASEStartScreen.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Templates/TemplateNodeParent.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/Transform/TransformVariables.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/HelperFuncs/UnityObjToClipPosHlpNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/Various/PrimitiveIdVariableNode.cs" />
-     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Utils/ASEStartScreen.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Templates/TemplatePass.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Templates/TemplatesBlendModule.cs" />
-     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/Matrix4X4Node.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Native/FallbackString.cs" />
+     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/Matrix4X4Node.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Operators/ATanOpNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/Transform/InverseProjectionMatrixNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Vertex/TangentVertexDataNode.cs" />
@@ -189,8 +189,8 @@
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Operators/ClipNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Misc/RegisterLocalVarNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/SRP/HDRP/HDEmissionNode.cs" />
-     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/NodeAttributes.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Templates/TemplateOptionsDefinesContainer.cs" />
+     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/NodeAttributes.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/ISignalGenerator.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Master/StencilBufferOpHelper.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Master/OutputNode.cs" />
@@ -306,8 +306,8 @@
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Utils/GenericMessage.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Master/TerrainDrawInstancedHelper.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/RangedFloatNode.cs" />
-     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Misc/Transformation/WorldToObjectTransfNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/Time/DeltaTime.cs" />
+     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Misc/Transformation/WorldToObjectTransfNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Vertex/OutlineNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Operators/ScaleAndOffsetNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/HelperFuncs/ShadeVertexLightsHlpNode.cs" />
@@ -362,8 +362,8 @@
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Operators/DdxOpNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Master/UsePassHelper.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/SimpleNodes/SimpleSubtractOpNode.cs" />
-     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/HelperFuncs/DiffuseAndSpecularFromMetallicNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Native/FallbackColor.cs" />
+     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/HelperFuncs/DiffuseAndSpecularFromMetallicNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/CameraAndScreen/CameraWorldClipPlanes.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Utils/ShaderBodyTokenizer.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Operators/SinOpNode.cs" />
@@ -397,8 +397,8 @@
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/SurfaceShaderInputs/WorldPosInputsNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Vertex/VertexBinormalNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Operators/ReciprocalOpNode.cs" />
-     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Misc/SummedBlendNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Utils/TextureArrayCreatorAsset.cs" />
+     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Misc/SummedBlendNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/Lighting/IndirectSpecularLight.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Operators/FmodOpNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Operators/FloorOpNode.cs" />
@@ -478,8 +478,8 @@
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/CameraAndScreen/CameraProjectionNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Menu/ConsoleLogWindow.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Master/FallbackPickerHelper.cs" />
-     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Native/FallbackVariable.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/HelperFuncs/ComputeGrabScreenPosHlpNode.cs" />
+     <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Native/FallbackVariable.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Operators/VariablePortTypeOpNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Textures/SamplerNode.cs" />
      <Compile Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Operators/Exp2OpNode.cs" />
@@ -509,6 +509,7 @@
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SimpleDivideOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/UI/UI-Default.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Shaders/Unlit-ColoredAlpha.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Version" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ParallaxOffset.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_WeightedBlendNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/ShaderLibrary/ShaderLibrary.txt" />
@@ -517,26 +518,38 @@
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TFHCCompareLessNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_LinearToGammaNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_NegateNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/UI/Buttons" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/LogicalOperators" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TanOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ReciprocalNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Vertex/Tessellation" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_VertexTangentNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/TextureArrayInspector.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ACosOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_LuminanceNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Wires" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_FWidthOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_AnyNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ScaleAndOffsetNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Templates" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/Legacy/MultiPassUnlit.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ATan2OpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TFHCCompareWithRange.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_WorldSpaceLightPosNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/CustomDrawers" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/CustomRT/CustomRTUpdate.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/Legacy/PPStack.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_FogParams.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TwoSidedSignNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Examples" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Graphs" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TanhOpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/SRP" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TFHCRemap.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_PrimitiveIDVariableNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Actions" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_HeightMapTextureBlend.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_DecodeLightmapHlpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_EncodeFloatRGBAHlpNode.shader" />
@@ -544,12 +557,16 @@
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_RadiansOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_RotatorNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TFHCPixelateUV.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/ShaderFunctions" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Operators" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_GetLocalVarNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_InstanceIDNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_Texture2D.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_LightColorNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_FractNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SwitchBySRPVersionNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Misc" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TimeNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_FogAndAmbientColors.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_LogOpNode.shader" />
@@ -560,14 +577,19 @@
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_FresnelNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_LerpOp.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ExpOpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Nodes" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_RelayNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/UI" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/SRP/HDRP" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ObjectToWorldTransfNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_EncodeFloatRGHlpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/UI" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_IndirectDiffuseLight.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SinTimeNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SwitchByFaceNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TFHCCompareGreaterEqual.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_CoshOpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Misc/Transformation" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TextureTransform.shader" />
      <None Include="Assets/AmplifyShaderEditor/Examples/Credits.txt" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SimpleTimeNode.shader" />
@@ -590,10 +612,12 @@
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TangentSignVertexDataNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SimplifiedFModOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TFHCCompareGreater.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_FloorOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ZBufferParams.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_GrayscaleNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_VertexBinormalNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/HelperFuncs" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ObjSpaceViewDirHlpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SimpleMinNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_IndirectSpecularLight.shader" />
@@ -602,42 +626,60 @@
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/Legacy/Unlit.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ViewDirInputsCoordNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SqrtOpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/Lighting" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SimpleSubtractOpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Vertex" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Master" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Utils" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TriplanarNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/CustomRT" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ComputeScreenPos.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ProjectionParams.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ObjectToViewPos.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ComponentMaskNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_DiffuseAndSpecularFromMetallic.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ObjSpaceLightDirHlpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/ShaderLibrary" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TruncOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/Legacy/PostProcess.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Textures" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_DecodeFloatRGBAHlpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Native" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TextureCoordinatesNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Menu/Tools" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_Compare.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_LayeredBlendNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/ChangeLog.txt" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ParallaxMappingNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ScreenParams.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/FogAndAmbient" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_Vector2Node.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_OrthoParams.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Menu/Palette" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Shaders/ASESShaderSelectorUnlit.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_AppendNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_GammaToLinearNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_DdyOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_VertexIdVariableNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_Log2OpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TFHCCompareEqual.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_WorldToObjectTransfNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SimpleMaxOp.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/SimpleNodes" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/Legacy/UnlitLightmap.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/UI/Canvas" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SaturateNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_RangedFloatNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_DecodeViewNormalStereoHlpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/LinearPreviews.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TangentVertexDataNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/ImageEffects" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_DegreesOpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Textures" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SignOpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_RefractOpVec.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_WorldTransformParams.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_RegisterLocalVarNode.shader" />
@@ -647,6 +689,7 @@
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TFHCCompareLowerEqual.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_Vector4Node.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_VertexColorNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_HSVToRGBNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_DesaturateNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_WireNode.shader" />
@@ -656,10 +699,13 @@
      <None Include="Assets/AmplifyShaderEditor/Readme.txt" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ASinOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_LinearDepthNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/UI/Nodes" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ShadeVertexLights.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Menu" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_DistanceOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_LightAttenuation.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_FaceVariableNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/Various" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TexelSize.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_NormalVertexDataNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_WorldSpaceCameraPos.shader" />
@@ -670,11 +716,14 @@
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ReflectOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_LengthOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_StepOpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/Transform" />
      <None Include="Assets/AmplifyShaderEditor/Examples/Readme Samples.txt" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TFHCIf.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ColorNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/CustomRT/CustomRTInit.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TexCoordVertexDataNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/Time" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/Constants/ShaderVariables/CameraAndScreen" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_NodeMasking.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_FunctionNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_ColorSpaceDouble.shader" />
@@ -683,6 +732,7 @@
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_BlendNormalsNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_PosterizeNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_LODFadeNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/SRP/URP" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_EncodeViewNormalStereoHlpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_CosOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_BlendOpsNode.shader" />
@@ -692,11 +742,16 @@
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_DeltaTime.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_NoiseGeneratorNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_AbsOpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes/SurfaceShaderInputs" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Shaders" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/Editor/Nodes" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SummedBlendNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/Legacy/Lit.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/GUISkins" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_TextureArrayNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_WorldSpaceLightDirHlpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SinhOpNode.shader" />
+     <Folder Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates/Legacy" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_WorldReflectionVector.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_SimpleAddOpNode.shader" />
      <None Include="Assets/AmplifyShaderEditor/Plugins/EditorResources/Previews/Preview_Log10OpNode.shader" />
@@ -969,29 +1024,23 @@
      <Reference Include="UnityEditor.OSXStandalone.Extensions">
      <HintPath>/Applications/Unity/Hub/Editor/2021.3.10f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
      </Reference>
-     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
-     <HintPath>/Applications/Unity/Hub/Editor/2021.3.10f1/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
-     </Reference>
-     <Reference Include="log4netPlastic">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.collab-proxy@1.17.2/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
-     </Reference>
-     <Reference Include="clipper_library">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.cinemachine@2.8.6/Runtime/ThirdParty/clipper_library.dll</HintPath>
-     </Reference>
-     <Reference Include="Newtonsoft.Json">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.Plastic.Newtonsoft.Json">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.collab-proxy@1.17.2/Lib/Editor/PlasticSCM/Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.collab-proxy@2.0.7/Lib/Editor/PlasticSCM/Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+     </Reference>
+     <Reference Include="unityplastic">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.collab-proxy@2.0.7/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Plastic.Antlr3.Runtime">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.collab-proxy@1.17.2/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.collab-proxy@2.0.7/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="log4netPlastic">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.collab-proxy@2.0.7/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
      </Reference>
      <Reference Include="LitJson">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Assets/MyContent/Scripts/Imports/LitJson/LitJson.dll</HintPath>
      </Reference>
-     <Reference Include="unityplastic">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.collab-proxy@1.17.2/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
+     <Reference Include="Newtonsoft.Json">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll</HintPath>
      </Reference>
      <Reference Include="nunit.framework">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -1377,11 +1426,11 @@
      <Reference Include="UnityEngine.UI">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
      </Reference>
-     <Reference Include="UnityEditor.TestRunner">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
-     </Reference>
      <Reference Include="UnityEngine.TestRunner">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEditor.TestRunner">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

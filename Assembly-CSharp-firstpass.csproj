@@ -92,26 +92,58 @@
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/shadergen_includes_hdrp.txt" />
      <None Include="Assets/Standard Assets/Effects/Projectors/Shaders/ProjectorLight.shader" />
      <None Include="Assets/Standard Assets/Effects/Projectors/Shaders/ProjectorMultiply.shader" />
+     <Folder Include="Assets/Plugins/VolumetricLightBeam" />
+     <Folder Include="Assets/Standard Assets/Effects" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/VolumetricLightBeamShared.cginc" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water/Materials" />
+     <Folder Include="Assets/Standard Assets/Effects/Projectors/Materials" />
      <None Include="Assets/Standard Assets/Effects/Projectors/Guidelines.txt" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water/Textures" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water4/Prefabs" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/VLBGeneratedShader.shader" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/shadergen_includes_urp.txt" />
+     <Folder Include="Assets/Standard Assets/Effects/Projectors/Textures" />
      <None Include="Assets/Standard Assets/Environment/Water/Water4/Shaders/WaterInclude.cginc" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/ShaderUtils.cginc" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/ShaderSpecificURP.cginc" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water/Scripts" />
+     <Folder Include="Assets/Plugins/VolumetricLightBeam/Scripts" />
+     <Folder Include="Assets/Plugins/VolumetricLightBeam/Samples" />
+     <Folder Include="Assets/Plugins/VolumetricLightBeam/Shaders" />
+     <Folder Include="Assets/Standard Assets/Effects/Projectors/Prefabs" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/shadergen_pass.txt" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water4" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/ShaderProperties.cginc" />
      <None Include="Assets/Standard Assets/Environment/Water/Water4/Shaders/FXWater4Advanced.shader" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water4/Materials" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water/Shaders" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/shadergen_base.txt" />
+     <Folder Include="Assets/Plugins/VolumetricLightBeam/Samples/Materials" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/ShaderSpecificHDRP.hlsl" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/ShaderDefines.cginc" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water4/Models" />
      <None Include="Assets/Standard Assets/Environment/Water/Water4/Shaders/FXWater4Simple.shader" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Readme.txt" />
+     <Folder Include="Assets/Plugins/VolumetricLightBeam/Resources" />
+     <Folder Include="Assets/Standard Assets/Effects/Projectors" />
      <None Include="Assets/Standard Assets/Environment/Water/Water/Shaders/FXWaterPro.shader" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water4/Shaders" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water4/Textures" />
+     <Folder Include="Assets/Standard Assets/Environment" />
+     <Folder Include="Assets/Plugins/VolumetricLightBeam/Samples/Scenes" />
+     <Folder Include="Assets/Plugins/VolumetricLightBeam/Samples/Scripts" />
+     <Folder Include="Assets/Standard Assets/Effects/Projectors/Shaders" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water/Prefabs" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/ShaderPropertySystem.cginc" />
+     <Folder Include="Assets/Plugins" />
+     <Folder Include="Assets/Plugins/VolumetricLightBeam/Samples/Animations" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/ShaderMaths.cginc" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/shadergen_includes_builtin.txt" />
+     <Folder Include="Assets/Standard Assets/Environment/Water/Water/Models" />
      <None Include="Assets/Plugins/VolumetricLightBeam/Shaders/ShaderSpecificBuiltin.cginc" />
+     <Folder Include="Assets/Standard Assets/Environment/Water" />
+     <Folder Include="Assets/Standard Assets" />
      <Reference Include="UnityEngine">
      <HintPath>/Applications/Unity/Hub/Editor/2021.3.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>
@@ -355,14 +387,11 @@
      <Reference Include="UnityEditor.UnityConnectModule">
      <HintPath>/Applications/Unity/Hub/Editor/2021.3.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
      </Reference>
-     <Reference Include="clipper_library">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.cinemachine@2.8.6/Runtime/ThirdParty/clipper_library.dll</HintPath>
+     <Reference Include="LitJson">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Assets/MyContent/Scripts/Imports/LitJson/LitJson.dll</HintPath>
      </Reference>
      <Reference Include="Newtonsoft.Json">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll</HintPath>
-     </Reference>
-     <Reference Include="LitJson">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Assets/MyContent/Scripts/Imports/LitJson/LitJson.dll</HintPath>
      </Reference>
      <Reference Include="mscorlib">
      <HintPath>/Applications/Unity/Hub/Editor/2021.3.10f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/mscorlib.dll</HintPath>
@@ -745,53 +774,17 @@
      <Reference Include="Unity.VSCode.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.2D.Tilemap.Editor">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="UnityEngine.Purchasing">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="UnityEngine.Purchasing.SecurityStub">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityStub.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.Advertisements">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.ProBuilder">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEditor.UI">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Rider.Editor">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.SpatialTracking">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.UI">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-     </Reference>
-     <Reference Include="Cinemachine">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
-     </Reference>
-     <Reference Include="com.unity.cinemachine.editor">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.Purchasing.Codeless">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Codeless.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.Monetization">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Monetization.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Tilemap.Editor">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.ProBuilder.AddOns.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Services.Analytics.Editor">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Services.Analytics.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Timeline">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
@@ -799,11 +792,17 @@
      <Reference Include="Unity.TextMeshPro">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.Services.Analytics">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Services.Analytics.dll</HintPath>
+     <Reference Include="UnityEngine.Purchasing.SecurityStub">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityStub.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEngine.Advertisements">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.Sprite.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.ProBuilder">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
      </Reference>
      <Reference Include="Unity.ProBuilder.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
@@ -811,8 +810,20 @@
      <Reference Include="Unity.Postprocessing.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="UnityEditor.UI">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Rider.Editor">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.PlasticSCM.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEngine.SpatialTracking">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEngine.UI">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Services.Core">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Services.Core.dll</HintPath>
@@ -825,6 +836,9 @@
      </Reference>
      <Reference Include="Unity.Postprocessing.Runtime">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEngine.Purchasing.Codeless">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Codeless.dll</HintPath>
      </Reference>
      <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
@@ -855,10 +869,6 @@
      </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Dreamteck.Splines.csproj">
-      <Project>{7fd13737-3e8a-0e85-7acc-cb8c7529fb6f}</Project>
-      <Name>Dreamteck.Splines</Name>
-    </ProjectReference>
     <ProjectReference Include="AmplifyShaderEditor.csproj">
       <Project>{56441557-66cc-709a-07b9-0bc8383fc5de}</Project>
       <Name>AmplifyShaderEditor</Name>
@@ -874,6 +884,10 @@
     <ProjectReference Include="Dreamteck.Utilities.Editor.csproj">
       <Project>{7685b1b4-7304-7754-6bad-b58ae902396d}</Project>
       <Name>Dreamteck.Utilities.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Dreamteck.Splines.csproj">
+      <Project>{7fd13737-3e8a-0e85-7acc-cb8c7529fb6f}</Project>
+      <Name>Dreamteck.Splines</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -247,9 +247,9 @@
      <Compile Include="Assets/MyContent/Scripts/Scripts/Player/Controller/PlayerController.cs" />
      <Compile Include="Assets/MyContent/Scripts/Scripts/Player/Controller/States/LandState.cs" />
      <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_PhoneNumberValidator.cs" />
+     <Compile Include="Assets/MyContent/Scripts/Scripts/Puzzles/Wind Puzzles &amp; Objects/FencePuzzleAbsorver.cs" />
      <Compile Include="Assets/MyContent/Scripts/Scripts/Player/PlayerTemperature.cs" />
      <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" />
-     <Compile Include="Assets/MyContent/Scripts/Scripts/Puzzles/Wind Puzzles &amp; Objects/FencePuzzleAbsorver.cs" />
      <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" />
      <Compile Include="Assets/MyContent/Scripts/Scripts/Managers/MasterManager.cs" />
      <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexZoom.cs" />
@@ -262,94 +262,558 @@
      <Compile Include="Assets/shaders 103 asset/Scripts/ReplacementShaderEffect.cs" />
      <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" />
      <Compile Include="Assets/EffectExamples/Shared/Scripts/GunAim.cs" />
+     <Folder Include="Assets" />
      <None Include="Assets/MyContent/Shaders/Surface/Toon/Eyes Unshadow.shader" />
+     <Folder Include="Assets/MyContent/Art/Panels Material" />
+     <Folder Include="Assets/MyContent/Art/Materials/Buner" />
+     <Folder Include="Assets/EffectExamples/Shared/Prefabs" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMPro.cginc" />
+     <Folder Include="Assets/MyContent/Shaders/Pending/Final - Postprocessing Greyscale" />
+     <Folder Include="Assets/MyContent/Scripts/Imports/LitJson" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models" />
      <None Include="Assets/MyContent/Shaders/Surface/Toon/SoftToon.shader" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Lights/Halo Light" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Animations" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Fades" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Sprites" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models/10" />
+     <Folder Include="Assets/Glitch" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_HiRes/Torus" />
+     <Folder Include="Assets/MyContent/Art/Materials/Elevator" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials/4" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/Level/Platforms" />
+     <Folder Include="Assets/MyContent/Shaders/Pending/Pending" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Overlay.shader" />
+     <Folder Include="Assets/ShapesFX_Pack/Prefabs" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models/5" />
+     <Folder Include="Assets/MyContent/Audio/Sounds/Music" />
+     <Folder Include="Assets/MyContent/ScriptableObjects/Audio" />
+     <Folder Include="Assets/PluginMaster/DesignTools/Runtime/TransformTools/Scripts" />
+     <Folder Include="Assets/shaders 103 asset/Materials/Image Effect Materials" />
+     <Folder Include="Assets/TextMesh Pro/Sprites" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Fire Puzzles &amp; Objects" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Animation/Dilating Door" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Parts/Apex Light" />
+     <Folder Include="Assets/CrystalGlass/Common/Material" />
+     <Folder Include="Assets/MyContent/Shaders/Pending/Final - Postprocessing Greyscale/Materials" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models/9" />
+     <Folder Include="Assets/MyContent/Art/AnimationsSwitch" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures/8" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/Level/Objects" />
+     <Folder Include="Assets/MyContent/Shaders/Poss Process/Stack Unity" />
+     <Folder Include="Assets/PluginMaster/DesignTools/Runtime" />
      <None Include="Assets/MyContent/Shaders/Surface/VFX/Vacuum object.shader" />
+     <Folder Include="Assets/ShapesFX_Pack/Tex/Mask" />
+     <Folder Include="Assets/MyContent/Shaders/Surface/VFX" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Lights/Square Light" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Hud/WindSwitch" />
+     <Folder Include="Assets/PluginMaster" />
      <None Include="Assets/MyContent/Shaders/Surface/Toon/SoftToon Alpha.shader" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Camera/CutScenes" />
+     <Folder Include="Assets/TextMesh Pro/Resources/Sprite Assets" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Dynamic" />
+     <Folder Include="Assets/EffectExamples/Shared/Materials" />
+     <Folder Include="Assets/MyContent/Scenes/Selection" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts" />
      <None Include="Assets/MyContent/Shaders/Burn.shader" />
+     <Folder Include="Assets/MyContent/Art/Skybox" />
+     <Folder Include="Assets/EffectExamples/Blood/Prefabs" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_Lowres/Icosahedron" />
      <None Include="Assets/MyContent/Shaders/Surface/Toon/CelShalding.shader" />
+     <Folder Include="Assets/MyContent/Prefabs/the new" />
+     <Folder Include="Assets/MyContent/Audio/SoundsPrefabs" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_HiRes/Torus/Hex" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs/1" />
+     <Folder Include="Assets/MyContent/Art/Materials/Desk" />
+     <Folder Include="Assets/3Skyboxes2/Materials" />
      <None Include="Assets/CrystalGlass/Shader/Refraction/CGR Skybox.shader" />
      <None Include="Assets/MyContent/Shaders/Surface/Transparent/AlphaSymmetric.shader" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials/2" />
+     <Folder Include="Assets/MyContent/Prefabs/Characters" />
+     <Folder Include="Assets/MyContent/Art/Videos" />
+     <Folder Include="Assets/MyContent/Shaders/Surface/Forest" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/Level/New Parts" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_HiRes/Dodecahedron" />
      <None Include="Assets/MyContent/Shaders/Surface/Things/ArmsScreens.shader" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Fades/White" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Lights/Slim Light" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Lights/Beacon Light" />
      <None Include="Assets/MyContent/Shaders/Surface/BreathingScenario 1.shader" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap.shader" />
+     <Folder Include="Assets/MyContent/Scenes/Prototypes" />
+     <Folder Include="Assets/MyContent/Art/Materials/Wall01" />
      <None Include="Assets/ShapesFX_Pack/Shader/Shapes_Shader_ST.shader" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Vacuum/Collider" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Demo/DemoScene" />
+     <Folder Include="Assets/MyContent/Audio/Sounds/HitMetal" />
+     <Folder Include="Assets/MyContent/Audio" />
+     <Folder Include="Assets/EffectExamples/WaterEffects/Prefabs" />
+     <Folder Include="Assets/MyContent/Shaders/Surface" />
      <None Include="Assets/Resources/BillingMode.json" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Managers" />
+     <Folder Include="Assets/CrystalGlass" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Objects/Crane" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_HiRes/Sphere" />
      <None Include="Assets/MyContent/Shaders/Surface/Toon/CelShalding Billboard.shader" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Lights/Column Light" />
+     <Folder Include="Assets/MyContent/Scenes/FinalOld/Level-00" />
      <None Include="Assets/MyContent/Shaders/Surface/Things/BagScreen.shader" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Prefabs/doors" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Stump" />
+     <Folder Include="Assets/CrystalGlass/Glass2" />
+     <Folder Include="Assets/EffectExamples/Shared" />
      <None Include="Assets/shaders 103 asset/Shaders/OverDraw.shader" />
      <None Include="Assets/TextMesh Pro/Examples &amp; Extras/Fonts/Oswald-Bold - OFL.txt" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Art/Meshes/Materials" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Utilities" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Hud/Powers" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials/6" />
+     <Folder Include="Assets/MyContent/Shaders/Surface/Lambert" />
+     <Folder Include="Assets/MyContent/Prefabs/Doors" />
+     <Folder Include="Assets/MyContent/Prefabs" />
+     <Folder Include="Assets/EffectExamples/WeaponEffects/Materials" />
+     <Folder Include="Assets/MyContent/Art/Materials/End" />
      <None Include="Assets/MyContent/Shaders/Surface/VFX/Line Animation.shader" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/ShaderControl" />
+     <Folder Include="Assets/EffectExamples/Blood/Textures" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Animation/SaveDisk" />
+     <Folder Include="Assets/Dreamteck" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models/7" />
      <None Include="Assets/MyContent/Shaders/Surface/Things/WithourShadow.shader" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Managers/Logger" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Platforms/Extras" />
      <None Include="Assets/TextMesh Pro/Examples &amp; Extras/Fonts/Anton OFL.txt" />
+     <Folder Include="Assets/TextMesh Pro/Resources/Fonts &amp; Materials" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures/6" />
+     <Folder Include="Assets/Glitch/Kino/Glitch" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_Lowres/Sphere" />
+     <Folder Include="Assets/MyContent/Scenes" />
+     <Folder Include="Assets/MyContent/Art/Art 2D" />
      <None Include="Assets/MyContent/Shaders/Surface/Toon/Toon_CustomLighting_With_Disolve.shader" />
+     <Folder Include="Assets/ShapesFX_Pack/Prefabs/Octahedron" />
+     <Folder Include="Assets/MyContent/Art/Materials/ForBox" />
+     <Folder Include="Assets/ShapesFX_Pack/Scene" />
+     <Folder Include="Assets/CrystalGlass/Shader" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Parts/Planar Light" />
      <None Include="Assets/MyContent/Shaders/Surface/Forest/Trees Basic.shader" />
+     <Folder Include="Assets/MyContent/Shaders/Pending/Shared" />
+     <Folder Include="Assets/EffectExamples/Shared/Textures" />
      <None Include="Assets/ColoredCookies/Shaders/Colored-DeferredShading.shader" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models/2" />
+     <Folder Include="Assets/MyContent/Scenes/Selection/Level-01" />
      <None Include="Assets/MyContent/Shaders/Surface/Hologram.shader" />
+     <Folder Include="Assets/MyContent/Scenes/Selection/Level-02" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Hud/Panels" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Lights/Beacon Light" />
+     <Folder Include="Assets/MyContent/Shaders/Surface/Toon" />
+     <Folder Include="Assets/EffectExamples/Shared/Models" />
+     <Folder Include="Assets/TextMesh Pro/Resources" />
      <None Include="Assets/MyContent/Shaders/Surface/VFX/Overlay.shader" />
+     <Folder Include="Assets/ShapesFX_Pack/Prefabs/Dodecahedron" />
      <None Include="Assets/MyContent/Shaders/Surface/SimpleNoCullMode.shader" />
+     <Folder Include="Assets/MyContent/Art/Materials" />
+     <Folder Include="Assets/MyContent/Art/Materials/Specials" />
+     <Folder Include="Assets/EffectExamples/Shared/Animation" />
      <None Include="Assets/shaders 103 asset/Shaders/CompositeAdd.shader" />
+     <Folder Include="Assets/MyContent/Scenes/Execution" />
+     <Folder Include="Assets/MyContent/Art/New Folder/Trees" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Lights/Planar Light" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Lights" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures/7" />
+     <Folder Include="Assets/ShapesFX_Pack/Resources" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Electric Puzzles &amp; Objects" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Animations/HUD" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Prefabs" />
+     <Folder Include="Assets/MyContent/Shaders/Pending" />
+     <Folder Include="Assets/3Skyboxes2/Skybox_BlueGreenNebular_Textures" />
+     <Folder Include="Assets/MyContent/Art/Materials/Switchs" />
+     <Folder Include="Assets/shaders 103 asset/Scripts" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_Lowres/Torus/Hex" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs/11" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Parts" />
+     <Folder Include="Assets/Gizmos" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_HiRes/Icosahedron/Hex" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Player/Controller" />
+     <Folder Include="Assets/MyContent/Scenes/Prototypes/Prototype 2" />
+     <Folder Include="Assets/MyContent/Prefabs/HUD" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Lights/Stone Light" />
+     <Folder Include="Assets/MyContent/Audio/Sounds/Computer_Control_Room" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Ice Puzzles &amp; Objects" />
+     <Folder Include="Assets/MyContent/Prefabs/Puzzles/Boxes" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Lights/Halo Light" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Lights/Stone Light" />
+     <Folder Include="Assets/EffectExamples/Shared/Models/Materials" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/VFX" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Hud/LoadingScreen" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/FSM" />
+     <Folder Include="Assets/MyContent" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Hud/Faces" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Surface-Mobile.shader" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Objects/Mobile Wall" />
      <None Include="Assets/CrystalGlass/Shader/RainbowCrystalGlass.shader" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs/6" />
      <None Include="Assets/CrystalGlass/Shader/Refraction/CGR Mesh Alpha.shader" />
+     <Folder Include="Assets/EffectExamples/FireExplosionEffects/Textures" />
+     <Folder Include="Assets/EffectExamples/Scenes/Menu" />
+     <Folder Include="Assets/MyContent/PostProcess" />
+     <Folder Include="Assets/MyContent/Scenes/Selection/Level-03" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs/3" />
+     <Folder Include="Assets/EffectExamples/FireExplosionEffects/Materials" />
+     <Folder Include="Assets/TextMesh Pro" />
+     <Folder Include="Assets/Lens Flares" />
+     <Folder Include="Assets/MyContent/Art/Materials/Wall" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Lights/Beacon Light" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A" />
+     <Folder Include="Assets/shaders 103 asset" />
+     <Folder Include="Assets/shaders 103 asset/Objects" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs/10" />
+     <Folder Include="Assets/MyContent/Scenes/FinalOld" />
      <None Include="Assets/MyContent/Shaders/Surface/Disolve.shader" />
+     <Folder Include="Assets/MyContent/Shaders/Surface/ParallaxMapping" />
+     <Folder Include="Assets/EffectExamples/WeaponEffects/Prefabs" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials/9" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/Level/Generics" />
+     <Folder Include="Assets/CrystalGlass/Common" />
      <None Include="Assets/MyContent/Shaders/Pending/Pending/CrystalCullMode.shader" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Lights/Loop Light" />
+     <Folder Include="Assets/MyContent/ScriptableObjects/Tutorials" />
      <None Include="Assets/MyContent/Shaders/Surface/Forest/Trees Tessellation.shader" />
+     <Folder Include="Assets/MyContent/Scenes/Tests" />
+     <Folder Include="Assets/MyContent/TutorialAnimations" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Camera" />
+     <Folder Include="Assets/EffectExamples/Blood" />
+     <Folder Include="Assets/EffectExamples/WeaponEffects" />
      <None Include="Assets/CrystalGlass/ReadMe.txt" />
      <None Include="Assets/CrystalGlass/Shader/CrystalGlassDoublePassTransparency.shader" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/Level" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Fonts" />
+     <Folder Include="Assets/EffectExamples/Shared/Animation/Controllers" />
+     <Folder Include="Assets/MyContent/Prefabs/Puzzles" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Resources" />
+     <Folder Include="Assets/ColoredCookies" />
+     <Folder Include="Assets/MyContent/Prefabs/ModulesLevel" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Fonts" />
+     <Folder Include="Assets/MyContent/Prefabs/Managers" />
+     <Folder Include="Assets/MyContent/Art/Art 3D" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models/3" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Lights/Loop Light" />
+     <Folder Include="Assets/MyContent/Art/Materials/Boxes" />
+     <Folder Include="Assets/MyContent/Art/Materials/Ceiling" />
      <None Include="Assets/CrystalGlass/Shader/Refraction/CGR Mesh.shader" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Lights/Stone Light" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/MainCharacter/NewAnimations" />
+     <Folder Include="Assets/MyContent/Art/New Folder/Prefabs" />
+     <Folder Include="Assets/EffectExamples/Shared/Fonts" />
      <None Include="Assets/MyContent/Shaders/Pending/Pending/Crystal.shader" />
+     <Folder Include="Assets/MyContent/Art/Materials/Door" />
+     <Folder Include="Assets/EffectExamples/Misc Effects/Textures" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Lights/Planar Light" />
+     <Folder Include="Assets/CrystalGlass/Common/Texture/Skybox" />
+     <Folder Include="Assets/MyContent/Shaders" />
+     <Folder Include="Assets/CrystalGlass/Glass1" />
+     <Folder Include="Assets/MyContent/Audio/Sounds/FootSteps" />
+     <Folder Include="Assets/MyContent/Art/Materials/Pesimeter" />
      <None Include="Assets/MyContent/Shaders/Surface/BreathingTracks.shader" />
      <None Include="Assets/MyContent/Shaders/Surface/Lambert/Basic Tessellation.shader" />
+     <Folder Include="Assets/EffectExamples/Shared/Animation/Animations" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Prefabs/floor" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models/1" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_Lowres/Octahedron" />
+     <Folder Include="Assets/MyContent/Art/Materials/Platform" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_HiRes/Octahedron/Hex" />
+     <Folder Include="Assets/MyContent/Audio/Sounds/HitWood" />
+     <Folder Include="Assets/MyContent/Audio/Sounds/UI" />
+     <Folder Include="Assets/MyContent/Art/Textures" />
+     <Folder Include="Assets/MyContent/Art/Materials/Hands" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures/11" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Surface.shader" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/VFX/Particles/Electricity" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs/9" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/Level/New Walls And Doors" />
      <None Include="Assets/MyContent/Shaders/Pending/Pending/Panel Hologram.shader" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures" />
      <None Include="Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap-Custom-Atlas.shader" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Materials" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMP_SDF.shader" />
      <None Include="Assets/MyContent/Shaders/Pending/Final - Postprocessing Greyscale/BlackAndWhite.shader" />
+     <Folder Include="Assets/MyContent/ScriptableObjects/Logger" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Lights/Halo Light" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Water Puzzles &amp; Objects" />
+     <Folder Include="Assets/MyContent/Art/Particles/Textures" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Environment" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Parts/Beacon Light" />
+     <Folder Include="Assets/EffectExamples/WaterEffects/Textures" />
+     <Folder Include="Assets/_TerrainAutoUpgrade" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Vacuum" />
      <None Include="Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures/4" />
+     <Folder Include="Assets/MyContent/Audio/Sounds" />
+     <Folder Include="Assets/MyContent/Art/Others" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/MainCharacter" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Prefabs/walls" />
+     <Folder Include="Assets/ShapesFX_Pack/Tex" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Lights" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Scenes/Demo Scene" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMPro_Properties.cginc" />
+     <Folder Include="Assets/MyContent/NewPrefabs" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts" />
+     <Folder Include="Assets/ShapesFX_Pack/Prefabs/Sphere" />
      <None Include="Assets/MyContent/Shaders/Surface/Toon/Custom Lighting.shader" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Parts/Loop Light" />
+     <Folder Include="Assets/Environment" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures/10" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Lights" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Art" />
+     <Folder Include="Assets/MyContent/Shaders/Pending/Final - Postprocessing" />
+     <Folder Include="Assets/MyContent/Art/ModulesLevel" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Animation/Companion" />
+     <Folder Include="Assets/ColoredCookies/Shaders" />
+     <Folder Include="Assets/ShapesFX_Pack" />
+     <Folder Include="Assets/EffectExamples/Blood/Materials" />
+     <Folder Include="Assets/TextMesh Pro/Resources/Shaders" />
+     <Folder Include="Assets/ShapesFX_Pack/Tex/MatCap" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Companion" />
+     <Folder Include="Assets/MyContent/Art/Particles/Materials" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMPro_Surface.cginc" />
+     <Folder Include="Assets/MyContent/Art/Materials/Tracks" />
+     <Folder Include="Assets/ShapesFX_Pack/Geometries" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Lights/Plate Light" />
      <None Include="Assets/CrystalGlass/Glass1/CrystalGlassSinglePassTransparency.shader" />
+     <Folder Include="Assets/MyContent/Art/New Folder" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Parts/Column Light" />
+     <Folder Include="Assets/MyContent/Shaders/Surface/Things" />
+     <Folder Include="Assets/MyContent/NewPrefabs/Level 5" />
+     <Folder Include="Assets/MyContent/Audio/Sounds/Skills" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Animation/MainCharacter" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_Lowres" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/Level/Tracks" />
      <None Include="Assets/MyContent/Shaders/TerrainSciFi.shader" />
+     <Folder Include="Assets/3Skyboxes2/Skybox_RedOrangeYellowNebular_Textures" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Animation" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Resources/Sprite Assets" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/MainCharacter/Collider" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs/7" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Lights/Plate Light" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_HiRes" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Lights/Plate Light" />
+     <Folder Include="Assets/TextMesh Pro/Resources/Style Sheets" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Player/Controller/States" />
      <None Include="Assets/MyContent/Shaders/Pending/Pending/Panel.shader" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures/9" />
+     <Folder Include="Assets/TextMesh Pro/Fonts" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials/10" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Hud/Dialogue" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Managers/Level" />
      <None Include="Assets/shaders 103 asset/Shaders/QuickBlur.shader" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Lights/Column Light" />
+     <Folder Include="Assets/MyContent/Prefabs/Panels" />
+     <Folder Include="Assets/ShapesFX_Pack/Prefabs/Torus" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Audio" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Demo" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Parts/Square Light" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Prefabs/other" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Lights/Column Light" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Objects" />
      <None Include="Assets/Glitch/Kino/Glitch/Shader/DigitalGlitch.shader" />
+     <Folder Include="Assets/EffectExamples/WaterEffects" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models/6" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Managers/Tutorial" />
      <None Include="Assets/Glitch/Kino/Glitch/Shader/AnalogGlitch.shader" />
+     <Folder Include="Assets/MyContent/Art/Materials/Others" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Parts/Slim Light" />
+     <Folder Include="Assets/PluginMaster/DesignTools" />
+     <Folder Include="Assets/EffectExamples/Misc Effects/Materials" />
      <None Include="Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt" />
+     <Folder Include="Assets/MyContent/Scenes/FinalOld/Level-03" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models/11" />
+     <Folder Include="Assets/ShapesFX_Pack/Prefabs/Cube" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs/8" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack" />
+     <Folder Include="Assets/MyContent/Art/Particles" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Lights/Square Light" />
      <None Include="Assets/MyContent/Shaders/Pending/Pending/Cable.shader" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Animation/CutScenesCameras" />
+     <Folder Include="Assets/EffectExamples/WeaponEffects/Textures" />
+     <Folder Include="Assets/MyContent/Documentation" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Prefabs" />
+     <Folder Include="Assets/EffectExamples/WeaponEffects/Models/Materials" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Hud/Timmer" />
+     <Folder Include="Assets/MyContent/Scenes/Prototypes/Prototype 5" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/Level/CompleteLevelParts" />
+     <Folder Include="Assets/New Axis Studio" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Parts/Halo Light" />
+     <Folder Include="Assets/MyContent/Audio/Sounds/Electric" />
+     <Folder Include="Assets/EffectExamples/Shared/PhysicsMaterials" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Art/Textures" />
+     <Folder Include="Assets/MyContent/Scenes/Prototypes/Prototype 1" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Wind Puzzles &amp; Objects" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Scenes" />
      <None Include="Assets/CrystalGlass/Shader/CrystalGlass.cginc" />
+     <Folder Include="Assets/PluginMaster/DesignTools/Runtime/TransformTools" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models/8" />
+     <Folder Include="Assets/MyContent/Prefabs/Particles" />
+     <Folder Include="Assets/shaders 103 asset/Scenes" />
+     <Folder Include="Assets/ShapesFX_Pack/Script" />
+     <Folder Include="Assets/MyContent/Art/Materials/Floor" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/Companion" />
+     <Folder Include="Assets/ColoredCookies/Example/Content" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Dialogue" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Lights/Apex Light" />
      <None Include="Assets/MyContent/Shaders/Surface/Lambert/Basic.shader" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Animations/HUD/Narrative" />
+     <Folder Include="Assets/shaders 103 asset/Shaders" />
+     <Folder Include="Assets/EffectExamples" />
+     <Folder Include="Assets/3Skyboxes2" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Lights" />
+     <Folder Include="Assets/EffectExamples/FireExplosionEffects" />
      <None Include="Assets/MyContent/Shaders/Surface/ParallaxMapping/ParallaxMappingIterations.shader" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Models/4" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_HiRes/Cube" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Masking.shader" />
+     <Folder Include="Assets/MyContent/Physics materials" />
+     <Folder Include="Assets/MyContent/Scenes/Prototypes/Prototype 3" />
      <None Include="Assets/MyContent/Shaders/Surface/BreathingScenarioRoot.shader" />
+     <Folder Include="Assets/MyContent/Terrains" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Fonts/Text mesh" />
+     <Folder Include="Assets/MyContent/Shaders/Surface/Transparent" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials/8" />
+     <Folder Include="Assets/CrystalGlass/Common/Model" />
+     <Folder Include="Assets/MyContent/Prefabs/Others" />
+     <Folder Include="Assets/MyContent/Art/Materials/Slopes" />
+     <Folder Include="Assets/EffectExamples/Misc Effects/Prefabs" />
+     <Folder Include="Assets/Glitch/Kino/Glitch/Shader" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures" />
+     <Folder Include="Assets/MyContent/Shaders/Pending/KinoGlitchDistance" />
      <None Include="Assets/MyContent/Shaders/Burn2.shader" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Lights/Apex Light" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Player" />
      <None Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Documentation/ReadMe.txt" />
      <None Include="Assets/CrystalGlass/Shader/Blur.shader" />
+     <Folder Include="Assets/MyContent/ScriptableObjects" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Weight" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials/3" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Lights/Square Light" />
      <None Include="Assets/MyContent/Shaders/Surface/Toon/Custom Lighting Rim.shader" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_Lowres/Cube" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials/11" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Parts/Stone Light" />
+     <Folder Include="Assets/MyContent/Art/Materials/Tubes" />
+     <Folder Include="Assets/EffectExamples/Misc Effects" />
      <None Include="Assets/MyContent/Shaders/Poss Process/DeathTransition.shader" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures/5" />
      <None Include="Assets/MyContent/Shaders/Surface/Toon/Celshading Alpha.shader" />
+     <Folder Include="Assets/ShapesFX_Pack/Tex/Outlines" />
+     <Folder Include="Assets/ColoredCookies/Example" />
+     <Folder Include="Assets/Lens Flares/Art Assets" />
+     <Folder Include="Assets/MyContent/Scenes/Selection/Level-04" />
      <None Include="Assets/MyContent/Shaders/Pending/Final - Postprocessing/Framecolor.shader" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Lights/Apex Light" />
+     <Folder Include="Assets/EffectExamples/Shared/Scripts" />
+     <Folder Include="Assets/Environment/SciFi" />
+     <Folder Include="Assets/MyContent/Prefabs/Cameras" />
+     <Folder Include="Assets/EffectExamples/WeaponEffects/Models" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Hud" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMP_SDF Overlay.shader" />
      <None Include="Assets/MyContent/Shaders/Surface/Forest/Trees.shader" />
+     <Folder Include="Assets/EffectExamples/Shared/Sprites" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs/2" />
+     <Folder Include="Assets/Glitch/Kino" />
+     <Folder Include="Assets/CrystalGlass/Shader/ScreenSpace" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Platforms/Fade" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/keyboard" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials/1" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs/4" />
+     <Folder Include="Assets/MyContent/Prefabs/Platforms" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMP_Bitmap-Mobile.shader" />
+     <Folder Include="Assets/MyContent/Prefabs/Lights" />
      <None Include="Assets/CrystalGlass/Shader/ScreenSpace/Transparent.shader" />
+     <Folder Include="Assets/MyContent/Documentation/Scripting Docs" />
+     <Folder Include="Assets/3Skyboxes2/Skybox_RedYellowNebular_Textures" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Platforms" />
      <None Include="Assets/EffectExamples/Shared/Shaders/SurfaceShader_VC.shader" />
+     <Folder Include="Assets/EffectExamples/Scenes" />
+     <Folder Include="Assets/MyContent/Shaders/Funcs" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_HiRes/Octahedron" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Lights/Loop Light" />
      <None Include="Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Textures" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_Lowres/Torus" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles/Vacuum/Skills" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Scripts" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Lights/Slim Light" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures/1" />
+     <Folder Include="Assets/CrystalGlass/Shader/Refraction" />
+     <Folder Include="Assets/MyContent/Shaders/Texture" />
+     <Folder Include="Assets/TextMesh Pro/Documentation" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/Level/Glass" />
      <None Include="Assets/MyContent/Shaders/Surface/CustomLightingCustomRim.shader" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Parts/Plate Light" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials/5" />
+     <Folder Include="Assets/MyContent/Art/Materials/Laser" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Materials/7" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures/2" />
      <None Include="Assets/MyContent/Shaders/Surface/VFX/Shield.shader" />
+     <Folder Include="Assets/MyContent/Art/Materials/Platform/Fire" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras" />
+     <Folder Include="Assets/shaders 103 asset/Materials" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Animation/EndPanel" />
+     <Folder Include="Assets/EffectExamples/Shared/Shaders" />
+     <Folder Include="Assets/EffectExamples/WaterEffects/Models" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Scenes" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Materials/Evironment" />
+     <Folder Include="Assets/Resources" />
+     <Folder Include="Assets/ShapesFX_Pack/Shader" />
+     <Folder Include="Assets/MyContent/Scenes/FinalOld/Level-01" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Documentation" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Puzzles" />
      <None Include="Assets/MyContent/Shaders/Surface/PBR/PBR_Billboard.shader" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Prefabs/Environment" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Textures/3" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Camera/States" />
+     <Folder Include="Assets/MyContent/Art/Art 2D/Hud/EndPanel" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/MainCharacter/Materials" />
+     <Folder Include="Assets/ShapesFX_Pack/Prefabs/Icosahedron" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile.shader" />
+     <Folder Include="Assets/MyContent/Scripts/Imports" />
+     <Folder Include="Assets/CrystalGlass/Glass3" />
+     <Folder Include="Assets/CrystalGlass/Common/Texture" />
+     <Folder Include="Assets/EffectExamples/WaterEffects/Materials" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Lights/Planar Light" />
+     <Folder Include="Assets/MyContent/Art" />
      <None Include="Assets/CrystalGlass/Shader/CrystalGlassOpacity.shader" />
+     <Folder Include="Assets/MyContent/Art/Materials/Platform/Fade" />
+     <Folder Include="Assets/CrystalGlass/Common/Script" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Meshes/Lights/Slim Light" />
+     <Folder Include="Assets/New Axis Studio/Sci Fi Lighting Pack/Textures/Environment" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/VFX/Particles" />
+     <Folder Include="Assets/MyContent/Shaders/Poss Process" />
+     <Folder Include="Assets/EffectExamples/Profiles" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Art/Animators" />
+     <Folder Include="Assets/MyContent/Scripts/Scripts/Managers/Audio" />
+     <Folder Include="Assets/TextMesh Pro/Examples &amp; Extras/Resources/Color Gradient Presets" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/MainCharacter/Hands" />
      <None Include="Assets/MyContent/Shaders/Poss Process/Vignette.shader" />
      <None Include="Assets/shaders 103 asset/Shaders/ShowDepth.shader" />
      <None Include="Assets/TextMesh Pro/Sprites/EmojiOne.json" />
+     <Folder Include="Assets/EffectExamples/FireExplosionEffects/Prefabs" />
+     <Folder Include="Assets/MyContent/Art/Art 3D/MainCharacter/Materials/Texturas" />
+     <Folder Include="Assets/MyContent/Scripts" />
+     <Folder Include="Assets/Floor_Grate_Pack_JFG/Prefabs/5" />
+     <Folder Include="Assets/MyContent/Shaders/Surface/PBR" />
      <None Include="Assets/TextMesh Pro/Resources/Shaders/TMP_Sprite.shader" />
      <None Include="Assets/TextMesh Pro/Examples &amp; Extras/Fonts/Bangers - OFL.txt" />
      <None Include="Assets/MyContent/Shaders/Surface/Toon/Custom Lighting Custom Rim.shader" />
+     <Folder Include="Assets/ShapesFX_Pack/Materials/Materials_Shapes_HiRes/Icosahedron" />
+     <Folder Include="Assets/Environment/SciFi/SciFi_Pack_A/Art/Meshes" />
      <Reference Include="UnityEngine">
      <HintPath>/Applications/Unity/Hub/Editor/2021.3.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>
@@ -593,14 +1057,11 @@
      <Reference Include="UnityEditor.UnityConnectModule">
      <HintPath>/Applications/Unity/Hub/Editor/2021.3.10f1/Unity.app/Contents/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
      </Reference>
-     <Reference Include="clipper_library">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.cinemachine@2.8.6/Runtime/ThirdParty/clipper_library.dll</HintPath>
+     <Reference Include="LitJson">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Assets/MyContent/Scripts/Imports/LitJson/LitJson.dll</HintPath>
      </Reference>
      <Reference Include="Newtonsoft.Json">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll</HintPath>
-     </Reference>
-     <Reference Include="LitJson">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Assets/MyContent/Scripts/Imports/LitJson/LitJson.dll</HintPath>
      </Reference>
      <Reference Include="mscorlib">
      <HintPath>/Applications/Unity/Hub/Editor/2021.3.10f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/mscorlib.dll</HintPath>
@@ -983,53 +1444,17 @@
      <Reference Include="Unity.VSCode.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.2D.Tilemap.Editor">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="UnityEngine.Purchasing">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="UnityEngine.Purchasing.SecurityStub">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityStub.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.Advertisements">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.ProBuilder">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEditor.UI">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Rider.Editor">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.SpatialTracking">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.UI">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-     </Reference>
-     <Reference Include="Cinemachine">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
-     </Reference>
-     <Reference Include="com.unity.cinemachine.editor">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.Purchasing.Codeless">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Codeless.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.Monetization">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Monetization.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.2D.Tilemap.Editor">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.ProBuilder.AddOns.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Services.Analytics.Editor">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Services.Analytics.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Timeline">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
@@ -1037,11 +1462,17 @@
      <Reference Include="Unity.TextMeshPro">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.Services.Analytics">
-     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Services.Analytics.dll</HintPath>
+     <Reference Include="UnityEngine.Purchasing.SecurityStub">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.SecurityStub.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEngine.Advertisements">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Advertisements.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.Sprite.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.ProBuilder">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
      </Reference>
      <Reference Include="Unity.ProBuilder.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
@@ -1049,8 +1480,20 @@
      <Reference Include="Unity.Postprocessing.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="UnityEditor.UI">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Rider.Editor">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.PlasticSCM.Editor">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEngine.SpatialTracking">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEngine.UI">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Services.Core">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Services.Core.dll</HintPath>
@@ -1063,6 +1506,9 @@
      </Reference>
      <Reference Include="Unity.Postprocessing.Runtime">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="UnityEngine.Purchasing.Codeless">
+     <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/UnityEngine.Purchasing.Codeless.dll</HintPath>
      </Reference>
      <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
      <HintPath>/Users/stevenaragonurrea/Workspace/DaVinci/Thesis/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
@@ -1097,10 +1543,6 @@
       <Project>{399e9c13-f7a4-7275-0a26-5c79d9a4f105}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
-    <ProjectReference Include="Dreamteck.Splines.csproj">
-      <Project>{7fd13737-3e8a-0e85-7acc-cb8c7529fb6f}</Project>
-      <Name>Dreamteck.Splines</Name>
-    </ProjectReference>
     <ProjectReference Include="AmplifyShaderEditor.csproj">
       <Project>{56441557-66cc-709a-07b9-0bc8383fc5de}</Project>
       <Name>AmplifyShaderEditor</Name>
@@ -1116,6 +1558,10 @@
     <ProjectReference Include="Dreamteck.Utilities.Editor.csproj">
       <Project>{7685b1b4-7304-7754-6bad-b58ae902396d}</Project>
       <Name>Dreamteck.Utilities.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Dreamteck.Splines.csproj">
+      <Project>{7fd13737-3e8a-0e85-7acc-cb8c7529fb6f}</Project>
+      <Name>Dreamteck.Splines</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

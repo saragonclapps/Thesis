@@ -20,6 +20,8 @@ public class TutorialManager : MonoBehaviour {
         new Dictionary<TutorialSetupEntryDataType, Action<string, TutorialSetupEntryData>>();
 
     private void Start() {
+        tutorialSetup.Clean();
+        
         EventManager.AddEventListener(GameEvent.TRIGGER_TUTORIAL, OnTutorialPlay);
         EventManager.AddEventListener(GameEvent.TRIGGER_TUTORIAL_STOP, OnTutorialStop);
         
@@ -28,6 +30,11 @@ public class TutorialManager : MonoBehaviour {
         
         _tutoriasPlay[TutorialSetupEntryDataType.CAMERA_ANIMATION] = OnAnimationTutorial;
         _tutorialsStop[TutorialSetupEntryDataType.CAMERA_ANIMATION] = ExitAnimationTutorial;
+    }
+
+    private void OnDestroy() {
+        EventManager.RemoveEventListener(GameEvent.TRIGGER_TUTORIAL, OnTutorialPlay);
+        EventManager.RemoveEventListener(GameEvent.TRIGGER_TUTORIAL_STOP, OnTutorialStop);
     }
 
 

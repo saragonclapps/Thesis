@@ -1,17 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &4422566865804842813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3479676161701786427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d89e4352076859f4095daa192f4c82ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1792017585384642796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74,10 +62,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 869515870568185279, guid: 1fb4d604f512d8a4f8754f00e678b6f9,
+        type: 3}
+      propertyPath: mass
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3944673960458489381, guid: 1fb4d604f512d8a4f8754f00e678b6f9,
         type: 3}
       propertyPath: m_Name
-      value: Geo_Key (flameable) Variant Grua
+      value: Geo_Key (flameable Crane) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6625892872421592337, guid: 1fb4d604f512d8a4f8754f00e678b6f9,
+        type: 3}
+      propertyPath: m_Mass
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fb4d604f512d8a4f8754f00e678b6f9, type: 3}
@@ -87,3 +85,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1792017585384642796}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4422566865804842813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3479676161701786427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89e4352076859f4095daa192f4c82ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
