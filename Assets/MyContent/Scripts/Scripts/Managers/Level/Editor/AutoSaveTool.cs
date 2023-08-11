@@ -13,9 +13,8 @@ public class AutoSaveTool
     static void Update()
     {
         if (Time.realtimeSinceStartup > nextSaveTime) {
-            return;
             Save();
-            nextSaveTime = Time.realtimeSinceStartup + 20;
+            nextSaveTime = Time.realtimeSinceStartup + 60;
         }
     }
 
